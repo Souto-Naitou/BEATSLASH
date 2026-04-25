@@ -1,0 +1,10 @@
+# Visual Studio
+/.vs
+/.va
+*.user
+*.lnk
+
+#user defines
+[Ll]og/*
+/[Bb]in/
+/Generated
