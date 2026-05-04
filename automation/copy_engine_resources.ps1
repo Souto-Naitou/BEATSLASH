@@ -1,7 +1,7 @@
 param(
     [switch]$Debug = $false,
     [string]$SourcePath = "..\module\TakoEngine\project\engine\resources",
-    [string]$DestinationPath = "..\app\resources"
+    [string]$DestinationPath = "..\app\EngineResources"
 )
 
 Set-Location -Path $PSScriptRoot
