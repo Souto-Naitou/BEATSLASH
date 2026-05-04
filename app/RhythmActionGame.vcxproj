@@ -30,7 +30,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\factory\SceneFactory.cpp" />
+    <ClCompile Include="src\framework\RhythmActionGame.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\scene\GameScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\factory\SceneFactory.h" />
+    <ClInclude Include="src\framework\RhythmActionGame.h" />
+    <ClInclude Include="src\scene\GameScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
