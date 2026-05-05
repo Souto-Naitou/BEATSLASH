@@ -1,0 +1,11 @@
+{
+    "sounds": [
+        {
+            "enableOverlap": true,
+            "id": "Alarm",
+            "path": "resources/audio/Alarm01.wav",
+            "submix": "BGM",
+            "type": "BGM"
+        }
+    ]
+}

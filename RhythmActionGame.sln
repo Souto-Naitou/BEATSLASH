@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imgui", "module\TakoEngine\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imgui-node-editor", "module\TakoEngine\project\externals\imgui-node-editor\imgui-node-editor.vcxproj", "{0517D071-8CDD-4F0B-BDC1-05FCF6331BCC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ozSound", "module\ozSound\ozSound.vcxproj", "{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AddressSanitizer|x64 = AddressSanitizer|x64
@@ -67,6 +69,14 @@ Global
 		{0517D071-8CDD-4F0B-BDC1-05FCF6331BCC}.Release_DynamicDebug|x64.Build.0 = Release|x64
 		{0517D071-8CDD-4F0B-BDC1-05FCF6331BCC}.Release|x64.ActiveCfg = Release|x64
 		{0517D071-8CDD-4F0B-BDC1-05FCF6331BCC}.Release|x64.Build.0 = Release|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.AddressSanitizer|x64.ActiveCfg = Debug|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.AddressSanitizer|x64.Build.0 = Debug|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.Debug|x64.ActiveCfg = Debug|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.Debug|x64.Build.0 = Debug|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.Release_DynamicDebug|x64.ActiveCfg = Release|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.Release_DynamicDebug|x64.Build.0 = Release|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.Release|x64.ActiveCfg = Release|x64
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +86,7 @@ Global
 		{371B9FA9-4C90-4AC6-A123-ACED756D6C77} = {3BC02507-77C0-40A8-9E3B-2FA4A06BE9B2}
 		{FFA51982-471D-4530-909E-C8FB8FE4F342} = {3BC02507-77C0-40A8-9E3B-2FA4A06BE9B2}
 		{0517D071-8CDD-4F0B-BDC1-05FCF6331BCC} = {3BC02507-77C0-40A8-9E3B-2FA4A06BE9B2}
+		{E899B6BB-07E7-4CF5-9173-AE7C1632F74B} = {C162FE81-3C10-437A-9DA2-21FBB4536F63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83ACFAB7-7736-4934-9FD3-5E67DB15118D}
