@@ -1,0 +1,16 @@
+{
+    "events": [
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "Alarm",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play"
+        }
+    ]
+}

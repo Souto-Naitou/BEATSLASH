@@ -8,3 +8,16 @@
 [Ll]og/*
 /[Bb]in/
 /Generated
+
+
+# VST3SDK (必要なものだけ残す)
+module\ozSound\externals\VST3SDK\*
+!module\ozSound\externals\VST3SDK\pluginterfaces\
+!module\ozSound\externals\VST3SDK\public.sdk\
+!module\ozSound\externals\VST3SDK\base\
+!module\ozSound\externals\VST3SDK\cmake\
+!module\ozSound\externals\VST3SDK\CMakeLists.txt
+
+
+
+!*LICENSE.txt

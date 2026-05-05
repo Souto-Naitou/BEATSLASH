@@ -1,0 +1,10 @@
+{
+    "effects": [
+        {
+            "className": "",
+            "name": "sample_effect",
+            "path": "Resources/Plugins/SamplePlugin.vst3",
+            "type": "VST3"
+        }
+    ]
+}
