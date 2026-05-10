@@ -33,6 +33,7 @@
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\RhythmActionGame.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\manager\BeatManager.cpp" />
     <ClCompile Include="src\scene\GameScene.cpp" />
     <ClCompile Include="src\test\TestScene.cpp" />
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
@@ -40,6 +41,7 @@
   <ItemGroup>
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
+    <ClInclude Include="src\manager\BeatManager.h" />
     <ClInclude Include="src\scene\GameScene.h" />
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />

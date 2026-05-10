@@ -6,6 +6,13 @@
             "path": "resources/audio/Alarm01.wav",
             "submix": "BGM",
             "type": "BGM"
+        },
+        {            
+            "enableOverlap": true,
+            "id": "Metronome",
+            "path": "resources/audio/Metronome.wav",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }
