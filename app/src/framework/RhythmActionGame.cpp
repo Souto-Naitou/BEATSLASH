@@ -26,7 +26,7 @@ void RhythmActionGame::Initialize()
     // シーンの初期化
     sceneFactory_ = std::make_unique<SceneFactory>();
     SceneManager::GetInstance()->SetSceneFactory(sceneFactory_.get());
-    SceneManager::GetInstance()->ChangeScene("sample", 0.0f);
+    SceneManager::GetInstance()->ChangeScene("game", 0.0f);
 }
 
 void RhythmActionGame::Finalize()

@@ -11,6 +11,12 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\utility\CollisionUtility.cpp">
+      <Filter>utility\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\TestScene.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -22,8 +28,14 @@
     <Filter Include="framework">
       <UniqueIdentifier>{347ad713-2d93-4f66-9e81-75f1e642229c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NewFilter1">
-      <UniqueIdentifier>{ec230375-f92d-45cf-b1d1-ecd10f85e4c9}</UniqueIdentifier>
+    <Filter Include="utility">
+      <UniqueIdentifier>{b02f0111-18c5-43c4-a202-bbb648eddf73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\collision">
+      <UniqueIdentifier>{e3136e6d-918b-49f4-9974-0645968b7973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{1d9305e0-e52a-4028-b4a4-f07ae6f1289a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +47,15 @@
     </ClInclude>
     <ClInclude Include="src\scene\GameScene.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\CollisionUtility.h">
+      <Filter>utility\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\TestScene.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\testCollider.h">
+      <Filter>test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
