@@ -5,6 +5,8 @@
 #include <AABBCollider.h>
 #include "testCollider.h"
 
+#include <manager/BeatManager.h>
+
 /// <summary>
 /// サンプルシーンクラス
 /// TakoEngineのデフォルトシーンの構成を参考にしてください。
@@ -50,5 +52,5 @@ private: // メンバ変数
     std::unique_ptr<TestCollider> aabbCollider1_; ///< テスト用AABBコライダー1
     std::unique_ptr<Tako::SphereCollider> aabbCollider2_; ///< テスト用AABBコライダー2
 
-
+    BeatManager beatManager_; ///< ビート管理クラスのインスタンス
 };

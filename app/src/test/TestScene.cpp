@@ -30,65 +30,6 @@ void TestScene::Initialize()
     ///              初期化処理              ///
     /// ================================== ///
 
-    //// CollisionUtility テスト（起動時1回だけ実行）
-    //{
-    //    using namespace CollisionUtility;
-    //    auto approx = [](float a, float b) { return std::abs(a - b) < 0.001f; };
-
-    //    // Sphere vs Sphere: X軸方向に 0.5 めり込み
-    //    // A=(0,0,0) r=1, B=(1.5,0,0) r=1 → A は -X 方向に押し戻される
-    //    {
-    //        Tako::SphereCollider a, b;
-    //        a.SetOffset({0.0f, 0.0f, 0.0f}); a.SetRadius(1.0f);
-    //        b.SetOffset({1.5f, 0.0f, 0.0f}); b.SetRadius(1.0f);
-    //        auto info = CalcCollisionInfo(&a, &b);
-    //        assert(approx(info.penetration, 0.5f));
-    //        assert(approx(info.contactNormal.x, -1.0f));
-    //        assert(approx(info.contactNormal.y,  0.0f));
-    //        assert(approx(info.contactNormal.z,  0.0f));
-    //    }
-
-    //    // AABB vs AABB: X軸方向に 0.5 めり込み
-    //    // A=center(0,0,0) size(2,2,2), B=center(1.5,0,0) size(2,2,2)
-    //    {
-    //        Tako::AABBCollider a, b;
-    //        a.SetOffset({0.0f, 0.0f, 0.0f}); a.SetSize({2.0f, 2.0f, 2.0f});
-    //        b.SetOffset({1.5f, 0.0f, 0.0f}); b.SetSize({2.0f, 2.0f, 2.0f});
-    //        auto info = CalcCollisionInfo(&a, &b);
-    //        assert(approx(info.penetration, 0.5f));
-    //        assert(approx(info.contactNormal.x, -1.0f));
-    //        assert(approx(info.contactNormal.y,  0.0f));
-    //        assert(approx(info.contactNormal.z,  0.0f));
-    //    }
-
-    //    // Sphere vs AABB: 球が AABB の右面から 0.5 めり込み
-    //    // sphere=(1.5,0,0) r=1, AABB=center(0,0,0) size(2,2,2)
-    //    {
-    //        Tako::SphereCollider sphere;
-    //        Tako::AABBCollider aabb;
-    //        sphere.SetOffset({1.5f, 0.0f, 0.0f}); sphere.SetRadius(1.0f);
-    //        aabb.SetOffset({0.0f, 0.0f, 0.0f});   aabb.SetSize({2.0f, 2.0f, 2.0f});
-    //        auto info = CalcCollisionInfo(&sphere, &aabb);
-    //        assert(approx(info.penetration, 0.5f));
-    //        assert(approx(info.contactNormal.x, 1.0f));
-    //    }
-
-    //    // CalcPushback 対称ケース: AABB が self, Sphere が other
-    //    // AABB=center(0,0,0) size(2,2,2), sphere=(1.5,0,0) r=1
-    //    // AABB は -X 方向に 0.5 押し戻される
-    //    {
-    //        Tako::AABBCollider aabb;
-    //        Tako::SphereCollider sphere;
-    //        aabb.SetOffset({0.0f, 0.0f, 0.0f}); aabb.SetSize({2.0f, 2.0f, 2.0f});
-    //        sphere.SetOffset({1.5f, 0.0f, 0.0f}); sphere.SetRadius(1.0f);
-    //        auto pushback = CalcPushback(&aabb, &sphere);
-    //        assert(approx(pushback.x, -0.5f));
-    //        assert(approx(pushback.y,  0.0f));
-    //        assert(approx(pushback.z,  0.0f));
-    //    }
-    //}
-
-
     testModel1_ = std::make_unique<Object3d>();
     testModel1_->Initialize();
     testModel1_->SetModel("white_cube.gltf");
@@ -133,6 +74,12 @@ void TestScene::Initialize()
     );
     obj3d->SetSceneCenter(Vector3(0.0f, 0.0f, 0.0f));  // デフォルト値
     obj3d->SetAutoUpdatePosition(true);  // デフォルト値
+
+
+    beatManager_ = BeatManager();
+    beatManager_.Initialize(100.0f, 0.0f);
+    beatManager_.Start();
+    beatManager_.SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("Alarm"));
 
 }
 
@@ -187,6 +134,10 @@ void TestScene::Update()
     {
         SceneManager::GetInstance()->ChangeScene("");
     }
+
+    beatManager_.Update();
+
+
 }
 
 void TestScene::Draw()

@@ -17,6 +17,9 @@
     <ClCompile Include="src\test\TestScene.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="src\manager\BeatManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -37,6 +40,9 @@
     <Filter Include="test">
       <UniqueIdentifier>{1d9305e0-e52a-4028-b4a4-f07ae6f1289a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="manager">
+      <UniqueIdentifier>{3be9a327-4e64-4c8f-939d-a98c9d1bc8be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\factory\SceneFactory.h">
@@ -56,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="src\test\testCollider.h">
       <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\BeatManager.h">
+      <Filter>manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
