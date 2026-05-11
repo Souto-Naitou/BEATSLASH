@@ -10,8 +10,13 @@ if (-Not (Test-Path $Destination)) {
 
 Set-Variable -Name "SolutionRoot" -Value (Resolve-Path $PSScriptRoot\..).Path -Option Constant
 Set-Variable -Name "GameRoot" -Value (Resolve-Path "$SolutionRoot\app").Path -Option Constant
-Set-Variable -Name "EngineRoot" -Value (Resolve-Path "$SolutionRoot\modules\TakoEngine\src\project\engine").Path -Option Constant
+Set-Variable -Name "EngineRoot" -Value (Resolve-Path "$SolutionRoot\module\TakoEngine\project\engine").Path -Option Constant
 Set-Variable -Name "BinPath" -Value (Resolve-Path "$SolutionRoot\bin").Path -Option Constant
+
+if (-Not (Test-Path "$BinPath\$Configuration")) {
+    Write-Host "Error: Bin directory not found at $BinPath\$Configuration" -ForegroundColor DarkRed
+    exit 1
+}
 
 Get-ChildItem -Path "$BinPath\$Configuration" | 
 Where-Object {$_.Extension -in '.exe', '.dll'} | 
@@ -22,6 +27,7 @@ ForEach-Object {
 
 Set-Variable -Name "Resources_Game" -Value "resources" -Option Constant
 Set-Variable -Name "Resources_Engine" -Value "EngineResources" -Option Constant
+Set-Variable -Name "Resources_Engine_Src" -Value "EngineResources" -Option Constant
 
 if (-Not (Test-Path "$Destination\$Resources_Game"))
 {
@@ -36,7 +42,6 @@ if (-Not (Test-Path "$Destination\$Resources_Engine"))
 
 Write-Host "Copying resources to $Destination" -BackgroundColor DarkBlue -ForegroundColor White
 Write-Host " - Copying $Resources_Game" -BackgroundColor DarkBlue -ForegroundColor White
-Write-Host " - Copying $Resources_Engine" -BackgroundColor DarkBlue -ForegroundColor White
-
 Copy-Item -Path "$GameRoot\$Resources_Game\*" -Destination "$Destination\$Resources_Game" -Recurse -Force
-Copy-Item -Path "$EngineRoot\$Resources_Engine\*" -Destination "$Destination\$Resources_Engine" -Recurse -Force
+Write-Host " - Copying $Resources_Engine" -BackgroundColor DarkBlue -ForegroundColor White
+Copy-Item -Path "$EngineRoot\$Resources_Engine_Src\*" -Destination "$Destination\$Resources_Engine" -Recurse -Force
