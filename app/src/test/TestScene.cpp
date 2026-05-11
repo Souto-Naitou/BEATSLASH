@@ -4,6 +4,7 @@
 #include "GPUParticle.h"
 #include "Input.h"
 #include "Object3dBasic.h"
+#include "ShadowRenderer.h"
 #include "SceneManager.h"
 #include "SpriteBasic.h"
 #include "utility/CollisionUtility.h"
@@ -35,7 +36,7 @@ void TestScene::Initialize()
     testModel1_->SetModel("white_cube.gltf");
     testModel1_->SetTranslate({ -2.4f, 0.0f, 0.0f });
     testModel1_->SetMaterialColor({ 1,1,1,1 });
-    testModel1_->SetEnableLighting(false);
+    testModel1_->SetEnableLighting(true);
     testModel1Transform_ = testModel1_->GetTransform();
 
     testModel2_ = std::make_unique<Object3d>();
@@ -43,7 +44,7 @@ void TestScene::Initialize()
     testModel2_->SetModel("white_cube.gltf");
     testModel2_->SetTranslate({ 2.4f, 1.0f, 0.0f });
     testModel2_->SetMaterialColor({ 1,0,0,1 });
-    testModel2_->SetEnableLighting(false);
+    testModel2_->SetEnableLighting(true);
     testModel2Transform_ = testModel2_->GetTransform();
 
     aabbCollider1_ = std::make_unique<TestCollider>();
@@ -67,14 +68,15 @@ void TestScene::Initialize()
     // ライトの設定
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
-        { 1.0f, -1.0f, 1.0f },   // 方向
+        { 0.0f, -1.0f, 1.0f },   // 方向
         { 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
-        0,
+        1,
         1.0f                      // 強度
     );
-    obj3d->SetSceneCenter(Vector3(0.0f, 0.0f, 0.0f));  // デフォルト値
+    //obj3d->SetSceneCenter(Vector3(0.0f, 0.0f, 0.0f));  // デフォルト値
     obj3d->SetAutoUpdatePosition(true);  // デフォルト値
 
+    ShadowRenderer::GetInstance()->SetEnabled(false);
 
     beatManager_ = BeatManager();
     beatManager_.Initialize(100.0f, 0.0f);
@@ -123,12 +125,12 @@ void TestScene::Update()
 
     CollisionManager::GetInstance()->CheckAllCollisions();
 
-    Object3dBasic::GetInstance()->SetDirectionalLight(
-        { 1.0f, -1.0f, 1.0f },   // 方向
-        { 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
-        0,
-        1.0f                      // 強度
-    );
+    //Object3dBasic::GetInstance()->SetDirectionalLight(
+    //    { 1.0f, -1.0f, 1.0f },   // 方向
+    //    { 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
+    //    0,
+    //    1.0f                      // 強度
+    //);
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
