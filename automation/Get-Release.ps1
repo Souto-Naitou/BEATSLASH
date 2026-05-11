@@ -27,7 +27,7 @@ ForEach-Object {
 
 Set-Variable -Name "Resources_Game" -Value "resources" -Option Constant
 Set-Variable -Name "Resources_Engine" -Value "EngineResources" -Option Constant
-Set-Variable -Name "Resources_Engine_Src" -Value "EngineResources" -Option Constant
+Set-Variable -Name "Resources_Engine_Src" -Value "resources" -Option Constant
 
 if (-Not (Test-Path "$Destination\$Resources_Game"))
 {
