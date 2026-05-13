@@ -81,7 +81,8 @@ void TestScene::Initialize()
     beatManager_ = BeatManager();
     beatManager_.Initialize(100.0f, 0.0f);
     beatManager_.Start();
-    beatManager_.SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("Alarm"));
+    ozSound::SoundEngine::GetInstance()->PostEvent("play");
+    //beatManager_.SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("Alarm"));
 
 }
 
@@ -125,12 +126,10 @@ void TestScene::Update()
 
     CollisionManager::GetInstance()->CheckAllCollisions();
 
-    //Object3dBasic::GetInstance()->SetDirectionalLight(
-    //    { 1.0f, -1.0f, 1.0f },   // 方向
-    //    { 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
-    //    0,
-    //    1.0f                      // 強度
-    //);
+    if(Input::GetInstance()->TriggerKey(DIK_B))
+    {// 入力されたフレームのビートからのズレをログに出力
+        Tako::Logger::Log(std::format("Beat: {:.3f}\n", beatManager_.GetDeltaToNearestBeat()));
+    }
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
