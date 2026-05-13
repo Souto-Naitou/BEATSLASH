@@ -30,6 +30,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SampleEnemy.cpp" />
+    <ClCompile Include="src\characters\base\Character.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\RhythmActionGame.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -39,6 +41,8 @@
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SampleEnemy.h" />
+    <ClInclude Include="src\characters\base\Character.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />

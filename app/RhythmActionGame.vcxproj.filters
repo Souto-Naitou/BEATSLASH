@@ -20,6 +20,8 @@
     <ClCompile Include="src\manager\BeatManager.cpp">
       <Filter>manager</Filter>
     </ClCompile>
+    <ClCompile Include="src\characters\base\Character.cpp" />
+    <ClCompile Include="SampleEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -66,5 +68,7 @@
     <ClInclude Include="src\manager\BeatManager.h">
       <Filter>manager</Filter>
     </ClInclude>
+    <ClInclude Include="src\characters\base\Character.h" />
+    <ClInclude Include="SampleEnemy.h" />
   </ItemGroup>
 </Project>
