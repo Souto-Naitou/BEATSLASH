@@ -78,6 +78,9 @@ void TestScene::Initialize()
 
     ShadowRenderer::GetInstance()->SetEnabled(false);
 
+    stageClearFlow_.Initialize();
+
+
     beatManager_ = BeatManager();
     beatManager_.Initialize(100.0f, 0.0f);
     beatManager_.Start();
@@ -137,6 +140,7 @@ void TestScene::Update()
     }
 
     beatManager_.Update();
+    stageClearFlow_.Update(delta);
 
 
 }
@@ -166,7 +170,7 @@ void TestScene::Draw()
     SpriteBasic::GetInstance()->SetCommonRenderSetting();
 
 
-
+    CollisionManager::GetInstance()->DrawColliders();
 }
 
 void TestScene::DrawWithoutEffect()

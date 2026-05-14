@@ -6,6 +6,7 @@
 #include "testCollider.h"
 
 #include <manager/BeatManager.h>
+#include <stage/StageClearFlow.h>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -53,4 +54,6 @@ private: // メンバ変数
     std::unique_ptr<Tako::SphereCollider> aabbCollider2_; ///< テスト用AABBコライダー2
 
     BeatManager beatManager_; ///< ビート管理クラスのインスタンス
+
+    StageClearFlow stageClearFlow_; ///< ステージクリアフローのインスタンス
 };
