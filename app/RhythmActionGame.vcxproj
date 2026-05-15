@@ -36,6 +36,8 @@
     <ClCompile Include="src\character\enemy\SampleEnemy.cpp" />
     <ClCompile Include="src\character\base\Character.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
+    <ClCompile Include="src\font\FontLayout.cpp" />
+    <ClCompile Include="src\font\NumericView.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\RhythmActionGame.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -60,6 +62,8 @@
     <ClInclude Include="src\character\enemy\state\base\EnemyStateType.h" />
     <ClInclude Include="src\character\enemy\state\base\EnemyStateMachine.h" />
     <ClInclude Include="src\character\player\Player.h" />
+    <ClInclude Include="src\font\FontLayout.h" />
+    <ClInclude Include="src\font\NumericView.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
