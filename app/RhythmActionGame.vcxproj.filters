@@ -29,7 +29,27 @@
     <ClCompile Include="src\stage\stage.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\stage\StageSequence.cpp" />
+    <ClCompile Include="src\character\base\Character.cpp">
+      <Filter>character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\base\Enemy.cpp">
+      <Filter>character\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp">
+      <Filter>character\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\base\EnemyStateMachine.cpp">
+      <Filter>character\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\Player.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\SampleEnemy.cpp">
+      <Filter>character\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\StageSequence.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -55,6 +75,15 @@
     </Filter>
     <Filter Include="stage">
       <UniqueIdentifier>{f8d4dbc5-b1fb-43b8-9180-3cc394c76fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character">
+      <UniqueIdentifier>{5c16cdfc-5048-4ce4-9363-768a66c950fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\enemy">
+      <UniqueIdentifier>{b9e18292-8d8c-4d7b-aba4-ac5658bf42d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\player">
+      <UniqueIdentifier>{c7c0e5f1-5cfc-471f-af62-dabd76b9a76e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +122,39 @@
     </ClInclude>
     <ClInclude Include="src\stage\StageData.h">
       <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\base\Character.h">
+      <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\base\Enemy.h">
+      <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyIdleState.h">
+      <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\base\EnemyState.h">
+      <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\base\EnemyStateFactry.h">
+      <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\base\EnemyStateMachine.h">
+      <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\base\EnemyStateType.h">
+      <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\base\CharacterCollider.h">
+      <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\base\CharacterColliderID.h">
+      <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\Player.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\SampleEnemy.h">
+      <Filter>character\enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

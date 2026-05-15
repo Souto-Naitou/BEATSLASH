@@ -30,9 +30,13 @@ void GameScene::Initialize()
     ///              初期化処理              ///
     /// ================================== ///
 
-    stage_ = std::make_unique<StageSequence>();
-    stage_->Initialize("resources/stage/StageData.json");
+    /// ステージの初期化
+    pStage_ = std::make_unique<StageSequence>();
+    pStage_->Initialize("resources/stage/StageData.json");
 
+    /// プレイヤーの初期化
+    pPlayer_ = std::make_unique<Player>();
+    pPlayer_->Initialize(CharacterColliderID::Player);
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
@@ -51,7 +55,6 @@ void GameScene::Initialize()
 
 void GameScene::Finalize()
 {
-
 }
 
 void GameScene::Update()
@@ -62,11 +65,14 @@ void GameScene::Update()
 
     const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
-    stage_->Update(deltaTime);
+    // ステージの更新
+    pStage_->Update(deltaTime);
+    // プレイヤーの更新
+    pPlayer_->Update();
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
-        stage_->NotifyClear();
+        pStage_->NotifyClear();
         //SceneManager::GetInstance()->ChangeScene("");
     }
     CollisionManager::GetInstance()->CheckAllCollisions();
@@ -87,9 +93,9 @@ void GameScene::Draw()
     //-------------------Modelの描画-------------------//
     // 3Dモデル共通描画設定
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
+    pStage_->Draw();
+    pPlayer_->Draw();
 
-
-    stage_->Draw();
 
     //------------------前景Spriteの描画------------------//
     // スプライト共通描画設定
