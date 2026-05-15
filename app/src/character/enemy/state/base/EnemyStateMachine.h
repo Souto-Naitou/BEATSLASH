@@ -2,6 +2,8 @@
 
 #include <character/enemy/state/base/EnemyState.h>
 #include <character/enemy/state/base/EnemyStateFactry.h>
+#include <unordered_map>
+#include <memory>
 
 class EnemyStateMachine
 {
