@@ -6,13 +6,15 @@
 void StageClearFlow::Initialize(const StageData& stageData)
 {
     if (transitionCollider_)
-        transitionCollider_.release();
+    {
+        Tako::CollisionManager::GetInstance()->RemoveCollider(transitionCollider_.get());
+        transitionCollider_.reset();
+    }
 
     transitionCollider_ = std::make_unique<StageTransitionCollider>();
-    transform_.scale={ 1.0f, 1.0f, 1.0f };
-    transform_.rotate={ 0.0f, 0.0f, 0.0f };
-    transform_.translate = stageData.transitionPoint;
+    transform_ = stageData.transitionTransform;
     transitionCollider_->SetTransform(&transform_);
+    transitionCollider_->SetSize(stageData.transitionTransform.scale); // scale をコライダーサイズとして使用
     transitionCollider_->SetOnTransitionTrigger([this]() { OnColliderHit(); });
     transitionCollider_->SetTypeID(100); // 適当な型IDを設定 TODO : enum 
     transitionCollider_->SetActive(false);

@@ -2,9 +2,10 @@
 #pragma once
 
 #include <Vector3.h>
+#include <Transform.h>
 
 struct StageData
 {
-    Tako::Vector3 transitionPoint; // ステージ遷移ポイントの座標
-
+    Tako::Transform transitionTransform; // 遷移コライダーのトランスフォーム（translate=位置, scale=サイズ）
+    Tako::Transform doorTransform;       // ドアのトランスフォーム
 };

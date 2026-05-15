@@ -13,13 +13,17 @@ class Stage
 {
 public:
 
-    void Initialize(const std::string& filePath ="");
+    ~Stage();
+
+    void Initialize(const StageData& stageData);
 
     void Update(float deltaTime);
 
     void Draw();
 
     const StageData& GetStageData() const { return stageData_; }
+
+    void OpenDoor();
 
 private:
 
@@ -28,6 +32,8 @@ private:
 
     std::unique_ptr<Tako::Object3d> model_;
     Tako::Transform transform_; 
+
+    std::unique_ptr<Tako::Object3d> door_;
 
     std::unique_ptr<Tako::AABBCollider> collider_; // ステージの当たり判定用コライダー
 };

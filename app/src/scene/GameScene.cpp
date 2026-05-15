@@ -31,7 +31,7 @@ void GameScene::Initialize()
     /// ================================== ///
 
     stage_ = std::make_unique<StageSequence>();
-    stage_->Initialize();
+    stage_->Initialize("resources/stage/StageData.json");
 
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
