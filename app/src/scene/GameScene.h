@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseScene.h"
 
+#include <stage/StageSequence.h>
+
 /// <summary>
 /// サンプルシーンクラス
 /// TakoEngineのデフォルトシーンの構成を参考にしてください。
@@ -37,5 +39,5 @@ public: // メンバ関数
 
 private: // メンバ変数
 
-
+    std::unique_ptr<StageSequence> stage_; ///< ステージクラスのインスタンス
 };
