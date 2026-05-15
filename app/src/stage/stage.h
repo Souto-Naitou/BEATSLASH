@@ -3,9 +3,8 @@
 #include "StageData.h"
 
 #include <Object3d.h>
-#include <AABBCollider.h>
+#include <OBBCollider.h>
 
-#include <string>
 #include <memory>
 
 
@@ -25,15 +24,15 @@ public:
 
     void OpenDoor();
 
+    void CollisionActive(bool active) { for (auto& col : colliders_) col->SetActive(active); }
+
 private:
 
     StageData stageData_;
 
-
-    std::unique_ptr<Tako::Object3d> model_;
-    Tako::Transform transform_; 
+    std::vector<std::unique_ptr<Tako::Object3d>> models_;
+    std::vector<std::unique_ptr<Tako::OBBCollider>> colliders_; // 床ごとのコライダー
 
     std::unique_ptr<Tako::Object3d> door_;
 
-    std::unique_ptr<Tako::AABBCollider> collider_; // ステージの当たり判定用コライダー
 };

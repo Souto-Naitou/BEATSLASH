@@ -53,6 +53,6 @@ private: // メンバ変数
     std::unique_ptr<TestCollider> aabbCollider1_; ///< テスト用AABBコライダー1
     std::unique_ptr<Tako::SphereCollider> aabbCollider2_; ///< テスト用AABBコライダー2
 
-    BeatManager beatManager_; ///< ビート管理クラスのインスタンス
+    BeatClock beatManager_; ///< ビート管理クラスのインスタンス
 
 };
