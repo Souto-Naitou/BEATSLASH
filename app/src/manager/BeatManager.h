@@ -8,7 +8,7 @@
 /// BPM と offset に基づいて拍を管理するクラス
 /// 時刻ソースは QPC 自走モードと楽曲同期 (Sound) モードを切り替え可能
 /// </summary>
-class BeatManager
+class BeatClock
 {
 public:
     /// 時刻ソースの種別
@@ -18,8 +18,8 @@ public:
         Sound   ///< SoundEngine::GetElapsedTime ベース (楽曲同期)
     };
 
-    BeatManager();
-    ~BeatManager() = default;
+    BeatClock();
+    ~BeatClock() = default;
 
     //  ライフサイクル 
 

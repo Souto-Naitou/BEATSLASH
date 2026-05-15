@@ -20,7 +20,7 @@ void StageSequence::Update(float deltaTime)
     {
         stages_[currentIndex_]->Update(deltaTime);
     }
-}
+}   
 
 void StageSequence::Draw()
 {
@@ -38,11 +38,13 @@ void StageSequence::NotifyClear()
 
 void StageSequence::OnTransitionStage()
 {
-    ++currentIndex_;
+    int32_t preIndex = currentIndex_++;
 
-    if (currentIndex_ < static_cast<int32_t>(stageDataList_.size()))
+    if (currentIndex_< static_cast<int32_t>(stageDataList_.size()))
     {
         clearFlow_.Initialize(stageDataList_[currentIndex_]);
+        stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
+        stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを有効
     }
     else
     {
@@ -64,6 +66,16 @@ void StageSequence::LoadFromJson(const std::string& path)
     {
         StageData data;
 
+        for (auto& f : s["floors"])
+        {
+            Tako::Transform floorTf;
+            auto& ft = f["translate"]; auto& fr = f["rotate"]; auto& fs = f["scale"];
+            floorTf.translate = { ft["x"], ft["y"], ft["z"] };
+            floorTf.rotate    = { fr["x"], fr["y"], fr["z"] };
+            floorTf.scale     = { fs["x"], fs["y"], fs["z"] };
+            data.floorTransform.push_back(floorTf);
+        }
+
         auto& tc = s["transitionCollider"];
         auto& tct = tc["translate"]; auto& tcr = tc["rotate"]; auto& tcs = tc["scale"];
         data.transitionTransform.translate = { tct["x"], tct["y"], tct["z"] };
@@ -82,6 +94,7 @@ void StageSequence::LoadFromJson(const std::string& path)
 
         auto stage = std::make_unique<Stage>();
         stage->Initialize(data);   // ← StageData を渡す
+        stage->CollisionActive(false); // 最初はコライダー無効
         stages_.push_back(std::move(stage));
     }
 
@@ -90,6 +103,8 @@ void StageSequence::LoadFromJson(const std::string& path)
         currentIndex_ = 0;
 
     lastWriteTime_ = std::filesystem::last_write_time(jsonFilePath_);
+
+    stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
 }
 
 void StageSequence::CheckHotReload()
