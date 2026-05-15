@@ -55,5 +55,4 @@ private: // メンバ変数
 
     BeatManager beatManager_; ///< ビート管理クラスのインスタンス
 
-    StageClearFlow stageClearFlow_; ///< ステージクリアフローのインスタンス
 };

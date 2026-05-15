@@ -26,6 +26,10 @@
     <ClCompile Include="src\stage\StageClearFlow.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="src\stage\stage.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\StageSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -79,6 +83,15 @@
       <Filter>stage</Filter>
     </ClInclude>
     <ClInclude Include="src\stage\StageTransitionCollider.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageSequence.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\stage.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageData.h">
       <Filter>stage</Filter>
     </ClInclude>
   </ItemGroup>
