@@ -137,8 +137,6 @@ void TestScene::Update()
     }
 
     beatManager_.Update();
-
-
 }
 
 void TestScene::Draw()
@@ -166,7 +164,7 @@ void TestScene::Draw()
     SpriteBasic::GetInstance()->SetCommonRenderSetting();
 
 
-
+    CollisionManager::GetInstance()->DrawColliders();
 }
 
 void TestScene::DrawWithoutEffect()

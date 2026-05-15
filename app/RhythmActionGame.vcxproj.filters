@@ -20,6 +20,16 @@
     <ClCompile Include="src\manager\BeatManager.cpp">
       <Filter>manager</Filter>
     </ClCompile>
+    <ClCompile Include="src\stage\StageTransitionCollider.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\StageClearFlow.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\stage.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\StageSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -43,6 +53,9 @@
     <Filter Include="manager">
       <UniqueIdentifier>{3be9a327-4e64-4c8f-939d-a98c9d1bc8be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stage">
+      <UniqueIdentifier>{f8d4dbc5-b1fb-43b8-9180-3cc394c76fd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\factory\SceneFactory.h">
@@ -65,6 +78,21 @@
     </ClInclude>
     <ClInclude Include="src\manager\BeatManager.h">
       <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageClearFlow.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageTransitionCollider.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageSequence.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\stage.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageData.h">
+      <Filter>stage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
