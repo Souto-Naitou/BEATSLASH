@@ -29,9 +29,6 @@
     <ClCompile Include="src\stage\stage.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\base\ICharacter.cpp">
-      <Filter>character</Filter>
-    </ClCompile>
     <ClCompile Include="src\character\enemy\base\Enemy.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
@@ -126,7 +123,7 @@
     <ClInclude Include="src\stage\StageData.h">
       <Filter>stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\base\ICharacter.h">
+    <ClInclude Include="src\character\ICharacter.h">
       <Filter>character</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\base\Enemy.h">
@@ -147,10 +144,10 @@
     <ClInclude Include="src\character\enemy\state\base\EnemyStateType.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\base\CharacterCollider.h">
+    <ClInclude Include="src\character\CharacterCollider.h">
       <Filter>character</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\base\CharacterColliderID.h">
+    <ClInclude Include="src\character\CharacterColliderID.h">
       <Filter>character</Filter>
     </ClInclude>
     <ClInclude Include="src\character\player\Player.h">

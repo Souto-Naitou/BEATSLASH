@@ -34,7 +34,6 @@
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\character\enemy\base\Enemy.cpp" />
     <ClCompile Include="src\character\enemy\SampleEnemy.cpp" />
-    <ClCompile Include="src\character\base\ICharacter.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerInput.cpp" />
     <ClCompile Include="src\character\player\PlayerMovement.cpp" />
@@ -56,9 +55,9 @@
     <ClInclude Include="src\character\enemy\base\Enemy.h" />
     <ClInclude Include="src\character\enemy\state\base\EnemyState.h" />
     <ClInclude Include="src\character\enemy\SampleEnemy.h" />
-    <ClInclude Include="src\character\base\ICharacter.h" />
-    <ClInclude Include="src\character\base\CharacterCollider.h" />
-    <ClInclude Include="src\character\base\CharacterColliderID.h" />
+    <ClInclude Include="src\character\ICharacter.h" />
+    <ClInclude Include="src\character\CharacterCollider.h" />
+    <ClInclude Include="src\character\CharacterColliderID.h" />
     <ClInclude Include="src\character\enemy\state\base\EnemyStateFactry.h" />
     <ClInclude Include="src\character\enemy\state\base\EnemyStateType.h" />
     <ClInclude Include="src\character\enemy\state\base\EnemyStateMachine.h" />
@@ -136,20 +135,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\intermediate\</IntDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\intermediate\</IntDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DynamicDebug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\intermediate\</IntDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AddressSanitizer|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\intermediate\</IntDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

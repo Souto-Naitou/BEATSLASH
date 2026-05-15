@@ -11,13 +11,21 @@ void Player::Initialize()
     pModel_->SetTransform(Tako::Transform());               // デフォルトのトランスフォームを設定
     pModel_->SetMaterialColor({ 1.0f, 1.0f, 1.0f, 1.0f });  // 白色のマテリアルカラーを設定
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
-
+    // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
+    // コンポーネントの初期化
+    this->InitializeComponents();
 }
 
 void Player::Update()
 {
+    // 入力の更新
+    pInput_->Update();
+    // 移動の更新
     pMovement_->Update(transform_, 1.0f / 60.0f);
+    // モデルの更新
+    pModel_->SetTransform(transform_);
+    pModel_->Update();
 }
 
 void Player::Draw()
