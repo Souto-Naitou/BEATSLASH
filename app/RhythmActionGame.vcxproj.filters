@@ -29,7 +29,7 @@
     <ClCompile Include="src\stage\stage.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\base\Character.cpp">
+    <ClCompile Include="src\character\base\ICharacter.cpp">
       <Filter>character</Filter>
     </ClCompile>
     <ClCompile Include="src\character\enemy\base\Enemy.cpp">
@@ -50,6 +50,9 @@
     <ClCompile Include="src\stage\StageSequence.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\PlayerMovement.cpp" />
+    <ClCompile Include="src\component\PhysicsMovement.cpp" />
+    <ClCompile Include="src\character\player\PlayerInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -123,7 +126,7 @@
     <ClInclude Include="src\stage\StageData.h">
       <Filter>stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\base\Character.h">
+    <ClInclude Include="src\character\base\ICharacter.h">
       <Filter>character</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\base\Enemy.h">
@@ -156,5 +159,9 @@
     <ClInclude Include="src\character\enemy\SampleEnemy.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\player\PlayerMovement.h" />
+    <ClInclude Include="src\component\PhysicsMovement.h" />
+    <ClInclude Include="src\character\player\PlayerInput.h" />
+    <ClInclude Include="src\component\IMovement.h" />
   </ItemGroup>
 </Project>

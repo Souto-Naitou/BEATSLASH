@@ -1,8 +1,8 @@
 #pragma once
-#include <character/base/Character.h>
+#include <character/base/ICharacter.h>
 #include <character/enemy/state/base/EnemyStateMachine.h>
 
-class Enemy : public Character
+class Enemy : public ICharacter
 {
 public:
 	Enemy() = default;

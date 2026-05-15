@@ -2,7 +2,7 @@
 
 void Enemy::Initialize(CharacterColliderID colliderID)
 {
-	Character::Initialize(colliderID);
+	ICharacter::Initialize(colliderID);
 }
 
 void Enemy::Update()
