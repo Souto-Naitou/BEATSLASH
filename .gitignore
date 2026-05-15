@@ -1,13 +1,13 @@
 # Visual Studio
-/.vs
-/.va
+.vs/*
+.va/*
 *.user
 *.lnk
 
 #user defines
-[Ll]og/*
-/[Bb]in/
-/Generated
+**/[Ll]og/
+**/[Bb]in/
+Generated
 
 
 # VST3SDK (必要なものだけ残す)
