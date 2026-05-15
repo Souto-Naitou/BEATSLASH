@@ -1,6 +1,7 @@
 #pragma once
 
 #include <character/enemy/state/base/EnemyStateType.h>
+#include <memory>
 
 class EnemyStateFactory
 {

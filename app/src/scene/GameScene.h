@@ -2,6 +2,9 @@
 #include "BaseScene.h"
 
 #include <stage/StageSequence.h>
+#include <character/player/Player.h>
+
+#include <memory>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -38,6 +41,6 @@ public: // メンバ関数
     void DrawImGui() override;
 
 private: // メンバ変数
-
-    std::unique_ptr<StageSequence> stage_; ///< ステージクラスのインスタンス
+    std::unique_ptr<Player> pPlayer_; // !< プレイヤー
+    std::unique_ptr<StageSequence> pStage_; // !< ステージクラスのインスタンス
 };

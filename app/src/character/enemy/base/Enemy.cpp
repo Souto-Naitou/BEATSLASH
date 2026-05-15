@@ -8,6 +8,6 @@ void Enemy::Initialize(CharacterColliderID colliderID)
 void Enemy::Update()
 {
 	// ステートマシンの更新
-	stateMachine_->Update(this);
+	stateMachine_.Update();
 }
 
