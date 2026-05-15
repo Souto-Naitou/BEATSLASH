@@ -30,10 +30,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\characters\enemies\state\base\EnemyStateMachine.cpp" />
-    <ClCompile Include="src\characters\enemies\state\EnemyIdleState.cpp" />
-    <ClCompile Include="src\characters\enemies\base\Enemy.cpp" />
-    <ClCompile Include="src\characters\enemies\SampleEnemy.cpp" />
+    <ClCompile Include="src\characters\enemy\state\base\EnemyStateMachine.cpp" />
+    <ClCompile Include="src\characters\enemy\state\EnemyIdleState.cpp" />
+    <ClCompile Include="src\characters\enemy\base\Enemy.cpp" />
+    <ClCompile Include="src\characters\enemy\SampleEnemy.cpp" />
     <ClCompile Include="src\characters\base\Character.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\RhythmActionGame.cpp" />
@@ -48,16 +48,16 @@
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\characters\enemies\state\EnemyIdleState.h" />
-    <ClInclude Include="src\characters\enemies\base\Enemy.h" />
-    <ClInclude Include="src\characters\enemies\state\base\EnemyState.h" />
-    <ClInclude Include="src\characters\enemies\SampleEnemy.h" />
+    <ClInclude Include="src\characters\enemy\state\EnemyIdleState.h" />
+    <ClInclude Include="src\characters\enemy\base\Enemy.h" />
+    <ClInclude Include="src\characters\enemy\state\base\EnemyState.h" />
+    <ClInclude Include="src\characters\enemy\SampleEnemy.h" />
     <ClInclude Include="src\characters\base\Character.h" />
     <ClInclude Include="src\characters\base\CharacterCollider.h" />
     <ClInclude Include="src\characters\base\CharacterColliderID.h" />
-    <ClInclude Include="src\characters\enemies\state\base\EnemyStateFactry.h" />
-    <ClInclude Include="src\characters\enemies\state\base\EnemyStateType.h" />
-    <ClInclude Include="src\characters\enemies\state\base\EnemyStateMachine.h" />
+    <ClInclude Include="src\characters\enemy\state\base\EnemyStateFactry.h" />
+    <ClInclude Include="src\characters\enemy\state\base\EnemyStateType.h" />
+    <ClInclude Include="src\characters\enemy\state\base\EnemyStateMachine.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
