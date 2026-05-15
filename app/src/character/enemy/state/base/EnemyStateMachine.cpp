@@ -1,4 +1,5 @@
 #include "EnemyStateMachine.h"
+#include <character/enemy/state/base/EnemyStateFactry.h>
 
 void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy)
 {
