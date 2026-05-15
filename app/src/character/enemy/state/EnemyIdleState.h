@@ -1,6 +1,6 @@
 #pragma once
 
-#include <character/enemy/state/base/EnemyState.h>
+#include <character/enemy/state/EnemyState.h>
 
 class EnemyIdleState : public EnemyState
 {
@@ -11,6 +11,14 @@ public:
 	void Update(Enemy* enemy) override;
 
 private:
+	// 経過時間
 	float timer_ = 0.0f;
+	// 拡縮速度
+	float scaleSpeed_ = 2.0f;
+	// 拡縮幅
+	float scaleAmplitude_ = 0.1f;
+	// 基本のスケール
+	float baseScale_ = 1.0f;
+
 };
 

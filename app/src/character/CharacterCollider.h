@@ -2,6 +2,7 @@
 
 #include <AABBCollider.h>
 #include <utility/CollisionUtility.h>
+#include "CharacterColliderID.h"
 #include <functional>
 
 using CollisionCallback = std::function<void(const Tako::Collider&)>;
