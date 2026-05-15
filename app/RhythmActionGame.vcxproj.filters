@@ -56,6 +56,15 @@
     <Filter Include="stage">
       <UniqueIdentifier>{f8d4dbc5-b1fb-43b8-9180-3cc394c76fd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="entity">
+      <UniqueIdentifier>{ca0fa3ad-7dac-4ecd-a8fd-6c76dc010225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity\charactor">
+      <UniqueIdentifier>{c0dfee05-a495-4812-a070-37b31ce457e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity\charactor\player">
+      <UniqueIdentifier>{fb62591e-1e34-427f-a857-d78322c4fd28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\factory\SceneFactory.h">
