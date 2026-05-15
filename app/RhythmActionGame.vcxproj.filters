@@ -21,7 +21,10 @@
       <Filter>manager</Filter>
     </ClCompile>
     <ClCompile Include="src\characters\base\Character.cpp" />
-    <ClCompile Include="SampleEnemy.cpp" />
+    <ClCompile Include="src\characters\enemies\SampleEnemy.cpp" />
+    <ClCompile Include="src\characters\enemies\base\Enemy.cpp" />
+    <ClCompile Include="src\characters\enemies\state\EnemyIdleState.cpp" />
+    <ClCompile Include="src\characters\enemies\state\base\EnemyStateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -69,6 +72,14 @@
       <Filter>manager</Filter>
     </ClInclude>
     <ClInclude Include="src\characters\base\Character.h" />
-    <ClInclude Include="SampleEnemy.h" />
+    <ClInclude Include="src\characters\enemies\SampleEnemy.h" />
+    <ClInclude Include="src\characters\base\CharacterColliderID.h" />
+    <ClInclude Include="src\characters\base\CharacterCollider.h" />
+    <ClInclude Include="src\characters\enemies\state\base\EnemyState.h" />
+    <ClInclude Include="src\characters\enemies\base\Enemy.h" />
+    <ClInclude Include="src\characters\enemies\state\base\EnemyStateMachine.h" />
+    <ClInclude Include="src\characters\enemies\state\base\EnemyStateType.h" />
+    <ClInclude Include="src\characters\enemies\state\base\EnemyStateFactry.h" />
+    <ClInclude Include="src\characters\enemies\state\EnemyIdleState.h" />
   </ItemGroup>
 </Project>
