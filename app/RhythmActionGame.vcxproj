@@ -35,6 +35,10 @@
     <ClCompile Include="src\characters\enemy\base\Enemy.cpp" />
     <ClCompile Include="src\characters\enemy\SampleEnemy.cpp" />
     <ClCompile Include="src\characters\base\Character.cpp" />
+    <ClCompile Include="src\character\base\Character.cpp" />
+    <ClCompile Include="src\character\enemy\base\Enemy.cpp" />
+    <ClCompile Include="src\character\enemy\state\base\EnemyStateMachine.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\RhythmActionGame.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -58,6 +62,15 @@
     <ClInclude Include="src\characters\enemy\state\base\EnemyStateFactry.h" />
     <ClInclude Include="src\characters\enemy\state\base\EnemyStateType.h" />
     <ClInclude Include="src\characters\enemy\state\base\EnemyStateMachine.h" />
+    <ClInclude Include="src\character\base\Character.h" />
+    <ClInclude Include="src\character\base\CharacterCollider.h" />
+    <ClInclude Include="src\character\base\CharacterColliderID.h" />
+    <ClInclude Include="src\character\enemy\base\Enemy.h" />
+    <ClInclude Include="src\character\enemy\state\base\EnemyState.h" />
+    <ClInclude Include="src\character\enemy\state\base\EnemyStateFactry.h" />
+    <ClInclude Include="src\character\enemy\state\base\EnemyStateMachine.h" />
+    <ClInclude Include="src\character\enemy\state\base\EnemyStateType.h" />
+    <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />

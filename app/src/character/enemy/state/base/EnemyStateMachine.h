@@ -1,7 +1,7 @@
 #pragma once
 
-#include <characters/enemies/state/base/EnemyState.h>
-#include <characters/enemies/state/base/EnemyStateFactry.h>
+#include <character/enemy/state/base/EnemyState.h>
+#include <character/enemy/state/base/EnemyStateFactry.h>
 
 class EnemyStateMachine
 {
