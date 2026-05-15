@@ -1,7 +1,11 @@
 #pragma once
 
-#include <characters/enemies/state/base/EnemyState.h>
-#include <characters/enemies/state/base/EnemyStateFactry.h>
+#include <character/enemy/state/base/EnemyState.h>
+#include <initializer_list>
+#include <unordered_map>
+#include <memory>
+
+class Enemy;
 
 class EnemyStateMachine
 {

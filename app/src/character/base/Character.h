@@ -1,7 +1,7 @@
 #pragma once
 #include <Object3d.h>
-#include <characters/base/CharacterCollider.h>
-#include <characters/base/CharacterColliderID.h>
+#include <character/base/CharacterCollider.h>
+#include <character/base/CharacterColliderID.h>
 
 class Character
 {

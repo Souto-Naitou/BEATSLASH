@@ -1,6 +1,6 @@
 #pragma once
 
-#include <characters/enemies/state/base/EnemyState.h>
+#include <character/enemy/state/base/EnemyState.h>
 
 class EnemyIdleState : public EnemyState
 {
