@@ -3,7 +3,7 @@
 std::vector<FontLayout::Result> FontLayout::Compute(std::span<GlyphInfo> glyphs)
 {
     auto result = std::vector<Result>(glyphs.size());
-    Vector2 penPosition = { 0.0f, 0.0f };
+    Tako::Vector2 penPosition = { 0.0f, 0.0f };
 
     for (size_t i = 0; i < glyphs.size(); ++i)
     {

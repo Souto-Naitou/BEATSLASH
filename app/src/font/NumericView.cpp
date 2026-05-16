@@ -3,6 +3,7 @@
 #include <cassert>
 #include <TextureManager.h>
 #include <DebugUIManager.h>
+#include <imgui.h>
 
 void NumericView::Initialize(std::span<TextureHandleType> textureHandles, const std::string& name)
 {
@@ -53,12 +54,12 @@ void NumericView::Update()
     for (uint32_t i = 0; i < digitCount; ++i)
     {
         uint32_t digit = number % 10;
-        D3D12_GPU_DESCRIPTOR_HANDLE handle = numberTextureHandles_[digit];
+        TextureHandleType handle = numberTextureHandles_[digit];
         numberSprites_[digitCount - i - 1]->SetTextureHandle(handle);
         /// サイズを設定
-        const auto& metadata = TextureManager::GetInstance()->GetMetaData(handle);
+        const auto& metadata = Tako::TextureManager::GetInstance()->GetMetaData(handle);
         const float aspect = static_cast<float>(metadata.width) / static_cast<float>(metadata.height);
-        Vector2 size = { fontSizeY_ * aspect, static_cast<float>(fontSizeY_) };
+        Tako::Vector2 size = { fontSizeY_ * aspect, static_cast<float>(fontSizeY_) };
         GlyphInfo glyphInfo;
         glyphInfo.size = size;
         glyphInfos_.emplace_back(glyphInfo);
@@ -70,7 +71,7 @@ void NumericView::Update()
     for (uint32_t i = 0; i < digitCount; ++i)
     {
         numberSprites_[i]->SetColor(color_);
-        numberSprites_[i]->SetPosition(layoutResults[i].leftTop);
+        numberSprites_[i]->SetPos(layoutResults[i].leftTop);
         numberSprites_[i]->SetSize(glyphInfos_[i].size);
         numberSprites_[i]->Update();
     }
@@ -104,7 +105,7 @@ void NumericView::SetFontSize(float sizeY)
     fontSizeY_ = sizeY;
 }
 
-void NumericView::SetColor(const Vector4& color)
+void NumericView::SetColor(const Tako::Vector4& color)
 {
     color_ = color;
 }
