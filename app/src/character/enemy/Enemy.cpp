@@ -22,7 +22,7 @@ void Enemy::Initialize()
 	pCollider_->SetTransform(&transform_);
 
 	// コライダーをマネージャーに登録
-	CollisionManager::GetInstance()->AddCollider(pCollider_.get());
+	//CollisionManager::GetInstance()->AddCollider(pCollider_.get());
 
 	// ステートの初期化。｛　待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Idle }, this);
