@@ -36,7 +36,7 @@ void GameScene::Initialize()
 
     /// プレイヤーの初期化
     pPlayer_ = std::make_unique<Player>();
-    pPlayer_->Initialize(CharacterColliderID::Player);
+    pPlayer_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
