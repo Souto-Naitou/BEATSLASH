@@ -11,6 +11,8 @@ void Player::Initialize()
     pModel_->SetTransform(Tako::Transform());               // デフォルトのトランスフォームを設定
     pModel_->SetMaterialColor({ 1.0f, 1.0f, 1.0f, 1.0f });  // 白色のマテリアルカラーを設定
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
+    pModel_->SetScale({ 1.0f, 1.0f, 1.0f });               // スケールを設定o
+
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
     // コンポーネントの初期化
