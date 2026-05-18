@@ -40,11 +40,11 @@ void StageSequence::OnTransitionStage()
 {
     int32_t preIndex = currentIndex_++;
 
-    if (currentIndex_< static_cast<int32_t>(stageDataList_.size()))
+    if (currentIndex_ < static_cast<int32_t>(stageDataList_.size()))
     {
         clearFlow_.Initialize(stageDataList_[currentIndex_]);
         stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
-        stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを有効
+        stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
     }
     else
     {
