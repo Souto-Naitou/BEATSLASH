@@ -3,5 +3,5 @@
 #ifdef _DEBUG
 #define GameParameter
 #else
-#define GameParameter static constexpr;
+#define GameParameter static constexpr
 #endif
