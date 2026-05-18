@@ -5,8 +5,7 @@
 
 void Player::Initialize()
 {
-    // デバッグUIへの登録
-    DebugRegister("Player", &Player::ImGui, this);
+    this->RegisterCallbacks();
 
     // 3Dモデルの初期化
     pModel_ = std::make_unique<Tako::Object3d>();
@@ -46,40 +45,23 @@ void Player::Draw()
     pModel_->Draw();
 }
 
-void Player::ImGui()
+void Player::RegisterCallbacks()
 {
 #ifdef _DEBUG
 
-    ImGui::SeparatorText("Transform");
-    {
-        ImGui::Indent();
+    kMovePower_.SetOnChange([this](const float newval) {
+        pMovement_->SetMovePower(newval);
+    });
 
-        ImGui::DragFloat3("Scale", &transform_.scale.x, 0.01f);
-        ImGui::DragFloat3("Rotate", &transform_.rotate.x, 0.01f);
-        ImGui::DragFloat3("Position", &transform_.translate.x, 0.01f);
+    kJumpPower_.SetOnChange([this](const float newval) {
+        pMovement_->SetJumpPower(newval);
+    });
 
-        ImGui::Unindent();
-    }
-
-    ImGui::SeparatorText("Physics");
-    {
-        ImGui::Indent();
-
-        if (ImGui::DragFloat("Move Power", kMovePower_.GetPtr(), 0.01f))
-        {
-            pMovement_->SetMovePower(kMovePower_);
-        }
-        ImGui::DragFloat("Friction Power", kFrictionPower_.GetPtr(), 0.01f);
-
-        ImGui::Unindent();
-    }
-
-    ImGui::SeparatorText("Input");
-    {
-        ImGui::Indent();
-        pInput_->ImGui();
-        ImGui::Unindent();
-    }
+    kGravity_.SetOnChange([this](const float newval) {
+        // 重力の変更は、プレイヤーの移動処理に直接影響を与えるため、ここで反映させる必要があります。
+        // 例えば、PlayerMovement クラスに SetGravity メソッドがある場合は、以下のように呼び出します。
+        // pMovement_->SetGravity(newval);
+    });
 
 #endif // _DEBUG
 }

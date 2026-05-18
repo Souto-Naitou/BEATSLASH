@@ -5,6 +5,8 @@
 
 void DebugUIWrapper::Initialize()
 {
+    ImGui::GetStyle().IndentSpacing = 16.0f;
+
     DebugRegister("Debug Entries", &DebugUIWrapper::ImGui, this);
 }
 

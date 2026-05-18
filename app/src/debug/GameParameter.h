@@ -2,6 +2,8 @@
 #include <debug/DebugUIWrapper.h>
 #include <debug/DebugEntry.h>
 #include <source_location>
+#include <functional>
+#include <string>
 
 #ifdef _DEBUG
 
@@ -22,18 +24,27 @@ template <typename ValueType>
 class GameParameterData
 {
 public:
-    GameParameterData(const std::string& id, const std::string& name, ValueType&& value = {}): v(std::move(value))
+    using OnChangeCallback = std::function<void(const ValueType&)>;
+
+    GameParameterData(const std::string& id, const std::string& name, ValueType&& value = {}): v_(std::move(value))
     {
-        DebugUIWrapper::GetInstance()->HandleParameter(id, name, &v);
+        DebugUIWrapper::GetInstance()->HandleParameter(id, name, &v_, [this]() {
+            if (onChange_)
+            {
+                onChange_(v_);
+            }
+        });
     }
 
     GameParameterData(const GameParameterData&) = delete;
     GameParameterData& operator=(const GameParameterData&) = delete;
 
-    operator ValueType() const { return v; }
+    operator ValueType() const { return v_; }
 
-    ValueType* GetPtr() { return &v; }
+    ValueType* GetPtr() { return &v_; }
+    void SetOnChange(OnChangeCallback cb) { onChange_ = std::move(cb); }
 
 private:
-    ValueType v = {};
+    ValueType v_ = {};
+    OnChangeCallback onChange_;
 };

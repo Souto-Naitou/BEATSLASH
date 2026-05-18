@@ -15,7 +15,7 @@ public:
     void Finalize();
     void Update() override;
     void Draw() override;
-    void ImGui();
+    void RegisterCallbacks();
 
 private:
     void InitializeComponents();

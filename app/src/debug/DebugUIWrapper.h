@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <debug/DebugEntry.h>
+#include <functional>
 
 class DebugUIWrapper
 {
@@ -22,14 +23,18 @@ public:
     void ImGui();
 
     template <typename T>
-    void HandleParameter(const std::string& id, const std::string& name, T* ptr);
+    void HandleParameter(
+        const std::string& id, 
+        const std::string& name, 
+        T* ptr, 
+        std::function<void()> pFunc = nullptr);
 
 private:
     std::unordered_map<std::string, DebugEntry*> entries_;
 };
 
 template <typename T>
-void DebugUIWrapper::HandleParameter(const std::string& id, const std::string& name, T* ptr)
+void DebugUIWrapper::HandleParameter(const std::string& id, const std::string& name, T* ptr, std::function<void()> pFunc)
 {
-    entries_.at(id)->RegisterParameter(name, ptr);
+    entries_.at(id)->RegisterParameter(name, ptr, std::move(pFunc));
 }

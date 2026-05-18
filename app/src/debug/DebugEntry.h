@@ -6,28 +6,36 @@
 #include <Vector2.h>
 #include <unordered_map>
 #include <Transform.h>
+#include <functional>
 
 class DebugEntry
 {
 public:
+    using AvailableType = std::variant<int*, float*, bool*, std::string*, Tako::Transform, Tako::Vector4*, Tako::Vector3*, Tako::Vector2*>;
+
+    struct ParameterData
+    {
+        AvailableType ptr;
+        std::function<void()> onChange;
+    };
+
     DebugEntry(const std::string& id, const std::string category);
     ~DebugEntry();
 
     void ImGui();
 
     template <typename T>
-    void RegisterParameter(const std::string& name, T* ptr);
+    void RegisterParameter(const std::string& name, T* ptr, std::function<void()> pFunc);
 
     const std::string& GetCategory() const { return category_; }
 
 private:
-    using AvailableType = std::variant<int*, float*, bool*, std::string*, Tako::Transform, Tako::Vector4*, Tako::Vector3*, Tako::Vector2*>;
-    std::unordered_map<std::string, AvailableType> parameters_;
+    std::unordered_map<std::string, ParameterData> parameters_;
     std::string category_;
 };
 
 template <typename T>
-void DebugEntry::RegisterParameter(const std::string& name, T* ptr)
+void DebugEntry::RegisterParameter(const std::string& name, T* ptr, std::function<void()> pFunc)
 {
-    parameters_.insert({name, ptr});
+    parameters_.insert({ name, {ptr, pFunc} });
 }

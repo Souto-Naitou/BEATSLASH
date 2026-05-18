@@ -20,45 +20,90 @@ void DebugEntry::ImGui()
 
     for (auto& [name, data] : parameters_)
     {
-        if (std::holds_alternative<int*>(data))
+        if (std::holds_alternative<int*>(data.ptr))
         {
-            ImGui::DragInt(name.c_str(), std::get<int*>(data));
-        }
-        else if (std::holds_alternative<float*>(data))
-        {
-            ImGui::DragFloat(name.c_str(), std::get<float*>(data));
-        }
-        else if (std::holds_alternative<bool*>(data))
-        {
-            ImGui::Checkbox(name.c_str(), std::get<bool*>(data));
-        }
-        else if (std::holds_alternative<std::string*>(data))
-        {
-            char buffer[256];
-            strncpy_s(buffer, sizeof(buffer), std::get<std::string*>(data)->c_str(), _TRUNCATE);
-            if (ImGui::InputText(name.c_str(), buffer, sizeof(buffer)))
+            if (ImGui::DragInt(name.c_str(), std::get<int*>(data.ptr)))
             {
-                *std::get<std::string*>(data) = buffer;
+                if (data.onChange)
+                {
+                    data.onChange();
+                }
             }
         }
-        else if (std::holds_alternative<Tako::Transform>(data))
+        else if (std::holds_alternative<float*>(data.ptr))
         {
-            Tako::Transform& transform = std::get<Tako::Transform>(data);
-            ImGui::DragFloat3((name + " Scale").c_str(), &transform.scale.x, 0.01f);
-            ImGui::DragFloat3((name + " Rotate").c_str(), &transform.rotate.x, 0.01f);
-            ImGui::DragFloat3((name + " Translate").c_str(), &transform.translate.x, 0.01f);
+            if (ImGui::DragFloat(name.c_str(), std::get<float*>(data.ptr)))
+            {
+                if (data.onChange)
+                {
+                    data.onChange();
+                }
+            }
         }
-        else if (std::holds_alternative<Tako::Vector4*>(data))
+        else if (std::holds_alternative<bool*>(data.ptr))
         {
-            ImGui::DragFloat4(name.c_str(), &std::get<Tako::Vector4*>(data)->x, 0.01f);
+            if (ImGui::Checkbox(name.c_str(), std::get<bool*>(data.ptr)))
+            {
+                if (data.onChange)
+                {
+                    data.onChange();
+                }
+            }
         }
-        else if (std::holds_alternative<Tako::Vector3*>(data))
+        else if (std::holds_alternative<std::string*>(data.ptr))
         {
-            ImGui::DragFloat3(name.c_str(), &std::get<Tako::Vector3*>(data)->x, 0.01f);
+            char buffer[256];
+            strncpy_s(buffer, sizeof(buffer), std::get<std::string*>(data.ptr)->c_str(), _TRUNCATE);
+            if (ImGui::InputText(name.c_str(), buffer, sizeof(buffer)))
+            {
+                *std::get<std::string*>(data.ptr) = buffer;
+                if (data.onChange)
+                {
+                    data.onChange();
+                }
+            }
         }
-        else if (std::holds_alternative<Tako::Vector2*>(data))
+        else if (std::holds_alternative<Tako::Transform>(data.ptr))
         {
-            ImGui::DragFloat2(name.c_str(), &std::get<Tako::Vector2*>(data)->x, 0.01f);
+            bool isChanged = false;
+            Tako::Transform& transform = std::get<Tako::Transform>(data.ptr);
+            isChanged |= ImGui::DragFloat3((name + " Scale").c_str(), &transform.scale.x, 0.01f);
+            isChanged |= ImGui::DragFloat3((name + " Rotate").c_str(), &transform.rotate.x, 0.01f);
+            isChanged |= ImGui::DragFloat3((name + " Translate").c_str(), &transform.translate.x, 0.01f);
+            if (isChanged && data.onChange)
+            {
+                data.onChange();
+            }
+        }
+        else if (std::holds_alternative<Tako::Vector4*>(data.ptr))
+        {
+            if (ImGui::DragFloat4(name.c_str(), &std::get<Tako::Vector4*>(data.ptr)->x, 0.01f))
+            {
+                if (data.onChange)
+                {
+                    data.onChange();
+                }
+            }
+        }
+        else if (std::holds_alternative<Tako::Vector3*>(data.ptr))
+        {
+            if (ImGui::DragFloat3(name.c_str(), &std::get<Tako::Vector3*>(data.ptr)->x, 0.01f))
+            {
+                if (data.onChange)
+                {
+                    data.onChange();
+                }
+            }
+        }
+        else if (std::holds_alternative<Tako::Vector2*>(data.ptr))
+        {
+            if (ImGui::DragFloat2(name.c_str(), &std::get<Tako::Vector2*>(data.ptr)->x, 0.01f))
+            {
+                if (data.onChange)
+                {
+                    data.onChange();
+                }
+            }
         }
     }
 
