@@ -74,6 +74,13 @@ void Player::ImGui()
         ImGui::Unindent();
     }
 
+    ImGui::SeparatorText("Input");
+    {
+        ImGui::Indent();
+        pInput_->ImGui();
+        ImGui::Unindent();
+    }
+
 #endif // _DEBUG
 }
 

@@ -68,6 +68,7 @@
     <ClInclude Include="src\component\PhysicsMovement.h" />
     <ClInclude Include="src\debug\DebugRegisterer.h" />
     <ClInclude Include="src\debug\GameParameter.h" />
+    <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
