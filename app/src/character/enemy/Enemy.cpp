@@ -32,11 +32,11 @@ void Enemy::Initialize()
 	// コライダーをマネージャーに登録
 	//CollisionManager::GetInstance()->AddCollider(pCollider_.get());
 
-	// ステートの初期化。｛　待機状態、　｝
-	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this);
-
 	// デバッグUIの登録
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
+	
+	// ステートの初期化。｛　待機状態、　｝
+	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this);
 }
 
 void Enemy::Update()
