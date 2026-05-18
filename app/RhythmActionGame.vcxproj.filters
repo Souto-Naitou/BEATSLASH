@@ -48,6 +48,8 @@
     <ClCompile Include="src\component\PhysicsMovement.cpp" />
     <ClCompile Include="src\character\player\PlayerInput.cpp" />
     <ClCompile Include="src\component\collider\PlayerCollider.cpp" />
+    <ClCompile Include="src\debug\DebugEntry.cpp" />
+    <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -159,6 +161,8 @@
     <ClInclude Include="src\debug\GameParameter.h" />
     <ClInclude Include="src\debug\DebugRegisterer.h" />
     <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
+    <ClInclude Include="src\debug\DebugUIWrapper.h" />
+    <ClInclude Include="src\debug\DebugEntry.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

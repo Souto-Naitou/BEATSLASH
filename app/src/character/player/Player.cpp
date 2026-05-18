@@ -65,11 +65,11 @@ void Player::ImGui()
     {
         ImGui::Indent();
 
-        if (ImGui::DragFloat("Move Power", &kMovePower_, 0.01f))
+        if (ImGui::DragFloat("Move Power", kMovePower_.GetPtr(), 0.01f))
         {
             pMovement_->SetMovePower(kMovePower_);
         }
-        ImGui::DragFloat("Friction Power", &kFrictionPower_, 0.01f);
+        ImGui::DragFloat("Friction Power", kFrictionPower_.GetPtr(), 0.01f);
 
         ImGui::Unindent();
     }
@@ -90,4 +90,5 @@ void Player::InitializeComponents()
     pInput_->Initialize();
     pMovement_ = std::make_unique<PlayerMovement>(pInput_.get());
     pMovement_->SetMovePower(kMovePower_);
+    pMovement_->SetJumpPower(kJumpPower_);
 }

@@ -23,4 +23,9 @@ void PlayerMovement::UpdateByInput(float dt)
 {
     const auto& inputData = pInput_->GetData();
     ApplyForce(inputData.move * movePower_);
+    
+    if (inputData.isJumpTriggered)
+    {
+        ApplyForce(Tako::Vector3(0.0f, jumpPower_, 0.0f));
+    }
 }
