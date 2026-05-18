@@ -29,27 +29,25 @@
     <ClCompile Include="src\stage\stage.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\base\Character.cpp">
-      <Filter>character</Filter>
-    </ClCompile>
-    <ClCompile Include="src\character\enemy\base\Enemy.cpp">
+    <ClCompile Include="src\character\enemy\Enemy.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\enemy\state\base\EnemyStateMachine.cpp">
+    <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
     <ClCompile Include="src\character\player\Player.cpp">
       <Filter>character\player</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\enemy\SampleEnemy.cpp">
-      <Filter>character\enemy</Filter>
-    </ClCompile>
     <ClCompile Include="src\stage\StageSequence.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\PlayerMovement.cpp" />
+    <ClCompile Include="src\component\PhysicsMovement.cpp" />
+    <ClCompile Include="src\character\player\PlayerInput.cpp" />
+    <ClCompile Include="src\component\collider\PlayerCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -123,38 +121,45 @@
     <ClInclude Include="src\stage\StageData.h">
       <Filter>stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\base\Character.h">
+    <ClInclude Include="src\character\ICharacter.h">
       <Filter>character</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\enemy\base\Enemy.h">
+    <ClInclude Include="src\character\enemy\Enemy.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\enemy\state\base\EnemyState.h">
+    <ClInclude Include="src\character\enemy\state\EnemyState.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\enemy\state\base\EnemyStateFactry.h">
+    <ClInclude Include="src\character\enemy\state\EnemyStateFactry.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\enemy\state\base\EnemyStateMachine.h">
+    <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\enemy\state\base\EnemyStateType.h">
+    <ClInclude Include="src\character\enemy\state\EnemyStateType.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\base\CharacterCollider.h">
+    <ClInclude Include="src\character\CharacterCollider.h">
       <Filter>character</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\base\CharacterColliderID.h">
+    <ClInclude Include="src\character\CharacterColliderID.h">
       <Filter>character</Filter>
     </ClInclude>
     <ClInclude Include="src\character\player\Player.h">
       <Filter>character\player</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\enemy\SampleEnemy.h">
-      <Filter>character\enemy</Filter>
-    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerMovement.h" />
+    <ClInclude Include="src\component\PhysicsMovement.h" />
+    <ClInclude Include="src\character\player\PlayerInput.h" />
+    <ClInclude Include="src\component\IMovement.h" />
+    <ClInclude Include="src\component\collider\PlayerCollider.h" />
+    <ClInclude Include="src\debug\GameParameter.h" />
+    <ClInclude Include="src\debug\DebugRegisterer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

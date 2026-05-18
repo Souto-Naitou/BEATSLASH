@@ -1,7 +1,7 @@
 #pragma once
 
-#include <character/enemy/state/base/EnemyState.h>
-#include <character/enemy/state/base/EnemyStateFactry.h>
+#include <character/enemy/state/EnemyState.h>
+#include <character/enemy/state/EnemyStateType.h>
 #include <unordered_map>
 #include <memory>
 
