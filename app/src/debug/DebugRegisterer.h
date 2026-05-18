@@ -1,11 +1,11 @@
 #pragma once
+#include <string>
 
 #ifdef _DEBUG
 
     // デバッグビルドでのみ DebugUIManager をインクルード
     #include <DebugUIManager.h>
     #include <functional>
-    #include <string>
 
     // デバッグUIに情報を登録するマクロ 
     template<typename T1, typename T2>

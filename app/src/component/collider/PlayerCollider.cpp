@@ -1,6 +1,6 @@
 #include "PlayerCollider.h"
 
-
+using namespace Tako;
 
 void PlayerCollider::OnCollisionEnter(Collider* other)
 {
