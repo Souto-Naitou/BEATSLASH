@@ -78,7 +78,7 @@ void TestScene::Initialize()
 
     ShadowRenderer::GetInstance()->SetEnabled(false);
 
-    beatManager_ = BeatManager();
+    beatManager_ = BeatClock();
     beatManager_.Initialize(100.0f, 0.0f);
     beatManager_.Start();
     ozSound::SoundEngine::GetInstance()->PostEvent("play");
