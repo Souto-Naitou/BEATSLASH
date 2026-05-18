@@ -14,6 +14,7 @@
 #include <FrameTimer.h>
 #include <ShadowRenderer.h>
 #include <CollisionManager.h>
+#include <DebugUIManager.h>
 
 using namespace Tako;
 
@@ -37,6 +38,10 @@ void GameScene::Initialize()
     /// プレイヤーの初期化
     pPlayer_ = std::make_unique<Player>();
     pPlayer_->Initialize();
+
+    // 敵の初期化
+	pEnemy_ = std::make_unique<Enemy>();
+	pEnemy_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
@@ -70,6 +75,8 @@ void GameScene::Update()
     pStage_->Update(deltaTime);
     // プレイヤーの更新
     pPlayer_->Update();
+	// 敵の更新
+	pEnemy_->Update();
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
@@ -96,7 +103,7 @@ void GameScene::Draw()
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
     pStage_->Draw();
     pPlayer_->Draw();
-
+    pEnemy_->Draw();
 
     //------------------前景Spriteの描画------------------//
     // スプライト共通描画設定

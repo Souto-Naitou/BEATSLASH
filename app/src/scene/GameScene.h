@@ -5,6 +5,7 @@
 #include <character/player/Player.h>
 
 #include <memory>
+#include <character/enemy/Enemy.h>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -42,5 +43,6 @@ public: // メンバ関数
 
 private: // メンバ変数
     std::unique_ptr<Player> pPlayer_; // !< プレイヤー
+	std::unique_ptr<Enemy> pEnemy_; // !< 敵
     std::unique_ptr<StageSequence> pStage_; // !< ステージクラスのインスタンス
 };

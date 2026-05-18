@@ -39,6 +39,13 @@ public:
 	void SetScale(const Tako::Vector3& scale) { transform_.scale = scale; }
 
 private:
+	// 状態の切り替え（デバッグ用）
+	void ChangeState();
+
+	// デバッグ表示
+	void DrawImGui();
+
+private:
 	// モデル
 	std::unique_ptr<Tako::Object3d> pModel_;
 	// トランスフォーム

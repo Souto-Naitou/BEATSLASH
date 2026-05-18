@@ -30,6 +30,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
@@ -51,6 +52,7 @@
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
     <ClInclude Include="src\character\enemy\Enemy.h" />
     <ClInclude Include="src\character\enemy\state\EnemyState.h" />

@@ -4,6 +4,7 @@
 #include <character/enemy/state/EnemyState.h>
 #include <memory>
 #include "EnemyIdleState.h"
+#include "EnemyChaseState.h"
 
 class EnemyStateFactory
 {
@@ -15,7 +16,7 @@ public:
 		case EnemyStateType::Idle:
 			return std::make_unique<EnemyIdleState>();
 		case EnemyStateType::Chase:
-			//return std::make_unique<ChaseState>();
+			return std::make_unique<EnemyChaseState>();
 		case EnemyStateType::Attack:
 			//return std::make_unique<AttackState>();
 		case EnemyStateType::Dead:
