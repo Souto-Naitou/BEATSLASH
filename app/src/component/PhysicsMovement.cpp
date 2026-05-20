@@ -16,6 +16,11 @@ void PhysicsMovement::StopMovement()
     acceleration_ = Tako::Vector3();
 }
 
+void PhysicsMovement::ApplyGravity(float mass, float deltaTime)
+{
+    ApplyForce(Tako::Vector3(0.0f, -kGravity_ * mass, 0.0f) * deltaTime);
+}
+
 void PhysicsMovement::PositionUpdate(Tako::Vector3& position, float deltaTime)
 {
     velocity_ += acceleration_ * deltaTime;

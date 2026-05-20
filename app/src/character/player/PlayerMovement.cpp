@@ -26,6 +26,6 @@ void PlayerMovement::UpdateByInput(float dt)
     
     if (inputData.isJumpTriggered)
     {
-        ApplyForce(Tako::Vector3(0.0f, jumpPower_, 0.0f));
+        AddImpulse(Tako::Vector3(0.0f, jumpPower_, 0.0f));
     }
 }

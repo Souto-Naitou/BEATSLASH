@@ -2,6 +2,7 @@
 #include <imgui.h>
 
 #include <debug/DebugRegisterer.h>
+#include <FrameTimer.h>
 
 void Player::Initialize()
 {
@@ -29,17 +30,24 @@ void Player::Finalize()
 
 void Player::Update()
 {
+    const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
+
     // 入力の更新
     pInput_->Update();
     // 移動の更新
     pMovement_->ApplyFriction(kFrictionPower_);
-    pMovement_->Update(transform_, 1.0f / 60.0f);
+    pMovement_->ApplyGravity(kMass_, deltaTime);
+    pMovement_->Update(transform_, deltaTime);
+
+    if (transform_.translate.y < 4.0f) // 地面に落ちないように最低限の高さを確保
+    {
+        transform_.translate.y = 4.0f;
+        pMovement_->ResetVelocityY();
+    }
+
     // モデルの更新
     pModel_->SetTransform(transform_);
     pModel_->Update();
-
-    //testTransform_->scale = transform_.scale;
-    //testTransform_ = transform_;
 }
 
 void Player::Draw()

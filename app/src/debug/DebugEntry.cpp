@@ -20,91 +20,137 @@ void DebugEntry::ImGui()
 
     for (auto& [name, data] : parameters_)
     {
-        if (std::holds_alternative<int*>(data.ptr))
-        {
-            if (ImGui::DragInt(name.c_str(), std::get<int*>(data.ptr)))
+        std::visit([&](auto&& arg) {
+            using T = std::decay_t<decltype(arg)>;
+            if constexpr (std::is_same_v<T, int*>)
             {
-                if (data.onChange)
+                if (ImGui::DragInt(name.c_str(), arg))
+                {
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
+                }
+            }
+            else if constexpr (std::is_same_v<T, float*>)
+            {
+                if (ImGui::DragFloat(name.c_str(), arg))
+                {
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
+                }
+            }
+            else if constexpr (std::is_same_v<T, bool*>)
+            {
+                if (ImGui::Checkbox(name.c_str(), arg))
+                {
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
+                }
+            }
+            else if constexpr (std::is_same_v<T, std::string*>)
+            {
+                char buffer[256];
+                strncpy_s(buffer, sizeof(buffer), arg->c_str(), _TRUNCATE);
+                if (ImGui::InputText(name.c_str(), buffer, sizeof(buffer)))
+                {
+                    *arg = buffer;
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
+                }
+            }
+            else if constexpr (std::is_same_v<T, Tako::Transform*>)
+            {
+                bool isChanged = false;
+                isChanged |= ImGui::DragFloat3((name + " Scale").c_str(), &arg->scale.x, 0.01f);
+                isChanged |= ImGui::DragFloat3((name + " Rotate").c_str(), &arg->rotate.x, 0.01f);
+                isChanged |= ImGui::DragFloat3((name + " Translate").c_str(), &arg->translate.x, 0.01f);
+                if (isChanged && data.onChange)
                 {
                     data.onChange();
                 }
             }
-        }
-        else if (std::holds_alternative<float*>(data.ptr))
-        {
-            if (ImGui::DragFloat(name.c_str(), std::get<float*>(data.ptr)))
+            else if constexpr (std::is_same_v<T, Tako::Vector4*>)
             {
-                if (data.onChange)
+                if (ImGui::DragFloat4(name.c_str(), &arg->x, 0.01f))
                 {
-                    data.onChange();
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
                 }
             }
-        }
-        else if (std::holds_alternative<bool*>(data.ptr))
-        {
-            if (ImGui::Checkbox(name.c_str(), std::get<bool*>(data.ptr)))
+            else if constexpr (std::is_same_v<T, Tako::Vector3*>)
             {
-                if (data.onChange)
+                if (ImGui::DragFloat3(name.c_str(), &arg->x, 0.01f))
                 {
-                    data.onChange();
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
                 }
             }
-        }
-        else if (std::holds_alternative<std::string*>(data.ptr))
-        {
-            char buffer[256];
-            strncpy_s(buffer, sizeof(buffer), std::get<std::string*>(data.ptr)->c_str(), _TRUNCATE);
-            if (ImGui::InputText(name.c_str(), buffer, sizeof(buffer)))
+            else if constexpr (std::is_same_v<T, Tako::Vector2*>)
             {
-                *std::get<std::string*>(data.ptr) = buffer;
-                if (data.onChange)
+                if (ImGui::DragFloat2(name.c_str(), &arg->x, 0.01f))
                 {
-                    data.onChange();
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
                 }
             }
-        }
-        else if (std::holds_alternative<Tako::Transform*>(data.ptr))
-        {
-            bool isChanged = false;
-            auto transform = std::get<Tako::Transform*>(data.ptr);
-            isChanged |= ImGui::DragFloat3((name + " Scale").c_str(), &transform->scale.x, 0.01f);
-            isChanged |= ImGui::DragFloat3((name + " Rotate").c_str(), &transform->rotate.x, 0.01f);
-            isChanged |= ImGui::DragFloat3((name + " Translate").c_str(), &transform->translate.x, 0.01f);
-            if (isChanged && data.onChange)
+        }, data.ptr);
+    }
+
+    /// 定数パラメータの表示
+    /// （定数パラメータは値の変更はできないが、値の確認はできるようにする）
+
+    for (auto& [name, data] : parametersConstant_)
+    {
+        std::visit([&](auto&& arg) {
+            using T = std::decay_t<decltype(arg)>;
+            if constexpr (std::is_same_v<T, const int*>)
             {
-                data.onChange();
+                ImGui::Text("%s: %d", name.c_str(), *arg);
             }
-        }
-        else if (std::holds_alternative<Tako::Vector4*>(data.ptr))
-        {
-            if (ImGui::DragFloat4(name.c_str(), &std::get<Tako::Vector4*>(data.ptr)->x, 0.01f))
+            else if constexpr (std::is_same_v<T, const float*>)
             {
-                if (data.onChange)
-                {
-                    data.onChange();
-                }
+                ImGui::Text("%s: %.2f", name.c_str(), *arg);
             }
-        }
-        else if (std::holds_alternative<Tako::Vector3*>(data.ptr))
-        {
-            if (ImGui::DragFloat3(name.c_str(), &std::get<Tako::Vector3*>(data.ptr)->x, 0.01f))
+            else if constexpr (std::is_same_v<T, const bool*>)
             {
-                if (data.onChange)
-                {
-                    data.onChange();
-                }
+                ImGui::Text("%s: %s", name.c_str(), *arg ? "True" : "False");
             }
-        }
-        else if (std::holds_alternative<Tako::Vector2*>(data.ptr))
-        {
-            if (ImGui::DragFloat2(name.c_str(), &std::get<Tako::Vector2*>(data.ptr)->x, 0.01f))
+            else if constexpr (std::is_same_v<T, const std::string*>)
             {
-                if (data.onChange)
-                {
-                    data.onChange();
-                }
+                ImGui::Text("%s: %s", name.c_str(), arg->c_str());
             }
-        }
+            else if constexpr (std::is_same_v<T, const Tako::Transform*>)
+            {
+                ImGui::Text("%s Scale: (%.2f, %.2f, %.2f)", name.c_str(), arg->scale.x, arg->scale.y, arg->scale.z);
+                ImGui::Text("%s Rotate: (%.2f, %.2f, %.2f)", name.c_str(), arg->rotate.x, arg->rotate.y, arg->rotate.z);
+                ImGui::Text("%s Translate: (%.2f, %.2f, %.2f)", name.c_str(), arg->translate.x, arg->translate.y, arg->translate.z);
+            }
+            else if constexpr (std::is_same_v<T, const Tako::Vector4*>)
+            {
+                ImGui::Text("%s: (%.2f, %.2f, %.2f, %.2f)", name.c_str(), arg->x, arg->y, arg->z, arg->w);
+            }
+            else if constexpr (std::is_same_v<T, const Tako::Vector3*>)
+            {
+                ImGui::Text("%s: (%.2f, %.2f, %.2f)", name.c_str(), arg->x, arg->y, arg->z);
+            }
+            else if constexpr (std::is_same_v<T, const Tako::Vector2*>)
+            {
+                ImGui::Text("%s: (%.2f, %.2f)", name.c_str(), arg->x, arg->y);
+            }
+        }, data);
     }
 
 #endif // _DEBUG

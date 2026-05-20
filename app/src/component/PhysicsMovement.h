@@ -23,6 +23,12 @@ public:
     void ResetVelocity() { velocity_ = Tako::Vector3(); }
 
     /// <summary>
+    /// Y軸方向の速度をゼロにリセットします。ジャンプのリセットなどに使用します。
+    /// </summary>
+    /// <returns></returns>
+    void ResetVelocityY() { velocity_.y = 0.0f; }
+
+    /// <summary>
     /// 速度に衝撃を加えます。
     /// 瞬間的に速度を変化させたい場合に使用します。
     /// </summary>
@@ -38,7 +44,19 @@ public:
     /// 摩擦を適用して速度を調整します。
     /// </summary>
     /// <param name="friction">速度に乗算する摩擦係数。</param>
-    void ApplyFriction(float friction) { velocity_ *= friction; }
+    void ApplyFriction(float friction)
+    { 
+        velocity_.x *= friction; 
+        velocity_.z *= friction; 
+    }
+
+    /// <summary>
+    /// 重力を適用して速度を調整します。
+    /// </summary>
+    /// <param name="gravity">重力</param>
+    /// <param name="mass">質量</param>
+    /// <param name="deltaTime">デルタタイム</param>
+    void ApplyGravity(float mass, float deltaTime);
 
     /// [ Getters ]
     Tako::Vector3 GetVelocity() const { return velocity_; }
@@ -54,6 +72,8 @@ protected:
     void PositionUpdate(Tako::Vector3& position, float deltaTime);
 
 private:
+    static constexpr float kGravity_ = 9.8f; // 重力加速度の定数値
+
     Tako::Vector3 acceleration_ = {};
     Tako::Vector3 velocity_ = {};
 };
