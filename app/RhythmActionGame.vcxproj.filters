@@ -47,6 +47,7 @@
     <ClCompile Include="src\character\player\PlayerMovement.cpp" />
     <ClCompile Include="src\component\PhysicsMovement.cpp" />
     <ClCompile Include="src\character\player\PlayerInput.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
     <ClCompile Include="src\component\collider\PlayerCollider.cpp" />
     <ClCompile Include="src\debug\DebugEntry.cpp" />
     <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="src\component\PhysicsMovement.h" />
     <ClInclude Include="src\character\player\PlayerInput.h" />
     <ClInclude Include="src\component\IMovement.h" />
+    <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
     <ClInclude Include="src\component\collider\PlayerCollider.h" />
     <ClInclude Include="src\debug\GameParameter.h" />
     <ClInclude Include="src\debug\DebugRegisterer.h" />

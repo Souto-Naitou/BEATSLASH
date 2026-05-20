@@ -14,5 +14,5 @@ void EnemyIdleState::Update(Enemy* enemy)
 
 	// モデルを少し大きくさせたり小さくさせてリズムに乗っているような動きをさせる
 	float scale = baseScale_ + scaleAmplitude_ * std::sin(timer_ * scaleSpeed_);
-	enemy->GetModel()->SetScale({ scale, scale, scale });
+	enemy->SetScale({ scale, scale, scale });
 }
