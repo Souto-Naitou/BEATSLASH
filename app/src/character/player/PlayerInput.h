@@ -11,7 +11,13 @@ public:
     struct Data
     {
         // 移動方向ベクトル (PlayerInput::Update()で正規化済み)
-        Tako::Vector3 move = {};
+        Tako::Vector3   move = {};
+        // ジャンプのトリガー状態
+        bool            isJumpTriggered = false;
+        // ジャンプボタンが押されている状態
+        bool            isJumpPressed = false;
+        // ジャンプボタンを押し続けている時間
+        float           jumpHoldTime = 0.0f;
     };
 
     PlayerInput() = default;
@@ -19,13 +25,12 @@ public:
 
     void Initialize();
     void Update();
+    void ImGui();
 
     bool            IsGamepadMode() const { return isGamepadMode_; }
     const Data&     GetData() const { return data_; }
 
 private:
-    static constexpr float kShootThreshold_ = 0.75f; // 射撃とみなすスティックの傾きの閾値
-
     bool isGamepadMode_ = false;
     Tako::Input* pInput_ = nullptr;
     Data data_ = {};

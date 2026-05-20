@@ -39,6 +39,8 @@
     <ClCompile Include="src\character\player\PlayerMovement.cpp" />
     <ClCompile Include="src\component\collider\PlayerCollider.cpp" />
     <ClCompile Include="src\component\PhysicsMovement.cpp" />
+    <ClCompile Include="src\debug\DebugEntry.cpp" />
+    <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\RhythmActionGame.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -68,8 +70,11 @@
     <ClInclude Include="src\component\collider\PlayerCollider.h" />
     <ClInclude Include="src\component\IMovement.h" />
     <ClInclude Include="src\component\PhysicsMovement.h" />
+    <ClInclude Include="src\debug\DebugEntry.h" />
     <ClInclude Include="src\debug\DebugRegisterer.h" />
+    <ClInclude Include="src\debug\DebugUIWrapper.h" />
     <ClInclude Include="src\debug\GameParameter.h" />
+    <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
