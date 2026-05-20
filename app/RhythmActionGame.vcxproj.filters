@@ -66,8 +66,12 @@
     <ClCompile Include="src\character\player\PlayerMovement.cpp">
       <Filter>character\player</Filter>
     </ClCompile>
-    <ClCompile Include="src\font\NumericView.cpp" />
-    <ClCompile Include="src\font\FontLayout.cpp" />
+    <ClCompile Include="src\font\FontLayout.cpp">
+      <Filter>font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\font\NumericView.cpp">
+      <Filter>font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -114,6 +118,9 @@
     </Filter>
     <Filter Include="component\collider">
       <UniqueIdentifier>{5cbe614e-0263-492e-9835-9f8f2e65ec12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="font">
+      <UniqueIdentifier>{76af38af-8199-4fd9-baa5-db56e7cb8ce3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -223,8 +230,12 @@
     <ClInclude Include="src\debug\ImGuiTextTemplate.h">
       <Filter>debug</Filter>
     </ClInclude>
-    <ClInclude Include="src\font\NumericView.h" />
-    <ClInclude Include="src\font\FontLayout.h" />
+    <ClInclude Include="src\font\FontLayout.h">
+      <Filter>font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\font\NumericView.h">
+      <Filter>font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
