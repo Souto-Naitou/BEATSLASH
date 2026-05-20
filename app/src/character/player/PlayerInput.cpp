@@ -1,7 +1,11 @@
 #include "PlayerInput.h"
 #include <FrameTimer.h>
-#include <imgui.h>
+
+
+#ifdef _DEBUG
 #include <debug/ImGuiTextTemplate.h>
+#include <imgui.h>
+#endif // _DEBUG
 
 
 void PlayerInput::Initialize()
@@ -40,8 +44,12 @@ void PlayerInput::Update()
 
 void PlayerInput::ImGui()
 {
+#ifdef _DEBUG
+
     ImGui::InputFloat3("Move", &data_.move.x, "%.2f", ImGuiInputTextFlags_ReadOnly);
     ImGuiTemplate::TextBoolean("Jump Triggered", data_.isJumpTriggered);
     ImGuiTemplate::TextBoolean("Jump Pressed", data_.isJumpPressed);
     ImGui::InputFloat("Jump Hold Time", &data_.jumpHoldTime, 0.01f, 0.1f, "%.2f", ImGuiInputTextFlags_ReadOnly);
+
+#endif // _DEBUG
 }

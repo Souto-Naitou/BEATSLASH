@@ -52,6 +52,7 @@
     <ClCompile Include="src\stage\StageTransitionCollider.cpp" />
     <ClCompile Include="src\test\TestScene.cpp" />
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
+    <ClCompile Include="src\utility\strutl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
+    <ClInclude Include="src\math\HSV.h" />
     <ClInclude Include="src\scene\GameScene.h" />
     <ClInclude Include="src\stage\stage.h" />
     <ClInclude Include="src\stage\StageClearFlow.h" />
@@ -87,6 +89,8 @@
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />
     <ClInclude Include="src\utility\CollisionUtility.h" />
+    <ClInclude Include="src\utility\strutl.h" />
+    <ClInclude Include="src\utility\ViewportUnits.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

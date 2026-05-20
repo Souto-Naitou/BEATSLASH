@@ -15,6 +15,7 @@
 #else
 
     template <typename T1, typename T2>
-    constexpr auto DebugRegister(std::string, T1, T2) { return; }
+    inline constexpr auto DebugRegister(std::string, T1, T2) {}
+    inline constexpr void DebugUnregister(std::string) {}
 
 #endif // _DEBUG

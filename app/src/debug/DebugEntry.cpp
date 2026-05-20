@@ -1,7 +1,10 @@
 #include "DebugEntry.h"
 
 #include <debug/DebugUIWrapper.h>
+
+#ifdef _DEBUG
 #include <imgui.h>
+#endif // _DEBUG
 
 DebugEntry::DebugEntry(const std::string& id, const std::string category)
 {

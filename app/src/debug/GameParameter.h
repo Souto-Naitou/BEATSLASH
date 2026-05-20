@@ -18,8 +18,9 @@
     #define EnableDebug(category) DebugEntry debugEntry{ std::source_location::current().file_name(), category }
 
 #else
-
     #define GameParameter(type, name, value) static constexpr type name = value
+    #define GameParameterView(type, name, value) \
+        type name = value;
     #define EnableDebug(category)
 
 #endif

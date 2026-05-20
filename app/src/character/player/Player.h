@@ -24,16 +24,15 @@ private:
     EnableDebug("Player");
 
     /// パラメータ
-    GameParameter(float, kFrictionPower_, 0.8f);   // 摩擦係数
-    GameParameter(float, kMovePower_, 180.0f);     // 移動力
-    GameParameter(float, kJumpPower_, 180.0f);     // ジャンプ力
-    GameParameter(float, kGravity_, 9.8f);         // 重力
-    GameParameter(float, kMass_, 60.0f);         // 重力
+    GameParameter(float, kFrictionPower_, 0.8f);    // 摩擦係数
+    GameParameter(float, kMovePower_, 180.0f);      // 移動力
+    GameParameter(float, kJumpPower_, 5.0f);        // ジャンプ力
+    GameParameter(float, kMass_, 60.0f);            // 重力
 
     /// インスタンス
-    std::unique_ptr<PlayerInput>        pInput_;        // プレイヤー入力管理クラス
-    std::unique_ptr<PlayerMovement>     pMovement_;     // プレイヤー移動処理クラス
-    std::unique_ptr<Tako::Object3d>     pModel_;        // キャラクターの3Dモデル
-    GameParameterView(Tako::Transform,  transform_, {});     // キャラクターのトランスフォーム
+    std::unique_ptr<PlayerInput>        pInput_;            // プレイヤー入力管理クラス
+    std::unique_ptr<PlayerMovement>     pMovement_;         // プレイヤー移動処理クラス
+    std::unique_ptr<Tako::Object3d>     pModel_;            // キャラクターの3Dモデル
+    GameParameterView(Tako::Transform,  transform_, {});    // キャラクターのトランスフォーム
 
 };
