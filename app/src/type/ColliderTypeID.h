@@ -3,9 +3,10 @@
 /// <summary>
 /// キャラクターのコライダーID
 /// </summary>
-enum class CharacterColliderID
+enum class ColliderTypeID
 {
-	Player,				// プレイヤー
+	Player  = 100,				// プレイヤー
 	Enemy,				// 敵
 	Obstacle,			// 障害物
+    Terrain,			// 地形
 };

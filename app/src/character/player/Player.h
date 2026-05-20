@@ -8,6 +8,7 @@
 #include <Object3d.h>
 #include <memory>
 #include <Transform.h>
+#include <component/collider/PlayerCollider.h>
 
 class Player : public ICharacter
 {
@@ -35,4 +36,5 @@ private:
     std::unique_ptr<Tako::Object3d>     pModel_;            // キャラクターの3Dモデル
     GameParameterView(Tako::Transform,  transform_, {});    // キャラクターのトランスフォーム
 
+    std::unique_ptr<PlayerCollider>     pCollider_;         // プレイヤーのコライダー
 };
