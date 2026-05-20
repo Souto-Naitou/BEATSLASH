@@ -40,6 +40,19 @@ public:
     GameParameterData& operator=(const GameParameterData&) = delete;
 
     operator ValueType() const { return v_; }
+    ValueType& operator=(const ValueType& newValue)
+    {
+        v_ = newValue;
+        if (onChange_)
+        {
+            onChange_(v_);
+        }
+        return v_;
+    }
+    operator ValueType& () { return v_; }
+    operator const ValueType& () const { return v_; }
+    ValueType* operator-> () { return v_; }
+    const ValueType* operator-> () const { return v_; }
 
     ValueType* GetPtr() { return &v_; }
     void SetOnChange(OnChangeCallback cb) { onChange_ = std::move(cb); }

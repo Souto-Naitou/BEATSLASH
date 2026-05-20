@@ -7,6 +7,7 @@
 #include <character/ICharacter.h>
 #include <Object3d.h>
 #include <memory>
+#include "../../engine/math/Transform.h"
 
 class Player : public ICharacter
 {
@@ -27,6 +28,7 @@ private:
     GameParameter(float, kMovePower_, 180.0f);     // 移動力
     GameParameter(float, kJumpPower_, 180.0f);     // ジャンプ力
     GameParameter(float, kGravity_, 9.8f);         // 重力
+    GameParameter(Tako::Transform, testTransform_, {});         // 重力
 
     /// インスタンス
     std::unique_ptr<PlayerInput>        pInput_;        // プレイヤー入力管理クラス

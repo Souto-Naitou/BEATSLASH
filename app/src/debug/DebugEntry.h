@@ -11,7 +11,16 @@
 class DebugEntry
 {
 public:
-    using AvailableType = std::variant<int*, float*, bool*, std::string*, Tako::Transform, Tako::Vector4*, Tako::Vector3*, Tako::Vector2*>;
+    using AvailableType = std::variant<
+        int*,
+        float*,
+        bool*,
+        std::string*,
+        Tako::Transform*,
+        Tako::Vector4*,
+        Tako::Vector3*,
+        Tako::Vector2*
+    >;
 
     struct ParameterData
     {

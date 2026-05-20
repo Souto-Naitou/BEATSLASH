@@ -63,13 +63,13 @@ void DebugEntry::ImGui()
                 }
             }
         }
-        else if (std::holds_alternative<Tako::Transform>(data.ptr))
+        else if (std::holds_alternative<Tako::Transform*>(data.ptr))
         {
             bool isChanged = false;
-            Tako::Transform& transform = std::get<Tako::Transform>(data.ptr);
-            isChanged |= ImGui::DragFloat3((name + " Scale").c_str(), &transform.scale.x, 0.01f);
-            isChanged |= ImGui::DragFloat3((name + " Rotate").c_str(), &transform.rotate.x, 0.01f);
-            isChanged |= ImGui::DragFloat3((name + " Translate").c_str(), &transform.translate.x, 0.01f);
+            auto transform = std::get<Tako::Transform*>(data.ptr);
+            isChanged |= ImGui::DragFloat3((name + " Scale").c_str(), &transform->scale.x, 0.01f);
+            isChanged |= ImGui::DragFloat3((name + " Rotate").c_str(), &transform->rotate.x, 0.01f);
+            isChanged |= ImGui::DragFloat3((name + " Translate").c_str(), &transform->translate.x, 0.01f);
             if (isChanged && data.onChange)
             {
                 data.onChange();

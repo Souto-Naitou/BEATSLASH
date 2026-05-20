@@ -25,7 +25,6 @@ void Player::Initialize()
 
 void Player::Finalize()
 {
-    DebugUnregister("Player");
 }
 
 void Player::Update()
@@ -38,6 +37,9 @@ void Player::Update()
     // モデルの更新
     pModel_->SetTransform(transform_);
     pModel_->Update();
+
+    //testTransform_->scale = transform_.scale;
+    //testTransform_ = transform_;
 }
 
 void Player::Draw()
