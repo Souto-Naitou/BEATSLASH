@@ -35,6 +35,13 @@
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
+    <ClCompile Include="src\font\FontLayout.cpp" />
+    <ClCompile Include="src\font\NumericView.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='AddressSanitizer|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_DynamicDebug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\character\player\PlayerInput.cpp" />
     <ClCompile Include="src\character\player\PlayerMovement.cpp" />
     <ClCompile Include="src\component\collider\PlayerCollider.cpp" />
@@ -76,6 +83,8 @@
     <ClInclude Include="src\debug\DebugUIWrapper.h" />
     <ClInclude Include="src\debug\GameParameter.h" />
     <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
+    <ClInclude Include="src\font\FontLayout.h" />
+    <ClInclude Include="src\font\NumericView.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
