@@ -8,6 +8,7 @@
 **/[Ll]og/
 **/[Bb]in/
 Generated
+**/imgui.ini
 
 
 # VST3SDK (必要なものだけ残す)

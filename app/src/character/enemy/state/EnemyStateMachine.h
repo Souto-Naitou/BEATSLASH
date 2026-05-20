@@ -1,7 +1,7 @@
 #pragma once
 
-#include <character/enemy/state/base/EnemyState.h>
-#include <character/enemy/state/base/EnemyStateFactry.h>
+#include <character/enemy/state/EnemyState.h>
+#include <character/enemy/state/EnemyStateType.h>
 #include <unordered_map>
 #include <memory>
 
@@ -14,7 +14,11 @@ public:
 	// 状態の更新
 	void Update();
 
+	// 状態の切り替え
 	void ChangeState(EnemyStateType newStateType);
+
+	// 現在の状態の取得
+	EnemyStateType GetCurrentState() const { return currentStateType_; }
 
 private:
 	// 状態の管理

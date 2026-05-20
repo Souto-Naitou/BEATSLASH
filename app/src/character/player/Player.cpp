@@ -1,20 +1,83 @@
 #include "Player.h"
 
+#include <FrameTimer.h>
 
+#ifdef _DEBUG
+#include <debug/DebugRegisterer.h>
+#include <imgui.h>
+#endif // _DEBUG
 
-void Player::Initialize(CharacterColliderID colliderID)
+void Player::Initialize()
 {
-    this->Character::Initialize(colliderID);
-    this->Character::SetScale({ 1.0f, 1.0f, 1.0f });
-    this->Character::SetPosition({ 0.0f, 2.0f, 0.0f });
+    this->RegisterCallbacks();
+
+    // 3Dモデルの初期化
+    pModel_ = std::make_unique<Tako::Object3d>();
+    pModel_->Initialize();
+    pModel_->SetModel("white_cube.gltf");
+    pModel_->SetTransform(Tako::Transform());               // デフォルトのトランスフォームを設定
+    pModel_->SetMaterialColor({ 0.1f, 0.8f, 0.1f, 1.0f });  // 緑色のマテリアルカラーを設定
+    pModel_->SetEnableLighting(true);                       // ライティングを有効にする
+    pModel_->SetScale({ 0.75f, 2.0f, 0.75f });              // スケールを設定
+    pModel_->SetTranslate({ 0.0f, 4.0f, 0.0f });            // 初期位置を設定
+
+    // トランスフォームの初期化
+    transform_ = pModel_->GetTransform();
+    // コンポーネントの初期化
+    this->InitializeComponents();
+}
+
+void Player::Finalize()
+{
 }
 
 void Player::Update()
 {
-    this->Character::Update();
+    const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
+
+    // 入力の更新
+    pInput_->Update();
+    // 移動の更新
+    pMovement_->ApplyFriction(kFrictionPower_);
+    pMovement_->ApplyGravity(kMass_, deltaTime);
+    pMovement_->Update(transform_, deltaTime);
+
+    if (transform_.translate.y < 4.0f) // 地面に落ちないように最低限の高さを確保
+    {
+        transform_.translate.y = 4.0f;
+        pMovement_->ResetVelocityY();
+    }
+
+    // モデルの更新
+    pModel_->SetTransform(transform_);
+    pModel_->Update();
 }
 
 void Player::Draw()
 {
-    this->Character::Draw();
+    pModel_->Draw();
+}
+
+void Player::RegisterCallbacks()
+{
+#ifdef _DEBUG
+
+    kMovePower_.SetOnChange([this](const float newval) {
+        pMovement_->SetMovePower(newval);
+    });
+
+    kJumpPower_.SetOnChange([this](const float newval) {
+        pMovement_->SetJumpPower(newval);
+    });
+
+#endif // _DEBUG
+}
+
+void Player::InitializeComponents()
+{
+    pInput_ = std::make_unique<PlayerInput>();
+    pInput_->Initialize();
+    pMovement_ = std::make_unique<PlayerMovement>(pInput_.get());
+    pMovement_->SetMovePower(kMovePower_);
+    pMovement_->SetJumpPower(kJumpPower_);
 }
