@@ -10,11 +10,12 @@
 #ifdef _DEBUG
 #include"ImGui.h"
 #include "DebugCamera.h"
+#include <DebugUIManager.h>
 #endif
 #include <FrameTimer.h>
 #include <ShadowRenderer.h>
 #include <CollisionManager.h>
-#include <DebugUIManager.h>
+
 
 using namespace Tako;
 

@@ -1,8 +1,11 @@
 #include "Player.h"
-#include <imgui.h>
 
-#include <debug/DebugRegisterer.h>
 #include <FrameTimer.h>
+
+#ifdef _DEBUG
+#include <debug/DebugRegisterer.h>
+#include <imgui.h>
+#endif // _DEBUG
 
 void Player::Initialize()
 {
@@ -65,12 +68,6 @@ void Player::RegisterCallbacks()
 
     kJumpPower_.SetOnChange([this](const float newval) {
         pMovement_->SetJumpPower(newval);
-    });
-
-    kGravity_.SetOnChange([this](const float newval) {
-        // 重力の変更は、プレイヤーの移動処理に直接影響を与えるため、ここで反映させる必要があります。
-        // 例えば、PlayerMovement クラスに SetGravity メソッドがある場合は、以下のように呼び出します。
-        // pMovement_->SetGravity(newval);
     });
 
 #endif // _DEBUG

@@ -11,6 +11,7 @@ RWStructuredBuffer<uint> gFreeList : register(u2);
 
 StructuredBuffer<ForceField> gForceFields : register(t0);
 Texture2D<float> gDepthBuffer : register(t1);
+StructuredBuffer<Emitter> gEmitters : register(t2); // emitter 逆引き
 
 SamplerState gDepthSampler : register(s0);
 
@@ -49,6 +50,44 @@ void main(uint3 DTid : SV_DispatchThreadID)
         for (uint i = 0; i < forceFieldCount; i++)
         {
             acceleration += EvaluateForceField(gForceFields[i], currentPos);
+        }
+    }
+
+    // Per-Emitter Target 収束 (バネ-ダンパ)
+    // 所属エミッターのフラグを引き、EFLAG_CONVERGE_TO_TARGET が立っていれば targetPosition へ向かう力を加算
+    {
+        uint eid = gParticles[particleIndex].emitterId;
+        if (eid < gPerFrame.activeEmitterCount &&
+            (gEmitters[eid].flags & EFLAG_CONVERGE_TO_TARGET))
+        {
+            float3 toTarget = gEmitters[eid].targetPosition - currentPos;
+            float3 vel = (currentPos - prevPos) / max(dt, 0.0001f);
+            acceleration += gEmitters[eid].convergeStiffness * toTarget
+                          - gEmitters[eid].convergeDamping * vel;
+        }
+    }
+
+    // Per-Particle Spawn 拘束 (各粒子が自分の targetLocal へバネ-ダンパで引き寄せられる)
+    // Mesh エミッタの場合は targetLocal をメッシュ world で変換、それ以外は world 座標として直接使用
+    {
+        uint eid = gParticles[particleIndex].emitterId;
+        if (eid < gPerFrame.activeEmitterCount &&
+            (gEmitters[eid].flags & EFLAG_LOCK_TO_SPAWN))
+        {
+            float3 currentTarget;
+            if (gEmitters[eid].type == EMITTER_TYPE_MESH)
+            {
+                // mesh local → world (engine 規約 mul(vec, matrix))
+                currentTarget = mul(float4(gParticles[particleIndex].targetLocal, 1.0f), gEmitters[eid].meshWorld).xyz;
+            }
+            else
+            {
+                currentTarget = gParticles[particleIndex].targetLocal;
+            }
+            float3 toTarget = currentTarget - currentPos;
+            float3 vel = (currentPos - prevPos) / max(dt, 0.0001f);
+            acceleration += gEmitters[eid].lockStiffness * toTarget
+                          - gEmitters[eid].lockDamping * vel;
         }
     }
 
@@ -97,13 +136,19 @@ void main(uint3 DTid : SV_DispatchThreadID)
     // 経過時間の更新
     gParticles[particleIndex].currentTime += dt;
 
-    // 寿命に基づいてアルファ値を計算
-    float alpha = 1.0f - (gParticles[particleIndex].currentTime / gParticles[particleIndex].lifeTime);
-    gParticles[particleIndex].startColor.a = saturate(alpha);
-    gParticles[particleIndex].endColor.a = saturate(alpha);
+    // 寿命進行率 (0.0 → 1.0)。寿命終了判定はこの値で行うため、alpha フェード ON/OFF と独立
+    float lifeRatio = gParticles[particleIndex].currentTime / max(gParticles[particleIndex].lifeTime, 0.0001f);
 
-    // 寿命切れならフリーリストに戻す
-    if (alpha <= 0.0f)
+    // alpha フェード (PFLAG_ALPHA_FADE が立っているときのみ)
+    // 立っていない場合は寿命中ずっと不透明 (alpha = 1)、寿命終端で一気に 0
+    float alpha = (gParticles[particleIndex].flags & PFLAG_ALPHA_FADE)
+        ? saturate(1.0f - lifeRatio)
+        : 1.0f;
+    gParticles[particleIndex].startColor.a = alpha;
+    gParticles[particleIndex].endColor.a = alpha;
+
+    // 寿命終了判定は lifeRatio ベース (alpha フェード OFF でも正しく動く)
+    if (lifeRatio >= 1.0f)
     {
         gParticles[particleIndex].startColor.a = 0.0f;
         gParticles[particleIndex].endColor.a = 0.0f;

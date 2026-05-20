@@ -44,13 +44,28 @@
     <ClCompile Include="src\stage\StageSequence.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player\PlayerMovement.cpp" />
-    <ClCompile Include="src\component\PhysicsMovement.cpp" />
-    <ClCompile Include="src\character\player\PlayerInput.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
-    <ClCompile Include="src\component\collider\PlayerCollider.cpp" />
-    <ClCompile Include="src\debug\DebugEntry.cpp" />
-    <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
+    <ClCompile Include="src\utility\strutl.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\DebugEntry.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\DebugUIWrapper.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\component\PhysicsMovement.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\component\collider\PlayerCollider.cpp">
+      <Filter>component\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\PlayerInput.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\PlayerMovement.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -85,6 +100,18 @@
     </Filter>
     <Filter Include="character\player">
       <UniqueIdentifier>{c7c0e5f1-5cfc-471f-af62-dabd76b9a76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{9eead880-912e-4907-a2b4-13a0abfec3c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="debug">
+      <UniqueIdentifier>{544d2b84-cd99-4a13-bab3-005e055edfde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component">
+      <UniqueIdentifier>{d4143739-14a7-43fb-a678-ea29d28af697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component\collider">
+      <UniqueIdentifier>{5cbe614e-0263-492e-9835-9f8f2e65ec12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -154,17 +181,46 @@
     <ClInclude Include="src\character\player\Player.h">
       <Filter>character\player</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player\PlayerMovement.h" />
-    <ClInclude Include="src\component\PhysicsMovement.h" />
-    <ClInclude Include="src\character\player\PlayerInput.h" />
-    <ClInclude Include="src\component\IMovement.h" />
     <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
-    <ClInclude Include="src\component\collider\PlayerCollider.h" />
-    <ClInclude Include="src\debug\GameParameter.h" />
-    <ClInclude Include="src\debug\DebugRegisterer.h" />
-    <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
-    <ClInclude Include="src\debug\DebugUIWrapper.h" />
-    <ClInclude Include="src\debug\DebugEntry.h" />
+    <ClInclude Include="src\math\HSV.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\ViewportUnits.hpp">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\strutl.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\DebugEntry.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\DebugRegisterer.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\DebugUIWrapper.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\PhysicsMovement.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\IMovement.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\collider\PlayerCollider.h">
+      <Filter>component\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerMovement.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerInput.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\GameParameter.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\ImGuiTextTemplate.h">
+      <Filter>debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
