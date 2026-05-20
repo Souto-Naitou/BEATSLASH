@@ -21,7 +21,7 @@ public:
     void Finalize();
 
     void Update();
-    void Draw1F();
+    void Draw();
     void ImGui();
 
     float GetFontSize() const { return fontSizeY_; }

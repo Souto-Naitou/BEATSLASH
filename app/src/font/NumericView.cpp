@@ -2,8 +2,12 @@
 #include <cmath>
 #include <cassert>
 #include <TextureManager.h>
+#include <EnginePaths.h>
+
+#ifdef _DEBUG
 #include <DebugUIManager.h>
 #include <imgui.h>
+#endif // _DEBUG
 
 void NumericView::Initialize(std::span<TextureHandleType> textureHandles, const std::string& name)
 {
@@ -55,7 +59,7 @@ void NumericView::Update()
     {
         uint32_t digit = number % 10;
         TextureHandleType handle = numberTextureHandles_[digit];
-        numberSprites_[digitCount - i - 1]->SetTextureHandle(handle);
+        numberSprites_[digitCount - i - 1]->SetTextureIndex(handle);
         /// サイズを設定
         const auto& metadata = Tako::TextureManager::GetInstance()->GetMetaData(handle);
         const float aspect = static_cast<float>(metadata.width) / static_cast<float>(metadata.height);
@@ -77,13 +81,13 @@ void NumericView::Update()
     }
 }
 
-void NumericView::Draw1F()
+void NumericView::Draw()
 {
     uint32_t digitCount = this->GetDigitCount();
     for (uint32_t i = 0; i < digitCount; ++i)
     {
         auto& sprite = numberSprites_[i];
-        sprite->Draw1F();
+        sprite->Draw();
     }
 }
 
@@ -95,7 +99,7 @@ void NumericView::ImGui()
     ImGui::DragFloat("FontLayout LetterSpacing", &fontLayout_.GetProperties().letterSpacing, 0.1f);
     ImGui::DragFloat2("FontLayout AnchorPoint", &fontLayout_.GetProperties().anchorPoint.x, 0.01f);
     ImGui::DragFloat("FontSize", &fontSizeY_, 0.01f, 1.0f, 1000.0f);
-    ImGui::DragInt("Current Number", reinterpret_cast<int*>(&currentNumber_), 1.0f, 0, 1000000);
+    ImGui::DragScalar("Current Number", ImGuiDataType_U32, &currentNumber_);
 
     #endif // _DEBUG
 }
@@ -113,7 +117,7 @@ void NumericView::SetColor(const Tako::Vector4& color)
 void NumericView::AddSprite()
 {
     auto sprite = std::make_unique<Tako::Sprite>();
-    sprite->Initialize(numberTextureHandles_[0]);
+    sprite->Initialize(Tako::EnginePaths::TexturePath("white.dds"));
     numberSprites_.emplace_back(std::move(sprite));
 }
 
