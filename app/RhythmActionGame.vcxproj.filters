@@ -72,10 +72,10 @@
     <ClCompile Include="src\font\NumericView.cpp">
       <Filter>font</Filter>
     </ClCompile>
-    <ClCompile Include="judge\InputTimingJudge.cpp">
+    <ClCompile Include="src\judge\InputTimingJudge.cpp">
       <Filter>judge</Filter>
     </ClCompile>
-    <ClCompile Include="combo\ComboSystem.cpp">
+    <ClCompile Include="src\combo\ComboSystem.cpp">
       <Filter>combo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -254,13 +254,13 @@
     <ClInclude Include="src\type\ColliderTypeID.h">
       <Filter>type</Filter>
     </ClInclude>
-    <ClInclude Include="judge\InputTimingJudge.h">
+    <ClInclude Include="src\judge\InputTimingJudge.h">
       <Filter>judge</Filter>
     </ClInclude>
-    <ClInclude Include="judge\JudgeResutl.h">
+    <ClInclude Include="src\judge\JudgeResutl.h">
       <Filter>judge</Filter>
     </ClInclude>
-    <ClInclude Include="combo\ComboSystem.h">
+    <ClInclude Include="src\combo\ComboSystem.h">
       <Filter>combo</Filter>
     </ClInclude>
   </ItemGroup>

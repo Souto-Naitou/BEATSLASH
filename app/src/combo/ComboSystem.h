@@ -1,12 +1,6 @@
 #pragma once
 #include <cstdint>
-
-enum class JudgeResult
-{// TODO : 仮
-    Miss,
-    Hit,
-    Critical
-};
+#include <judge/JudgeResutl.h>
 
 class ComboSystem
 {
