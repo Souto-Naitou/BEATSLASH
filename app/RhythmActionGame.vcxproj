@@ -30,6 +30,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="judge\InputTimingJudge.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
@@ -62,6 +63,8 @@
     <ClCompile Include="src\utility\strutl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="judge\InputTimingJudge.h" />
+    <ClInclude Include="judge\JudgeResutl.h" />
     <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
     <ClInclude Include="src\character\enemy\Enemy.h" />
