@@ -1,6 +1,8 @@
 #pragma once
 #include <Collider.h>
 
+/// コライダーの有効時間を管理するクラス
+/// 特定の時間だけコライダーを有効にしたい場合に使用する
 class ColliderTimer
 {
 public:

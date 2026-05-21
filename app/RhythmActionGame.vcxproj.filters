@@ -76,6 +76,7 @@
     <ClCompile Include="src\physics\ColliderTimer.cpp" />
     <ClCompile Include="src\character\player\PlayerAttack.cpp" />
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
+    <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -250,6 +251,7 @@
     <ClInclude Include="src\physics\ColliderTimer.h" />
     <ClInclude Include="src\character\player\PlayerAttack.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
+    <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
