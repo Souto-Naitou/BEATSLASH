@@ -72,8 +72,11 @@
     <ClCompile Include="src\font\NumericView.cpp">
       <Filter>font</Filter>
     </ClCompile>
-    <ClCompile Include="judge\InputTimingJudge.cpp">
+    <ClCompile Include="src\judge\InputTimingJudge.cpp">
       <Filter>judge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\combo\ComboSystem.cpp">
+      <Filter>combo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +133,9 @@
     </Filter>
     <Filter Include="judge">
       <UniqueIdentifier>{15c6ec17-99d5-4539-991d-621262fbf05c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="combo">
+      <UniqueIdentifier>{28c34510-f87a-467b-9e2c-98359f59b63d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -248,11 +254,14 @@
     <ClInclude Include="src\type\ColliderTypeID.h">
       <Filter>type</Filter>
     </ClInclude>
-    <ClInclude Include="judge\InputTimingJudge.h">
+    <ClInclude Include="src\judge\InputTimingJudge.h">
       <Filter>judge</Filter>
     </ClInclude>
-    <ClInclude Include="judge\JudgeResutl.h">
+    <ClInclude Include="src\judge\JudgeResutl.h">
       <Filter>judge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\combo\ComboSystem.h">
+      <Filter>combo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
