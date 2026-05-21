@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <character/enemy/Enemy.h>
+#include <physics/ColliderRepository.h>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -45,4 +46,5 @@ private: // メンバ変数
     std::unique_ptr<Player> pPlayer_; // !< プレイヤー
 	std::unique_ptr<Enemy> pEnemy_; // !< 敵
     std::unique_ptr<StageSequence> pStage_; // !< ステージクラスのインスタンス
+    ColliderRepository colliderRepository_; // !< コライダーリポジトリのインスタンス
 };

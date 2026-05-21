@@ -21,7 +21,7 @@ bool PlayerMovement::IsMove(float speedThreshold /*= 0.0f*/) const
 
 void PlayerMovement::UpdateByInput(float dt)
 {
-    const auto& inputData = pInput_->GetData();
+    const auto& inputData = pInput_->GetCommand();
     ApplyForce(inputData.move * movePower_);
     
     if (inputData.isJumpTriggered)

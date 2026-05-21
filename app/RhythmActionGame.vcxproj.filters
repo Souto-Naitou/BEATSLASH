@@ -72,6 +72,10 @@
     <ClCompile Include="src\font\NumericView.cpp">
       <Filter>font</Filter>
     </ClCompile>
+    <ClCompile Include="src\physics\ColliderRepository.cpp" />
+    <ClCompile Include="src\physics\ColliderTimer.cpp" />
+    <ClCompile Include="src\character\player\PlayerAttack.cpp" />
+    <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -236,6 +240,10 @@
     <ClInclude Include="src\font\NumericView.h">
       <Filter>font</Filter>
     </ClInclude>
+    <ClInclude Include="src\physics\ColliderRepository.h" />
+    <ClInclude Include="src\physics\ColliderTimer.h" />
+    <ClInclude Include="src\character\player\PlayerAttack.h" />
+    <ClInclude Include="src\utility\DeltaTimeManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -54,6 +54,9 @@ void GameScene::Initialize()
     //obj3d->SetSceneCenter(Vector3(0.0f, 0.0f, 0.0f));  // デフォルト値
     obj3d->SetAutoUpdatePosition(true);  // デフォルト値
 
+    // コライダーの解放
+    colliderRepository_.RemoveIfNotActive();
+
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 }
