@@ -8,7 +8,7 @@
 class PlayerInput
 {
 public:
-    struct Data
+    struct PlayerCommand
     {
         // 移動方向ベクトル (PlayerInput::Update()で正規化済み)
         Tako::Vector3   move = {};
@@ -27,11 +27,11 @@ public:
     void Update();
     void ImGui();
 
-    bool            IsGamepadMode() const { return isGamepadMode_; }
-    const Data&     GetData() const { return data_; }
+    bool                    IsGamepadMode() const { return isGamepadMode_; }
+    const PlayerCommand&    GetCommand() const { return data_; }
 
 private:
     bool isGamepadMode_ = false;
     Tako::Input* pInput_ = nullptr;
-    Data data_ = {};
+    PlayerCommand data_ = {};
 };

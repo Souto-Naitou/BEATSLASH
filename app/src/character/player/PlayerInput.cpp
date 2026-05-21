@@ -16,7 +16,7 @@ void PlayerInput::Initialize()
 void PlayerInput::Update()
 {
     // 前回の入力データ
-    PlayerInput::Data preData = data_;
+    PlayerInput::PlayerCommand preData = data_;
     data_ = {};
 
     /// [ ゲームパッドモードの切り替え ]
