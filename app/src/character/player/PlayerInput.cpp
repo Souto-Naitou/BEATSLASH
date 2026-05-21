@@ -39,7 +39,6 @@ void PlayerInput::Update()
         data_.isJumpPressed = false;
         data_.jumpHoldTime = 0.0f;
     }
-
 }
 
 void PlayerInput::ImGui()

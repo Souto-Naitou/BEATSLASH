@@ -1,7 +1,7 @@
 #include "stage.h"
 #include <CollisionManager.h>
 #include <Model.h>
-
+#include <type/ColliderTypeID.h>
 Stage::~Stage()
 {
     for (auto& col : colliders_)
@@ -36,7 +36,7 @@ void Stage::Initialize(const StageData& stageData)
         auto col = std::make_unique<Tako::OBBCollider>();
         col->SetSize(floorTf.scale * cubeDefaultSize);
         col->SetOwner(this);
-        col->SetTypeID(200); // TODO : enum
+        col->SetTypeID(static_cast<int32_t>(ColliderTypeID::Terrain));
         col->SetTransform(&stageData_.floorTransform[i]); // stageData_ のアドレスを参照
         Tako::CollisionManager::GetInstance()->AddCollider(col.get());
         colliders_.push_back(std::move(col));

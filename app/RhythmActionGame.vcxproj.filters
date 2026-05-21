@@ -126,6 +126,9 @@
     <Filter Include="font">
       <UniqueIdentifier>{76af38af-8199-4fd9-baa5-db56e7cb8ce3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="type">
+      <UniqueIdentifier>{71a08c4d-f014-41cc-8aba-4f80d48204fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\factory\SceneFactory.h">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="src\font\NumericView.h">
       <Filter>font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\type\ColliderTypeID.h">
+      <Filter>type</Filter>
     </ClInclude>
     <ClInclude Include="src\physics\ColliderRepository.h" />
     <ClInclude Include="src\physics\ColliderTimer.h" />

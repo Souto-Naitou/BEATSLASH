@@ -104,6 +104,7 @@
     <ClInclude Include="src\stage\StageTransitionCollider.h" />
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />
+    <ClInclude Include="src\type\ColliderTypeID.h" />
     <ClInclude Include="src\utility\CollisionUtility.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
     <ClInclude Include="src\utility\strutl.h" />
