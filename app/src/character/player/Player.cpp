@@ -66,7 +66,7 @@ void Player::Update()
 
     if (pAttackTrigger_->ShouldAttack(pInput_->GetCommand()))
     {
-        attackSystem_.SpawnPlayerAttack();
+        attackRepository_.CreatePlayerAttack(transform_.translate);
     }
 
     // モデルの更新

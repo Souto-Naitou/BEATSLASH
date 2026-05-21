@@ -12,11 +12,12 @@
 #include <Transform.h>
 #include <component/collider/PlayerCollider.h>
 #include <physics/ColliderRepository.h>
+#include <entity/attack/AttackRepository.h>
 
 class Player : public ICharacter
 {
 public:
-    Player(ColliderRepository& colliderRepository) : colliderRepository_(colliderRepository) {}
+    Player(ColliderRepository& colliderRepository, AttackRepository& attackRepository) : colliderRepository_(colliderRepository), attackRepository_(attackRepository) {}
     void Initialize() override;
     void Finalize();
     void Update() override;
@@ -46,4 +47,5 @@ private:
 
     /// 参照
     ColliderRepository& colliderRepository_; // コライダーリポジトリの参照
+    AttackRepository& attackRepository_;     // 攻撃リポジトリの参照
 };
