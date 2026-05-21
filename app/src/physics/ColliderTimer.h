@@ -4,12 +4,14 @@
 class ColliderTimer
 {
 public:
-    ColliderTimer(Tako::Collider* pCollider) : pCollider_(pCollider) {}
     void Enable(float activeTime);
     void UpdateTime();
+    void UpdateColliderState(Tako::Collider* pCollier);
+
+    bool IsActive() const { return isActive_; }
 
 private:
     float           activeTime_     = 0.0f;     // コライダーが有効な時間
-    float           elapsedTime_    = 0.0f;     // コライダーが生成されてからの経過時間
-    Tako::Collider* pCollider_      = nullptr;
+    float           elapsedTime_    = 0.0f;     // 経過時間
+    bool            isActive_       = false;
 };
