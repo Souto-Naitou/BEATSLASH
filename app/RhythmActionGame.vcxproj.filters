@@ -72,6 +72,9 @@
     <ClCompile Include="src\font\NumericView.cpp">
       <Filter>font</Filter>
     </ClCompile>
+    <ClCompile Include="judge\InputTimingJudge.cpp">
+      <Filter>judge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -124,6 +127,9 @@
     </Filter>
     <Filter Include="type">
       <UniqueIdentifier>{71a08c4d-f014-41cc-8aba-4f80d48204fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="judge">
+      <UniqueIdentifier>{15c6ec17-99d5-4539-991d-621262fbf05c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +247,12 @@
     </ClInclude>
     <ClInclude Include="src\type\ColliderTypeID.h">
       <Filter>type</Filter>
+    </ClInclude>
+    <ClInclude Include="judge\InputTimingJudge.h">
+      <Filter>judge</Filter>
+    </ClInclude>
+    <ClInclude Include="judge\JudgeResutl.h">
+      <Filter>judge</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
