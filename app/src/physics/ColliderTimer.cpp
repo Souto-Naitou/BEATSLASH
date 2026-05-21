@@ -1,5 +1,4 @@
 #include "ColliderTimer.h"
-#include <FrameTimer.h>
 
 
 
@@ -9,17 +8,18 @@ void ColliderTimer::Enable(float activeTime)
     isActive_ = true;
 }
 
-void ColliderTimer::UpdateTime()
+void ColliderTimer::Update(float deltaTime)
 {
-    elapsedTime_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
+    if (!isActive_)
+    {
+        return;
+    }
+
+    elapsedTime_ += deltaTime;
+
     if (elapsedTime_ >= activeTime_)
     {
         elapsedTime_ = 0.0f; // タイマーをリセット
         isActive_ = false;
     }
-}
-
-void ColliderTimer::UpdateColliderState(Tako::Collider* pCollier)
-{
-    pCollier->SetActive(isActive_);
 }

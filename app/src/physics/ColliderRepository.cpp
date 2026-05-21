@@ -1,10 +1,11 @@
 #include "ColliderRepository.h"
+#include <utility>
 
 
 
-Tako::Collider* ColliderRepository::AddCollider()
+Tako::Collider* ColliderRepository::AddCollider(std::unique_ptr<Tako::Collider> pCollider)
 {
-    return colliders_.emplace_back(std::make_unique<Tako::Collider>()).get();
+    return colliders_.emplace_back(std::move(pCollider)).get();
 }
 
 void ColliderRepository::RemoveIfNotActive()

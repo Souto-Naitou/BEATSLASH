@@ -2,12 +2,6 @@
 
 
 
-void PlayerAttackCollider::Update()
-{
-    pColliderTimer_->UpdateTime();
-    pColliderTimer_->UpdateColliderState(this);
-}
-
 void PlayerAttackCollider::OnCollisionEnter(Collider* other)
 {
 }

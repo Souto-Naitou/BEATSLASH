@@ -9,10 +9,12 @@
 #include <memory>
 #include <Transform.h>
 #include <component/collider/PlayerCollider.h>
+#include <physics/ColliderRepository.h>
 
 class Player : public ICharacter
 {
 public:
+    Player(ColliderRepository& colliderRepository) : colliderRepository_(colliderRepository) {}
     void Initialize() override;
     void Finalize();
     void Update() override;
@@ -37,4 +39,7 @@ private:
     GameParameterView(Tako::Transform,  transform_, {});    // キャラクターのトランスフォーム
 
     std::unique_ptr<PlayerCollider>     pCollider_;         // プレイヤーのコライダー
+
+    /// 参照
+    ColliderRepository& colliderRepository_; // コライダーリポジトリの参照
 };

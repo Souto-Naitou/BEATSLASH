@@ -8,7 +8,7 @@
 class ColliderRepository
 {
 public:
-    Tako::Collider* AddCollider();
+    Tako::Collider* AddCollider(std::unique_ptr<Tako::Collider> pCollider);
     void RemoveIfNotActive();
     void Clear() { colliders_.clear(); }
 

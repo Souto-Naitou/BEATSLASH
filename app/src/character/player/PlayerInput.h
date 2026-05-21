@@ -18,6 +18,8 @@ public:
         bool            isJumpPressed = false;
         // ジャンプボタンを押し続けている時間
         float           jumpHoldTime = 0.0f;
+        // 攻撃のトリガー状態
+        bool            isAttackTriggered = false;
     };
 
     PlayerInput() = default;
