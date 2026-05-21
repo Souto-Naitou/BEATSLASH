@@ -37,6 +37,7 @@
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
     <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
+    <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
     <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
     <ClCompile Include="src\font\FontLayout.cpp" />
     <ClCompile Include="src\font\NumericView.cpp">
@@ -91,6 +92,7 @@
     <ClInclude Include="src\debug\DebugUIWrapper.h" />
     <ClInclude Include="src\debug\GameParameter.h" />
     <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
+    <ClInclude Include="src\entity\attack\AttackRepository.h" />
     <ClInclude Include="src\entity\attack\PlayerAttack.h" />
     <ClInclude Include="src\font\FontLayout.h" />
     <ClInclude Include="src\font\NumericView.h" />

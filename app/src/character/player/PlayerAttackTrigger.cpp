@@ -1,14 +1,13 @@
 #include "PlayerAttackTrigger.h"
-#include <component/collider/PlayerAttackCollider.h>
 
 
 
-void PlayerAttackTrigger::Update(const PlayerInput::PlayerCommand& command)
+bool PlayerAttackTrigger::ShouldAttack(const PlayerInput::PlayerCommand& command)
 {
-    if (command.isAttackTriggered)
-    {
-        /// コライダーの生成
-        auto pAttackCollider = std::make_unique<PlayerAttackCollider>();
-        /// コライダーリポジトリに追加
-    }
+    // 攻撃ボタンが押されているか
+    bool isAttackKeyTriggered = command.isAttackTriggered;
+    // クールタイムが終了しているか
+    bool isCooldownOver = true; // TODO: クールタイムの管理を実装する
+
+    return isAttackKeyTriggered && isCooldownOver;
 }

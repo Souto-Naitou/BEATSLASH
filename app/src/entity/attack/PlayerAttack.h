@@ -1,15 +1,23 @@
 #pragma once
-#include <component/collider/PlayerAttackCollider.h>
 #include <physics/ColliderTimer.h>
 #include <physics/ColliderRepository.h>
+#include <debug/GameParameter.h>
+
+#include <Transform.h>
+#include <Collider.h>
 
 class PlayerAttack
 {
 public:
-    PlayerAttack(ColliderRepository& colliderRepository);
+    PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position);
     void Update(float deltaTime);
 
 private:
-    Tako::Collider* pCollider_      = nullptr;      // 攻撃用コライダー
-    ColliderTimer   colliderTimer_  = {};           // コライダーの有効時間管理
+    EnableDebug("PlayerAttack");
+
+    GameParameter(float, kColliderActiveTime_, 0.5f);   // コライダーの有効時間
+    GameParameterView(Tako::Transform, transform_, {}); // 攻撃のトランスフォーム（デバッグ表示用）
+
+    Tako::Collider* pCollider_      = nullptr;          // 攻撃用コライダー
+    ColliderTimer   colliderTimer_  = {};               // コライダーの有効時間管理
 };

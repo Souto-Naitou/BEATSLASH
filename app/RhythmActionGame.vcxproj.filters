@@ -78,6 +78,7 @@
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
     <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
     <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
+    <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -254,6 +255,7 @@
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
     <ClInclude Include="src\entity\attack\PlayerAttack.h" />
+    <ClInclude Include="src\entity\attack\AttackRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

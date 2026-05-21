@@ -9,5 +9,5 @@
 class PlayerAttackTrigger
 {
 public:
-    void Update(const PlayerInput::PlayerCommand& command);
+    bool ShouldAttack(const PlayerInput::PlayerCommand& command);
 };
