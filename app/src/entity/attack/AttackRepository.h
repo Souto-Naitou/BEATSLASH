@@ -11,11 +11,14 @@ class AttackRepository
 public:
     AttackRepository(ColliderRepository& c) : colliderRepository_(c) {}
 
+    /// <summary>
+    /// 攻撃の更新
+    /// </summary>
     void Update();
 
     void CreatePlayerAttack(const Tako::Vector3& position);
 
 private:
-    std::vector<std::unique_ptr<PlayerAttack>> playerAttacks_;
+    std::vector<std::unique_ptr<PlayerAttack>> playerAttacks_ = {};
     ColliderRepository& colliderRepository_;
 };

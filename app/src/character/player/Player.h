@@ -17,7 +17,7 @@
 class Player : public ICharacter
 {
 public:
-    Player(ColliderRepository& colliderRepository, AttackRepository& attackRepository) : colliderRepository_(colliderRepository), attackRepository_(attackRepository) {}
+    Player(AttackRepository& attackRepository) : attackRepository_(attackRepository) {}
     void Initialize() override;
     void Finalize();
     void Update() override;
@@ -46,6 +46,5 @@ private:
     GameParameterView(Tako::Transform,  transform_, {});        // キャラクターのトランスフォーム
 
     /// 参照
-    ColliderRepository& colliderRepository_; // コライダーリポジトリの参照
     AttackRepository& attackRepository_;     // 攻撃リポジトリの参照
 };

@@ -1,11 +1,14 @@
 #include "ColliderRepository.h"
 #include <utility>
+#include <CollisionManager.h>
 
 
 
 Tako::Collider* ColliderRepository::AddCollider(std::unique_ptr<Tako::Collider> pCollider)
 {
-    return colliders_.emplace_back(std::move(pCollider)).get();
+    const auto& newCollider = colliders_.emplace_back(std::move(pCollider)).get();
+    Tako::CollisionManager::GetInstance()->AddCollider(newCollider);
+    return newCollider;
 }
 
 void ColliderRepository::RemoveIfNotActive()
