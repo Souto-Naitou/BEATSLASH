@@ -40,6 +40,7 @@ void Enemy::Initialize()
 	// コライダーをマネージャーに登録
 	Tako::CollisionManager::GetInstance()->AddCollider(pCollider_.get());
 	Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
+	Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
 	// デバッグUIの登録
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });

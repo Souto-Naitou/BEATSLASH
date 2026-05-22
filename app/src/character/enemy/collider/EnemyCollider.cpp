@@ -5,7 +5,7 @@
 void EnemyCollider::OnCollisionEnter(Collider* other)
 {
 	ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
-	if (otherID == ColliderTypeID::Player)
+	if (otherID == ColliderTypeID::Player || otherID == ColliderTypeID::Terrain)
 	{
 		// プレイヤーに当たったら一旦押し戻しを行う
 		Tako::Vector3 pushback = CollisionUtility::CalcPushback(this, other);
@@ -20,7 +20,7 @@ void EnemyCollider::OnCollisionEnter(Collider* other)
 void EnemyCollider::OnCollisionStay(Collider* other)
 {
 	ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
-	if (otherID == ColliderTypeID::Player)
+	if (otherID == ColliderTypeID::Player || otherID == ColliderTypeID::Terrain)
 	{
 		// プレイヤーに当たったら一旦押し戻しを行う
 		Tako::Vector3 pushback = CollisionUtility::CalcPushback(this, other);
