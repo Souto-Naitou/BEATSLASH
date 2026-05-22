@@ -43,6 +43,11 @@ void GameScene::Initialize()
     pPlayer_ = std::make_unique<Player>(*pAttackRepository_);
     pPlayer_->Initialize();
 
+    /// カメラの初期化
+    pFollowCamera_ = std::make_unique<FollowCamera>();
+    pFollowCamera_->Initialize();
+    pFollowCamera_->SetTarget(&pPlayer_->GetTransform());
+
     // 敵の初期化
 	pEnemy_ = std::make_unique<Enemy>();
 	pEnemy_->Initialize();
@@ -85,6 +90,8 @@ void GameScene::Update()
     pAttackRepository_->Update();
     // 非アクティブのコライダーを削除
     colliderRepository_.RemoveIfNotActive();
+
+    pFollowCamera_->Update();
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {

@@ -93,6 +93,8 @@
     <ClCompile Include="src\entity\attack\AttackRepository.cpp">
       <Filter>entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\FollowCamera.cpp" />
+    <ClCompile Include="src\character\player\CameraInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -296,6 +298,8 @@
     <ClInclude Include="src\entity\attack\AttackRepository.h">
       <Filter>entity</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\player\FollowCamera.h" />
+    <ClInclude Include="src\character\player\CameraInput.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

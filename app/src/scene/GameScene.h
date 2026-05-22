@@ -8,6 +8,7 @@
 #include <character/enemy/Enemy.h>
 #include <physics/ColliderRepository.h>
 #include <entity/attack/AttackRepository.h>
+#include <character/player/FollowCamera.h>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -48,5 +49,6 @@ private: // メンバ変数
 	std::unique_ptr<Enemy> pEnemy_; // !< 敵
     std::unique_ptr<StageSequence> pStage_; // !< ステージクラスのインスタンス
     std::unique_ptr<AttackRepository> pAttackRepository_; // !< コライダーリポジトリのインスタンス
+    std::unique_ptr<FollowCamera> pFollowCamera_; // !< カメラクラスのインスタンス
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
 };
