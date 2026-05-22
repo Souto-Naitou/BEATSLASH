@@ -6,17 +6,19 @@
 #include "EnemyIdleState.h"
 #include "EnemyChaseState.h"
 
+class ICharacter;
+
 class EnemyStateFactory
 {
 public:
-	static std::unique_ptr<EnemyState> Create(EnemyStateType type)
+	static std::unique_ptr<EnemyState> Create(EnemyStateType type, const ICharacter* target)
 	{
 		switch (type)
 		{
 		case EnemyStateType::Idle:
 			return std::make_unique<EnemyIdleState>();
 		case EnemyStateType::Chase:
-			return std::make_unique<EnemyChaseState>();
+			return std::make_unique<EnemyChaseState>(target);
 		case EnemyStateType::Attack:
 			//return std::make_unique<AttackState>();
 		case EnemyStateType::Dead:

@@ -26,6 +26,21 @@ public:
     void Draw() override;
     void RegisterCallbacks();
 
+    /**
+     * @brief 座標の取得
+     */
+    const Tako::Vector3& GetPosition() const override { return transform_.translate; }
+
+	/**
+	 * @brief スケールの取得
+	 */
+	const Tako::Vector3& GetScale() const override { return transform_.scale; }
+
+	/**
+	 * @brief 回転の取得
+	 */
+	const Tako::Vector3& GetRotation() const override { return transform_.rotate; }
+
     void SetComboBuffSystem(ComboBuffSystem* comboBuffSystem) { pComboBuffSystem_ = comboBuffSystem; }
 private:
     void InitializeComponents();
@@ -45,13 +60,9 @@ private:
     std::unique_ptr<PlayerAttackTrigger>    pAttackTrigger_;    // プレイヤーの攻撃トリガー
     std::unique_ptr<PlayerCollider>         pCollider_;         // プレイヤーのコライダー
 
-
-    /// コールバック
-    std::function<void(void)> onAttackCallback_;   // 攻撃コールバック
-    std::function<void(void)> onDamageCallback_;   // ダメージコールバック
-
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});        // キャラクターのトランスフォーム
+    GameParameterView(Tako::Vector3, directionAtackSpawning, {}); // 攻撃生成の方向（デバッグ表示用）
 
     /// 参照
     AttackRepository& attackRepository_;     // 攻撃リポジトリの参照

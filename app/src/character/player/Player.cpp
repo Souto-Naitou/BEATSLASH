@@ -3,6 +3,7 @@
 #include <FrameTimer.h>
 #include <type/ColliderTypeID.h>
 #include <CollisionManager.h>
+#include <math/VectorMath.h>
 
 #ifdef _DEBUG
 #include <debug/DebugRegisterer.h>
@@ -63,14 +64,25 @@ void Player::Update()
 
     // 入力の更新
     pInput_->Update();
+    auto& inputCommand = pInput_->GetCommand();
     // 移動の更新
     pMovement_->ApplyFriction(kFrictionPower_);
     pMovement_->ApplyGravity(kMass_, deltaTime);
     pMovement_->Update(transform_, deltaTime);
 
-    if (pAttackTrigger_->ShouldAttack(pInput_->GetCommand()))
+    /// 移動しているときだけ向きを変える
+    /// TODO: クラスに分離する
+    if (inputCommand.move.LengthSquared() > 0.01f)
     {
-        attackRepository_.CreatePlayerAttack(transform_.translate,nullptr);
+        float angle = VectorToAngle(inputCommand.move);
+        transform_.rotate.y = angle;
+        directionAtackSpawning = inputCommand.move;
+    }
+    if (pAttackTrigger_->ShouldAttack(inputCommand))
+    {
+        Tako::Vector3 targetPos = transform_.translate;
+        targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
+        attackRepository_.CreatePlayerAttack(targetPos, pComboBuffSystem_);
     }
 
     // モデルの更新

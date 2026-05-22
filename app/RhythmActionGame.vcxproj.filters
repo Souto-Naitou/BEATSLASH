@@ -72,13 +72,27 @@
     <ClCompile Include="src\font\NumericView.cpp">
       <Filter>font</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ColliderRepository.cpp" />
-    <ClCompile Include="src\physics\ColliderTimer.cpp" />
-    <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
-    <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
-    <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
-    <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
-    <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
+    <ClCompile Include="src\entity\attack\PlayerAttack.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp">
+      <Filter>component\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\ColliderTimer.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\ColliderRepository.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\DeltaTimeManager.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\attack\AttackRepository.cpp">
+      <Filter>entity</Filter>
+    </ClCompile>
     <ClCompile Include="src\judge\InputTimingJudge.cpp">
       <Filter>judge</Filter>
     </ClCompile>
@@ -146,6 +160,15 @@
     </Filter>
     <Filter Include="combo">
       <UniqueIdentifier>{28c34510-f87a-467b-9e2c-98359f59b63d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity">
+      <UniqueIdentifier>{6d176c77-5985-4159-89e8-ddebbcd5202c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity\attack">
+      <UniqueIdentifier>{e784fc97-0b28-4223-a8e2-81d143c61474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="physics">
+      <UniqueIdentifier>{bff4f956-d1a3-4d10-8537-1b3bbd84287b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -264,13 +287,6 @@
     <ClInclude Include="src\type\ColliderTypeID.h">
       <Filter>type</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ColliderRepository.h" />
-    <ClInclude Include="src\physics\ColliderTimer.h" />
-    <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
-    <ClInclude Include="src\utility\DeltaTimeManager.h" />
-    <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
-    <ClInclude Include="src\entity\attack\PlayerAttack.h" />
-    <ClInclude Include="src\entity\attack\AttackRepository.h" />
     <ClInclude Include="src\judge\InputTimingJudge.h">
       <Filter>judge</Filter>
     </ClInclude>
@@ -282,6 +298,30 @@
     </ClInclude>
     <ClInclude Include="src\combo\ComboBuffSystem.h">
       <Filter>combo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\attack\PlayerAttack.h">
+      <Filter>entity\attack</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerAttackTrigger.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\VectorMath.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\collider\PlayerAttackCollider.h">
+      <Filter>component\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\ColliderTimer.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\ColliderRepository.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\DeltaTimeManager.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\attack\AttackRepository.h">
+      <Filter>entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

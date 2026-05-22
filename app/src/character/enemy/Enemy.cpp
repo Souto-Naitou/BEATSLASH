@@ -4,6 +4,11 @@
 #include <imgui.h>
 #include <DebugUIManager.h>
 
+Enemy::Enemy(const ICharacter* target)
+	: pTarget_(target)
+{
+}
+
 void Enemy::Initialize()
 {
 	// モデルの初期化
@@ -36,7 +41,7 @@ void Enemy::Initialize()
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
 	
 	// ステートの初期化。｛　待機状態、　｝
-	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this);
+	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this, pTarget_);
 }
 
 void Enemy::Update()

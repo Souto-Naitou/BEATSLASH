@@ -44,8 +44,8 @@ void GameScene::Initialize()
     pPlayer_->Initialize();
 
     // 敵の初期化
-    pEnemy_ = std::make_unique<Enemy>();
-    pEnemy_->Initialize();
+	pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
+	pEnemy_->Initialize();
 
     const float BPM = 120.0f;
     pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
@@ -153,7 +153,7 @@ void GameScene::DrawWithoutEffect()
     //-------------------Modelの描画-------------------//
     // 3Dモデル共通描画設定
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
-
+        
 
 
 
