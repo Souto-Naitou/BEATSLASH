@@ -35,7 +35,10 @@
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
-    <ClCompile Include="src\character\player\PlayerAttack.cpp" />
+    <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
+    <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
+    <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
+    <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
     <ClCompile Include="src\font\FontLayout.cpp" />
     <ClCompile Include="src\font\NumericView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -77,9 +80,10 @@
     <ClInclude Include="src\character\enemy\state\EnemyStateType.h" />
     <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h" />
     <ClInclude Include="src\character\player\Player.h" />
-    <ClInclude Include="src\character\player\PlayerAttack.h" />
+    <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
     <ClInclude Include="src\character\player\PlayerInput.h" />
     <ClInclude Include="src\character\player\PlayerMovement.h" />
+    <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
     <ClInclude Include="src\component\collider\PlayerCollider.h" />
     <ClInclude Include="src\component\IMovement.h" />
     <ClInclude Include="src\component\PhysicsMovement.h" />
@@ -88,6 +92,8 @@
     <ClInclude Include="src\debug\DebugUIWrapper.h" />
     <ClInclude Include="src\debug\GameParameter.h" />
     <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
+    <ClInclude Include="src\entity\attack\AttackRepository.h" />
+    <ClInclude Include="src\entity\attack\PlayerAttack.h" />
     <ClInclude Include="src\font\FontLayout.h" />
     <ClInclude Include="src\font\NumericView.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />

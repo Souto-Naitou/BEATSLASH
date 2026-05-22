@@ -21,7 +21,7 @@ void Player::Initialize()
     pModel_->SetMaterialColor({ 0.1f, 0.8f, 0.1f, 1.0f });  // 緑色のマテリアルカラーを設定
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
     pModel_->SetScale({ 0.75f, 2.0f, 0.75f });              // スケールを設定
-    pModel_->SetTranslate({ 0.0f, 20.0f, 0.0f });            // 初期位置を設定
+    pModel_->SetTranslate({ 0.0f, 20.0f, 0.0f });           // 初期位置を設定
 
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
@@ -34,15 +34,16 @@ void Player::Initialize()
     pCollider_->SetTransform(&transform_);
     pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Player));
     pCollider_->SetPushBackCallback([this](const Tako::Vector3& pushBack)
-                                    {
-                                        transform_.translate += pushBack;
-                                        if(pushBack.y > 0)
-                                        {
-                                            pMovement_->ResetVelocityY();
-                                        }
-                                        pModel_->SetTransform(transform_);
-                                        pModel_->Update();
-                                    });
+    {
+        transform_.translate += pushBack;
+        if (pushBack.y > 0)
+        {
+            pMovement_->ResetVelocityY();
+        }
+        pModel_->SetTransform(transform_);
+        pModel_->Update();
+    });
+
     Tako::CollisionManager::GetInstance()->AddCollider(pCollider_.get());
     Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 }
@@ -63,10 +64,9 @@ void Player::Update()
     pMovement_->ApplyGravity(kMass_, deltaTime);
     pMovement_->Update(transform_, deltaTime);
 
-    if (transform_.translate.y < 4.0f) // 地面に落ちないように最低限の高さを確保
+    if (pAttackTrigger_->ShouldAttack(pInput_->GetCommand()))
     {
-        //transform_.translate.y = 4.0f;
-        //pMovement_->ResetVelocityY();
+        attackRepository_.CreatePlayerAttack(transform_.translate);
     }
 
     // モデルの更新
@@ -81,19 +81,19 @@ void Player::Draw()
 
 void Player::RegisterCallbacks()
 {
-#ifdef _DEBUG
+    #ifdef _DEBUG
 
     kMovePower_.SetOnChange([this](const float newval)
-                            {
-                                pMovement_->SetMovePower(newval);
-                            });
+    {
+        pMovement_->SetMovePower(newval);
+    });
 
     kJumpPower_.SetOnChange([this](const float newval)
-                            {
-                                pMovement_->SetJumpPower(newval);
-                            });
+    {
+        pMovement_->SetJumpPower(newval);
+    });
 
-#endif // _DEBUG
+    #endif // _DEBUG
 }
 
 void Player::InitializeComponents()

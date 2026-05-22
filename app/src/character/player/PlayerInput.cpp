@@ -39,6 +39,8 @@ void PlayerInput::Update()
         data_.isJumpPressed = false;
         data_.jumpHoldTime = 0.0f;
     }
+    // 攻撃
+    data_.isAttackTriggered = pInput_->TriggerMouse(0);
 }
 
 void PlayerInput::ImGui()

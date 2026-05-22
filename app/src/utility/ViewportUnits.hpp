@@ -1,5 +1,5 @@
 #pragma once
-#include <Core/Window/Window.h>
+#include <WinApp.h>
 
 /// <summary>
 /// ビューポート単位（vw, vh）を表す型とリテラル演算子群。
@@ -12,7 +12,7 @@ namespace Math::Viewport::Unit
     public:
         explicit vw(long double v)
             : value(static_cast<float>(
-                static_cast<long double>(Window::clientWidth)* v / 100.0l))
+                static_cast<long double>(Tako::WinApp::clientWidth)* v / 100.0l))
         {
         }
 
@@ -27,7 +27,7 @@ namespace Math::Viewport::Unit
     public:
         explicit vh(long double v)
             : value(static_cast<float>
-                (static_cast<long double>(Window::clientHeight)* v / 100.0l))
+                (static_cast<long double>(Tako::WinApp::clientHeight)* v / 100.0l))
         {
         }
 

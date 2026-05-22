@@ -74,8 +74,11 @@
     </ClCompile>
     <ClCompile Include="src\physics\ColliderRepository.cpp" />
     <ClCompile Include="src\physics\ColliderTimer.cpp" />
-    <ClCompile Include="src\character\player\PlayerAttack.cpp" />
+    <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
+    <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
+    <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
+    <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -248,8 +251,11 @@
     </ClInclude>
     <ClInclude Include="src\physics\ColliderRepository.h" />
     <ClInclude Include="src\physics\ColliderTimer.h" />
-    <ClInclude Include="src\character\player\PlayerAttack.h" />
+    <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
+    <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
+    <ClInclude Include="src\entity\attack\PlayerAttack.h" />
+    <ClInclude Include="src\entity\attack\AttackRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
