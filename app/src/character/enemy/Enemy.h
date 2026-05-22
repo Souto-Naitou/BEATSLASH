@@ -2,7 +2,7 @@
 #include <character/ICharacter.h>
 #include <character/enemy/state/EnemyStateMachine.h>
 #include <Object3d.h>
-#include <character/CharacterCollider.h>
+#include <character/enemy/collider/EnemyCollider.h>
 
 class Enemy : public ICharacter
 {
@@ -51,7 +51,7 @@ private:
 	// トランスフォーム
 	Tako::Transform transform_;
 	// コライダー
-	std::unique_ptr<CharacterCollider> pCollider_;
+	std::unique_ptr<EnemyCollider> pCollider_;
 	// 敵のステートマシン
 	EnemyStateMachine stateMachine_;
 	// ターゲット（所有しない）

@@ -3,11 +3,11 @@
 #include <Input.h>
 #include <imgui.h>
 #include <DebugUIManager.h>
+#include <type/ColliderTypeID.h>
 
 Enemy::Enemy(const ICharacter* target)
 	: pTarget_(target)
-{
-}
+{}
 
 void Enemy::Initialize()
 {
@@ -15,9 +15,9 @@ void Enemy::Initialize()
 	pModel_ = std::make_unique<Tako::Object3d>();
 	pModel_->Initialize();
 	pModel_->SetModel("white_cube.gltf");
-	pModel_->SetTransform(Tako::Transform());
 	pModel_->SetMaterialColor({ 0,256,0,256 });
 	pModel_->SetEnableLighting(true);
+	pModel_->SetScale({ 1.0f, 1.0f, 1.0f });
 
 	// トランスフォームの初期化
 	transform_ = pModel_->GetTransform();
@@ -28,18 +28,23 @@ void Enemy::Initialize()
 	};
 
 	// コライダーの初期化
-	pCollider_ = std::make_unique<CharacterCollider>();
-	pCollider_->SetSize({ 1.0f, 1.0f, 1.0f });
+	pCollider_ = std::make_unique<EnemyCollider>();
+	pCollider_->SetSize(pModel_->GetScale() * 3.0f);
 	pCollider_->SetOwner(this);
-	pCollider_->SetTypeID(static_cast<uint32_t>(CharacterColliderID::Enemy));
+	pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Enemy));
 	pCollider_->SetTransform(&transform_);
+	pCollider_->SetPushBackCallback([this](const Tako::Vector3& pushBack) {
+		transform_.translate += pushBack;
+									});
 
 	// コライダーをマネージャーに登録
-	//CollisionManager::GetInstance()->AddCollider(pCollider_.get());
+	Tako::CollisionManager::GetInstance()->AddCollider(pCollider_.get());
+	Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
+	Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
 	// デバッグUIの登録
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
-	
+
 	// ステートの初期化。｛　待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this, pTarget_);
 }
@@ -65,12 +70,12 @@ void Enemy::Draw()
 
 void Enemy::ChangeState()
 {
-	if(Tako::Input::GetInstance()->PushKey(DIK_1))
+	if (Tako::Input::GetInstance()->PushKey(DIK_1))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Idle);
 		pModel_->SetMaterialColor({ 0,256,0,256 });
 	}
-	if(Tako::Input::GetInstance()->PushKey(DIK_2))
+	if (Tako::Input::GetInstance()->PushKey(DIK_2))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Chase);
 		pModel_->SetMaterialColor({ 256,0,0,256 });
