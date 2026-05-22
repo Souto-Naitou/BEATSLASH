@@ -40,7 +40,7 @@ void GameScene::Initialize()
     pPlayer_->Initialize();
 
     // 敵の初期化
-	pEnemy_ = std::make_unique<Enemy>();
+	pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
 	pEnemy_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();

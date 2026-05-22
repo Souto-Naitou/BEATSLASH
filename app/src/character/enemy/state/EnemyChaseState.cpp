@@ -3,29 +3,34 @@
 #include <FrameTimer.h>
 #include <imgui.h>
 
+EnemyChaseState::EnemyChaseState(const ICharacter* target)
+	: pTarget_(target)
+{
+}
+
 void EnemyChaseState::Enter(Enemy* enemy)
 {
-	if(!pInput_)
-	{
-		pInput_ = Tako::Input::GetInstance();
-	}
+	// 処理なし
 }
 
 void EnemyChaseState::Update(Enemy* enemy)
 {
-	// ターゲットの座標を更新
-	TargetUpdate();
-
 	// デルタタイムの取得
 	float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
 	// 自身とターゲットの座標を取得
-	// NOTE: ターゲットは一旦ローカル変数で座標を指定しておく。
 	Tako::Vector3 currentPos = enemy->GetPosition();	
-	//Tako::Vector3 targetPos = player->GetPosition();
+	if (!pTarget_)
+	{
+		return; // ターゲットが存在しない場合は処理を終了
+	}
+	Tako::Vector3 targetPos = pTarget_->GetPosition();
+
+	// ターゲットのY座標はスケールに応じて変わるので、スケールの分だけ下にずらす
+	targetPos.y -= pTarget_->GetScale().y * 0.5f;
 
 	// ターゲットへの方向ベクトルを計算
-	Tako::Vector3 direction = targetPos_ - currentPos;
+	Tako::Vector3 direction = targetPos - currentPos;
 
 	// ターゲットまでの平方距離を計算
 	float distanceSq = direction.LengthSquared();
@@ -34,9 +39,10 @@ void EnemyChaseState::Update(Enemy* enemy)
 	float moveAmount = chaseSpeed_ * deltaTime;
 
 	// 到達判定。ターゲットまでの距離が移動量より小さい場合は、ターゲットに到達したとみなす。
-	if(distanceSq <= moveAmount * moveAmount) {
-		enemy->SetPosition(targetPos_); // ターゲットの位置に直接設定
-		return; // 更新処理を終了
+	if (distanceSq <= moveAmount * moveAmount)
+	{
+		enemy->SetPosition(targetPos); // ターゲットの位置に直接設定
+		return;
 	}
 
 	// 方向ベクトルの正規化
@@ -51,46 +57,14 @@ void EnemyChaseState::Update(Enemy* enemy)
 
 void EnemyChaseState::DrawImGui(Enemy* enemy)
 {
-	ImGui::SliderFloat3("Target Position", &targetPos_.x, -5.0f, 5.0f);
+	if (pTarget_)
+	{
+		Tako::Vector3 pos = pTarget_->GetPosition();
+		ImGui::Text("Target Position: %.2f, %.2f, %.2f", pos.x, pos.y, pos.z);
+	}
+	else
+	{
+		ImGui::Text("Target: None");
+	}
 }
 
-void EnemyChaseState::TargetUpdate()
-{
-	if (!pInput_)
-	{
-		return;
-	}
-
-	// 入力を受けてターゲットの位置を更新する（仮の実装）
-	if (pInput_->PushKey(DIK_W))
-	{
-		targetPos_.z += 1.0f; // 前に移動
-	}
-	if(pInput_->PushKey(DIK_S))
-	{
-		targetPos_.z -= 1.0f; // 後ろに移動
-	}
-	if(pInput_->PushKey(DIK_A))
-	{
-		targetPos_.x -= 1.0f; // 左に移動
-	}
-	if( pInput_->PushKey(DIK_D))
-	{
-		targetPos_.x += 1.0f; // 右に移動
-	}
-
-	// ターゲットの移動幅を5.0fに制限
-	if (targetPos_.x > 5.0f) {
-		targetPos_.x = 5.0f;
-	}
-	else if (targetPos_.x < -5.0f) {
-		targetPos_.x = -5.0f;
-	}
-
-	if (targetPos_.z > 5.0f) {
-		targetPos_.z = 5.0f;
-	}
-	else if (targetPos_.z < -5.0f) {
-		targetPos_.z = -5.0f;
-	}
-}
