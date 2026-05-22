@@ -237,16 +237,6 @@ void main(uint3 DTid : SV_DispatchThreadID)
         }
     }
 
-    {
-        const uint kInvalidMeshTarget = 0xFFFFFFFFu;
-        uint emitterType = gEmitters[emitterIndex].type;
-        if (gTargetMeshEmitterId == kInvalidMeshTarget) {
-            if (emitterType == EMITTER_TYPE_MESH) return;
-        } else {
-            if (emitterIndex != gTargetMeshEmitterId) return;
-        }
-    }
-
     // ランダムジェネレーターの初期化
     RandomGenerator generator;
     generator.state = uint3(
@@ -370,66 +360,6 @@ void main(uint3 DTid : SV_DispatchThreadID)
                     break;
                 }
 
-                case EMITTER_TYPE_MESH:
-                {
-                    // メッシュからのスポーン (Surface / Edge / Inside)
-                    // Inside は SDF 未実装、AABB 内ランダムでフォールバック
-                    float3 localSpawn = float3(0.0f, 0.0f, 0.0f);
-                    uint triCount = gEmitters[emitterIndex].meshTriangleCount;
-                    if (triCount > 0)
-                    {
-                        if (gEmitters[emitterIndex].spawnLocation == SPAWN_EDGE)
-                        {
-                            uint triIdx = SelectTriangleByArea(
-                                triCount,
-                                gEmitters[emitterIndex].meshTotalArea,
-                                gEmitters[emitterIndex].meshAreaPrefixSumSrvIndex,
-                                generator.Generate1d());
-                            uint i0 = gMeshIndices[triIdx * 3 + 0];
-                            uint i1 = gMeshIndices[triIdx * 3 + 1];
-                            uint i2 = gMeshIndices[triIdx * 3 + 2];
-                            float3 v0 = gMeshVertices[i0].position.xyz;
-                            float3 v1 = gMeshVertices[i1].position.xyz;
-                            float3 v2 = gMeshVertices[i2].position.xyz;
-                            uint edgeIdx = (uint)(generator.Generate1d() * 3.0f);
-                            float t = generator.Generate1d();
-                            if (edgeIdx == 0)      localSpawn = lerp(v0, v1, t);
-                            else if (edgeIdx == 1) localSpawn = lerp(v1, v2, t);
-                            else                   localSpawn = lerp(v2, v0, t);
-                        }
-                        else if (gEmitters[emitterIndex].spawnLocation == SPAWN_INSIDE)
-                        {
-                            // SDF 未実装、AABB 内ランダムでフォールバック
-                            float3 t3 = float3(generator.Generate1d(), generator.Generate1d(), generator.Generate1d());
-                            localSpawn = lerp(gEmitters[emitterIndex].meshAabbMin, gEmitters[emitterIndex].meshAabbMax, t3);
-                        }
-                        else
-                        {
-                            // SPAWN_SURFACE
-                            uint triIdx = SelectTriangleByArea(
-                                triCount,
-                                gEmitters[emitterIndex].meshTotalArea,
-                                gEmitters[emitterIndex].meshAreaPrefixSumSrvIndex,
-                                generator.Generate1d());
-                            uint i0 = gMeshIndices[triIdx * 3 + 0];
-                            uint i1 = gMeshIndices[triIdx * 3 + 1];
-                            uint i2 = gMeshIndices[triIdx * 3 + 2];
-                            float3 v0 = gMeshVertices[i0].position.xyz;
-                            float3 v1 = gMeshVertices[i1].position.xyz;
-                            float3 v2 = gMeshVertices[i2].position.xyz;
-                            float u = generator.Generate1d();
-                            float v = generator.Generate1d();
-                            if (u + v > 1.0f) { u = 1.0f - u; v = 1.0f - v; }
-                            localSpawn = v0 + u * (v1 - v0) + v * (v2 - v0);
-                        }
-                    }
-                    // mesh local → world 変換 (engine 規約は mul(vec, matrix))
-                    particlePosition = mul(float4(localSpawn, 1.0f), gEmitters[emitterIndex].meshWorld).xyz;
-                    // local 座標を保存 (per-particle 拘束で参照)
-                    gParticles[particleID].targetLocal = localSpawn;
-                    break;
-                }
-
                 default:
                     // デフォルトはエミッターの中心
                     particlePosition = gEmitters[emitterIndex].position;
@@ -468,18 +398,6 @@ void main(uint3 DTid : SV_DispatchThreadID)
             gParticles[particleID].scale.x = particleScale.x;
             gParticles[particleID].scale.y = particleScale.y;
             gParticles[particleID].scale.z = particleScale.z;
-
-            // 終了時スケール (スケール縮小消滅)
-            // EFLAG_USE_SCALE_FADE が立っていれば endScaleDefault に向けて補間、
-            // 立っていなければ scale 自身を入れて補間しても変化なし
-            if (gEmitters[emitterIndex].flags & EFLAG_USE_SCALE_FADE)
-            {
-                gParticles[particleID].endScale = gEmitters[emitterIndex].endScaleDefault;
-            }
-            else
-            {
-                gParticles[particleID].endScale = particleScale;
-            }
 
             // 終了時スケール (スケール縮小消滅)
             // EFLAG_USE_SCALE_FADE が立っていれば endScaleDefault に向けて補間、

@@ -93,13 +93,15 @@
     <ClCompile Include="src\entity\attack\AttackRepository.cpp">
       <Filter>entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player\PlayerMovement.cpp" />
-    <ClCompile Include="src\component\PhysicsMovement.cpp" />
-    <ClCompile Include="src\character\player\PlayerInput.cpp" />
-    <ClCompile Include="src\component\collider\PlayerCollider.cpp" />
-    <ClCompile Include="src\debug\DebugEntry.cpp" />
-    <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
-    <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
+    <ClCompile Include="src\judge\InputTimingJudge.cpp">
+      <Filter>judge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\combo\ComboSystem.cpp">
+      <Filter>combo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\combo\ComboBuffSystem.cpp">
+      <Filter>combo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -152,6 +154,12 @@
     </Filter>
     <Filter Include="type">
       <UniqueIdentifier>{71a08c4d-f014-41cc-8aba-4f80d48204fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="judge">
+      <UniqueIdentifier>{15c6ec17-99d5-4539-991d-621262fbf05c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="combo">
+      <UniqueIdentifier>{28c34510-f87a-467b-9e2c-98359f59b63d}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity">
       <UniqueIdentifier>{6d176c77-5985-4159-89e8-ddebbcd5202c}</UniqueIdentifier>
@@ -279,6 +287,18 @@
     <ClInclude Include="src\type\ColliderTypeID.h">
       <Filter>type</Filter>
     </ClInclude>
+    <ClInclude Include="src\judge\InputTimingJudge.h">
+      <Filter>judge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\judge\JudgeResutl.h">
+      <Filter>judge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\combo\ComboSystem.h">
+      <Filter>combo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\combo\ComboBuffSystem.h">
+      <Filter>combo</Filter>
+    </ClInclude>
     <ClInclude Include="src\entity\attack\PlayerAttack.h">
       <Filter>entity\attack</Filter>
     </ClInclude>
@@ -303,19 +323,8 @@
     <ClInclude Include="src\entity\attack\AttackRepository.h">
       <Filter>entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player\PlayerMovement.h" />
-    <ClInclude Include="src\component\PhysicsMovement.h" />
-    <ClInclude Include="src\character\player\PlayerInput.h" />
-    <ClInclude Include="src\component\IMovement.h" />
-    <ClInclude Include="src\component\collider\PlayerCollider.h" />
-    <ClInclude Include="src\debug\GameParameter.h" />
-    <ClInclude Include="src\debug\DebugRegisterer.h" />
-    <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
-    <ClInclude Include="src\debug\DebugUIWrapper.h" />
-    <ClInclude Include="src\debug\DebugEntry.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
->>>>>>>>> Temporary merge branch 2
   </ItemGroup>
 </Project>

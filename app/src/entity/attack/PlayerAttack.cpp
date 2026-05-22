@@ -2,11 +2,11 @@
 #include <utility>
 #include <component/collider/PlayerAttackCollider.h>
 
+#include <type/ColliderTypeID.h>
 
-
-PlayerAttack::PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position)
+PlayerAttack::PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem)
 {
-    auto pAttackCollider = std::make_unique<PlayerAttackCollider>();
+    auto pAttackCollider = std::make_unique<PlayerAttackCollider>(comboBuffSystem);
     pCollider_ = colliderRepository.AddCollider(std::move(pAttackCollider));
     colliderTimer_.Enable(kColliderActiveTime_);
 
@@ -18,6 +18,8 @@ PlayerAttack::PlayerAttack(ColliderRepository& colliderRepository, const Tako::V
 
     transform_.translate = position;
     pCollider_->SetTransform(&transform_);
+
+    pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::PlayerAttack));
 }
 
 void PlayerAttack::Update(float deltaTime)

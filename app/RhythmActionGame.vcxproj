@@ -36,9 +36,11 @@
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
+    <ClCompile Include="src\combo\ComboBuffSystem.cpp" />
     <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
     <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
     <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
+    <ClCompile Include="src\combo\ComboSystem.cpp" />
     <ClCompile Include="src\font\FontLayout.cpp" />
     <ClCompile Include="src\font\NumericView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -54,6 +56,7 @@
     <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\RhythmActionGame.cpp" />
+    <ClCompile Include="src\judge\InputTimingJudge.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\manager\BeatManager.cpp" />
     <ClCompile Include="src\physics\ColliderRepository.cpp" />
@@ -83,7 +86,9 @@
     <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
     <ClInclude Include="src\character\player\PlayerInput.h" />
     <ClInclude Include="src\character\player\PlayerMovement.h" />
+    <ClInclude Include="src\combo\ComboBuffSystem.h" />
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
+    <ClInclude Include="src\combo\ComboSystem.h" />
     <ClInclude Include="src\component\collider\PlayerCollider.h" />
     <ClInclude Include="src\component\IMovement.h" />
     <ClInclude Include="src\component\PhysicsMovement.h" />
@@ -98,6 +103,8 @@
     <ClInclude Include="src\font\NumericView.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\RhythmActionGame.h" />
+    <ClInclude Include="src\judge\InputTimingJudge.h" />
+    <ClInclude Include="src\judge\JudgeResutl.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
     <ClInclude Include="src\math\HSV.h" />
     <ClInclude Include="src\math\VectorMath.h" />

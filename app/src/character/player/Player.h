@@ -14,6 +14,8 @@
 #include <physics/ColliderRepository.h>
 #include <entity/attack/AttackRepository.h>
 
+class ComboBuffSystem;
+
 class Player : public ICharacter
 {
 public:
@@ -39,6 +41,7 @@ public:
 	 */
 	const Tako::Vector3& GetRotation() const override { return transform_.rotate; }
 
+    void SetComboBuffSystem(ComboBuffSystem* comboBuffSystem) { pComboBuffSystem_ = comboBuffSystem; }
 private:
     void InitializeComponents();
 
@@ -63,4 +66,6 @@ private:
 
     /// 参照
     AttackRepository& attackRepository_;     // 攻撃リポジトリの参照
+
+    ComboBuffSystem* pComboBuffSystem_ = nullptr; // コンボバフシステムの参照
 };

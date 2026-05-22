@@ -2,10 +2,14 @@
 #include <OBBCollider.h>
 #include <memory>
 
+class ComboBuffSystem;
 
 class PlayerAttackCollider : public Tako::OBBCollider
 {
 public:
+
+    PlayerAttackCollider(ComboBuffSystem* comboBuffSystem) : pComboBuffSystem_(comboBuffSystem) {}
+
     void OnCollisionEnter(Collider* other) override;
 
 
@@ -13,4 +17,8 @@ public:
 
 
     void OnCollisionExit(Collider* other) override;
+private:
+
+    ComboBuffSystem* pComboBuffSystem_ = nullptr; // コンボシステムへのポインタ
+
 };
