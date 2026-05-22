@@ -13,7 +13,7 @@ void RhythmActionGame::Initialize()
 {
     winApp_->SetWindowSize(1920, 1080);
 
-    winApp_->SetWindowTitle(L"RhythmActionGame");
+    winApp_->SetWindowTitle(L"Beat Slash");
 
     TakoFramework::Initialize();
 
@@ -45,11 +45,6 @@ void RhythmActionGame::Update()
         ToggleFullScreen();
     }
 
-    if (Input::GetInstance()->TriggerKey(DIK_SPACE))
-    {
-        // サウンドイベント "PlaySampleSE" を再生
-        ozSound::SoundEngine::GetInstance()->PostEvent("play");
-    }
     if (Input::GetInstance()->TriggerKey(DIK_S))
     {
         ozSound::SoundEngine::GetInstance()->StopAll();

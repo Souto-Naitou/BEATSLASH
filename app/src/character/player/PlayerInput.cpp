@@ -16,7 +16,7 @@ void PlayerInput::Initialize()
 void PlayerInput::Update()
 {
     // 前回の入力データ
-    PlayerInput::Data preData = data_;
+    PlayerInput::PlayerCommand preData = data_;
     data_ = {};
 
     /// [ ゲームパッドモードの切り替え ]
@@ -39,6 +39,8 @@ void PlayerInput::Update()
         data_.isJumpPressed = false;
         data_.jumpHoldTime = 0.0f;
     }
+    // 攻撃
+    data_.isAttackTriggered = pInput_->TriggerMouse(0);
 }
 
 void PlayerInput::ImGui()

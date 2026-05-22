@@ -32,12 +32,15 @@ void GameScene::Initialize()
     ///              初期化処理              ///
     /// ================================== ///
 
+    /// コライダーリポジトリと攻撃リポジトリの初期化
+    pAttackRepository_ = std::make_unique<AttackRepository>(colliderRepository_);
+
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
 
     /// プレイヤーの初期化
-    pPlayer_ = std::make_unique<Player>();
+    pPlayer_ = std::make_unique<Player>(*pAttackRepository_);
     pPlayer_->Initialize();
 
     // 敵の初期化
@@ -78,6 +81,10 @@ void GameScene::Update()
     pPlayer_->Update();
 	// 敵の更新
 	pEnemy_->Update();
+
+    pAttackRepository_->Update();
+    // 非アクティブのコライダーを削除
+    colliderRepository_.RemoveIfNotActive();
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
