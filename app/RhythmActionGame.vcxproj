@@ -100,6 +100,7 @@
     <ClInclude Include="src\framework\RhythmActionGame.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
     <ClInclude Include="src\math\HSV.h" />
+    <ClInclude Include="src\math\VectorMath.h" />
     <ClInclude Include="src\physics\ColliderTimer.h" />
     <ClInclude Include="src\physics\ColliderRepository.h" />
     <ClInclude Include="src\scene\GameScene.h" />
