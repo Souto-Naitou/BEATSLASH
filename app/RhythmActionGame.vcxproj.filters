@@ -256,6 +256,7 @@
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
     <ClInclude Include="src\entity\attack\PlayerAttack.h" />
     <ClInclude Include="src\entity\attack\AttackRepository.h" />
+    <ClInclude Include="src\math\VectorMath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

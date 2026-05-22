@@ -44,6 +44,7 @@ private:
 
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});        // キャラクターのトランスフォーム
+    GameParameterView(Tako::Vector3, directionAtackSpawning, {}); // 攻撃生成の方向（デバッグ表示用）
 
     /// 参照
     AttackRepository& attackRepository_;     // 攻撃リポジトリの参照
