@@ -9,6 +9,7 @@ public:
 	
 	void Enter(Enemy* enemy) override;
 	void Update(Enemy* enemy) override;
+	void DrawImGui(Enemy* enemy) override;
 
 private:
 	// 経過時間

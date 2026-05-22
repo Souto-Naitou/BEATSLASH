@@ -24,6 +24,21 @@ public:
     void Draw() override;
     void RegisterCallbacks();
 
+    /**
+     * @brief 座標の取得
+     */
+    const Tako::Vector3& GetPosition() const override { return transform_.translate; }
+
+	/**
+	 * @brief スケールの取得
+	 */
+	const Tako::Vector3& GetScale() const override { return transform_.scale; }
+
+	/**
+	 * @brief 回転の取得
+	 */
+	const Tako::Vector3& GetRotation() const override { return transform_.rotate; }
+
 private:
     void InitializeComponents();
 

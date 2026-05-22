@@ -237,16 +237,34 @@ void main(uint3 DTid : SV_DispatchThreadID)
         }
     }
 
+    {
+        const uint kInvalidMeshTarget = 0xFFFFFFFFu;
+        uint emitterType = gEmitters[emitterIndex].type;
+        if (gTargetMeshEmitterId == kInvalidMeshTarget) {
+            if (emitterType == EMITTER_TYPE_MESH) return;
+        } else {
+            if (emitterIndex != gTargetMeshEmitterId) return;
+        }
+    }
+
+    // ランダムジェネレーターの初期化
     RandomGenerator generator;
-    generator.seed = float3(
-        DTid.x * 73.0f + gPerFrame.time * 173.5f,
-        DTid.y * 191.0f + gPerFrame.time * 71.3f + gEmitters[emitterIndex].emitterID * 53.0f,
-        gEmitters[emitterIndex].emitterID * 127.0f + gPerFrame.time * 257.1f
+    generator.state = uint3(
+        gPerFrame.frameCount ^ (DTid.x * 0x9E3779B9u),
+        gEmitters[emitterIndex].emitterID ^ (gPerFrame.frameCount * 0x85EBCA6Bu),
+        (gPerFrame.frameCount + gEmitters[emitterIndex].emitterID) * 0xC2B2AE35u
     );
+    generator.state = pcg3d(generator.state); // warm-up 1 タップ
 
     // このエミッターから指定数のパーティクルを射出
     for (uint particleIndex = 0; particleIndex < gEmitters[emitterIndex].count; ++particleIndex)
     {
+        // パーティクルごとにジェネレーターを進める（同一エミッター内で異なる乱数列になるように）
+        generator.state ^= uint3(particleIndex * 0x27D4EB2Du,
+                                 particleIndex * 0x165667B1u,
+                                 particleIndex * 0xD3A2646Cu);
+        generator.state = pcg3d(generator.state);
+
         // FreeListから空きパーティクルスロットを取得
         int freeListIndex;
         InterlockedAdd(gFreeListIndex[0], -1, freeListIndex);
@@ -290,6 +308,67 @@ void main(uint3 DTid : SV_DispatchThreadID)
                         gEmitters[emitterIndex].spawnLocation
                     );
                     break;
+
+                case EMITTER_TYPE_MESH:
+                {
+                    // メッシュからのスポーン (Surface / Edge / Inside)
+                    // Inside は SDF 未実装、AABB 内ランダムでフォールバック
+                    // TODO: Inside SDF 対応、SpawnLocation ごとの分布の実装（現状は全て Surface と同じ分布）
+                    float3 localSpawn = float3(0.0f, 0.0f, 0.0f);
+                    uint triCount = gEmitters[emitterIndex].meshTriangleCount;
+                    if (triCount > 0)
+                    {
+                        if (gEmitters[emitterIndex].spawnLocation == SPAWN_EDGE)
+                        {
+                            uint triIdx = SelectTriangleByArea(
+                                triCount,
+                                gEmitters[emitterIndex].meshTotalArea,
+                                gEmitters[emitterIndex].meshAreaPrefixSumSrvIndex,
+                                generator.Generate1d());
+                            uint i0 = gMeshIndices[triIdx * 3 + 0];
+                            uint i1 = gMeshIndices[triIdx * 3 + 1];
+                            uint i2 = gMeshIndices[triIdx * 3 + 2];
+                            float3 v0 = gMeshVertices[i0].position.xyz;
+                            float3 v1 = gMeshVertices[i1].position.xyz;
+                            float3 v2 = gMeshVertices[i2].position.xyz;
+                            uint edgeIdx = (uint)(generator.Generate1d() * 3.0f);
+                            float t = generator.Generate1d();
+                            if (edgeIdx == 0)      localSpawn = lerp(v0, v1, t);
+                            else if (edgeIdx == 1) localSpawn = lerp(v1, v2, t);
+                            else                   localSpawn = lerp(v2, v0, t);
+                        }
+                        else if (gEmitters[emitterIndex].spawnLocation == SPAWN_INSIDE)
+                        {
+                            // SDF 未実装、AABB 内ランダムでフォールバック
+                            float3 t3 = float3(generator.Generate1d(), generator.Generate1d(), generator.Generate1d());
+                            localSpawn = lerp(gEmitters[emitterIndex].meshAabbMin, gEmitters[emitterIndex].meshAabbMax, t3);
+                        }
+                        else
+                        {
+                            // SPAWN_SURFACE
+                            uint triIdx = SelectTriangleByArea(
+                                triCount,
+                                gEmitters[emitterIndex].meshTotalArea,
+                                gEmitters[emitterIndex].meshAreaPrefixSumSrvIndex,
+                                generator.Generate1d());
+                            uint i0 = gMeshIndices[triIdx * 3 + 0];
+                            uint i1 = gMeshIndices[triIdx * 3 + 1];
+                            uint i2 = gMeshIndices[triIdx * 3 + 2];
+                            float3 v0 = gMeshVertices[i0].position.xyz;
+                            float3 v1 = gMeshVertices[i1].position.xyz;
+                            float3 v2 = gMeshVertices[i2].position.xyz;
+                            float u = generator.Generate1d();
+                            float v = generator.Generate1d();
+                            if (u + v > 1.0f) { u = 1.0f - u; v = 1.0f - v; }
+                            localSpawn = v0 + u * (v1 - v0) + v * (v2 - v0);
+                        }
+                    }
+                    // mesh local → world 変換 (engine 規約は mul(vec, matrix))
+                    particlePosition = mul(float4(localSpawn, 1.0f), gEmitters[emitterIndex].meshWorld).xyz;
+                    // local 座標を保存 (per-particle 拘束で参照)
+                    gParticles[particleID].targetLocal = localSpawn;
+                    break;
+                }
 
                 case EMITTER_TYPE_MESH:
                 {
@@ -389,6 +468,18 @@ void main(uint3 DTid : SV_DispatchThreadID)
             gParticles[particleID].scale.x = particleScale.x;
             gParticles[particleID].scale.y = particleScale.y;
             gParticles[particleID].scale.z = particleScale.z;
+
+            // 終了時スケール (スケール縮小消滅)
+            // EFLAG_USE_SCALE_FADE が立っていれば endScaleDefault に向けて補間、
+            // 立っていなければ scale 自身を入れて補間しても変化なし
+            if (gEmitters[emitterIndex].flags & EFLAG_USE_SCALE_FADE)
+            {
+                gParticles[particleID].endScale = gEmitters[emitterIndex].endScaleDefault;
+            }
+            else
+            {
+                gParticles[particleID].endScale = particleScale;
+            }
 
             // 終了時スケール (スケール縮小消滅)
             // EFLAG_USE_SCALE_FADE が立っていれば endScaleDefault に向けて補間、
