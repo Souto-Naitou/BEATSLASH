@@ -85,7 +85,9 @@
     <ClCompile Include="src\combo\ComboSystem.cpp">
       <Filter>combo</Filter>
     </ClCompile>
-    <ClCompile Include="src\combo\ComboBuffSystem.cpp" />
+    <ClCompile Include="src\combo\ComboBuffSystem.cpp">
+      <Filter>combo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
