@@ -15,11 +15,11 @@ void InputTimingJudge::Initialize(float bpm, float perfectWindow, float goodWind
 JudgeResult InputTimingJudge::Evaluate(float timingDiff) const
 {
     float absTimingDiff = std::abs(timingDiff);
-    if (absTimingDiff <= perfectWindowSec_ * 0.5f)
+    if (absTimingDiff <= perfectWindowSec_)
     {
         return JudgeResult::Perfect;
     }
-    else if(absTimingDiff <= goodWindowSec_ * 0.5f)
+    else if(absTimingDiff <= goodWindowSec_)
     {
         return JudgeResult::Good;
     }
@@ -36,6 +36,6 @@ float InputTimingJudge::GetSecPerBeat() const
 
 float InputTimingJudge::CalculateWindowSec(float window) const
 {
-    return GetSecPerBeat() * window / 2.0f;
+    return GetSecPerBeat() * window * 0.5f;
 }
 

@@ -18,7 +18,7 @@ public:
     /// </summary>
     void Update();
 
-    void CreatePlayerAttack(const Tako::Vector3& position, ComboBuffSystem* comboSystem);
+    void CreatePlayerAttack(const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem);
 
 private:
     std::vector<std::unique_ptr<PlayerAttack>> playerAttacks_ = {};

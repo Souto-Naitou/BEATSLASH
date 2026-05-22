@@ -11,7 +11,7 @@ class ComboBuffSystem;
 class PlayerAttack
 {
 public:
-    PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem = nullptr);
+    PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem);
     void Update(float deltaTime);
 
 private:
