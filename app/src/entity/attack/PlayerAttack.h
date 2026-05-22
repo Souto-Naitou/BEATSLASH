@@ -6,10 +6,12 @@
 #include <Transform.h>
 #include <Collider.h>
 
+class ComboBuffSystem;
+
 class PlayerAttack
 {
 public:
-    PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position);
+    PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem = nullptr);
     void Update(float deltaTime);
 
 private:

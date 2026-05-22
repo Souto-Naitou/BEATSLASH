@@ -5,8 +5,9 @@
 /// </summary>
 enum class ColliderTypeID
 {
-	Player  = 100,				// プレイヤー
-	Enemy,				// 敵
-	Obstacle,			// 障害物
+    Player  = 100,				// プレイヤー
+    PlayerAttack,		// プレイヤーの攻撃
+    Enemy,				// 敵
+    Obstacle,			// 障害物
     Terrain,			// 地形
 };

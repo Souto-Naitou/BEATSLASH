@@ -8,7 +8,7 @@ public:
 
     void OnAttackHit(JudgeResult judge);
 
-    void OmDamage();
+    void OnDamage();
 
     int GetCombo() const;
 
@@ -21,7 +21,7 @@ private:
     void ResetCombo();
 
 private:
-
+    
     int32_t combo_ = 0; // 現在のコンボ数
 
 };

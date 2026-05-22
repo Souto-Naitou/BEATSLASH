@@ -10,7 +10,7 @@ void AttackRepository::Update()
     }
 }
 
-void AttackRepository::CreatePlayerAttack(const Tako::Vector3& position)
+void AttackRepository::CreatePlayerAttack(const Tako::Vector3& position, ComboBuffSystem* comboSystem)
 {
     auto pPlayerAttack = std::make_unique<PlayerAttack>(colliderRepository_, position);
     playerAttacks_.emplace_back(std::move(pPlayerAttack));

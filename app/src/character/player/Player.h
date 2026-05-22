@@ -14,6 +14,8 @@
 #include <physics/ColliderRepository.h>
 #include <entity/attack/AttackRepository.h>
 
+class ComboBuffSystem;
+
 class Player : public ICharacter
 {
 public:
@@ -24,6 +26,7 @@ public:
     void Draw() override;
     void RegisterCallbacks();
 
+    void SetComboBuffSystem(ComboBuffSystem* comboBuffSystem) { pComboBuffSystem_ = comboBuffSystem; }
 private:
     void InitializeComponents();
 
@@ -42,9 +45,16 @@ private:
     std::unique_ptr<PlayerAttackTrigger>    pAttackTrigger_;    // プレイヤーの攻撃トリガー
     std::unique_ptr<PlayerCollider>         pCollider_;         // プレイヤーのコライダー
 
+
+    /// コールバック
+    std::function<void(void)> onAttackCallback_;   // 攻撃コールバック
+    std::function<void(void)> onDamageCallback_;   // ダメージコールバック
+
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});        // キャラクターのトランスフォーム
 
     /// 参照
     AttackRepository& attackRepository_;     // 攻撃リポジトリの参照
+
+    ComboBuffSystem* pComboBuffSystem_ = nullptr; // コンボバフシステムの参照
 };

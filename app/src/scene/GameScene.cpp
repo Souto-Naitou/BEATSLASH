@@ -44,8 +44,21 @@ void GameScene::Initialize()
     pPlayer_->Initialize();
 
     // 敵の初期化
-	pEnemy_ = std::make_unique<Enemy>();
-	pEnemy_->Initialize();
+    pEnemy_ = std::make_unique<Enemy>();
+    pEnemy_->Initialize();
+
+    const float BPM = 120.0f;
+    pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
+    pInputTimingJudge_->Initialize(BPM, 0.2f, 0.4f);
+
+    pComboSystem_ = std::make_unique<ComboSystem>();
+
+    pBeatClock_= std::make_unique<BeatClock>();
+    pBeatClock_->Initialize(BPM, 0.0f);
+
+    pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
+    pPlayer_->SetComboBuffSystem(pComboBuffSystem_.get());
+
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
@@ -79,9 +92,11 @@ void GameScene::Update()
     pStage_->Update(deltaTime);
     // プレイヤーの更新
     pPlayer_->Update();
-	// 敵の更新
-	pEnemy_->Update();
+    // 敵の更新
+    pEnemy_->Update();
 
+
+    pBeatClock_->Update();
     pAttackRepository_->Update();
     // 非アクティブのコライダーを削除
     colliderRepository_.RemoveIfNotActive();
@@ -138,7 +153,7 @@ void GameScene::DrawWithoutEffect()
     //-------------------Modelの描画-------------------//
     // 3Dモデル共通描画設定
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
-        
+
 
 
 

@@ -8,7 +8,7 @@ void ComboSystem::OnAttackHit(JudgeResult judge)
         AddCombo();
 }
 
-void ComboSystem::OmDamage()
+void ComboSystem::OnDamage()
 {
     ResetCombo();
 }

@@ -36,6 +36,7 @@
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
+    <ClCompile Include="src\combo\ComboBuffSystem.cpp" />
     <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
     <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
     <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
     <ClInclude Include="src\character\player\PlayerInput.h" />
     <ClInclude Include="src\character\player\PlayerMovement.h" />
+    <ClInclude Include="src\combo\ComboBuffSystem.h" />
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
     <ClInclude Include="src\combo\ComboSystem.h" />
     <ClInclude Include="src\component\collider\PlayerCollider.h" />

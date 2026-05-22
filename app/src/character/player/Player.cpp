@@ -44,8 +44,12 @@ void Player::Initialize()
         pModel_->Update();
     });
 
-    Tako::CollisionManager::GetInstance()->AddCollider(pCollider_.get());
-    Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
+    auto colManeger = Tako::CollisionManager::GetInstance();
+
+    colManeger->AddCollider(pCollider_.get());
+    colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
+    colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
+    colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::PlayerAttack), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 }
 
 void Player::Finalize()
@@ -66,7 +70,7 @@ void Player::Update()
 
     if (pAttackTrigger_->ShouldAttack(pInput_->GetCommand()))
     {
-        attackRepository_.CreatePlayerAttack(transform_.translate);
+        attackRepository_.CreatePlayerAttack(transform_.translate,nullptr);
     }
 
     // モデルの更新
