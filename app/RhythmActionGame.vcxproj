@@ -113,6 +113,7 @@
     <ClInclude Include="src\stage\StageData.h" />
     <ClInclude Include="src\stage\StageSequence.h" />
     <ClInclude Include="src\stage\StageTransitionCollider.h" />
+    <ClInclude Include="src\system\ScopedCursorHidden.h" />
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />
     <ClInclude Include="src\type\ColliderTypeID.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
     <ClInclude Include="src\utility\strutl.h" />
     <ClInclude Include="src\utility\ViewportUnits.hpp" />
+    <ClInclude Include="src\utility\wndutl.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -39,13 +39,13 @@ void GameScene::Initialize()
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
 
-    /// プレイヤーの初期化
-    pPlayer_ = std::make_unique<Player>(*pAttackRepository_);
-    pPlayer_->Initialize();
-
     /// カメラの初期化
     pFollowCamera_ = std::make_unique<FollowCamera>();
     pFollowCamera_->Initialize();
+
+    /// プレイヤーの初期化
+    pPlayer_ = std::make_unique<Player>(*pAttackRepository_, *pFollowCamera_);
+    pPlayer_->Initialize();
     pFollowCamera_->SetTarget(&pPlayer_->GetTransform());
 
     // 敵の初期化

@@ -13,6 +13,7 @@ public:
             float pitch; // カメラの上下回転
             float yaw;   // カメラの左右回転
         } delta;
+        bool isCameraActivationTriggered = false; // カメラ操作がトリガーされたかどうか
     };
 
     void Update();
@@ -24,6 +25,5 @@ private:
     GameParameter(float, sensitivityY, 0.01f);
 
     Command command_ = {};
-    Tako::Vector2 cursorPosPrev_ = {};
     Tako::Input* pInput_ = Tako::Input::GetInstance();
 };

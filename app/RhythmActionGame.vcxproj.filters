@@ -300,6 +300,8 @@
     </ClInclude>
     <ClInclude Include="src\character\player\FollowCamera.h" />
     <ClInclude Include="src\character\player\CameraInput.h" />
+    <ClInclude Include="src\system\ScopedCursorHidden.h" />
+    <ClInclude Include="src\utility\wndutl.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

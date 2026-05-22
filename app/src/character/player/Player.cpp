@@ -70,9 +70,10 @@ void Player::Update()
     /// TODO: クラスに分離する
     if (inputCommand.move.LengthSquared() > 0.01f)
     {
+        float yawCamera = followCamera_.GetRotation().y;
         float angle = VectorToAngle(inputCommand.move);
-        transform_.rotate.y = angle;
-        directionAtackSpawning = inputCommand.move;
+        transform_.rotate.y = angle + yawCamera;
+        directionAtackSpawning = pMovement_->GetMoveDirection();
     }
     if (pAttackTrigger_->ShouldAttack(inputCommand))
     {
@@ -112,7 +113,7 @@ void Player::InitializeComponents()
 {
     pInput_ = std::make_unique<PlayerInput>();
     pInput_->Initialize();
-    pMovement_ = std::make_unique<PlayerMovement>(pInput_.get());
+    pMovement_ = std::make_unique<PlayerMovement>(pInput_.get(), followCamera_);
     pMovement_->SetMovePower(kMovePower_);
     pMovement_->SetJumpPower(kJumpPower_);
 }

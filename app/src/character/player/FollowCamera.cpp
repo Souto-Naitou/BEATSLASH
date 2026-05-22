@@ -4,6 +4,10 @@
 #include <Draw2D.h>
 #include <GPUParticle.h>
 
+#include <Windows.h>
+#include <utility/wndutl.h>
+#include <WinApp.h>
+
 void FollowCamera::Initialize()
 {
 #ifdef _DEBUG
@@ -33,12 +37,37 @@ void FollowCamera::Update()
 
     pCameraInput_->Update();
 
-    CameraUpdate(pCameraInput_->GetCommand());
+    const auto& command = pCameraInput_->GetCommand();
+
+    this->CameraActivationUpdate(command);
+    this->CursorFixUpdate(command);
+
+    if (isActive_) this->CameraDataUpdate(pCameraInput_->GetCommand());
+    else this->CameraDataUpdate({});
+    pCamera_->Update();
 }
 
-void FollowCamera::CameraUpdate(const CameraInput::Command& command)
+void FollowCamera::CameraActivationUpdate(const CameraInput::Command& command)
+{
+    if (command.isCameraActivationTriggered) isActive_ = !isActive_;
+
+    if (!pCursorHidden_ && isActive_)
+    {
+        pCursorHidden_ = std::make_unique<ScopedCursorHidden>();
+    }
+    else if (pCursorHidden_ && !isActive_)
+    {
+        pCursorHidden_.reset();
+    }
+}
+
+void FollowCamera::CameraDataUpdate(const CameraInput::Command& command)
 {
     if (!pTarget_) return;
+
+    // カメラ制御のトリガーがあるときはカメラの有効/無効を切り替えるだけで、カメラの回転や位置の更新は行わない
+    // カーソルを固定するタイミングでカメラの回転や位置の更新も行うと、カーソルが固定された瞬間にカメラが大きく動いてしまうため
+    if (command.isCameraActivationTriggered) return;
 
     // 入力を反映
     kRotation_->x += command.delta.pitch;
@@ -56,7 +85,16 @@ void FollowCamera::CameraUpdate(const CameraInput::Command& command)
 
     pCamera_->SetRotate(rotate);
     pCamera_->SetTranslate(nextCameraPosition);
-    pCamera_->Update();
 
     targetPositionPre_ = nextTargetPosition;
+}
+
+void FollowCamera::CursorFixUpdate(const CameraInput::Command& command)
+{
+    if (!pCursorHidden_ || !isActive_) return;
+
+    auto center = utl::window::GetCenterOfWindow();
+
+    ClientToScreen(Tako::WinApp::GetInstance()->GetHWnd(), &center);
+    SetCursorPos(center.x, center.y);
 }
