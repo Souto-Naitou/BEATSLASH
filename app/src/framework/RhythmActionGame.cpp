@@ -17,6 +17,9 @@ void RhythmActionGame::Initialize()
 
     TakoFramework::Initialize();
 
+    pDebugUIWrapper_ = DebugUIWrapper::GetInstance();
+    pDebugUIWrapper_->Initialize();
+
     ozSound::AudioSystem::GetInstance()->Initialize();
         
     ozSound::SoundEngine::GetInstance()->Initialize();

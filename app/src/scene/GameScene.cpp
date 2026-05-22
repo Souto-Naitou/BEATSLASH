@@ -60,6 +60,7 @@ void GameScene::Initialize()
 
 void GameScene::Finalize()
 {
+    pPlayer_->Finalize();
 }
 
 void GameScene::Update()

@@ -4,33 +4,45 @@
 
 Stage::~Stage()
 {
-    if (collider_)
-        Tako::CollisionManager::GetInstance()->RemoveCollider(collider_.get());
+    for (auto& col : colliders_)
+        Tako::CollisionManager::GetInstance()->RemoveCollider(col.get());
 }
 
 void Stage::Initialize(const StageData& stageData)
 {
-    stageData_ = stageData; // ステージデータを保存
+    // 既存コライダーを CollisionManager から除去
+    for (auto& col : colliders_)
+        Tako::CollisionManager::GetInstance()->RemoveCollider(col.get());
+    colliders_.clear();
 
-	// 3Dモデルの初期化
-	model_ = std::make_unique<Tako::Object3d>();
-	model_->Initialize();
-	model_->SetModel("white_cube.gltf");
-	model_->SetMaterialColor({ 1,1,1,1 });		// 白色のマテリアルカラーを設定
-	model_->SetEnableLighting(true);				// ライティングを有効にする
+    stageData_ = stageData; // ステージデータを保存（先に行う：コライダーのTransform*がstageData_を参照するため）
 
-    transform_.translate = { 0.0f, -0.5f, 0.0f };	// ステージを少し下に配置
-    transform_.scale = { 10.0f, 1.0f, 10.0f };			// ステージを広くする
-    transform_.rotate = { 0.0f, 0.0f, 0.0f };		// 回転なし
-    model_->SetTransform(transform_);		// デフォルトのトランスフォームを設定
-    	
-    const float modelDefaultSize = 3.0f; 
-    // コライダーの初期化
-	collider_ = std::make_unique<Tako::AABBCollider>();
-	collider_->SetSize({ 10.0f* modelDefaultSize, 1.0f * modelDefaultSize, 10.0f * modelDefaultSize}); // コライダーのサイズを設定
-    collider_->SetOwner(this); // コライダーの所有者をステージに設定
-    collider_->SetTypeID(200);// TODO : enum
-    collider_->SetTransform(&transform_); // コライダーにステージのトランスフォームを設定
+    const float cubeDefaultSize = 3.0f;
+
+    // 床モデル＋コライダーを floors の数だけ生成
+    models_.clear();
+    for (size_t i = 0; i < stageData_.floorTransform.size(); ++i)
+    {
+        const auto& floorTf = stageData_.floorTransform[i];
+
+        auto model = std::make_unique<Tako::Object3d>();
+        model->Initialize();
+        model->SetModel("white_cube.gltf");
+        model->SetMaterialColor({ 1,1,1,1 });
+        model->SetEnableLighting(true);
+        model->SetTransform(floorTf);
+        models_.push_back(std::move(model));
+
+        auto col = std::make_unique<Tako::OBBCollider>();
+        col->SetSize(floorTf.scale * cubeDefaultSize);
+        col->SetOwner(this);
+        col->SetTypeID(200); // TODO : enum
+        col->SetTransform(&stageData_.floorTransform[i]); // stageData_ のアドレスを参照
+        Tako::CollisionManager::GetInstance()->AddCollider(col.get());
+        colliders_.push_back(std::move(col));
+    }
+
+    Tako::CollisionManager::GetInstance()->SetCollisionMask(1, 200, true);
 
     // ドアの初期化
     door_ = std::make_unique<Tako::Object3d>();
@@ -43,23 +55,26 @@ void Stage::Initialize(const StageData& stageData)
     door_->GetModel()->SetAnimation("OpenAnim");
     door_->GetModel()->SetAnimationLoop("OpenAnim", false);
     door_->GetModel()->PauseAnimation();
-    // コライダーを衝突管理に登録
-    Tako::CollisionManager::GetInstance()->AddCollider(collider_.get());
-    Tako::CollisionManager::GetInstance()->SetCollisionMask(1, 200, true); // プレイヤーの型IDを1、ステージの型IDを200と仮定して衝突判定を有効化
 }
 
 void Stage::Update(float deltaTime)
 {
-
-    model_->SetTransform(transform_);	// トランスフォームをモデルに反映
-    model_->Update();
+    for (size_t i = 0; i < models_.size(); ++i)
+    {
+        models_[i]->SetTransform(stageData_.floorTransform[i]);
+        models_[i]->Update();
+    }
 
     door_->Update();
 }
 
 void Stage::Draw()
 {
-    model_->Draw();
+    for (auto& model : models_)
+    {
+        model->Draw();
+    }
+
     door_->Draw();
 }
 

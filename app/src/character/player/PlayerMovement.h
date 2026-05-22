@@ -17,10 +17,12 @@ public:
 
     bool IsMove(float speedThreshold = 0.001f) const;
     void SetMovePower(float power) { movePower_ = power; }
+    void SetJumpPower(float power) { jumpPower_ = power; }
 
 private:
     void UpdateByInput(float dt);
 
     PlayerInput*    pInput_     = nullptr;
     float           movePower_  = 25.0f;
+    float           jumpPower_  = 8.0f;
 };

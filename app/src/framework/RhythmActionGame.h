@@ -1,5 +1,7 @@
 #pragma once
+
 #include"TakoFramework.h"
+#include <debug/DebugUIWrapper.h>
 
 class RhythmActionGame : public Tako::TakoFramework
 {
@@ -26,7 +28,7 @@ public: // メンバ関数
   void Draw() override;
 
 private: // メンバ変数
-
+    DebugUIWrapper* pDebugUIWrapper_ = nullptr;  ///< デバッグUIラッパーへのポインタ
 
 };
 

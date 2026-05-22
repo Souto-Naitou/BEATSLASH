@@ -5,12 +5,12 @@
 
 using namespace ozSound;
 
-BeatManager::BeatManager()
+BeatClock::BeatClock()
 {
     QueryPerformanceFrequency(&qpcFrequency_);
 }
 
-void BeatManager::Initialize(float bpm, float offset)
+void BeatClock::Initialize(float bpm, float offset)
 {
     bpm_      = bpm;
     offset_   = offset;
@@ -18,7 +18,7 @@ void BeatManager::Initialize(float bpm, float offset)
     playing_  = false;
 }
 
-void BeatManager::Start()
+void BeatClock::Start()
 {
     if (playing_) return;
 
@@ -34,7 +34,7 @@ void BeatManager::Start()
     playing_  = true;
 }
 
-void BeatManager::Stop()
+void BeatClock::Stop()
 {
     if (!playing_) return;
     playing_ = false;
@@ -45,14 +45,14 @@ void BeatManager::Stop()
     }
 }
 
-void BeatManager::Reset()
+void BeatClock::Reset()
 {
     // 拍カウンタと内部時刻をリセット (再生状態は維持)
     lastBeat_ = -1;
     QueryPerformanceCounter(&qpcStart_);
 }
 
-void BeatManager::Update()
+void BeatClock::Update()
 {
     if (!playing_)  return;
     if (!IsValid()) return;
@@ -63,30 +63,30 @@ void BeatManager::Update()
     }
 }
 
-void BeatManager::SetBPM(float bpm)
+void BeatClock::SetBPM(float bpm)
 {
     if (bpm <= 0.0f) return;
     bpm_ = bpm;
     Reset();
 }
 
-void BeatManager::SetMusicSoundHandle(SoundHandle handle)
+void BeatClock::SetMusicSoundHandle(SoundHandle handle)
 {
     musicHandle_ = handle;
 }
 
-float BeatManager::GetCurrentBeat() const
+float BeatClock::GetCurrentBeat() const
 {
     return static_cast<float>(GetCurrentBeatD());
 }
 
-int BeatManager::GetCurrentBeatIndex() const
+int BeatClock::GetCurrentBeatIndex() const
 {
     if (!IsValid()) return 0;
     return static_cast<int>(std::floor(GetCurrentBeatD()));
 }
 
-float BeatManager::GetDeltaToNearestBeat() const
+float BeatClock::GetDeltaToNearestBeat() const
 {
     if (!IsValid()) return 0.0f;
 
@@ -94,7 +94,7 @@ float BeatManager::GetDeltaToNearestBeat() const
     return static_cast<float>(cb - std::round(cb));
 }
 
-float BeatManager::GetDeltaToNearestBeatSeconds() const
+float BeatClock::GetDeltaToNearestBeatSeconds() const
 {
     if (!IsValid()) return 0.0f;
 
@@ -102,7 +102,7 @@ float BeatManager::GetDeltaToNearestBeatSeconds() const
     return static_cast<float>((cb - std::round(cb)) * GetSecondsPerBeatD());
 }
 
-double BeatManager::GetElapsedTimeD() const
+double BeatClock::GetElapsedTimeD() const
 {
     switch (countMode_)
     {
@@ -122,7 +122,7 @@ double BeatManager::GetElapsedTimeD() const
     }
 }
 
-double BeatManager::GetCurrentBeatD() const
+double BeatClock::GetCurrentBeatD() const
 {
     if (!IsValid()) return 0.0;
 
@@ -130,12 +130,12 @@ double BeatManager::GetCurrentBeatD() const
     return currentTime / GetSecondsPerBeatD();
 }
 
-double BeatManager::ClockToSecondsD(int64_t clock) const
+double BeatClock::ClockToSecondsD(int64_t clock) const
 {
     return static_cast<double>(clock) / static_cast<double>(qpcFrequency_.QuadPart);
 }
 
-bool BeatManager::IsValid() const
+bool BeatClock::IsValid() const
 {
     if (bpm_ <= 0.0f) return false;
 
@@ -147,12 +147,12 @@ bool BeatManager::IsValid() const
     }
 }
 
-bool BeatManager::IsHandleValid() const
+bool BeatClock::IsHandleValid() const
 {
     return musicHandle_ != (std::numeric_limits<uint32_t>::max)();
 }
 
-bool BeatManager::ConsumeBeatIfAdvanced()
+bool BeatClock::ConsumeBeatIfAdvanced()
 {
     int currentIdx = static_cast<int>(std::floor(GetCurrentBeatD()));
     if (currentIdx > lastBeat_)
