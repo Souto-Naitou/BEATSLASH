@@ -35,6 +35,8 @@
     <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
+    <ClCompile Include="src\character\player\CameraInput.cpp" />
+    <ClCompile Include="src\character\player\FollowCamera.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
     <ClCompile Include="src\combo\ComboBuffSystem.cpp" />
@@ -84,6 +86,8 @@
     <ClInclude Include="src\character\enemy\state\EnemyStateFactry.h" />
     <ClInclude Include="src\character\enemy\state\EnemyStateType.h" />
     <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h" />
+    <ClInclude Include="src\character\player\CameraInput.h" />
+    <ClInclude Include="src\character\player\FollowCamera.h" />
     <ClInclude Include="src\character\player\Player.h" />
     <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
     <ClInclude Include="src\character\player\PlayerInput.h" />
@@ -118,6 +122,7 @@
     <ClInclude Include="src\stage\StageData.h" />
     <ClInclude Include="src\stage\StageSequence.h" />
     <ClInclude Include="src\stage\StageTransitionCollider.h" />
+    <ClInclude Include="src\system\ScopedCursorHidden.h" />
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />
     <ClInclude Include="src\type\ColliderTypeID.h" />
@@ -125,6 +130,7 @@
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
     <ClInclude Include="src\utility\strutl.h" />
     <ClInclude Include="src\utility\ViewportUnits.hpp" />
+    <ClInclude Include="src\utility\wndutl.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

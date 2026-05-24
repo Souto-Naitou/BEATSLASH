@@ -53,10 +53,6 @@ public:
     ValueType& operator=(const ValueType& newValue)
     {
         v_ = newValue;
-        if (onChange_)
-        {
-            onChange_(v_);
-        }
         return v_;
     }
     operator ValueType& () { return v_; }

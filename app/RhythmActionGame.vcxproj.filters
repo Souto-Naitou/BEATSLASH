@@ -82,6 +82,8 @@
     <ClCompile Include="src\entity\attack\AttackRepository.cpp">
       <Filter>entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\FollowCamera.cpp" />
+    <ClCompile Include="src\character\player\CameraInput.cpp" />
     <ClCompile Include="src\judge\InputTimingJudge.cpp">
       <Filter>judge</Filter>
     </ClCompile>
@@ -293,6 +295,10 @@
     <ClInclude Include="src\entity\attack\AttackRepository.h">
       <Filter>entity</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\player\FollowCamera.h" />
+    <ClInclude Include="src\character\player\CameraInput.h" />
+    <ClInclude Include="src\system\ScopedCursorHidden.h" />
+    <ClInclude Include="src\utility\wndutl.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

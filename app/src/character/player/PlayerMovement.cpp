@@ -22,10 +22,26 @@ bool PlayerMovement::IsMove(float speedThreshold /*= 0.0f*/) const
 void PlayerMovement::UpdateByInput(float dt)
 {
     const auto& inputData = pInput_->GetCommand();
-    ApplyForce(inputData.move * movePower_);
+    const auto& move = inputData.move;
+    const auto& cameraRotation = followCamera_.GetRotation();
+    const float yaw = cameraRotation.y;
+
+    Tako::Vector3 forward = Tako::Vector3(std::sin(yaw), 0.0f, std::cos(yaw));
+    Tako::Vector3 right = Tako::Vector3(forward.z, 0.0f, -forward.x);
+    moveDirection_ = forward * move.z + right * move.x;
+
+    if (moveDirection_.LengthSquared() > 0.0f) { moveDirection_.Normalize(); }
+
+    ApplyForce(moveDirection_ * movePower_);
     
     if (inputData.isJumpTriggered)
     {
         AddImpulse(Tako::Vector3(0.0f, jumpPower_, 0.0f));
     }
+}
+
+void PlayerMovement::UpdateByCamera(float dt)
+{
+    
+    
 }

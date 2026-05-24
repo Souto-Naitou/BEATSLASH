@@ -37,7 +37,7 @@ void DebugEntry::ImGui()
             }
             else if constexpr (std::is_same_v<T, float*>)
             {
-                if (ImGui::DragFloat(name.c_str(), arg))
+                if (ImGui::DragFloat(name.c_str(), arg, 0.001f))
                 {
                     if (data.onChange)
                     {
@@ -71,9 +71,9 @@ void DebugEntry::ImGui()
             else if constexpr (std::is_same_v<T, Tako::Transform*>)
             {
                 bool isChanged = false;
-                isChanged |= ImGui::DragFloat3((name + " Scale").c_str(), &arg->scale.x, 0.01f);
-                isChanged |= ImGui::DragFloat3((name + " Rotate").c_str(), &arg->rotate.x, 0.01f);
-                isChanged |= ImGui::DragFloat3((name + " Translate").c_str(), &arg->translate.x, 0.01f);
+                isChanged |= ImGui::DragFloat3((name + " Scale").c_str(), &arg->scale.x, 0.001f);
+                isChanged |= ImGui::DragFloat3((name + " Rotate").c_str(), &arg->rotate.x, 0.001f);
+                isChanged |= ImGui::DragFloat3((name + " Translate").c_str(), &arg->translate.x, 0.001f);
                 if (isChanged && data.onChange)
                 {
                     data.onChange();
@@ -81,7 +81,7 @@ void DebugEntry::ImGui()
             }
             else if constexpr (std::is_same_v<T, Tako::Vector4*>)
             {
-                if (ImGui::DragFloat4(name.c_str(), &arg->x, 0.01f))
+                if (ImGui::DragFloat4(name.c_str(), &arg->x, 0.001f))
                 {
                     if (data.onChange)
                     {
@@ -91,7 +91,7 @@ void DebugEntry::ImGui()
             }
             else if constexpr (std::is_same_v<T, Tako::Vector3*>)
             {
-                if (ImGui::DragFloat3(name.c_str(), &arg->x, 0.01f))
+                if (ImGui::DragFloat3(name.c_str(), &arg->x, 0.001f))
                 {
                     if (data.onChange)
                     {
@@ -101,7 +101,7 @@ void DebugEntry::ImGui()
             }
             else if constexpr (std::is_same_v<T, Tako::Vector2*>)
             {
-                if (ImGui::DragFloat2(name.c_str(), &arg->x, 0.01f))
+                if (ImGui::DragFloat2(name.c_str(), &arg->x, 0.001f))
                 {
                     if (data.onChange)
                     {
