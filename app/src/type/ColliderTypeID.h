@@ -10,4 +10,5 @@ enum class ColliderTypeID
     Enemy,				// 敵
     Obstacle,			// 障害物
     Terrain,			// 地形
+    StageTransitionEvent,         // ステージ遷移用コライダー
 };
