@@ -41,6 +41,8 @@ public:
 	 */
 	const Tako::Vector3& GetRotation() const override { return transform_.rotate; }
 
+    void Respawn(const Tako::Transform& spawnTransform);
+
     void SetComboBuffSystem(ComboBuffSystem* comboBuffSystem) { pComboBuffSystem_ = comboBuffSystem; }
 private:
     void InitializeComponents();

@@ -42,10 +42,14 @@ void GameScene::Initialize()
     /// プレイヤーの初期化
     pPlayer_ = std::make_unique<Player>(*pAttackRepository_);
     pPlayer_->Initialize();
+    pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
+    {
+        pPlayer_->Respawn(spawnTransform);
+    });
 
     // 敵の初期化
-	pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
-	pEnemy_->Initialize();
+    pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
+    pEnemy_->Initialize();
 
     const float BPM = 120.0f;
     pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
@@ -58,7 +62,7 @@ void GameScene::Initialize()
 
     pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
     pPlayer_->SetComboBuffSystem(pComboBuffSystem_.get());
-
+    
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
@@ -132,8 +136,10 @@ void GameScene::Draw()
     // スプライト共通描画設定
     SpriteBasic::GetInstance()->SetCommonRenderSetting();
 
-    Tako::CollisionManager::GetInstance()->DrawColliders();
+    pStage_->DrawTransition();
 
+
+    Tako::CollisionManager::GetInstance()->DrawColliders();
 
 }
 
@@ -153,7 +159,7 @@ void GameScene::DrawWithoutEffect()
     //-------------------Modelの描画-------------------//
     // 3Dモデル共通描画設定
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
-        
+
 
 
 
