@@ -5,6 +5,8 @@
 #include <vector>
 #include <filesystem>
 
+using OnPlayerRespawnRequiredCallback  = std::function<void(const Tako::Transform&)>;
+
 /// <summary>
 /// 複数ステージの進行順序を管理するクラス
 /// </summary>
@@ -17,6 +19,12 @@ public:
     void Draw();
 
     void NotifyClear(); // ステージクリアを
+
+    void DrawTransition();
+
+
+    void SetOnStageChanged(OnPlayerRespawnRequiredCallback cb) { onStageChanged_ = cb; }
+
 
 private:
 
@@ -32,4 +40,7 @@ private:
     std::vector<StageData> stageDataList_; // ステージデータのリスト（JSONから読み込む）
     std::string jsonFilePath_;
     std::filesystem::file_time_type lastWriteTime_;
+
+
+    OnPlayerRespawnRequiredCallback onStageChanged_; // ステージ変更時のコールバック
 };

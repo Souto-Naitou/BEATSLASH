@@ -16,3 +16,8 @@ void EnemyIdleState::Update(Enemy* enemy)
 	float scale = baseScale_ + scaleAmplitude_ * std::sin(timer_ * scaleSpeed_);
 	enemy->SetScale({ scale, scale, scale });
 }
+
+void EnemyIdleState::DrawImGui(Enemy* enemy)
+{
+	// 処理なし
+}

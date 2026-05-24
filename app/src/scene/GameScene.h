@@ -10,6 +10,11 @@
 #include <entity/attack/AttackRepository.h>
 #include <character/player/FollowCamera.h>
 
+#include <combo/ComboSystem.h>
+#include <judge/InputTimingJudge.h>
+#include <manager/BeatManager.h>
+#include <combo/ComboBuffSystem.h>
+
 /// <summary>
 /// サンプルシーンクラス
 /// TakoEngineのデフォルトシーンの構成を参考にしてください。
@@ -51,4 +56,10 @@ private: // メンバ変数
     std::unique_ptr<AttackRepository> pAttackRepository_; // !< コライダーリポジトリのインスタンス
     std::unique_ptr<FollowCamera> pFollowCamera_; // !< カメラクラスのインスタンス
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
+
+    std::unique_ptr<ComboSystem> pComboSystem_; // !< コンボシステム
+    std::unique_ptr<InputTimingJudge> pInputTimingJudge_; // !< 入力判定クラス
+    std::unique_ptr<BeatClock> pBeatClock_; // !< ビートクロック
+    std::unique_ptr<ComboBuffSystem> pComboBuffSystem_; // !< コンボバフシステム
+
 };

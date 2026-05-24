@@ -2,12 +2,12 @@
 #include <character/ICharacter.h>
 #include <character/enemy/state/EnemyStateMachine.h>
 #include <Object3d.h>
-#include <character/CharacterCollider.h>
+#include <character/enemy/collider/EnemyCollider.h>
 
 class Enemy : public ICharacter
 {
 public:
-	Enemy() = default;
+	Enemy(const ICharacter* target);
 	~Enemy() override = default;
 	void Initialize() override;
 	void Update() override;
@@ -24,7 +24,7 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	const Tako::Transform& GetTransform() const { return transform_; }
-	const Tako::Vector3& GetPosition() const { return transform_.translate; }
+	const Tako::Vector3& GetPosition() const override { return transform_.translate; }
 	const Tako::Vector3& GetRotation() const { return transform_.rotate; }
 	const Tako::Vector3& GetScale() const { return transform_.scale; }
 
@@ -51,8 +51,10 @@ private:
 	// トランスフォーム
 	Tako::Transform transform_;
 	// コライダー
-	std::unique_ptr<CharacterCollider> pCollider_;
+	std::unique_ptr<EnemyCollider> pCollider_;
 	// 敵のステートマシン
 	EnemyStateMachine stateMachine_;
+	// ターゲット（所有しない）
+	const ICharacter* pTarget_ = nullptr;
 };
 

@@ -1,9 +1,16 @@
 #include "StageTransitionCollider.h"
 
+#include <type/ColliderTypeID.h>
+
 void StageTransitionCollider::OnCollisionEnter(Tako::Collider* other)
 {
-    if (onTransitionTrigger_)
+    auto id = other->GetTypeID();
+    if (id == static_cast<uint32_t>(ColliderTypeID::Player))
     {
-        onTransitionTrigger_();
+        if (onTransitionTrigger_)
+        {
+            onTransitionTrigger_();
+        }
     }
+
 }

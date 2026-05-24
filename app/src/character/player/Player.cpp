@@ -22,7 +22,7 @@ void Player::Initialize()
     pModel_->SetMaterialColor({ 0.1f, 0.8f, 0.1f, 1.0f });  // 緑色のマテリアルカラーを設定
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
     pModel_->SetScale({ 0.75f, 2.0f, 0.75f });              // スケールを設定
-    pModel_->SetTranslate({ 0.0f, 20.0f, 0.0f });           // 初期位置を設定
+    pModel_->SetTranslate({ 0.0f, 8.0f, 0.0f });           // 初期位置を設定
 
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
@@ -45,8 +45,13 @@ void Player::Initialize()
         pModel_->Update();
     });
 
-    Tako::CollisionManager::GetInstance()->AddCollider(pCollider_.get());
-    Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
+    auto colManeger = Tako::CollisionManager::GetInstance();
+
+    colManeger->AddCollider(pCollider_.get());
+    colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
+    colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::StageTransitionEvent), true);
+    colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
+    colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::PlayerAttack), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 }
 
 void Player::Finalize()
@@ -79,7 +84,7 @@ void Player::Update()
     {
         Tako::Vector3 targetPos = transform_.translate;
         targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
-        attackRepository_.CreatePlayerAttack(targetPos);
+        attackRepository_.CreatePlayerAttack(targetPos, pComboBuffSystem_);
     }
 
     // モデルの更新
@@ -107,6 +112,16 @@ void Player::RegisterCallbacks()
     });
 
     #endif // _DEBUG
+}
+
+void Player::Respawn(const Tako::Transform& spawnTransform)
+{
+    transform_.translate = spawnTransform.translate;
+    transform_.rotate = spawnTransform.rotate;
+
+    pModel_->SetTransform(transform_);
+    pMovement_->ResetVelocity();
+
 }
 
 void Player::InitializeComponents()

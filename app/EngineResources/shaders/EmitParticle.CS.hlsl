@@ -237,16 +237,24 @@ void main(uint3 DTid : SV_DispatchThreadID)
         }
     }
 
+    // ランダムジェネレーターの初期化
     RandomGenerator generator;
-    generator.seed = float3(
-        DTid.x * 73.0f + gPerFrame.time * 173.5f,
-        DTid.y * 191.0f + gPerFrame.time * 71.3f + gEmitters[emitterIndex].emitterID * 53.0f,
-        gEmitters[emitterIndex].emitterID * 127.0f + gPerFrame.time * 257.1f
+    generator.state = uint3(
+        gPerFrame.frameCount ^ (DTid.x * 0x9E3779B9u),
+        gEmitters[emitterIndex].emitterID ^ (gPerFrame.frameCount * 0x85EBCA6Bu),
+        (gPerFrame.frameCount + gEmitters[emitterIndex].emitterID) * 0xC2B2AE35u
     );
+    generator.state = pcg3d(generator.state); // warm-up 1 タップ
 
     // このエミッターから指定数のパーティクルを射出
     for (uint particleIndex = 0; particleIndex < gEmitters[emitterIndex].count; ++particleIndex)
     {
+        // パーティクルごとにジェネレーターを進める（同一エミッター内で異なる乱数列になるように）
+        generator.state ^= uint3(particleIndex * 0x27D4EB2Du,
+                                 particleIndex * 0x165667B1u,
+                                 particleIndex * 0xD3A2646Cu);
+        generator.state = pcg3d(generator.state);
+
         // FreeListから空きパーティクルスロットを取得
         int freeListIndex;
         InterlockedAdd(gFreeListIndex[0], -1, freeListIndex);
@@ -295,6 +303,7 @@ void main(uint3 DTid : SV_DispatchThreadID)
                 {
                     // メッシュからのスポーン (Surface / Edge / Inside)
                     // Inside は SDF 未実装、AABB 内ランダムでフォールバック
+                    // TODO: Inside SDF 対応、SpawnLocation ごとの分布の実装（現状は全て Surface と同じ分布）
                     float3 localSpawn = float3(0.0f, 0.0f, 0.0f);
                     uint triCount = gEmitters[emitterIndex].meshTriangleCount;
                     if (triCount > 0)

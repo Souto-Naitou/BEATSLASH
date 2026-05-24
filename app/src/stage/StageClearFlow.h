@@ -4,6 +4,8 @@
 #include "StageTransitionCollider.h"
 #include "StageData.h"
 
+#include <transition/FadeTransition.h>
+
 class StageClearFlow
 {
 public:
@@ -19,6 +21,8 @@ public:
     void Initialize(const StageData& stageData);
 
     void Update(float deltaTime);
+
+    void Draw();
 
     // ステージクリアした時に呼び出す
     void NotifyClear();
@@ -39,8 +43,6 @@ private:
     void FadeOutExit();
     void FadeInExit();
 
-    // コライダーに渡すコールバック関数
-    void OnColliderHit(/* 引数はコライダーのイベントに合わせて適宜追加 */);
 
 private:
 
@@ -53,4 +55,7 @@ private:
     // 遷移完了時のコールバック関数
     std::function<void()> onFadeOutComplete_;
     std::function<void()> onFadeInComplete_;
+
+    std::unique_ptr<Tako::FadeTransition> fade_;
+    float fadeDuration_ = 1.0f; // フェードの時間（秒）
 };

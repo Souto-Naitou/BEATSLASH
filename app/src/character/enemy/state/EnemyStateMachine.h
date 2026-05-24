@@ -5,11 +5,14 @@
 #include <unordered_map>
 #include <memory>
 
+class ICharacter;
+
 class EnemyStateMachine
 {
 public:
 	// 状態の初期化
-	void Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy);
+	void Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target);
+
 
 	// 状態の更新
 	void Update();

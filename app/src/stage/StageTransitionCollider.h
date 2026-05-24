@@ -14,6 +14,8 @@ public:
 
 private:
 
+
+
     std::function<void()> onTransitionTrigger_; // 遷移開始時のコールバック関数
 
 };

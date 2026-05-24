@@ -36,6 +36,11 @@ void StageSequence::NotifyClear()
     stages_[currentIndex_]->OpenDoor();
 }
 
+void StageSequence::DrawTransition()
+{
+    clearFlow_.Draw();
+}
+
 void StageSequence::OnTransitionStage()
 {
     int32_t preIndex = currentIndex_++;
@@ -45,6 +50,11 @@ void StageSequence::OnTransitionStage()
         clearFlow_.Initialize(stageDataList_[currentIndex_]);
         stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
         stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
+
+        if (onStageChanged_)
+        {
+            onStageChanged_(stageDataList_[currentIndex_].playerStartTransform);
+        }
     }
     else
     {
@@ -90,13 +100,21 @@ void StageSequence::LoadFromJson(const std::string& path)
         data.doorTransform.rotate    = { dr["x"], dr["y"], dr["z"] };
         data.doorTransform.scale     = { ds["x"], ds["y"], ds["z"] };
 
+        auto& sp = s["spawn"];
+        auto& spt = sp["translate"];
+        auto& spr = sp["rotate"];
+        data.playerStartTransform.translate = { spt["x"], spt["y"], spt["z"] };
+        data.playerStartTransform.rotate    = { spr["x"], spr["y"], spr["z"] };
+
         stageDataList_.push_back(data);
 
         auto stage = std::make_unique<Stage>();
         stage->Initialize(data);   // ← StageData を渡す
         stage->CollisionActive(false); // 最初はコライダー無効
         stages_.push_back(std::move(stage));
+
     }
+
 
     // ホットリロード後も現在インデックスを維持（範囲外なら 0 にクランプ）
     if (currentIndex_ >= static_cast<int32_t>(stages_.size()))

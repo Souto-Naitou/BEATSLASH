@@ -1,4 +1,5 @@
 #pragma once
+#include <Vector3.h>
 
 class ICharacter
 {
@@ -20,4 +21,19 @@ public:
     /// キャラクターの描画
     /// </summary>
     virtual void Draw() = 0;
+
+    /**
+     * @brief 座標の取得
+     */
+    virtual const Tako::Vector3& GetPosition() const = 0;
+
+	/**
+	 * @brief スケールの取得
+	 */
+	virtual const Tako::Vector3& GetScale() const = 0;
+
+	/**
+	 * @brief 回転の取得
+	 */
+	virtual const Tako::Vector3& GetRotation() const = 0;
 };

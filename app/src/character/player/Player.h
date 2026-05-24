@@ -15,6 +15,8 @@
 #include <entity/attack/AttackRepository.h>
 #include "FollowCamera.h"
 
+class ComboBuffSystem;
+
 class Player : public ICharacter
 {
 public:
@@ -29,9 +31,14 @@ public:
     void RegisterCallbacks();
 
     const Tako::Vector3& GetPosition() const { return transform_.translate; }
+	  const Tako::Vector3& GetScale() const override { return transform_.scale; }
+	  const Tako::Vector3& GetRotation() const override { return transform_.rotate; }
     const Tako::Transform& GetTransform() const { return transform_; }
     Tako::Transform& GetTransform() { return transform_; }
 
+    void Respawn(const Tako::Transform& spawnTransform);
+
+    void SetComboBuffSystem(ComboBuffSystem* comboBuffSystem) { pComboBuffSystem_ = comboBuffSystem; }
 private:
     void InitializeComponents();
 
@@ -57,4 +64,6 @@ private:
     /// 参照
     AttackRepository& attackRepository_;        // 攻撃リポジトリの参照
     FollowCamera& followCamera_;                // フォローカメラの参照
+
+    ComboBuffSystem* pComboBuffSystem_ = nullptr; // コンボバフシステムの参照
 };
