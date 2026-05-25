@@ -13,6 +13,7 @@ class PlayerAttack
 public:
     PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem);
     void Update(float deltaTime);
+    bool IsActive() const { return pCollider_ != nullptr; }
 
 private:
     EnableDebug("PlayerAttack");
