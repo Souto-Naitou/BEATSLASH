@@ -10,6 +10,14 @@ void AttackRepository::Update()
     }
 }
 
+void AttackRepository::EraseInactiveAttacks()
+{
+    std::erase_if(playerAttacks_, [](const std::unique_ptr<PlayerAttack>& attack) {
+        // 攻撃が非アクティブかどうかの条件をここに記述
+        return !attack->IsActive();
+    });
+}
+
 void AttackRepository::CreatePlayerAttack(const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem)
 {
     auto pPlayerAttack = std::make_unique<PlayerAttack>(colliderRepository_, position, comboBuffSystem);

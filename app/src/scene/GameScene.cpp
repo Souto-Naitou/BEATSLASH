@@ -107,8 +107,11 @@ void GameScene::Update()
 
     pBeatClock_->Update();
     pAttackRepository_->Update();
+    
+    // 非アクティブの攻撃を削除
+    pAttackRepository_->EraseInactiveAttacks();
     // 非アクティブのコライダーを削除
-    colliderRepository_.RemoveIfNotActive();
+    colliderRepository_.EraseInactiveColliders();
 
     pFollowCamera_->Update();
 

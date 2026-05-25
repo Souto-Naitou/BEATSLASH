@@ -23,7 +23,8 @@ public:
 private:
     void CameraActivationUpdate(const CameraInput::Command& command);
     void CameraDataUpdate(const CameraInput::Command& command);
-    void CursorFixUpdate(const CameraInput::Command& command);
+    void CursorFixUpdate();
+    void PitchClamp(float& pitch);
 
     EnableDebug("Follow Camera");
 
@@ -41,6 +42,8 @@ private:
     GameParameter(float, kFactorLerp_, 0.1f);           // 線形補間の係数
     GameParameter(Tako::Vector2, kRotation_, {});       // カメラのX軸回転
     GameParameter(bool, isActive_, false);              // カメラ制御の有効フラグ
+    GameParameter(float, kMinPitch_, -1.57);            // カメラの最小ピッチ（下方向の回転制限）
+    GameParameter(float, kMaxPitch_, 1.57);             // カメラの最大ピッチ（上方向の回転制限）
     GameParameterView(Tako::Vector3, rotation_, {});    // ターゲットの位置（デバッグ表示用）
     GameParameterView(Tako::Vector3, translation_, {}); // ターゲットの位置（デバッグ表示用）
 

@@ -18,6 +18,8 @@ public:
     /// </summary>
     void Update();
 
+    void EraseInactiveAttacks();
+
     void CreatePlayerAttack(const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem);
 
 private:

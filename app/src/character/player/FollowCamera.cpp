@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include <utility/wndutl.h>
 #include <WinApp.h>
+#include <algorithm>
 
 void FollowCamera::Initialize()
 {
@@ -40,7 +41,7 @@ void FollowCamera::Update()
     const auto& command = pCameraInput_->GetCommand();
 
     this->CameraActivationUpdate(command);
-    this->CursorFixUpdate(command);
+    this->CursorFixUpdate();
 
     if (isActive_) this->CameraDataUpdate(pCameraInput_->GetCommand());
     else this->CameraDataUpdate({});
@@ -73,23 +74,27 @@ void FollowCamera::CameraDataUpdate(const CameraInput::Command& command)
     kRotation_->x += command.delta.pitch;
     kRotation_->y += command.delta.yaw;
 
-    // direction_
+    // ピッチを制限する
+    this->PitchClamp(kRotation_->x);
+
+    // 方向を計算
     Tako::Vector3 rotate = { kRotation_->x, kRotation_->y, 0.0f };
-    Tako::Matrix4x4 rotation = Tako::Mat4x4::MakeRotateXYZ(rotate);
-    Tako::Vector3 direction = Tako::Mat4x4::TransformNormal(rotation, shiftDirection_);
+    Tako::Matrix4x4 rotMatrix = Tako::Mat4x4::MakeRotateXYZ(rotate);
+    Tako::Vector3 direction = Tako::Mat4x4::TransformNormal(rotMatrix, shiftDirection_);
 
-    // interpolation
-    Tako::Vector3 nextTargetPosition = targetPositionPre_ * (1.0f - kFactorLerp_) + (pTarget_->translate + targetPositionOffset_) * kFactorLerp_;
+    // 補間
+    Tako::Vector3 targetPosition = pTarget_->translate + targetPositionOffset_;
+    Tako::Vector3 lerpedPosition = targetPositionPre_ * (1.0f - kFactorLerp_) + targetPosition * kFactorLerp_;
 
-    Tako::Vector3 nextCameraPosition = direction.Normalize() * kOffset_ + nextTargetPosition;
+    Tako::Vector3 nextCameraPosition = direction.Normalize() * kOffset_ + lerpedPosition;
 
     pCamera_->SetRotate(rotate);
     pCamera_->SetTranslate(nextCameraPosition);
 
-    targetPositionPre_ = nextTargetPosition;
+    targetPositionPre_ = lerpedPosition;
 }
 
-void FollowCamera::CursorFixUpdate(const CameraInput::Command& command)
+void FollowCamera::CursorFixUpdate()
 {
     if (!pCursorHidden_ || !isActive_) return;
 
@@ -97,4 +102,9 @@ void FollowCamera::CursorFixUpdate(const CameraInput::Command& command)
 
     ClientToScreen(Tako::WinApp::GetInstance()->GetHWnd(), &center);
     SetCursorPos(center.x, center.y);
+}
+
+void FollowCamera::PitchClamp(float& pitch)
+{
+    pitch = std::clamp(pitch, kMinPitch_.Get(), kMaxPitch_.Get());
 }
