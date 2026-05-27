@@ -43,7 +43,16 @@ void GameScene::Initialize()
     pFollowCamera_ = std::make_unique<FollowCamera>();
     pFollowCamera_->Initialize();
 
+
+    const float BPM = 120.0f;
+    pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
+    pInputTimingJudge_->Initialize(BPM, 0.2f, 0.4f);
+
+    pBeatClock_ = std::make_unique<BeatClock>();
+    pBeatClock_->Initialize(BPM, 0.0f);
+
     /// コンボシステムと入力判定クラスの初期化
+    pComboSystem_ = std::make_unique<ComboSystem>();
     pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
 
     /// プレイヤーの初期化
@@ -64,15 +73,6 @@ void GameScene::Initialize()
     // 敵の初期化
     pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
     pEnemy_->Initialize();
-
-    const float BPM = 120.0f;
-    pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
-    pInputTimingJudge_->Initialize(BPM, 0.2f, 0.4f);
-
-    pComboSystem_ = std::make_unique<ComboSystem>();
-
-    pBeatClock_= std::make_unique<BeatClock>();
-    pBeatClock_->Initialize(BPM, 0.0f);
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(

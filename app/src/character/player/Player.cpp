@@ -80,6 +80,7 @@ void Player::Update()
         transform_.rotate.y = angle + yawCamera;
         directionAtackSpawning = pMovement_->GetMoveDirection();
     }
+    /// 攻撃時
     if (pAttackTrigger_->ShouldAttack(inputCommand))
     {
         Tako::Vector3 targetPos = transform_.translate;
