@@ -63,8 +63,10 @@
     <ClCompile Include="src\judge\InputTimingJudge.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\manager\BeatManager.cpp" />
+    <ClCompile Include="src\math\Easing.cpp" />
     <ClCompile Include="src\physics\ColliderRepository.cpp" />
     <ClCompile Include="src\physics\ColliderTimer.cpp" />
+    <ClCompile Include="src\presentation\animation\RadialBeat.cpp" />
     <ClCompile Include="src\scene\GameScene.cpp" />
     <ClCompile Include="src\stage\stage.cpp" />
     <ClCompile Include="src\stage\StageClearFlow.cpp" />
@@ -73,7 +75,9 @@
     <ClCompile Include="src\test\TestScene.cpp" />
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
+    <ClCompile Include="src\utility\DeltaTimeStopWatch.cpp" />
     <ClCompile Include="src\utility\strutl.cpp" />
+    <ClCompile Include="src\utility\StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h" />
@@ -114,10 +118,14 @@
     <ClInclude Include="src\judge\InputTimingJudge.h" />
     <ClInclude Include="src\judge\JudgeResutl.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
+    <ClInclude Include="src\math\Easing.h" />
     <ClInclude Include="src\math\HSV.h" />
     <ClInclude Include="src\math\VectorMath.h" />
     <ClInclude Include="src\physics\ColliderTimer.h" />
     <ClInclude Include="src\physics\ColliderRepository.h" />
+    <ClInclude Include="src\presentation\animation\AnimationTimeline.hpp" />
+    <ClInclude Include="src\presentation\animation\AnimationTween.hpp" />
+    <ClInclude Include="src\presentation\animation\RadialBeat.h" />
     <ClInclude Include="src\scene\GameScene.h" />
     <ClInclude Include="src\stage\stage.h" />
     <ClInclude Include="src\stage\StageClearFlow.h" />
@@ -130,7 +138,9 @@
     <ClInclude Include="src\type\ColliderTypeID.h" />
     <ClInclude Include="src\utility\CollisionUtility.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
+    <ClInclude Include="src\utility\DeltaTimeStopWatch.h" />
     <ClInclude Include="src\utility\strutl.h" />
+    <ClInclude Include="src\utility\StopWatch.h" />
     <ClInclude Include="src\utility\ViewportUnits.hpp" />
     <ClInclude Include="src\utility\wndutl.h" />
   </ItemGroup>
