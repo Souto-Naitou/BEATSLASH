@@ -22,7 +22,7 @@ void Player::Initialize()
     pModel_->SetMaterialColor({ 0.1f, 0.8f, 0.1f, 1.0f });  // 緑色のマテリアルカラーを設定
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
     pModel_->SetScale({ 0.75f, 2.0f, 0.75f });              // スケールを設定
-    pModel_->SetTranslate({ 0.0f, 8.0f, 0.0f });           // 初期位置を設定
+    pModel_->SetTranslate({ 0.0f, 8.0f, 0.0f });            // 初期位置を設定
 
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
@@ -84,7 +84,7 @@ void Player::Update()
     {
         Tako::Vector3 targetPos = transform_.translate;
         targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
-        attackRepository_.CreatePlayerAttack(targetPos, pComboBuffSystem_);
+        attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
     }
 
     // モデルの更新
@@ -121,7 +121,6 @@ void Player::Respawn(const Tako::Transform& spawnTransform)
 
     pModel_->SetTransform(transform_);
     pMovement_->ResetVelocity();
-
 }
 
 void Player::InitializeComponents()
@@ -131,4 +130,9 @@ void Player::InitializeComponents()
     pMovement_ = std::make_unique<PlayerMovement>(pInput_.get(), followCamera_);
     pMovement_->SetMovePower(kMovePower_);
     pMovement_->SetJumpPower(kJumpPower_);
+    PlayerAttackHitReceiver::Executors hitReceiverExecs
+    {
+        .comboBuffSystem = comboBuffSystem_
+    };
+    pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(hitReceiverExecs);
 }

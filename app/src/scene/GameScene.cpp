@@ -43,8 +43,17 @@ void GameScene::Initialize()
     pFollowCamera_ = std::make_unique<FollowCamera>();
     pFollowCamera_->Initialize();
 
+    /// コンボシステムと入力判定クラスの初期化
+    pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
+
     /// プレイヤーの初期化
-    pPlayer_ = std::make_unique<Player>(*pAttackRepository_, *pFollowCamera_);
+    Player::InitData playerInitData
+    {
+        *pAttackRepository_,
+        *pFollowCamera_,
+        *pComboBuffSystem_
+    };
+    pPlayer_ = std::make_unique<Player>(playerInitData);
     pPlayer_->Initialize();
     pFollowCamera_->SetTarget(&pPlayer_->GetTransform());
     pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
@@ -64,10 +73,6 @@ void GameScene::Initialize()
 
     pBeatClock_= std::make_unique<BeatClock>();
     pBeatClock_->Initialize(BPM, 0.0f);
-
-    pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
-    pPlayer_->SetComboBuffSystem(pComboBuffSystem_.get());
-    
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
