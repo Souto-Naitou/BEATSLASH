@@ -20,7 +20,7 @@ public:
 
     void EraseInactiveAttacks();
 
-    void CreatePlayerAttack(const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem);
+    void CreatePlayerAttack(PlayerAttackHitReceiver& hitReceiver, const Tako::Vector3& position);
 
 private:
     std::vector<std::unique_ptr<PlayerAttack>> playerAttacks_ = {};

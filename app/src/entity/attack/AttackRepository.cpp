@@ -18,8 +18,8 @@ void AttackRepository::EraseInactiveAttacks()
     });
 }
 
-void AttackRepository::CreatePlayerAttack(const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem)
+void AttackRepository::CreatePlayerAttack(PlayerAttackHitReceiver& hitReceiver, const Tako::Vector3& position)
 {
-    auto pPlayerAttack = std::make_unique<PlayerAttack>(colliderRepository_, position, comboBuffSystem);
+    auto pPlayerAttack = std::make_unique<PlayerAttack>(colliderRepository_, hitReceiver, position);
     playerAttacks_.emplace_back(std::move(pPlayerAttack));
 }

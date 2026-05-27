@@ -9,10 +9,7 @@ void PlayerAttackCollider::OnCollisionEnter(Collider* other)
 
     if (ID == ColliderTypeID::Enemy)
     {
-        if(pComboBuffSystem_)
-        {
-            pComboBuffSystem_->OnAttackHit();
-        }
+        hitReceiver_.ReceiveHit(PlayerAttackHitReceiver::HitInfo());
     }
 }
 

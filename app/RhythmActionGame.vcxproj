@@ -38,6 +38,7 @@
     <ClCompile Include="src\character\player\CameraInput.cpp" />
     <ClCompile Include="src\character\player\FollowCamera.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
+    <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
     <ClCompile Include="src\combo\ComboBuffSystem.cpp" />
     <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="src\character\player\FollowCamera.h" />
     <ClInclude Include="src\character\player\Player.h" />
     <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
+    <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h" />
     <ClInclude Include="src\character\player\PlayerInput.h" />
     <ClInclude Include="src\character\player\PlayerMovement.h" />
     <ClInclude Include="src\combo\ComboBuffSystem.h" />
