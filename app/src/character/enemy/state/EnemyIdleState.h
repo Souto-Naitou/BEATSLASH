@@ -4,9 +4,7 @@
 
 class EnemyIdleState : public EnemyState
 {
-public:
-	~EnemyIdleState() override = default;
-	
+public:	
 	void Enter(Enemy* enemy) override;
 	void Update(Enemy* enemy) override;
 	void DrawImGui(Enemy* enemy) override;

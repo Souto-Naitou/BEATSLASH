@@ -23,10 +23,10 @@ public:
 	/// 各種トランスフォームの取得
 	/// </summary>
 	/// <returns></returns>
-	const Tako::Transform& GetTransform() const { return transform_; }
-	const Tako::Vector3& GetPosition() const override { return transform_.translate; }
-	const Tako::Vector3& GetRotation() const { return transform_.rotate; }
-	const Tako::Vector3& GetScale() const { return transform_.scale; }
+	Tako::Transform& GetTransform() { return transform_; }
+	const Tako::Vector3& GetPosition() override { return transform_.translate; }
+	const Tako::Vector3& GetRotation() override { return transform_.rotate; }
+	const Tako::Vector3& GetScale() override { return transform_.scale; }
 
 
 	/// <summary>

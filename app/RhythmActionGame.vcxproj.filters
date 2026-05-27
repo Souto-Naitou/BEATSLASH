@@ -94,6 +94,8 @@
       <Filter>combo</Filter>
     </ClCompile>
     <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp" />
+    <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="factory">
@@ -301,6 +303,8 @@
     <ClInclude Include="src\system\ScopedCursorHidden.h" />
     <ClInclude Include="src\utility\wndutl.h" />
     <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h" />
+    <ClInclude Include="src\character\enemy\state\EnemyAttackState.h" />
+    <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
