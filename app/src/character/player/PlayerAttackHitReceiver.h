@@ -20,5 +20,5 @@ public:
     void ReceiveHit(const HitInfo& info);
 
 private:
-    Executors& execs_;
+    Executors execs_;
 };
