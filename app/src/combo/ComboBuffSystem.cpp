@@ -3,6 +3,7 @@
 #include "ComboSystem.h"
 #include <manager/BeatManager.h>
 #include <judge/InputTimingJudge.h>
+#include <Logger.h>
 
 ComboBuffSystem::ComboBuffSystem(ComboSystem* comboSystem, InputTimingJudge* inputTimingJudge, BeatClock* beatClock):
     pComboSystem_(comboSystem),
@@ -24,6 +25,8 @@ void ComboBuffSystem::OnAttackHit()
 {
     float timingDiff = pBeatClock_->GetDeltaToNearestBeatSeconds();
     JudgeResult judge = pInputTimingJudge_->Evaluate(timingDiff);
+    static const char* judgeStr[] = { "Miss", "Good", "Perfect" };
+    Tako::Logger::Log(std::format("ComboBuffSystem::OnAttackHit - timingDiff: {}, judge: {}\n", timingDiff, judgeStr[static_cast<int>(judge)]));
     pComboSystem_->OnAttackHit(judge);
 }
 

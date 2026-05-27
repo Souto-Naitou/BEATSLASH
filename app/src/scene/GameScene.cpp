@@ -50,6 +50,7 @@ void GameScene::Initialize()
 
     pBeatClock_ = std::make_unique<BeatClock>();
     pBeatClock_->Initialize(BPM, 0.0f);
+    pBeatClock_->Start();
 
     /// コンボシステムと入力判定クラスの初期化
     pComboSystem_ = std::make_unique<ComboSystem>();
@@ -66,9 +67,9 @@ void GameScene::Initialize()
     pPlayer_->Initialize();
     pFollowCamera_->SetTarget(&pPlayer_->GetTransform());
     pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
-    {
-        pPlayer_->Respawn(spawnTransform);
-    });
+                               {
+                                   pPlayer_->Respawn(spawnTransform);
+                               });
 
     // 敵の初期化
     pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
@@ -122,8 +123,8 @@ void GameScene::Update()
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
+        // TODO：敵が全部死んだらこいつを呼ぶ
         pStage_->NotifyClear();
-        //SceneManager::GetInstance()->ChangeScene("");
     }
     CollisionManager::GetInstance()->CheckAllCollisions();
 }
