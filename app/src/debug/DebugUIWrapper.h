@@ -35,18 +35,23 @@ public:
         const std::string& name,
         const T* ptr);
 
+    void HandleCustomGuiFunction(
+        const std::string& id,
+        const std::string& name,
+        std::function<void()> func);
+
 private:
-    std::unordered_map<std::string, DebugEntry*> entries_;
+    std::unordered_map<std::string, std::vector<DebugEntry*>> entries_;
 };
 
 template <typename T>
 void DebugUIWrapper::HandleParameter(const std::string& id, const std::string& name, T* ptr, std::function<void()> pFunc)
 {
-    entries_.at(id)->RegisterParameter(name, ptr, std::move(pFunc));
+    entries_.at(id).back()->RegisterParameter(name, ptr, std::move(pFunc));
 }
 
 template <typename T>
 void DebugUIWrapper::HandleParameter(const std::string& id, const std::string& name, const T* ptr)
 {
-    entries_.at(id)->RegisterParameter(name, ptr);
+    entries_.at(id).back()->RegisterParameter(name, ptr);
 }

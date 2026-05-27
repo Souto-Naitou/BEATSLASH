@@ -50,12 +50,18 @@ public:
     template <typename T>
     void RegisterParameter(const std::string& name, const T* ptr);
 
+    inline void RegisterCustomGuiFunction(const std::string& name, std::function<void()> func)
+    {
+        customGuiFunctions_.insert({ name, std::move(func) });
+    }
+
 
     const std::string& GetCategory() const { return category_; }
 
 private:
     std::unordered_map<std::string, ParameterData> parameters_;
     std::unordered_map<std::string, ConstAvailableType> parametersConstant_;
+    std::unordered_map<std::string, std::function<void()>> customGuiFunctions_;
     std::string category_;
 };
 
