@@ -75,6 +75,9 @@ void GameScene::Initialize()
     pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
     pEnemy_->Initialize();
 
+    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_);
+    pGameHUD_->Initialize();
+
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
         { 0.0f, -1.0f, 1.0f },   // 方向
@@ -87,6 +90,7 @@ void GameScene::Initialize()
 
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
+
 }
 
 
@@ -120,6 +124,7 @@ void GameScene::Update()
     colliderRepository_.EraseInactiveColliders();
 
     pFollowCamera_->Update();
+    pGameHUD_->Update();
 
     if (Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
@@ -151,6 +156,7 @@ void GameScene::Draw()
     //------------------前景Spriteの描画------------------//
     // スプライト共通描画設定
     SpriteBasic::GetInstance()->SetCommonRenderSetting();
+    pGameHUD_->Draw();
 
     pStage_->DrawTransition();
 
