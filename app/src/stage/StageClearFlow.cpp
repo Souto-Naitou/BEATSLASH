@@ -65,6 +65,9 @@ void StageClearFlow::NotifyClear()
 
 void StageClearFlow::ClearEnter()
 {
+    if (state_ != StageFlowState::Playing)
+        return;
+
     state_ = StageFlowState::StageClear;
     transitionCollider_->SetActive(true);
 }

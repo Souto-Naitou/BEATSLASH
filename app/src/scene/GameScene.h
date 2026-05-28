@@ -5,10 +5,10 @@
 #include <character/player/Player.h>
 
 #include <memory>
-#include <character/enemy/Enemy.h>
 #include <physics/ColliderRepository.h>
 #include <entity/attack/AttackRepository.h>
 #include <character/player/FollowCamera.h>
+#include <entity/enemy/EnemiesOnField.h>
 
 #include <combo/ComboSystem.h>
 #include <judge/InputTimingJudge.h>
@@ -52,7 +52,7 @@ public: // メンバ関数
 
 private: // メンバ変数
     std::unique_ptr<Player> pPlayer_; // !< プレイヤー
-	std::unique_ptr<Enemy> pEnemy_; // !< 敵
+	std::unique_ptr<EnemiesOnField> pEnemies_; // !< 敵
     std::unique_ptr<StageSequence> pStage_; // !< ステージクラスのインスタンス
     std::unique_ptr<AttackRepository> pAttackRepository_; // !< コライダーリポジトリのインスタンス
     std::unique_ptr<FollowCamera> pFollowCamera_; // !< カメラクラスのインスタンス
