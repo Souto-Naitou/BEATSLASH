@@ -88,6 +88,9 @@ void Player::Update()
         attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
     }
 
+    // ヒット受信の更新
+    pHitReceiver_->Update();
+
     // モデルの更新
     pModel_->SetTransform(transform_);
     pModel_->Update();
