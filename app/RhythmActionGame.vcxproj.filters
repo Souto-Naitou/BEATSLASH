@@ -131,82 +131,82 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
-      <UniqueIdentifier>{86bb83b5-1d5f-4e6d-a974-b19de61d6160}</UniqueIdentifier>
+      <UniqueIdentifier>{94e7884c-510c-49d5-9711-b821210e76f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="combo">
-      <UniqueIdentifier>{066ec6ec-2cee-4b94-b3a8-e52868d5f370}</UniqueIdentifier>
+      <UniqueIdentifier>{4863b761-5515-4158-ad97-ecf0f26ae0dc}</UniqueIdentifier>
     </Filter>
     <Filter Include="component">
-      <UniqueIdentifier>{bd022edf-2cc3-4f32-add0-f89fa259f5ba}</UniqueIdentifier>
+      <UniqueIdentifier>{46ea7bf2-5895-4e21-99b5-11cb057460f4}</UniqueIdentifier>
     </Filter>
     <Filter Include="debug">
-      <UniqueIdentifier>{9587cd76-cba6-4a31-b36c-1d73d5d66078}</UniqueIdentifier>
+      <UniqueIdentifier>{bea7b01e-acec-4039-8cb2-559fa5c1908d}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity">
-      <UniqueIdentifier>{a1322ab8-1a73-4bf2-bd06-156ca8bb4d6a}</UniqueIdentifier>
+      <UniqueIdentifier>{5ce33fda-1d58-4b05-9936-2cf01b7780ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="factory">
-      <UniqueIdentifier>{3dc52c94-f938-4fd0-9816-f72efd886b00}</UniqueIdentifier>
+      <UniqueIdentifier>{4bdcd342-c8af-47a0-a791-909ac33ee7e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="font">
-      <UniqueIdentifier>{a43a4218-8ebb-4912-ab57-78ec95aa7715}</UniqueIdentifier>
+      <UniqueIdentifier>{46bbc37f-d24f-44c2-b1b4-c2a5d64a1f12}</UniqueIdentifier>
     </Filter>
     <Filter Include="framework">
-      <UniqueIdentifier>{29d209f7-4c74-410e-8d9a-9d1d532cc918}</UniqueIdentifier>
+      <UniqueIdentifier>{5797d224-8e51-4333-b4b9-64019f792568}</UniqueIdentifier>
     </Filter>
     <Filter Include="judge">
-      <UniqueIdentifier>{8230b601-b68a-446c-b02c-578455f3233c}</UniqueIdentifier>
+      <UniqueIdentifier>{4479ab51-3d93-45ad-bb17-652f764683b9}</UniqueIdentifier>
     </Filter>
     <Filter Include="manager">
-      <UniqueIdentifier>{c3fe3efc-4a90-4a1d-81d7-a34fdf6b5a0e}</UniqueIdentifier>
+      <UniqueIdentifier>{b2330a2b-270b-4d25-b736-606dcf4c35f0}</UniqueIdentifier>
     </Filter>
     <Filter Include="math">
-      <UniqueIdentifier>{e7a7de14-e249-472f-b02f-d6e8beacd6e9}</UniqueIdentifier>
+      <UniqueIdentifier>{29a54ff8-a973-46db-b1ba-030af3828294}</UniqueIdentifier>
     </Filter>
     <Filter Include="physics">
-      <UniqueIdentifier>{69bdeb60-060b-4f25-80fc-75ca6c7eb60d}</UniqueIdentifier>
+      <UniqueIdentifier>{a4fae374-47b9-47a9-8047-669f6bf5c588}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation">
-      <UniqueIdentifier>{49cb3d68-dae2-4043-aa9b-97af50667cae}</UniqueIdentifier>
+      <UniqueIdentifier>{e5b4a23b-5e10-4667-9333-923dce72c6b9}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene">
-      <UniqueIdentifier>{3e317eda-3519-402e-8b99-58007c414748}</UniqueIdentifier>
+      <UniqueIdentifier>{86967a5e-d121-455a-97ba-ce59a600f955}</UniqueIdentifier>
     </Filter>
     <Filter Include="stage">
-      <UniqueIdentifier>{1822f196-1d97-423c-8528-d871f21e6163}</UniqueIdentifier>
+      <UniqueIdentifier>{624c9839-b51f-41f9-bfa6-1375dd73d4d2}</UniqueIdentifier>
     </Filter>
     <Filter Include="system">
-      <UniqueIdentifier>{c43a52a5-c12a-4203-a84a-2c33ffa4307f}</UniqueIdentifier>
+      <UniqueIdentifier>{2ff38610-5e18-4535-b11f-2572428a2f90}</UniqueIdentifier>
     </Filter>
     <Filter Include="test">
-      <UniqueIdentifier>{1aaea51f-fd55-4d30-8fd8-0580a5148a82}</UniqueIdentifier>
+      <UniqueIdentifier>{fe36254c-ae01-4ab9-9996-df54f4901cd2}</UniqueIdentifier>
     </Filter>
     <Filter Include="type">
-      <UniqueIdentifier>{4b5e77dd-e45e-4091-b3af-98be59f7cef1}</UniqueIdentifier>
+      <UniqueIdentifier>{c2fe2f67-4af7-43e2-a7f9-73752e905092}</UniqueIdentifier>
     </Filter>
     <Filter Include="utility">
-      <UniqueIdentifier>{ce9d6e50-e4d8-45c3-8e79-55f92d793cbd}</UniqueIdentifier>
+      <UniqueIdentifier>{02da889a-b737-43b2-8622-22b104e412b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy">
-      <UniqueIdentifier>{cf96d070-666d-4cc7-a44a-8773ac98235c}</UniqueIdentifier>
+      <UniqueIdentifier>{55a2263d-18eb-4cf0-9664-cec41b65fb25}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\player">
-      <UniqueIdentifier>{bb699fcb-872a-471b-beb6-a0b2521f6b9b}</UniqueIdentifier>
+      <UniqueIdentifier>{7e845705-d67c-4e17-9263-d46ad33470df}</UniqueIdentifier>
     </Filter>
     <Filter Include="component\collider">
-      <UniqueIdentifier>{458613fd-8d75-4229-97f7-0d692a74ed19}</UniqueIdentifier>
+      <UniqueIdentifier>{99a0e0cc-00c3-481d-8886-14d362209c3f}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\attack">
-      <UniqueIdentifier>{04983baf-136c-4f3d-b1bf-732b2948104e}</UniqueIdentifier>
+      <UniqueIdentifier>{e8259678-0684-43e2-97ea-a0f77ed258fa}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation\animation">
-      <UniqueIdentifier>{aff53f7a-727c-48d9-86a7-7ff9efe43b3b}</UniqueIdentifier>
+      <UniqueIdentifier>{dc788b56-e078-44de-bd93-346d9a7b6e84}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\collider">
-      <UniqueIdentifier>{0e30cf71-ba27-4a12-bb86-b10a9c0ee30b}</UniqueIdentifier>
+      <UniqueIdentifier>{c9dd691e-2e8d-463d-86ab-14b5b56ffb71}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\state">
-      <UniqueIdentifier>{9b21ece6-999a-4d77-bc15-3be30bf1ffd7}</UniqueIdentifier>
+      <UniqueIdentifier>{bab9ed11-30e0-4a8f-9cb2-191becf059f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
