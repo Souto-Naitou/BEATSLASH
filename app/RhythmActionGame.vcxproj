@@ -73,6 +73,8 @@
     <ClCompile Include="src\stage\StageSequence.cpp" />
     <ClCompile Include="src\stage\StageTransitionCollider.cpp" />
     <ClCompile Include="src\test\TestScene.cpp" />
+    <ClCompile Include="src\ui\ComboUI.cpp" />
+    <ClCompile Include="src\ui\GameHUD.cpp" />
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
     <ClCompile Include="src\utility\DeltaTimeStopWatch.cpp" />
@@ -136,6 +138,8 @@
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />
     <ClInclude Include="src\type\ColliderTypeID.h" />
+    <ClInclude Include="src\ui\ComboUI.h" />
+    <ClInclude Include="src\ui\GameHUD.h" />
     <ClInclude Include="src\utility\CollisionUtility.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
     <ClInclude Include="src\utility\DeltaTimeStopWatch.h" />

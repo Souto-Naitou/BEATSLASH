@@ -113,6 +113,12 @@
     <ClCompile Include="src\test\TestScene.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\ComboUI.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\GameHUD.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
     <ClCompile Include="src\utility\CollisionUtility.cpp">
       <Filter>utility</Filter>
     </ClCompile>
@@ -131,82 +137,85 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
-      <UniqueIdentifier>{a504c8a1-334d-401f-9628-2a5efa0ef6f6}</UniqueIdentifier>
+      <UniqueIdentifier>{7c715eac-abaf-444a-8bca-ec4f7facabb1}</UniqueIdentifier>
     </Filter>
     <Filter Include="combo">
-      <UniqueIdentifier>{f140ebe2-d99a-4dce-90d5-1b221ce1e28a}</UniqueIdentifier>
+      <UniqueIdentifier>{d364a72b-57fe-485b-b677-43cd35485879}</UniqueIdentifier>
     </Filter>
     <Filter Include="component">
-      <UniqueIdentifier>{5b5c0104-48c3-43ac-8067-dc73698301e4}</UniqueIdentifier>
+      <UniqueIdentifier>{59f81227-4dc3-4445-a3d5-11bac2a29551}</UniqueIdentifier>
     </Filter>
     <Filter Include="debug">
-      <UniqueIdentifier>{eb89948f-1021-4368-855d-8287e377d9ec}</UniqueIdentifier>
+      <UniqueIdentifier>{45cd1d8e-6b1e-4797-96b3-1ef768529882}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity">
-      <UniqueIdentifier>{2a56cfc1-dbcc-4aaf-af65-a8ca33bd6927}</UniqueIdentifier>
+      <UniqueIdentifier>{c4c345c8-686f-4699-8c62-d88957333f4f}</UniqueIdentifier>
     </Filter>
     <Filter Include="factory">
-      <UniqueIdentifier>{e0690025-e25c-4e5f-bd4a-ecfd965b2a91}</UniqueIdentifier>
+      <UniqueIdentifier>{5bbe74ba-37c3-45d7-81ed-99cc5db8e148}</UniqueIdentifier>
     </Filter>
     <Filter Include="font">
-      <UniqueIdentifier>{238cf7da-2321-491c-a93a-3749e38e0af4}</UniqueIdentifier>
+      <UniqueIdentifier>{21390ace-4b49-4514-8a10-76f3edb0dfd1}</UniqueIdentifier>
     </Filter>
     <Filter Include="framework">
-      <UniqueIdentifier>{880edb52-60bf-4ec6-acc5-94a1f95510a1}</UniqueIdentifier>
+      <UniqueIdentifier>{1e411909-c907-4946-9784-3c073da8b450}</UniqueIdentifier>
     </Filter>
     <Filter Include="judge">
-      <UniqueIdentifier>{eb38e729-e14d-4ec6-b2dc-41d59bfd3acd}</UniqueIdentifier>
+      <UniqueIdentifier>{5c18e128-e5ba-43c1-b8ce-7f78e049d7c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="manager">
-      <UniqueIdentifier>{db6e0c3e-203b-4af2-9de0-6291fb017c46}</UniqueIdentifier>
+      <UniqueIdentifier>{854b77a9-ed56-4c42-b32d-b502c13e39f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="math">
-      <UniqueIdentifier>{c1cd92b1-2697-402c-94b7-233fca6ab70b}</UniqueIdentifier>
+      <UniqueIdentifier>{bbcf25e9-42b2-4b45-a164-d384f66c1ed0}</UniqueIdentifier>
     </Filter>
     <Filter Include="physics">
-      <UniqueIdentifier>{44cd37de-464c-41c7-a4b5-497fee4bc31b}</UniqueIdentifier>
+      <UniqueIdentifier>{01c076df-a253-414f-8959-22422f534298}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation">
-      <UniqueIdentifier>{ba0f29ab-87b4-4076-b781-5cdf91e4edd8}</UniqueIdentifier>
+      <UniqueIdentifier>{efb76b5d-4c70-4d4f-8268-5dc6c4db0188}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene">
-      <UniqueIdentifier>{ecd81c07-8017-4805-a0f2-fe8247287416}</UniqueIdentifier>
+      <UniqueIdentifier>{f1538fc8-11ec-4cbe-a723-43fbda3015d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="stage">
-      <UniqueIdentifier>{ca677868-8b36-4237-aa67-5dd7bf0f3c9d}</UniqueIdentifier>
+      <UniqueIdentifier>{dac57f58-729b-4608-85bc-40263e44e800}</UniqueIdentifier>
     </Filter>
     <Filter Include="system">
-      <UniqueIdentifier>{0100edf8-1129-4294-a0d2-0a1654fc3307}</UniqueIdentifier>
+      <UniqueIdentifier>{fd728f82-4b34-40a1-a961-16d2757139f1}</UniqueIdentifier>
     </Filter>
     <Filter Include="test">
-      <UniqueIdentifier>{3083b740-fbc8-4aa3-b51f-7c848d5dbfe7}</UniqueIdentifier>
+      <UniqueIdentifier>{6c9889e9-de08-4d49-8815-7666e3a67c04}</UniqueIdentifier>
     </Filter>
     <Filter Include="type">
-      <UniqueIdentifier>{42008c93-c45f-42aa-afba-8a62617110d0}</UniqueIdentifier>
+      <UniqueIdentifier>{ca0cb418-e14c-444f-b981-fb6a5cd15144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{d0133b8f-74aa-4add-a2db-852ab3eb6547}</UniqueIdentifier>
     </Filter>
     <Filter Include="utility">
-      <UniqueIdentifier>{829802aa-a8c9-475d-a35b-c04feb099120}</UniqueIdentifier>
+      <UniqueIdentifier>{9ef8585e-e8e2-46b0-a3b8-7c4dfa88d010}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy">
-      <UniqueIdentifier>{6090c95f-b362-4edb-95a1-f6f946360226}</UniqueIdentifier>
+      <UniqueIdentifier>{d7f62d56-ac6e-47e9-9026-bb15f294d4de}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\player">
-      <UniqueIdentifier>{216e4a7d-68f2-44c2-87f6-517a116e00d8}</UniqueIdentifier>
+      <UniqueIdentifier>{40a652a2-07a2-47e5-991f-88a8af45a0c0}</UniqueIdentifier>
     </Filter>
     <Filter Include="component\collider">
-      <UniqueIdentifier>{57f44330-e6e0-41c8-80ea-0d94c9fdb32e}</UniqueIdentifier>
+      <UniqueIdentifier>{31eed916-09bc-4de6-b351-e669db08155a}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\attack">
-      <UniqueIdentifier>{a9e1f86d-e541-4b69-b335-ebe5bfc76a09}</UniqueIdentifier>
+      <UniqueIdentifier>{8899d701-1e8b-4d38-af5f-adaa0203eecf}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation\animation">
-      <UniqueIdentifier>{f9999fb1-bc2b-4ffe-892d-320b45c821f0}</UniqueIdentifier>
+      <UniqueIdentifier>{ef91c571-6dd0-40eb-bb1b-0339bf182a7c}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\collider">
-      <UniqueIdentifier>{af62d966-160a-46a6-afd6-c048f8cc21d9}</UniqueIdentifier>
+      <UniqueIdentifier>{0f3fd89d-9858-4a18-a0be-9e9c179f158e}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\state">
-      <UniqueIdentifier>{15870edb-b5fc-4fce-a75e-432abfac8350}</UniqueIdentifier>
+      <UniqueIdentifier>{b2b71439-8fc3-45bc-b281-2b6b52c1de16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +386,12 @@
     </ClInclude>
     <ClInclude Include="src\type\ColliderTypeID.h">
       <Filter>type</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\ComboUI.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\GameHUD.h">
+      <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="src\utility\CollisionUtility.h">
       <Filter>utility</Filter>
