@@ -4,6 +4,8 @@
 
 using EnemyPushBackCallback = std::function<void(const Tako::Vector3& pushback)>;
 
+class HPComponent;
+
 class EnemyCollider : public Tako::OBBCollider
 {
 public:
@@ -12,8 +14,10 @@ public:
 	void OnCollisionExit(Collider* other) override;
 
 	void SetPushBackCallback(EnemyPushBackCallback callback) { pushBackCallback_ = callback; }
-
+    void SetHPComponent(HPComponent* hp) { pHp_ = hp; }
 private:
 	EnemyPushBackCallback pushBackCallback_;
+
+    HPComponent* pHp_ = nullptr;
 };
 

@@ -47,6 +47,12 @@ void Enemy::Initialize()
 
 	// ステートの初期化。｛　待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this, pTarget_);
+
+    pHp_ = std::make_unique<HPComponent>();
+    // HPコンポーネントの初期化 TODO : 仮の値
+    pHp_->Initialize(100);
+    // コライダーにHPコンポーネントをセット
+    pCollider_->SetHPComponent(pHp_.get());
 }
 
 void Enemy::Update()
