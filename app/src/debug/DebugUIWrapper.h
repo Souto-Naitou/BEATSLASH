@@ -35,11 +35,6 @@ public:
         const std::string& name,
         const T* ptr);
 
-    void HandleCustomGuiFunction(
-        const std::string& id,
-        const std::string& name,
-        std::function<void()> func);
-
 private:
     std::unordered_map<std::string, std::vector<DebugEntry*>> entries_;
 };

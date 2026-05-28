@@ -1,5 +1,7 @@
 #pragma once
 #include <combo/ComboBuffSystem.h>
+#include <memory>
+#include <presentation/animation/RadialBeat.h>
 
 class PlayerAttackHitReceiver
 {
@@ -15,10 +17,13 @@ public:
         ComboBuffSystem& comboBuffSystem;
     };
 
-    PlayerAttackHitReceiver(Executors& execs) : execs_(execs) {};
+    PlayerAttackHitReceiver(Executors& execs);
+
+    void Update();
 
     void ReceiveHit(const HitInfo& info);
 
 private:
+    std::unique_ptr<RadialBeat> pRadialBeat_;
     Executors execs_;
 };

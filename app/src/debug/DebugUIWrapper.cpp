@@ -96,11 +96,3 @@ void DebugUIWrapper::ImGui()
 
     #endif // _DEBUG
 }
-
-void DebugUIWrapper::HandleCustomGuiFunction(const std::string& id, const std::string& name, std::function<void()> func)
-{
-    for (auto& entry : entries_[id])
-    {
-        entry->RegisterCustomGuiFunction(name, func);
-    }
-}
