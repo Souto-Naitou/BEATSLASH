@@ -20,6 +20,11 @@ float ComboBuffSystem::GetDamageMultiplier() const
     return pComboSystem_->GetAttackPowerMultiplier();
 }
 
+uint32_t ComboBuffSystem::GetCurrentCombo() const
+{
+    return pComboSystem_->GetCombo();
+}
+
 void ComboBuffSystem::OnAttackHit()
 {
     float timingDiff = pBeatClock_->GetDeltaToNearestBeatSeconds();

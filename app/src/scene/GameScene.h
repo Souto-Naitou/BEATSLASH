@@ -14,6 +14,7 @@
 #include <judge/InputTimingJudge.h>
 #include <manager/BeatManager.h>
 #include <combo/ComboBuffSystem.h>
+#include <ui/GameHUD.h>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -61,5 +62,7 @@ private: // メンバ変数
     std::unique_ptr<InputTimingJudge> pInputTimingJudge_; // !< 入力判定クラス
     std::unique_ptr<BeatClock> pBeatClock_; // !< ビートクロック
     std::unique_ptr<ComboBuffSystem> pComboBuffSystem_; // !< コンボバフシステム
+
+    std::unique_ptr<GameHUD> pGameHUD_; // !< ゲームHUD
 
 };
