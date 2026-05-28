@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp">
+      <Filter>character\enemy\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\Enemy.cpp">
+      <Filter>character\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\CameraInput.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\FollowCamera.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\Player.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\combo\ComboBuffSystem.cpp">
+      <Filter>combo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp">
+      <Filter>component\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\attack\AttackRepository.cpp">
+      <Filter>entity\attack</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\attack\PlayerAttack.cpp">
+      <Filter>entity\attack</Filter>
+    </ClCompile>
+    <ClCompile Include="src\combo\ComboSystem.cpp">
+      <Filter>combo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\font\FontLayout.cpp">
+      <Filter>font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\font\NumericView.cpp">
+      <Filter>font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\PlayerInput.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\PlayerMovement.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\component\collider\PlayerCollider.cpp">
+      <Filter>component\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\component\PhysicsMovement.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\DebugEntry.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\DebugUIWrapper.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\factory\SceneFactory.cpp">
+      <Filter>factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\framework\RhythmActionGame.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\judge\InputTimingJudge.cpp">
+      <Filter>judge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\manager\BeatManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Easing.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\ColliderRepository.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\ColliderTimer.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\presentation\animation\RadialBeat.cpp">
+      <Filter>presentation\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\GameScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\stage.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\StageClearFlow.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\StageSequence.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage\StageTransitionCollider.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\TestScene.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\CollisionUtility.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\DeltaTimeManager.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\DeltaTimeStopWatch.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\strutl.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\StopWatch.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="character">
+      <UniqueIdentifier>{532480ac-7759-4d9c-b6c3-c07870d2baa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="combo">
+      <UniqueIdentifier>{056ef0d8-c4ff-4543-9faf-83fc5d6232c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component">
+      <UniqueIdentifier>{d4388cc3-0819-4fe6-a735-b584532ebb2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="debug">
+      <UniqueIdentifier>{9639e794-76ca-46db-8a6c-614f29445009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity">
+      <UniqueIdentifier>{6b430020-7f9d-4a04-83a6-efb2e30e5de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="factory">
+      <UniqueIdentifier>{1bcad1ad-6900-4369-b0e0-237bfbbdbfb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="font">
+      <UniqueIdentifier>{5a224deb-89f1-44f9-8f6e-c7f4a9b57528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework">
+      <UniqueIdentifier>{bad23546-1753-4e3f-8d7e-6394fc2fb515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="judge">
+      <UniqueIdentifier>{bfaeb4dc-59d8-45c8-b427-230c3689a37b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager">
+      <UniqueIdentifier>{3320c24c-c829-4d56-8cbd-4031b297bee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{03ff1012-9d9b-4c08-aba5-f776954beee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="physics">
+      <UniqueIdentifier>{81c835d9-be69-4b7d-b3d6-f520f92357c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="presentation">
+      <UniqueIdentifier>{54d535cc-4bb4-4cd4-8c56-965c6c7cc17f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{6727a88d-a36f-4b6b-afbb-d3af6a227ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stage">
+      <UniqueIdentifier>{401b3448-4120-408e-be40-703f6d472f04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system">
+      <UniqueIdentifier>{6018149d-fcb3-457f-8708-9374a55f8b7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{98df0ec7-f0b3-4b57-9952-d769ff702c7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="type">
+      <UniqueIdentifier>{eede601f-ebb8-4b43-a1c8-54106530a905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{1e24c0d2-dc3e-4f44-b8b8-3b810e855013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\enemy">
+      <UniqueIdentifier>{51878b96-cc7d-4dea-8a90-b20f1797b1b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\player">
+      <UniqueIdentifier>{889b5713-f066-466f-af0b-f83112711d63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component\collider">
+      <UniqueIdentifier>{64fee87a-7f01-49cb-af72-c93fb4982cc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity\attack">
+      <UniqueIdentifier>{c40bface-5879-4507-a58d-c94dedb68c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="presentation\animation">
+      <UniqueIdentifier>{26970882-6e31-4564-85ce-fd4463bf48a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\enemy\collider">
+      <UniqueIdentifier>{4820262e-4c6e-47d5-a9fe-38e05e37d494}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\enemy\state">
+      <UniqueIdentifier>{a8310e40-dafb-4754-bc1e-532ca1cb0b31}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\character\enemy\collider\EnemyCollider.h">
+      <Filter>character\enemy\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyChaseState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyIdleState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\Enemy.h">
+      <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\ICharacter.h">
+      <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\CharacterCollider.h">
+      <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\CharacterColliderID.h">
+      <Filter>character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyStateFactry.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyStateType.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\CameraInput.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\FollowCamera.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\Player.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerAttackTrigger.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerInput.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\PlayerMovement.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\combo\ComboBuffSystem.h">
+      <Filter>combo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\collider\PlayerAttackCollider.h">
+      <Filter>component\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\combo\ComboSystem.h">
+      <Filter>combo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\collider\PlayerCollider.h">
+      <Filter>component\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\IMovement.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\PhysicsMovement.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\DebugEntry.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\DebugRegisterer.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\DebugUIWrapper.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\GameParameter.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\ImGuiTextTemplate.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\attack\AttackRepository.h">
+      <Filter>entity\attack</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\attack\PlayerAttack.h">
+      <Filter>entity\attack</Filter>
+    </ClInclude>
+    <ClInclude Include="src\font\FontLayout.h">
+      <Filter>font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\font\NumericView.h">
+      <Filter>font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\factory\SceneFactory.h">
+      <Filter>factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\RhythmActionGame.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\judge\InputTimingJudge.h">
+      <Filter>judge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\judge\JudgeResutl.h">
+      <Filter>judge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\BeatManager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\Easing.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\HSV.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\VectorMath.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\ColliderTimer.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\ColliderRepository.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\presentation\animation\AnimationTimeline.hpp">
+      <Filter>presentation\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\presentation\animation\AnimationTween.hpp">
+      <Filter>presentation\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\presentation\animation\RadialBeat.h">
+      <Filter>presentation\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\GameScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\stage.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageClearFlow.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageData.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageSequence.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage\StageTransitionCollider.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\ScopedCursorHidden.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\testCollider.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\TestScene.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\type\ColliderTypeID.h">
+      <Filter>type</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\CollisionUtility.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\DeltaTimeManager.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\DeltaTimeStopWatch.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\strutl.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\StopWatch.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\ViewportUnits.hpp">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utility\wndutl.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+</Project>
