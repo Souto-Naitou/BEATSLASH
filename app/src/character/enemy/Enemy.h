@@ -3,6 +3,7 @@
 #include <character/enemy/state/EnemyStateMachine.h>
 #include <Object3d.h>
 #include <character/enemy/collider/EnemyCollider.h>
+#include <component/HPComponent.h>
 
 class Enemy : public ICharacter
 {
@@ -56,5 +57,7 @@ private:
 	EnemyStateMachine stateMachine_;
 	// ターゲット（所有しない）
 	const ICharacter* pTarget_ = nullptr;
+
+    std::unique_ptr<HPComponent> pHp_;
 };
 

@@ -134,6 +134,7 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\component\HPComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -414,6 +415,7 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\component\HPComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
