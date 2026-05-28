@@ -14,7 +14,6 @@
     type name = value; \
     GameParameterViewData<type> view_##name{std::source_location::current().file_name(), #name, &name}
 
-
     #define EnableDebug(category) DebugEntry debugEntry{ std::source_location::current().file_name(), category }
 
 #else
@@ -49,7 +48,6 @@ public:
     GameParameterData(const GameParameterData&) = delete;
     GameParameterData& operator=(const GameParameterData&) = delete;
 
-    operator ValueType() const { return v_; }
     ValueType& operator=(const ValueType& newValue)
     {
         v_ = newValue;
@@ -58,9 +56,12 @@ public:
     operator ValueType& () { return v_; }
     operator const ValueType& () const { return v_; }
     ValueType* operator-> () { return &v_; }
-    const ValueType* operator-> () const { return v_; }
+    const ValueType* operator-> () const { return &v_; }
 
     ValueType* GetPtr() { return &v_; }
+    ValueType& Get() { return v_; }
+    const ValueType& Get() const { return v_; }
+
     void SetOnChange(OnChangeCallback cb) { onChange_ = std::move(cb); }
 
 private:

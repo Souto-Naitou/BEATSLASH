@@ -1,18 +1,21 @@
 #pragma once
 #include <physics/ColliderTimer.h>
 #include <physics/ColliderRepository.h>
+#include <character/player/PlayerAttackHitReceiver.h>
 #include <debug/GameParameter.h>
 
 #include <Transform.h>
 #include <Collider.h>
+#include <Vector3.h>
 
 class ComboBuffSystem;
 
 class PlayerAttack
 {
 public:
-    PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem);
+    PlayerAttack(ColliderRepository& colliderRepository, PlayerAttackHitReceiver& hitReceiver, const Tako::Vector3& position);
     void Update(float deltaTime);
+    bool IsActive() const { return pCollider_ != nullptr; }
 
 private:
     EnableDebug("PlayerAttack");

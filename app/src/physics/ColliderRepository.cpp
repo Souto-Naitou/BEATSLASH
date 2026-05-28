@@ -11,7 +11,7 @@ Tako::Collider* ColliderRepository::AddCollider(std::unique_ptr<Tako::Collider> 
     return newCollider;
 }
 
-void ColliderRepository::RemoveIfNotActive()
+void ColliderRepository::EraseInactiveColliders()
 {
     auto onColliderNotActive = [this](const std::unique_ptr<Tako::Collider>& collider) {
         if (!collider->IsActive())

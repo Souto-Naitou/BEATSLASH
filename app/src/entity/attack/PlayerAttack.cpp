@@ -4,9 +4,9 @@
 
 #include <type/ColliderTypeID.h>
 
-PlayerAttack::PlayerAttack(ColliderRepository& colliderRepository, const Tako::Vector3& position, ComboBuffSystem* comboBuffSystem)
+PlayerAttack::PlayerAttack(ColliderRepository& colliderRepository, PlayerAttackHitReceiver& hitReceiver, const Tako::Vector3& position)
 {
-    auto pAttackCollider = std::make_unique<PlayerAttackCollider>(comboBuffSystem);
+    auto pAttackCollider = std::make_unique<PlayerAttackCollider>(hitReceiver);
     pCollider_ = colliderRepository.AddCollider(std::move(pAttackCollider));
     colliderTimer_.Enable(kColliderActiveTime_);
 
