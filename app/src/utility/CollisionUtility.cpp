@@ -45,7 +45,7 @@ static CollisionInfo CalcSAT(const Tako::OBB& obbA, const Tako::OBB& obbB)
                 // self(A) が other(B) から離れる方向を法線とする
                 minAxis = (t.Dot(axis) >= 0.0f) ? -axis : axis;
 
-                Logger::Log(std::format("minOverlap = {},rA = {},rB = {},tProj = {}\n", overlap, rA, rB, tProj));
+                //Logger::Log(std::format("minOverlap = {},rA = {},rB = {},tProj = {}\n", overlap, rA, rB, tProj));
             }
             return true;
         };
