@@ -9,6 +9,12 @@ Enemy::Enemy(const ICharacter* target)
 	: pTarget_(target)
 {}
 
+Enemy::~Enemy()
+{
+	// コライダーをマネージャーから削除
+	Tako::CollisionManager::GetInstance()->RemoveCollider(pCollider_.get());
+}
+
 void Enemy::Initialize()
 {
 	// モデルの初期化
