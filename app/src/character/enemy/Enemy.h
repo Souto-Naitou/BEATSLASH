@@ -24,9 +24,9 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Tako::Transform& GetTransform() { return transform_; }
-	const Tako::Vector3& GetPosition() override { return transform_.translate; }
-	const Tako::Vector3& GetRotation() override { return transform_.rotate; }
-	const Tako::Vector3& GetScale() override { return transform_.scale; }
+	const Tako::Vector3& GetPosition() const override { return transform_.translate; }
+	const Tako::Vector3& GetRotation() const override { return transform_.rotate; }
+	const Tako::Vector3& GetScale() const override { return transform_.scale; }
 
 
 	/// <summary>

@@ -25,15 +25,15 @@ public:
     /**
      * @brief 座標の取得
      */
-    virtual const Tako::Vector3& GetPosition() = 0;
+    virtual const Tako::Vector3& GetPosition() const = 0;
 
 	/**
 	 * @brief スケールの取得
 	 */
-	virtual const Tako::Vector3& GetScale() = 0;
+	virtual const Tako::Vector3& GetScale() const = 0;
 
 	/**
 	 * @brief 回転の取得
 	 */
-	virtual const Tako::Vector3& GetRotation() = 0;
+	virtual const Tako::Vector3& GetRotation() const = 0;
 };

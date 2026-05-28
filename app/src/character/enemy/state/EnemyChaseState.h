@@ -1,6 +1,7 @@
 #pragma once
 #include "EnemyState.h"
 #include <Vector3.h>
+#include <debug/GameParameter.h>
 
 class ICharacter;
 
@@ -21,7 +22,9 @@ private:
 	// 追跡ターゲット
 	const ICharacter* pTarget_ = nullptr;
 
+	// デバッグ用のパラメータ
+	EnableDebug("EnemyChaseState");
 	// 追跡速度
-	float chaseSpeed_ = 5.0f;
+	GameParameter(float, chaseSpeed_, 5.0f);
 };
 
