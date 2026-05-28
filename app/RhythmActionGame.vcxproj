@@ -46,6 +46,7 @@
     <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
     <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
     <ClCompile Include="src\combo\ComboSystem.cpp" />
+    <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
     <ClCompile Include="src\font\FontLayout.cpp" />
     <ClCompile Include="src\font\NumericView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -115,6 +116,7 @@
     <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
     <ClInclude Include="src\entity\attack\AttackRepository.h" />
     <ClInclude Include="src\entity\attack\PlayerAttack.h" />
+    <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
     <ClInclude Include="src\font\FontLayout.h" />
     <ClInclude Include="src\font\NumericView.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />

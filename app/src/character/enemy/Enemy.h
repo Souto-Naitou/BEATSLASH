@@ -9,7 +9,7 @@ class Enemy : public ICharacter
 {
 public:
 	Enemy(const ICharacter* target);
-	~Enemy() override = default;
+	~Enemy() override;
 	void Initialize() override;
 	void Update() override;
 	void Draw() override;
@@ -39,6 +39,7 @@ public:
 	void SetRotation(const Tako::Vector3& rotation) { transform_.rotate = rotation; }
 	void SetScale(const Tako::Vector3& scale) { transform_.scale = scale; }
 
+    bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
 private:
 	// 状態の切り替え（デバッグ用）
 	void ChangeState();
