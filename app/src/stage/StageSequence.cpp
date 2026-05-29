@@ -34,6 +34,8 @@ void StageSequence::NotifyClear()
 {
     clearFlow_.NotifyClear();
     stages_[currentIndex_]->OpenDoor();
+    if (onDoorOpened_)
+        onDoorOpened_(stageDataList_[currentIndex_].doorTransform);
 }
 
 void StageSequence::DrawTransition()

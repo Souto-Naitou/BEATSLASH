@@ -138,6 +138,7 @@
       <Filter>utility</Filter>
     </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
+    <ClCompile Include="src\entity\camera\FocusCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -221,7 +222,7 @@
     <Filter Include="character\enemy\state">
       <UniqueIdentifier>{effb19e7-3b1d-48de-9736-1825efd759fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="entity\NewFilter1">
+    <Filter Include="entity\camera">
       <UniqueIdentifier>{0314cae5-c802-40f2-8697-ad4e1b8d1c45}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -425,6 +426,7 @@
       <Filter>utility</Filter>
     </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
+    <ClInclude Include="src\entity\camera\FocusCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -43,6 +43,10 @@ void GameScene::Initialize()
     pFollowCamera_ = std::make_unique<FollowCamera>();
     pFollowCamera_->Initialize();
 
+    pStage_->SetOnDoorOpened([this](const Tako::Transform& doorTransform)
+    {
+        pFollowCamera_->SetTarget(&doorTransform);
+    });
 
     const float BPM = 120.0f;
     pInputTimingJudge_ = std::make_unique<InputTimingJudge>();

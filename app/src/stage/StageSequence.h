@@ -6,6 +6,7 @@
 #include <filesystem>
 
 using OnPlayerRespawnRequiredCallback  = std::function<void(const Tako::Transform&)>;
+using OnDoorOpenedCallback = std::function<void(const Tako::Transform&)>;
 
 /// <summary>
 /// 複数ステージの進行順序を管理するクラス
@@ -23,7 +24,8 @@ public:
     void DrawTransition();
 
 
-    void SetOnStageChanged(OnPlayerRespawnRequiredCallback cb) { onStageChanged_ = cb; }
+    void SetOnStageChanged(OnPlayerRespawnRequiredCallback cb) { onStageChanged_ = std::move(cb); }
+    void SetOnDoorOpened(OnDoorOpenedCallback cb) { onDoorOpened_ = std::move(cb); }
 
 
 private:
@@ -43,4 +45,5 @@ private:
 
 
     OnPlayerRespawnRequiredCallback onStageChanged_; // ステージ変更時のコールバック
+    OnDoorOpenedCallback onDoorOpened_; // ドアオープン時のコールバック
 };
