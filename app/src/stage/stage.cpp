@@ -66,6 +66,12 @@ void Stage::Update(float deltaTime)
     }
 
     door_->Update();
+
+    if (isDoorOpening_ && door_->GetModel()->IsAnimationFinished("OpenAnim"))
+    {
+        isDoorOpening_ = false;
+        if (onDoorOpenFinished_) onDoorOpenFinished_();
+    }
 }
 
 void Stage::Draw()
@@ -80,5 +86,6 @@ void Stage::Draw()
 
 void Stage::OpenDoor()
 {
+    isDoorOpening_ = true;
     door_->GetModel()->ResumeAnimation();
 }

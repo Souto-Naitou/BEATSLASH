@@ -22,9 +22,6 @@ void FollowCamera::Initialize()
 
     pCameraInput_ = std::make_unique<CameraInput>();
 
-    Tako::Object3dBasic::GetInstance()->SetCamera(pCamera_.get());
-    Tako::GPUParticle::GetInstance()->SetCamera(pCamera_.get());
-    Tako::Draw2D::GetInstance()->SetCamera(pCamera_.get());
 
     pCamera_->SetFarClip(1000.0f);
 }

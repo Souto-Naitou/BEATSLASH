@@ -16,12 +16,6 @@
     <ClCompile Include="src\character\enemy\Enemy.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player\CameraInput.cpp">
-      <Filter>character\player</Filter>
-    </ClCompile>
-    <ClCompile Include="src\character\player\FollowCamera.cpp">
-      <Filter>character\player</Filter>
-    </ClCompile>
     <ClCompile Include="src\character\player\Player.cpp">
       <Filter>character\player</Filter>
     </ClCompile>
@@ -139,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
     <ClCompile Include="src\entity\camera\FocusCamera.cpp" />
+    <ClCompile Include="src\entity\camera\CameraInput.cpp" />
+    <ClCompile Include="src\entity\camera\FollowCamera.cpp" />
+    <ClCompile Include="src\entity\camera\CameraDirector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -259,12 +256,6 @@
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h">
       <Filter>character\enemy\state</Filter>
-    </ClInclude>
-    <ClInclude Include="src\character\player\CameraInput.h">
-      <Filter>character\player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\character\player\FollowCamera.h">
-      <Filter>character\player</Filter>
     </ClInclude>
     <ClInclude Include="src\character\player\Player.h">
       <Filter>character\player</Filter>
@@ -427,6 +418,11 @@
     </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
     <ClInclude Include="src\entity\camera\FocusCamera.h" />
+    <ClInclude Include="src\entity\camera\CameraDirector.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\CameraInput.h" />
+    <ClInclude Include="src\entity\camera\FollowCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

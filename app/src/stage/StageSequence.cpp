@@ -32,10 +32,22 @@ void StageSequence::Draw()
 
 void StageSequence::NotifyClear()
 {
+    if (hasClearNotified_) return;
+    hasClearNotified_ = true;
+
     clearFlow_.NotifyClear();
-    stages_[currentIndex_]->OpenDoor();
+    // OpenDoor はカメラ補間完了後に OpenCurrentDoor() で呼ぶ
     if (onDoorOpened_)
         onDoorOpened_(stageDataList_[currentIndex_].doorTransform);
+}
+
+void StageSequence::OpenCurrentDoor()
+{
+    stages_[currentIndex_]->SetOnDoorOpenFinished([this]()
+    {
+        if (onDoorOpenFinished_) onDoorOpenFinished_();
+    });
+    stages_[currentIndex_]->OpenDoor();
 }
 
 void StageSequence::DrawTransition()
@@ -45,6 +57,7 @@ void StageSequence::DrawTransition()
 
 void StageSequence::OnTransitionStage()
 {
+    hasClearNotified_ = false;  // 次のステージで再度クリア通知を受け付ける
     int32_t preIndex = currentIndex_++;
 
     if (currentIndex_ < static_cast<int32_t>(stageDataList_.size()))
