@@ -65,7 +65,7 @@ std::shared_ptr<SoundInstance> AudioSystem::Load(const std::string& _filename)
 
     HRESULT hr = S_OK;
 
-    ozSound::Log("Loading sound file: " + _filename +"\n");
+    ozSound::Log("Loading sound file: " + _filename + "\n");
 
     // ワイド文字列に変換
     std::wstring wFilename(_filename.begin(), _filename.end());
@@ -91,9 +91,14 @@ std::shared_ptr<SoundInstance> AudioSystem::Load(const std::string& _filename)
     CHECK_HR(hr, "Failed to get current media type\n");
 
     // WAVEFORMATEXの取得
-    WAVEFORMATEX* waveFormat{ nullptr };
-    hr = MFCreateWaveFormatExFromMFMediaType(pMFMediaType.Get(), &waveFormat, nullptr);
+    WAVEFORMATEX* waveFormat     = nullptr;
+    UINT32        waveFormatSize = 0;
+    hr = MFCreateWaveFormatExFromMFMediaType(pMFMediaType.Get(), &waveFormat, &waveFormatSize);
     CHECK_HR(hr, "Failed to create WAVEFORMATEX from media type\n");
+
+    std::vector<BYTE> wfexBuffer(waveFormatSize);
+    std::memcpy(wfexBuffer.data(), waveFormat, waveFormatSize);
+    CoTaskMemFree(waveFormat);
 
     // メディアデータの読み込み
     std::vector<BYTE> mediaData;
@@ -129,9 +134,7 @@ std::shared_ptr<SoundInstance> AudioSystem::Load(const std::string& _filename)
         pMFMediaBuffer->Unlock();
     }
 
-    auto soundInstance = CreateSoundInstance(*waveFormat, std::move(mediaData), _filename);
-
-    CoTaskMemFree(waveFormat);
+    auto soundInstance = CreateSoundInstance(std::move(wfexBuffer), std::move(mediaData), _filename);
 
     auto end = std::chrono::system_clock::now();
     ozSound::Log(std::format("Sound Load Time: {} ms\n", std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count()) + "\n");
@@ -254,10 +257,10 @@ void AudioSystem::RemoveSubmix(const std::string& name)
     ozSound::Log("[AudioSystem] Submix removed: " + name + "\n");
 }
 
-std::shared_ptr<SoundInstance> AudioSystem::CreateSoundInstance(const WAVEFORMATEX& _wfex, std::vector<BYTE> _mediaData, const std::string& _path)
+std::shared_ptr<SoundInstance> AudioSystem::CreateSoundInstance(std::vector<BYTE> _wfexBuffer, std::vector<BYTE> _mediaData, const std::string& _path)
 {
     SoundData soundData{};
-    soundData.wfex = _wfex;
+    soundData.wfexBuffer = _wfexBuffer;
     soundData.mediaData = std::move(_mediaData);
     soundData.path = _path;
 
@@ -266,7 +269,8 @@ std::shared_ptr<SoundInstance> AudioSystem::CreateSoundInstance(const WAVEFORMAT
     uint32_t soundID = static_cast<uint32_t>(sounds_.size() - 1);
     pathToid_.emplace(_path, soundID);
 
-    auto soundInstance = std::make_shared<SoundInstance>(soundID, this, static_cast<float>(_wfex.nSamplesPerSec));
+    float sampleRate = static_cast<float>(reinterpret_cast<const WAVEFORMATEX*>(sounds_[soundID].wfexBuffer.data())->nSamplesPerSec);
+    auto soundInstance = std::make_shared<SoundInstance>(soundID, this, sampleRate);
     soundInstances_.emplace(soundID, soundInstance);
 
     ozSound::Log("Sound Loaded : " + _path + " (ID " + std::to_string(soundID) + ")\n");
