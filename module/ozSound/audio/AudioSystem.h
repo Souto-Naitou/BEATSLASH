@@ -88,7 +88,10 @@ public:
     /// </summary>
     const std::map<std::string, std::unique_ptr<SubmixVoice>>& GetAllSubmixes() const { return namedSubmixes_; }
 
-    const WAVEFORMATEX& GetSoundFormat(uint32_t _soundID) const { return sounds_[_soundID].wfex; }
+    const WAVEFORMATEX& GetSoundFormat(uint32_t _soundID) const
+    {
+        return *reinterpret_cast<const WAVEFORMATEX*>(sounds_[_soundID].wfexBuffer.data());
+    }
     const BYTE* GetBuffer(uint32_t _soundID) const { return sounds_[_soundID].mediaData.data(); }
     size_t GetBufferSize(uint32_t _soundID) const { return sounds_[_soundID].mediaData.size(); }
 
@@ -98,12 +101,12 @@ private:
 
     struct SoundData
     {
-        WAVEFORMATEX wfex;
+        std::vector<BYTE> wfexBuffer;
         std::vector<BYTE> mediaData;
         std::string path;
     };
 
-    std::shared_ptr<SoundInstance> CreateSoundInstance(const WAVEFORMATEX& _wfex, std::vector<BYTE> _mediaData, const std::string& _path);
+    std::shared_ptr<SoundInstance> CreateSoundInstance(std::vector<BYTE> _wfexBuffer, std::vector<BYTE> _mediaData, const std::string& _path);
 
 private:
 
