@@ -7,7 +7,7 @@
 #include <memory>
 #include <physics/ColliderRepository.h>
 #include <entity/attack/AttackRepository.h>
-#include <character/player/FollowCamera.h>
+#include <entity/camera/CameraDirector.h>
 #include <entity/enemy/EnemiesOnField.h>
 
 #include <combo/ComboSystem.h>
@@ -55,7 +55,7 @@ private: // メンバ変数
 	std::unique_ptr<EnemiesOnField> pEnemies_; // !< 敵
     std::unique_ptr<StageSequence> pStage_; // !< ステージクラスのインスタンス
     std::unique_ptr<AttackRepository> pAttackRepository_; // !< コライダーリポジトリのインスタンス
-    std::unique_ptr<FollowCamera> pFollowCamera_; // !< カメラクラスのインスタンス
+    std::unique_ptr<CameraDirector> pCameraDirector_; // !< カメラディレクターのインスタンス
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
 
     std::unique_ptr<ComboSystem> pComboSystem_; // !< コンボシステム

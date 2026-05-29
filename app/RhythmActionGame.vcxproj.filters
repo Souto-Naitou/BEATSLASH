@@ -16,12 +16,6 @@
     <ClCompile Include="src\character\enemy\Enemy.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player\CameraInput.cpp">
-      <Filter>character\player</Filter>
-    </ClCompile>
-    <ClCompile Include="src\character\player\FollowCamera.cpp">
-      <Filter>character\player</Filter>
-    </ClCompile>
     <ClCompile Include="src\character\player\Player.cpp">
       <Filter>character\player</Filter>
     </ClCompile>
@@ -140,6 +134,11 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
+    <ClCompile Include="src\entity\camera\FocusCamera.cpp" />
+    <ClCompile Include="src\entity\camera\CameraInput.cpp" />
+    <ClCompile Include="src\entity\camera\FollowCamera.cpp" />
+    <ClCompile Include="src\entity\camera\CameraDirector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -224,7 +223,10 @@
       <UniqueIdentifier>{ba1c73e6-e83f-4b5c-b6cc-6cdaa0e14230}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\state">
-      <UniqueIdentifier>{762222b5-b15c-46df-8324-f997c81de07a}</UniqueIdentifier>
+      <UniqueIdentifier>{effb19e7-3b1d-48de-9736-1825efd759fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity\camera">
+      <UniqueIdentifier>{0314cae5-c802-40f2-8697-ad4e1b8d1c45}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -260,12 +262,6 @@
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h">
       <Filter>character\enemy\state</Filter>
-    </ClInclude>
-    <ClInclude Include="src\character\player\CameraInput.h">
-      <Filter>character\player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\character\player\FollowCamera.h">
-      <Filter>character\player</Filter>
     </ClInclude>
     <ClInclude Include="src\character\player\Player.h">
       <Filter>character\player</Filter>
@@ -429,6 +425,13 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
+    <ClInclude Include="src\entity\camera\FocusCamera.h" />
+    <ClInclude Include="src\entity\camera\CameraDirector.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\CameraInput.h" />
+    <ClInclude Include="src\entity\camera\FollowCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

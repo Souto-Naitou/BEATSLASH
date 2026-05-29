@@ -41,9 +41,23 @@ void GameScene::Initialize()
     pStage_->Initialize("resources/stage/StageData.json");
 
     /// カメラの初期化
-    pFollowCamera_ = std::make_unique<FollowCamera>();
-    pFollowCamera_->Initialize();
+    pCameraDirector_ = std::make_unique<CameraDirector>();
+    pCameraDirector_->Initialize();
 
+    pStage_->SetOnDoorOpened([this](const Tako::Transform& doorTransform)
+    {
+        pCameraDirector_->StartFocus(doorTransform, 1.0f);
+    });
+
+    pCameraDirector_->SetOnFocusArrived([this]()
+    {
+        pStage_->OpenCurrentDoor();
+    });
+
+    pStage_->SetOnDoorOpenFinished([this]()
+    {
+        pCameraDirector_->NotifyDoorOpenFinished();
+    });
 
     const float BPM = 150.0f;
     pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
@@ -61,13 +75,13 @@ void GameScene::Initialize()
     Player::InitData playerInitData
     {
         *pAttackRepository_,
-        *pFollowCamera_,
-        *pComboBuffSystem_,
+        *pCameraDirector_->GetFollowCamera(),
+        *pComboBuffSystem_
         *pBeatClock_
     };
     pPlayer_ = std::make_unique<Player>(playerInitData);
     pPlayer_->Initialize();
-    pFollowCamera_->SetTarget(&pPlayer_->GetTransform());
+    pCameraDirector_->SetFollowTarget(&pPlayer_->GetTransform());
     pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
                                {
                                    pPlayer_->Respawn(spawnTransform);
@@ -128,7 +142,7 @@ void GameScene::Update()
     // 非アクティブのコライダーを削除
     colliderRepository_.EraseInactiveColliders();
 
-    pFollowCamera_->Update();
+    pCameraDirector_->Update(deltaTime);
     pGameHUD_->Update();
 
     if (pEnemies_->IsEmpty())

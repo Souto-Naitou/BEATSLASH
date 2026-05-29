@@ -8,7 +8,8 @@
 #include "PlayerMovement.h"
 #include "PlayerAttackTrigger.h"
 #include "PlayerAttackHitReceiver.h"
-#include "FollowCamera.h"
+
+#include <entity/camera/FollowCamera.h>
 
 #include <Object3d.h>
 #include <memory>
