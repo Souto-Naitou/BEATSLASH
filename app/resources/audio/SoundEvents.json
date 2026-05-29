@@ -11,6 +11,18 @@
                 }
             ],
             "name": "play"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "se_player_attack",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_player_attack"
         }
     ]
 }

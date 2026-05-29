@@ -13,6 +13,13 @@
             "path": "resources/audio/Metronome.wav",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": true,
+            "id": "se_player_attack",
+            "path": "resources/audio/se_player_attack.wav",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }
