@@ -1,0 +1,81 @@
+{
+  "collisionRestitution": 0.5,
+  "convergeDamping": 13.649999618530273,
+  "convergeStiffness": 5.699999809265137,
+  "convergeToTarget": true,
+  "damping": 0.9900000095367432,
+  "endColor": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "endScaleDefault": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "frequency": 0.039000000804662704,
+  "frequencyTime": 0.1,
+  "isActive": true,
+  "isEmitting": false,
+  "isNormalize": false,
+  "isRandomRotateZ": false,
+  "isTemporary": false,
+  "lifeTimeRange": [
+    0.0,
+    0.0
+  ],
+  "lockDamping": 3.0,
+  "lockStiffness": 20.0,
+  "noiseScale": 0.05000000074505806,
+  "noiseStrength": 0.0010000000474974513,
+  "particleCount": 10000,
+  "particleRadius": 0.5,
+  "position": [
+    0.0,
+    8.600000381469727,
+    0.0
+  ],
+  "radius": 9.699999809265137,
+  "randomFlags": 0,
+  "scaleRangeX": [
+    0.30000001192092896,
+    0.30000001192092896
+  ],
+  "scaleRangeY": [
+    0.30000001192092896,
+    0.30000001192092896
+  ],
+  "spawnLocation": 1,
+  "spawnLock": false,
+  "startColor": [
+    1.0,
+    0.9307820796966553,
+    0.502630352973938,
+    1.0
+  ],
+  "targetPosition": [
+    24.5,
+    7.599999904632568,
+    0.0
+  ],
+  "type": 0,
+  "useAlphaFade": false,
+  "useCurlNoise": false,
+  "useDepthCollision": false,
+  "useForceField": true,
+  "useScaleFade": true,
+  "velRangeX": [
+    0.0,
+    0.0
+  ],
+  "velRangeY": [
+    0.0,
+    0.0
+  ],
+  "velRangeZ": [
+    0.0,
+    0.0
+  ]
+}

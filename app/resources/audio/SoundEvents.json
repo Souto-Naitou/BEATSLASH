@@ -23,6 +23,30 @@
                 }
             ],
             "name": "play_player_attack"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": true,
+                    "soundId": "bgm_game_0",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_bgm_game_0"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": true,
+                    "soundId": "bgm_game_1",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_bgm_game_1"
         }
     ]
 }

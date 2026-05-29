@@ -49,11 +49,6 @@ void BeatSlash::Update()
         ToggleFullScreen();
     }
 
-    if (Input::GetInstance()->TriggerKey(DIK_S))
-    {
-        ozSound::SoundEngine::GetInstance()->StopAll();
-    }
-
     TakoFramework::Update();
 }
 
