@@ -4,11 +4,13 @@
 #include <type/ColliderTypeID.h>
 #include <CollisionManager.h>
 #include <math/VectorMath.h>
+#include <ozSound/audio/SoundEngine.h>
 
 #ifdef _DEBUG
 #include <debug/DebugRegisterer.h>
 #include <imgui.h>
 #endif // _DEBUG
+#include <utility/DeltaTimeManager.h>
 
 void Player::Initialize()
 {
@@ -61,7 +63,7 @@ void Player::Finalize()
 void Player::Update()
 {
     //const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
-    const float deltaTime = 0.016f;
+    const float deltaTime = DeltaTimeManager::GetInstance()->GetDeltaTime(DeltaTimeChannelReserved::Game);
 
     // 入力の更新
     pInput_->Update();
@@ -86,7 +88,10 @@ void Player::Update()
         Tako::Vector3 targetPos = transform_.translate;
         targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
         attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
+        ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
+
+    pAttackTrigger_->UpdateCooldown(deltaTime);
 
     // ヒット受信の更新
     pHitReceiver_->Update();
@@ -139,4 +144,6 @@ void Player::InitializeComponents()
         .comboBuffSystem = comboBuffSystem_
     };
     pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(hitReceiverExecs);
+    pAttackTrigger_ = std::make_unique<PlayerAttackTrigger>();
+    pAttackTrigger_->CalculateCooldownTime(beatClock_.GetSecondsPerBeat());
 }

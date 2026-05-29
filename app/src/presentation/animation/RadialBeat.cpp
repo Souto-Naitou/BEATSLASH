@@ -8,6 +8,7 @@
 void RadialBeat::Initialize()
 {
     DebugRegister("Radial Beat", &AnimationTimeline<float>::ImGui, &timeline_);
+    Tako::PostEffectManager::GetInstance()->AddEffectToChain("RadialBlur");
 }
 
 void RadialBeat::Finalize()
@@ -25,15 +26,6 @@ void RadialBeat::Start(float duration)
     timeline_.AddTween(tween1);
     timeline_.Start();
     isPlaying_ = true;
-
-    Tako::RadialBlurParam param = {};
-    param.center = { 0.5f, 0.5f };
-    param.sampleCount = samples_;
-    param.blurWidth = 0.0f;
-
-    Tako::PostEffectManager::GetInstance()->ApplyTemporaryEffect(
-        "RadialBlur", duration, param
-    );
 }
 
 void RadialBeat::Update()
@@ -44,6 +36,6 @@ void RadialBeat::Update()
     Tako::RadialBlurParam param = {};
     param.center = { 0.5f, 0.5f };
     param.sampleCount = samples_;
-    param.blurWidth = 5;
+    param.blurWidth = maxWidth_ * value;
     Tako::PostEffectManager::GetInstance()->SetEffectParam("RadialBlur", param);
 }

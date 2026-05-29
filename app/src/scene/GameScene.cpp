@@ -15,6 +15,7 @@
 #include <FrameTimer.h>
 #include <ShadowRenderer.h>
 #include <CollisionManager.h>
+#include <ozSound/audio/SoundEngine.h>
 
 
 using namespace Tako;
@@ -58,12 +59,12 @@ void GameScene::Initialize()
         pCameraDirector_->NotifyDoorOpenFinished();
     });
 
-    const float BPM = 120.0f;
+    const float BPM = 150.0f;
     pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
     pInputTimingJudge_->Initialize(BPM, 0.2f, 0.4f);
 
     pBeatClock_ = std::make_unique<BeatClock>();
-    pBeatClock_->Initialize(BPM, 0.0f);
+    pBeatClock_->Initialize(BPM, 0.55f);
     pBeatClock_->Start();
 
     /// コンボシステムと入力判定クラスの初期化
@@ -76,6 +77,7 @@ void GameScene::Initialize()
         *pAttackRepository_,
         *pCameraDirector_->GetFollowCamera(),
         *pComboBuffSystem_
+        *pBeatClock_
     };
     pPlayer_ = std::make_unique<Player>(playerInitData);
     pPlayer_->Initialize();
@@ -107,6 +109,7 @@ void GameScene::Initialize()
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
+    ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
 }
 
 
