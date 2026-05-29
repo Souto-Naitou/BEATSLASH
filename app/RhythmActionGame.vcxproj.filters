@@ -37,6 +37,9 @@
     <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp">
       <Filter>component\collider</Filter>
     </ClCompile>
+    <ClCompile Include="src\component\HPComponent.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
     <ClCompile Include="src\entity\attack\AttackRepository.cpp">
       <Filter>entity\attack</Filter>
     </ClCompile>
@@ -134,6 +137,7 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -285,6 +289,9 @@
     <ClInclude Include="src\component\collider\PlayerCollider.h">
       <Filter>component\collider</Filter>
     </ClInclude>
+    <ClInclude Include="src\component\HPComponent.h">
+      <Filter>component</Filter>
+    </ClInclude>
     <ClInclude Include="src\component\IMovement.h">
       <Filter>component</Filter>
     </ClInclude>
@@ -414,6 +421,7 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
