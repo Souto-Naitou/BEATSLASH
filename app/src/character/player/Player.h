@@ -15,6 +15,7 @@
 #include <Transform.h>
 #include <component/collider/PlayerCollider.h>
 #include <entity/attack/AttackRepository.h>
+#include <manager/BeatManager.h>
 
 class ComboBuffSystem;
 
@@ -26,12 +27,14 @@ public:
         AttackRepository& attackRepository;
         FollowCamera& followCamera;
         ComboBuffSystem& comboBuffSystem;
+        BeatClock& beatClock;
     };
 
     Player(const InitData& initData) : 
         attackRepository_(initData.attackRepository), 
         followCamera_(initData.followCamera),
-        comboBuffSystem_(initData.comboBuffSystem)
+        comboBuffSystem_(initData.comboBuffSystem),
+        beatClock_(initData.beatClock)
     {}
 
     void Initialize() override;
@@ -72,7 +75,8 @@ private:
     GameParameterView(Tako::Vector3,    directionAtackSpawning, {});    // 攻撃生成の方向（デバッグ表示用）
 
     /// 参照
-    AttackRepository& attackRepository_;            // 攻撃リポジトリの参照
-    FollowCamera& followCamera_;                    // フォローカメラの参照
-    ComboBuffSystem& comboBuffSystem_;              // コンボバフシステムの参照
+    AttackRepository&   attackRepository_;          // 攻撃リポジトリの参照
+    FollowCamera&       followCamera_;              // フォローカメラの参照
+    ComboBuffSystem&    comboBuffSystem_;           // コンボバフシステムの参照
+    BeatClock&          beatClock_;                 // ビートクロックの参照
 };

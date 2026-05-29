@@ -3,7 +3,7 @@
 #include"TakoFramework.h"
 #include <debug/DebugUIWrapper.h>
 
-class RhythmActionGame : public Tako::TakoFramework
+class BeatSlash : public Tako::TakoFramework
 {
 public: // メンバ関数
 
