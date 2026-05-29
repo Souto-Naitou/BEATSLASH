@@ -19,6 +19,6 @@ private:
     float remainingCooldownTime_ = 0.0f; // 攻撃のクールタイムの残り時間 (秒)
 
     // パラメータ
-    const float kNumBeatsPerAttack_ = 2.0f; // 1回の攻撃に必要な拍数
+    const float kNumBeatsPerAttack_ = 1.0f; // 1回の攻撃に必要な拍数
     float cooldownTime_ = 1.0f; // 攻撃のクールタイム（秒)
 };

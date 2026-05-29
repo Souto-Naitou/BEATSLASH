@@ -15,6 +15,7 @@
 #include <FrameTimer.h>
 #include <ShadowRenderer.h>
 #include <CollisionManager.h>
+#include <ozSound/audio/SoundEngine.h>
 
 
 using namespace Tako;
@@ -94,6 +95,7 @@ void GameScene::Initialize()
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
+    ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
 }
 
 
