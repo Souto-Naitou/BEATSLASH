@@ -19,7 +19,7 @@ private:
 	// 追跡を諦めて待機に戻る距離
 	static constexpr float kChaseEndDistance = 25.0f;
 	// 攻撃を開始する距離
-	static constexpr float kAttackStartDistance = 1.0f;
+	static constexpr float kAttackStartDistance = 3.0f;
 
 	// 追跡ターゲット
 	const ICharacter* pTarget_ = nullptr;
