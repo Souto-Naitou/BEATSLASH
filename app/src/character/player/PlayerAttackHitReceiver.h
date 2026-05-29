@@ -2,6 +2,7 @@
 #include <combo/ComboBuffSystem.h>
 #include <memory>
 #include <presentation/animation/RadialBeat.h>
+#include <EmitterManager.h>
 
 class PlayerAttackHitReceiver
 {
@@ -26,4 +27,5 @@ public:
 private:
     std::unique_ptr<RadialBeat> pRadialBeat_;
     Executors execs_;
+    Tako::EmitterManager* pEmitterManager_ = nullptr;
 };

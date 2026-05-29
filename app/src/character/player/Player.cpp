@@ -4,6 +4,7 @@
 #include <type/ColliderTypeID.h>
 #include <CollisionManager.h>
 #include <math/VectorMath.h>
+#include <ozSound/audio/SoundEngine.h>
 
 #ifdef _DEBUG
 #include <debug/DebugRegisterer.h>
@@ -86,6 +87,7 @@ void Player::Update()
         Tako::Vector3 targetPos = transform_.translate;
         targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
         attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
+        ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
 
     // ヒット受信の更新
