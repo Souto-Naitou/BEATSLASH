@@ -40,7 +40,7 @@ public:
 
 private:
 	// 状態の切り替え（デバッグ用）
-	void ChangeState();
+	bool ChangeState();
 
 	// デバッグ表示
 	void DrawImGui();

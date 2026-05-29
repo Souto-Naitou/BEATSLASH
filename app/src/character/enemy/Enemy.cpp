@@ -46,17 +46,20 @@ void Enemy::Initialize()
 	// デバッグUIの登録
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
 
-	// ステートの初期化。｛ 待機状態、追従 ｝
-	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this, pTarget_);
+	// ステートの初期化。｛ 待機状態、追従、攻撃 ｝
+	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 }
 
 void Enemy::Update()
 {
-	// 状態の切り替え（デバッグ用）
-	ChangeState();
+	// 状態の切り替え（デバッグ用）。切り替わった場合は自動遷移をスキップ
+	bool isManualChanged = ChangeState();
 
-	// ステートマシンの更新
-	stateMachine_.Update();
+	if (!isManualChanged)
+	{
+		// ステートマシンの更新
+		stateMachine_.Update();
+	}
 
 	// トランスフォームの更新
 	pModel_->SetTransform(transform_);
@@ -69,25 +72,31 @@ void Enemy::Draw()
 	pModel_->Draw();
 }
 
-void Enemy::ChangeState()
+bool Enemy::ChangeState()
 {
 	if (Tako::Input::GetInstance()->PushKey(DIK_1))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Idle);
 		pModel_->SetMaterialColor({ 0,256,0,256 });
+		return true;
 	}
 	if (Tako::Input::GetInstance()->PushKey(DIK_2))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Chase);
 		pModel_->SetMaterialColor({ 256,0,0,256 });
+		return true;
 	}
+	return false;
 }
 
 void Enemy::DrawImGui()
 {
 #ifdef _DEBUG
+	ImGui::SeparatorText("Transform");
 	ImGui::SliderFloat3("Position", &transform_.translate.x, -10.0f, 10.0f);
 	ImGui::SliderFloat3("Rotation", &transform_.rotate.x, -3.14f, 3.14f);
 	ImGui::SliderFloat3("Scale", &transform_.scale.x, 0.1f, 5.0f);
+	ImGui::SeparatorText("State");
+	ImGui::Text("Current State: %s", GetStateName(stateMachine_.GetCurrentState()).c_str());
 #endif
 }
