@@ -10,6 +10,7 @@
 #include <debug/DebugRegisterer.h>
 #include <imgui.h>
 #endif // _DEBUG
+#include <utility/DeltaTimeManager.h>
 
 void Player::Initialize()
 {
@@ -62,7 +63,7 @@ void Player::Finalize()
 void Player::Update()
 {
     //const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
-    const float deltaTime = 0.016f;
+    const float deltaTime = DeltaTimeManager::GetInstance()->GetDeltaTime(DeltaTimeChannelReserved::Game);
 
     // 入力の更新
     pInput_->Update();
@@ -89,6 +90,8 @@ void Player::Update()
         attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
+
+    pAttackTrigger_->UpdateCooldown(deltaTime);
 
     // ヒット受信の更新
     pHitReceiver_->Update();
@@ -141,4 +144,6 @@ void Player::InitializeComponents()
         .comboBuffSystem = comboBuffSystem_
     };
     pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(hitReceiverExecs);
+    pAttackTrigger_ = std::make_unique<PlayerAttackTrigger>();
+    pAttackTrigger_->CalculateCooldownTime(beatClock_.GetSecondsPerBeat());
 }

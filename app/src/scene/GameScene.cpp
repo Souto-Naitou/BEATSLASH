@@ -61,7 +61,8 @@ void GameScene::Initialize()
     {
         *pAttackRepository_,
         *pFollowCamera_,
-        *pComboBuffSystem_
+        *pComboBuffSystem_,
+        *pBeatClock_
     };
     pPlayer_ = std::make_unique<Player>(playerInitData);
     pPlayer_->Initialize();

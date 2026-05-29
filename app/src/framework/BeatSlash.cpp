@@ -1,4 +1,4 @@
-#include "RhythmActionGame.h"
+#include "BeatSlash.h"
 
 #include "Input.h"
 #include "SceneManager.h"
@@ -6,10 +6,11 @@
 
 #include <ozSound/audio/AudioSystem.h>
 #include <ozSound/audio/SoundEngine.h>
+#include <utility/DeltaTimeManager.h>
 
 using namespace Tako;
 
-void RhythmActionGame::Initialize()
+void BeatSlash::Initialize()
 {
     winApp_->SetWindowSize(1920, 1080);
 
@@ -26,18 +27,21 @@ void RhythmActionGame::Initialize()
     ozSound::SoundEngine::GetInstance()->LoadSoundData("resources/audio/SoundData.json");
     ozSound::SoundEngine::GetInstance()->LoadEventData("resources/audio/SoundEvents.json");
 
+    DeltaTimeManager::GetInstance()->SetDeltaTime(DeltaTimeChannelReserved::Default, 1.0f / 60.0f);
+    DeltaTimeManager::GetInstance()->SetDeltaTime(DeltaTimeChannelReserved::Game, 1.0f / 60.0f);
+
     // シーンの初期化
     sceneFactory_ = std::make_unique<SceneFactory>();
     SceneManager::GetInstance()->SetSceneFactory(sceneFactory_.get());
     SceneManager::GetInstance()->ChangeScene("game", 0.0f);
 }
 
-void RhythmActionGame::Finalize()
+void BeatSlash::Finalize()
 {
     TakoFramework::Finalize();
 }
 
-void RhythmActionGame::Update()
+void BeatSlash::Update()
 {
     // F11キーでフルスクリーン切り替え
     if (Input::GetInstance()->TriggerKey(DIK_F11))
@@ -53,7 +57,7 @@ void RhythmActionGame::Update()
     TakoFramework::Update();
 }
 
-void RhythmActionGame::Draw()
+void BeatSlash::Draw()
 {
     TakoFramework::Draw();
 }

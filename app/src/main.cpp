@@ -1,6 +1,6 @@
 #include <Windows.h>
 
-#include <framework/RhythmActionGame.h>
+#include <framework/BeatSlash.h>
 
 #include <memory>
 
@@ -8,7 +8,7 @@
 
 int _stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    std::unique_ptr<RhythmActionGame> game = std::make_unique<RhythmActionGame>();
+    std::unique_ptr<BeatSlash> game = std::make_unique<BeatSlash>();
 
     game->Run(); 
 
