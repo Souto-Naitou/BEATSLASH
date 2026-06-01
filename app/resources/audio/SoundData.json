@@ -13,6 +13,27 @@
             "path": "resources/audio/Metronome.wav",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": true,
+            "id": "se_player_attack",
+            "path": "resources/audio/se_player_attack.wav",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "bgm_game_0",
+            "path": "resources/audio/bgm_game_0.mp3",
+            "submix": "BGM",
+            "type": "BGM"
+        },
+        {
+            "enableOverlap": false,
+            "id": "bgm_game_1",
+            "path": "resources/audio/bgm_game_1.mp3",
+            "submix": "BGM",
+            "type": "BGM"
         }
     ]
 }

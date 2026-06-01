@@ -8,13 +8,15 @@
 #include "PlayerMovement.h"
 #include "PlayerAttackTrigger.h"
 #include "PlayerAttackHitReceiver.h"
-#include "FollowCamera.h"
+
+#include <entity/camera/FollowCamera.h>
 
 #include <Object3d.h>
 #include <memory>
 #include <Transform.h>
 #include <component/collider/PlayerCollider.h>
 #include <entity/attack/AttackRepository.h>
+#include <manager/BeatManager.h>
 
 class ComboBuffSystem;
 
@@ -26,12 +28,14 @@ public:
         AttackRepository& attackRepository;
         FollowCamera& followCamera;
         ComboBuffSystem& comboBuffSystem;
+        BeatClock& beatClock;
     };
 
     Player(const InitData& initData) : 
         attackRepository_(initData.attackRepository), 
         followCamera_(initData.followCamera),
-        comboBuffSystem_(initData.comboBuffSystem)
+        comboBuffSystem_(initData.comboBuffSystem),
+        beatClock_(initData.beatClock)
     {}
 
     void Initialize() override;
@@ -65,14 +69,15 @@ private:
     std::unique_ptr<Tako::Object3d>             pModel_;                // キャラクターの3Dモデル
     std::unique_ptr<PlayerAttackTrigger>        pAttackTrigger_;        // プレイヤーの攻撃トリガー
     std::unique_ptr<PlayerCollider>             pCollider_;             // プレイヤーのコライダー
-    std::unique_ptr<PlayerAttackHitReceiver>    pHitReceiver_;    // プレイヤーの攻撃ヒット受信クラス
+    std::unique_ptr<PlayerAttackHitReceiver>    pHitReceiver_;          // プレイヤーの攻撃ヒット受信クラス
 
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});                // キャラクターのトランスフォーム
     GameParameterView(Tako::Vector3,    directionAtackSpawning, {});    // 攻撃生成の方向（デバッグ表示用）
 
     /// 参照
-    AttackRepository& attackRepository_;            // 攻撃リポジトリの参照
-    FollowCamera& followCamera_;                    // フォローカメラの参照
-    ComboBuffSystem& comboBuffSystem_;              // コンボバフシステムの参照
+    AttackRepository&   attackRepository_;          // 攻撃リポジトリの参照
+    FollowCamera&       followCamera_;              // フォローカメラの参照
+    ComboBuffSystem&    comboBuffSystem_;           // コンボバフシステムの参照
+    BeatClock&          beatClock_;                 // ビートクロックの参照
 };

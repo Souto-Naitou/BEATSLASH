@@ -14,7 +14,6 @@
     type name = value; \
     GameParameterViewData<type> view_##name{std::source_location::current().file_name(), #name, &name}
 
-
     #define EnableDebug(category) DebugEntry debugEntry{ std::source_location::current().file_name(), category }
 
 #else

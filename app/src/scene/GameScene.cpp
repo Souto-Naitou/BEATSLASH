@@ -15,6 +15,7 @@
 #include <FrameTimer.h>
 #include <ShadowRenderer.h>
 #include <CollisionManager.h>
+#include <ozSound/audio/SoundEngine.h>
 
 
 using namespace Tako;
@@ -40,39 +41,60 @@ void GameScene::Initialize()
     pStage_->Initialize("resources/stage/StageData.json");
 
     /// カメラの初期化
-    pFollowCamera_ = std::make_unique<FollowCamera>();
-    pFollowCamera_->Initialize();
+    pCameraDirector_ = std::make_unique<CameraDirector>();
+    pCameraDirector_->Initialize();
+
+    pStage_->SetOnDoorOpened([this](const Tako::Transform& doorTransform)
+    {
+        pCameraDirector_->StartFocus(doorTransform, 1.0f);
+    });
+
+    pCameraDirector_->SetOnFocusArrived([this]()
+    {
+        pStage_->OpenCurrentDoor();
+    });
+
+    pStage_->SetOnDoorOpenFinished([this]()
+    {
+        pCameraDirector_->NotifyDoorOpenFinished();
+    });
+
+    const float BPM = 150.0f;
+    pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
+    pInputTimingJudge_->Initialize(BPM, 0.2f, 0.4f);
+
+    pBeatClock_ = std::make_unique<BeatClock>();
+    pBeatClock_->Initialize(BPM, 0.55f);
+    pBeatClock_->Start();
 
     /// コンボシステムと入力判定クラスの初期化
+    pComboSystem_ = std::make_unique<ComboSystem>();
     pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
 
     /// プレイヤーの初期化
     Player::InitData playerInitData
     {
         *pAttackRepository_,
-        *pFollowCamera_,
+        *pCameraDirector_->GetFollowCamera(),
         *pComboBuffSystem_
+        *pBeatClock_
     };
     pPlayer_ = std::make_unique<Player>(playerInitData);
     pPlayer_->Initialize();
-    pFollowCamera_->SetTarget(&pPlayer_->GetTransform());
+    pCameraDirector_->SetFollowTarget(&pPlayer_->GetTransform());
     pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
-    {
-        pPlayer_->Respawn(spawnTransform);
-    });
+                               {
+                                   pPlayer_->Respawn(spawnTransform);
+                               });
 
     // 敵の初期化
-    pEnemy_ = std::make_unique<Enemy>(pPlayer_.get());
-    pEnemy_->Initialize();
+    pEnemies_ = std::make_unique<EnemiesOnField>();
+    auto enemy1 = std::make_unique<Enemy>(pPlayer_.get());
+    enemy1->Initialize();
+    pEnemies_->Add(std::move(enemy1));
 
-    const float BPM = 120.0f;
-    pInputTimingJudge_ = std::make_unique<InputTimingJudge>();
-    pInputTimingJudge_->Initialize(BPM, 0.2f, 0.4f);
-
-    pComboSystem_ = std::make_unique<ComboSystem>();
-
-    pBeatClock_= std::make_unique<BeatClock>();
-    pBeatClock_->Initialize(BPM, 0.0f);
+    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_);
+    pGameHUD_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
@@ -86,6 +108,8 @@ void GameScene::Initialize()
 
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
+
+    ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
 }
 
 
@@ -107,7 +131,7 @@ void GameScene::Update()
     // プレイヤーの更新
     pPlayer_->Update();
     // 敵の更新
-    pEnemy_->Update();
+    pEnemies_->Update();
 
 
     pBeatClock_->Update();
@@ -118,12 +142,13 @@ void GameScene::Update()
     // 非アクティブのコライダーを削除
     colliderRepository_.EraseInactiveColliders();
 
-    pFollowCamera_->Update();
+    pCameraDirector_->Update(deltaTime);
+    pGameHUD_->Update();
 
-    if (Input::GetInstance()->TriggerKey(DIK_RETURN))
+    if (pEnemies_->IsEmpty())
     {
+        // TODO：敵が全部死んだらこいつを呼ぶ
         pStage_->NotifyClear();
-        //SceneManager::GetInstance()->ChangeScene("");
     }
     CollisionManager::GetInstance()->CheckAllCollisions();
 }
@@ -145,11 +170,12 @@ void GameScene::Draw()
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
     pStage_->Draw();
     pPlayer_->Draw();
-    pEnemy_->Draw();
+    pEnemies_->Draw();
 
     //------------------前景Spriteの描画------------------//
     // スプライト共通描画設定
     SpriteBasic::GetInstance()->SetCommonRenderSetting();
+    pGameHUD_->Draw();
 
     pStage_->DrawTransition();
 

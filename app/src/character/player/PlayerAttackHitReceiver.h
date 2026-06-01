@@ -1,5 +1,9 @@
 #pragma once
 #include <combo/ComboBuffSystem.h>
+#include <memory>
+#include <presentation/animation/RadialBeat.h>
+#include <debug\GameParameter.h>
+#include <EmitterManager.h>
 
 class PlayerAttackHitReceiver
 {
@@ -15,10 +19,18 @@ public:
         ComboBuffSystem& comboBuffSystem;
     };
 
-    PlayerAttackHitReceiver(Executors& execs) : execs_(execs) {};
+    PlayerAttackHitReceiver(Executors& execs);
+
+    void Update();
 
     void ReceiveHit(const HitInfo& info);
 
 private:
-    Executors& execs_;
+    EnableDebug("PlayerAttackHitReceiver");
+
+    GameParameter(float, kTimeRadialBeat_, 0.3f);
+
+    std::unique_ptr<RadialBeat> pRadialBeat_;
+    Executors execs_;
+    std::unique_ptr<Tako::EmitterManager> pEmitterManager_ = nullptr;
 };

@@ -28,7 +28,7 @@ void Stage::Initialize(const StageData& stageData)
         auto model = std::make_unique<Tako::Object3d>();
         model->Initialize();
         model->SetModel("white_cube.gltf");
-        model->SetMaterialColor({ 1,1,1,1 });
+        model->SetMaterialColor({ 0.35f,0.6f,0.8f,1.0f });
         model->SetEnableLighting(true);
         model->SetTransform(floorTf);
         models_.push_back(std::move(model));
@@ -66,6 +66,12 @@ void Stage::Update(float deltaTime)
     }
 
     door_->Update();
+
+    if (isDoorOpening_ && door_->GetModel()->IsAnimationFinished("OpenAnim"))
+    {
+        isDoorOpening_ = false;
+        if (onDoorOpenFinished_) onDoorOpenFinished_();
+    }
 }
 
 void Stage::Draw()
@@ -80,5 +86,6 @@ void Stage::Draw()
 
 void Stage::OpenDoor()
 {
+    isDoorOpening_ = true;
     door_->GetModel()->ResumeAnimation();
 }

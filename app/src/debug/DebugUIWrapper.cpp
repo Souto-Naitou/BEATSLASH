@@ -10,9 +10,9 @@
 
 void DebugUIWrapper::Initialize()
 {
-#ifdef _DEBUG
+    #ifdef _DEBUG
     ImGui::GetStyle().IndentSpacing = 16.0f;
-#endif // _DEBUG
+    #endif // _DEBUG
 
     DebugRegister("Debug Entries", &DebugUIWrapper::ImGui, this);
 }
@@ -24,16 +24,21 @@ void DebugUIWrapper::Finalize()
 
 void DebugUIWrapper::RegisterEntry(const std::string& id, DebugEntry* pDebugEntry)
 {
-    entries_[id] = pDebugEntry;
+    entries_[id].push_back(pDebugEntry);
 }
 
 void DebugUIWrapper::UnregisterEntry(DebugEntry* pDebugEntry)
 {
-    for (auto it = entries_.begin(); it != entries_.end(); ++it)
+    for (auto& [id, entryList] : entries_)
     {
-        if (it->second == pDebugEntry)
+        auto it = std::remove(entryList.begin(), entryList.end(), pDebugEntry);
+        if (it != entryList.end())
         {
-            entries_.erase(it);
+            entryList.erase(it, entryList.end());
+            if (entryList.empty())
+            {
+                entries_.erase(id);
+            }
             break;
         }
     }
@@ -41,29 +46,53 @@ void DebugUIWrapper::UnregisterEntry(DebugEntry* pDebugEntry)
 
 void DebugUIWrapper::ImGui()
 {
-#ifdef _DEBUG
+    #ifdef _DEBUG
 
-    for (auto& [id, entry] : entries_)
+    for (auto& [id, entryList] : entries_)
     {
-        uint32_t hash = utl::string::to_hash(entry->GetCategory());
+        bool isSoloEntry = entryList.size() == 1;
+
+        /// カテゴリ名からハッシュ値を生成し、色相に変換してカテゴリごとに異なる色を割り当てる
+        uint32_t hash = utl::string::to_hash(entryList.front()->GetCategory());
         HSV hsv = { static_cast<float>(hash % 360) / 360.0f, 0.65f, 0.85f };
 
         ImVec4 col = {};
         ImGui::ColorConvertHSVtoRGB(hsv.h(), hsv.s(), hsv.v(), col.x, col.y, col.z);
         col.w = 1.0f;
-
         ImGui::PushStyleColor(ImGuiCol_Text, col);
-        bool isOpen = ImGui::TreeNode(entry->GetCategory().c_str());
-        if (isOpen)
-        {
-            ImGui::Indent();
-            entry->ImGui();
-            ImGui::Unindent();
 
+        bool isOpenParentTree = false;
+        if (!isSoloEntry)
+        {
+            std::string label = entryList.front()->GetCategory() + " (" + std::to_string(entryList.size()) + ")";
+            isOpenParentTree = ImGui::TreeNode(label.c_str());
+        }
+
+        if (isOpenParentTree || isSoloEntry)
+        {
+            for (size_t i = 0; i < entryList.size(); ++i)
+            {
+                auto& entry = entryList[i];
+                std::string label = isSoloEntry ? entry->GetCategory() : entry->GetCategory() + " - " + std::to_string(i + 1);
+                bool isOpen = ImGui::TreeNode(label.c_str());
+                if (isOpen)
+                {
+                    ImGui::Indent();
+                    entry->ImGui();
+                    ImGui::Unindent();
+
+                    ImGui::TreePop();
+                }
+            }
+        }
+
+        if (!isSoloEntry && isOpenParentTree)
+        {
             ImGui::TreePop();
         }
+
         ImGui::PopStyleColor();
     }
 
-#endif // _DEBUG
+    #endif // _DEBUG
 }

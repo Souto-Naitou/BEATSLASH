@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 class ComboSystem;
 class InputTimingJudge;
 class BeatClock;
@@ -11,6 +13,8 @@ public:
     ComboBuffSystem(ComboSystem* comboSystem, InputTimingJudge* inputTimingJudge, BeatClock* beatClock);
 
     float GetDamageMultiplier() const; // ダメージ倍率の取得
+
+    uint32_t GetCurrentCombo() const;// 現在のコンボ数の取得
 
     void OnAttackHit(); // 攻撃ヒット時の処理
 
