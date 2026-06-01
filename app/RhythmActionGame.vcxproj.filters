@@ -142,6 +142,8 @@
     <ClCompile Include="src\entity\camera\CameraInput.cpp" />
     <ClCompile Include="src\entity\camera\FollowCamera.cpp" />
     <ClCompile Include="src\entity\camera\CameraDirector.cpp" />
+    <ClCompile Include="src\entity\enemy\EnemySpawner.cpp" />
+    <ClCompile Include="src\entity\enemy\EnemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -433,8 +435,6 @@
     <ClInclude Include="src\entity\camera\CameraDirector.h">
       <Filter>entity\camera</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player\FollowCamera.h" />
-    <ClInclude Include="src\character\player\CameraInput.h" />
     <ClInclude Include="src\system\ScopedCursorHidden.h" />
     <ClInclude Include="src\utility\wndutl.h" />
     <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h" />
@@ -442,6 +442,8 @@
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
     <ClInclude Include="src\entity\camera\CameraInput.h" />
     <ClInclude Include="src\entity\camera\FollowCamera.h" />
+    <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
+    <ClInclude Include="src\entity\enemy\EnemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

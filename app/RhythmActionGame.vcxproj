@@ -30,6 +30,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\entity\enemy\EnemyManager.cpp" />
+    <ClCompile Include="src\entity\enemy\EnemySpawner.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp" />
@@ -88,6 +90,8 @@
     <ClCompile Include="src\utility\StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity\enemy\EnemyManager.h" />
+    <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
     <ClInclude Include="src\character\enemy\state\EnemyAttackState.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h" />
