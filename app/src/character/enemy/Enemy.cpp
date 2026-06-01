@@ -61,6 +61,17 @@ void Enemy::Update()
 		stateMachine_.Update();
 	}
 
+	// 常にプレイヤーの方を向くようにする
+	if (pTarget_)
+	{
+		// ターゲットへのベクトルを計算
+		Tako::Vector3 toTarget = pTarget_->GetPosition() - transform_.translate;
+		
+		// Y軸を回転させる
+		float angle = std::atan2(toTarget.x, toTarget.z);
+		transform_.rotate.y = angle;
+	}
+
 	// トランスフォームの更新
 	pModel_->SetTransform(transform_);
 	pModel_->Update();
