@@ -40,6 +40,6 @@ private:
 	// デバッグ用のパラメータ
 	EnableDebug("EnemyChaseState");
 	// 追跡速度
-	GameParameter(float, chaseSpeed_, 5.0f);
+	GameParameter(float, chaseSpeed_, 7.0f);
 };
 
