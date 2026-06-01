@@ -27,5 +27,6 @@ void PlayerAttackHitReceiver::ReceiveHit(const HitInfo& info)
     // カメラ
 
     // コンボ更新
-    execs_.comboBuffSystem.OnAttackHit();
+    JudgeResult judge = execs_.comboBuffSystem.OnAttackHit();
+    execs_.overdrive.OnJudge(judge);
 }

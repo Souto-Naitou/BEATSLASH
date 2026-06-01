@@ -41,6 +41,8 @@ void PlayerInput::Update()
     }
     // 攻撃
     data_.isAttackTriggered = pInput_->TriggerMouse(0);
+    // オーバードライブ
+    data_.isOverdriveTriggered = pInput_->PushKey(DIK_F); // TODO: 仮操作
 }
 
 void PlayerInput::ImGui()
@@ -51,6 +53,7 @@ void PlayerInput::ImGui()
     ImGuiTemplate::TextBoolean("Jump Triggered", data_.isJumpTriggered);
     ImGuiTemplate::TextBoolean("Jump Pressed", data_.isJumpPressed);
     ImGui::InputFloat("Jump Hold Time", &data_.jumpHoldTime, 0.01f, 0.1f, "%.2f", ImGuiInputTextFlags_ReadOnly);
+    ImGuiTemplate::TextBoolean("Overdrive Triggered", data_.isOverdriveTriggered);
 
 #endif // _DEBUG
 }

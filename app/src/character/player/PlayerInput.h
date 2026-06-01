@@ -20,6 +20,9 @@ public:
         float           jumpHoldTime = 0.0f;
         // 攻撃のトリガー状態
         bool            isAttackTriggered = false;
+        // オーバードライブのトリガー状態
+        bool            isOverdriveTriggered = false;
+
     };
 
     PlayerInput() = default;

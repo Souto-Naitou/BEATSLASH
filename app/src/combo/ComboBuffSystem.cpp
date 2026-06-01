@@ -26,13 +26,15 @@ uint32_t ComboBuffSystem::GetCurrentCombo() const
     return pComboSystem_->GetCombo();
 }
 
-void ComboBuffSystem::OnAttackHit()
+JudgeResult ComboBuffSystem::OnAttackHit()
 {
     float timingDiff = pBeatClock_->GetDeltaToNearestBeatSeconds();
     JudgeResult judge = pInputTimingJudge_->Evaluate(timingDiff);
     static const char* judgeStr[] = { "Miss", "Good", "Perfect" };
     Tako::Logger::Log(std::format("ComboBuffSystem::OnAttackHit - timingDiff: {}, judge: {}\n", timingDiff, judgeStr[static_cast<int>(judge)]));
     pComboSystem_->OnAttackHit(judge);
+
+    return judge;
 }
 
 void ComboBuffSystem::OnDamaged()

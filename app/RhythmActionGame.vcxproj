@@ -72,6 +72,7 @@
     <ClCompile Include="src\physics\ColliderTimer.cpp" />
     <ClCompile Include="src\presentation\animation\RadialBeat.cpp" />
     <ClCompile Include="src\scene\GameScene.cpp" />
+    <ClCompile Include="src\skill\Overdrive.cpp" />
     <ClCompile Include="src\stage\stage.cpp" />
     <ClCompile Include="src\stage\StageClearFlow.cpp" />
     <ClCompile Include="src\stage\StageSequence.cpp" />
@@ -137,6 +138,8 @@
     <ClInclude Include="src\presentation\animation\AnimationTween.hpp" />
     <ClInclude Include="src\presentation\animation\RadialBeat.h" />
     <ClInclude Include="src\scene\GameScene.h" />
+    <ClInclude Include="src\skill\IPlayerSkill.h" />
+    <ClInclude Include="src\skill\Overdrive.h" />
     <ClInclude Include="src\stage\stage.h" />
     <ClInclude Include="src\stage\StageClearFlow.h" />
     <ClInclude Include="src\stage\StageData.h" />
