@@ -16,6 +16,7 @@
 #include <Transform.h>
 #include <component/collider/PlayerCollider.h>
 #include <entity/attack/AttackRepository.h>
+#include <skill/Overdrive.h>
 #include <manager/BeatManager.h>
 
 class ComboBuffSystem;
@@ -70,6 +71,8 @@ private:
     std::unique_ptr<PlayerAttackTrigger>        pAttackTrigger_;        // プレイヤーの攻撃トリガー
     std::unique_ptr<PlayerCollider>             pCollider_;             // プレイヤーのコライダー
     std::unique_ptr<PlayerAttackHitReceiver>    pHitReceiver_;          // プレイヤーの攻撃ヒット受信クラス
+
+    std::unique_ptr<Overdrive> pOverdrive_; // オーバードライブスキル
 
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});                // キャラクターのトランスフォーム

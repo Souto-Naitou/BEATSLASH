@@ -139,6 +139,7 @@
     <ClCompile Include="src\entity\camera\CameraInput.cpp" />
     <ClCompile Include="src\entity\camera\FollowCamera.cpp" />
     <ClCompile Include="src\entity\camera\CameraDirector.cpp" />
+    <ClCompile Include="src\skill\Overdrive.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -227,6 +228,9 @@
     </Filter>
     <Filter Include="entity\camera">
       <UniqueIdentifier>{0314cae5-c802-40f2-8697-ad4e1b8d1c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="skill">
+      <UniqueIdentifier>{5d5a4812-378a-4e81-8cad-61913c0df091}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +436,8 @@
     </ClInclude>
     <ClInclude Include="src\entity\camera\CameraInput.h" />
     <ClInclude Include="src\entity\camera\FollowCamera.h" />
+    <ClInclude Include="src\skill\Overdrive.h" />
+    <ClInclude Include="src\skill\IPlayerSkill.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
