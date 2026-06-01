@@ -63,12 +63,14 @@ void EnemyChaseState::DrawImGui(Enemy* enemy)
 {
 	if (pTarget_)
 	{
+		// ターゲットの座標を表示
 		Tako::Vector3 pos = pTarget_->GetPosition();
 		ImGui::Text("Target Position: %.2f, %.2f, %.2f", pos.x, pos.y, pos.z);
-	}
-	else
-	{
-		ImGui::Text("Target: None");
+
+		// ターゲットまでの距離を表示
+		Tako::Vector3 toTarget = pTarget_->GetPosition() - enemy->GetPosition();
+		float distanceSq = toTarget.LengthSquared();
+		ImGui::Text("DistanceSquared : %.2f, Distance : %.2f", distanceSq, std::sqrt(distanceSq));
 	}
 }
 

@@ -27,6 +27,9 @@ std::optional<EnemyStateType> EnemyIdleState::CheckTransition(Enemy* enemy)
 void EnemyIdleState::Enter(Enemy* enemy)
 {
 	timer_ = 0.0f; // タイマーをリセット
+
+	// わかりやすいように、待機状態に入ったときに色を変える
+	enemy->GetModel()->SetMaterialColor({ 0,256,0,256 });
 }
 
 void EnemyIdleState::Update(Enemy* enemy)

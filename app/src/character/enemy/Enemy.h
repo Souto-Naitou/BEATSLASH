@@ -56,5 +56,8 @@ private:
 	EnemyStateMachine stateMachine_;
 	// ターゲット（所有しない）
 	const ICharacter* pTarget_ = nullptr;
+
+	// 重力
+	static constexpr float kGravity = -9.8f;
 };
 

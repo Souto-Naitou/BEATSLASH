@@ -4,6 +4,7 @@
 #include <imgui.h>
 #include <DebugUIManager.h>
 #include <type/ColliderTypeID.h>
+#include <FrameTimer.h>
 
 Enemy::Enemy(const ICharacter* target)
 	: pTarget_(target)
@@ -18,14 +19,10 @@ void Enemy::Initialize()
 	pModel_->SetMaterialColor({ 0,256,0,256 });
 	pModel_->SetEnableLighting(true);
 	pModel_->SetScale({ 1.0f, 1.0f, 1.0f });
+	pModel_->SetTranslate({ 0.0f,50.0f,0.0f });
 
 	// トランスフォームの初期化
 	transform_ = pModel_->GetTransform();
-	transform_ = {
-		.scale = { 1.0f, 1.0f, 1.0f },
-		.rotate = { 0.0f, 0.0f, 0.0f },
-		.translate = { 0.0f, 2.0f, 0.0f }
-	};
 
 	// コライダーの初期化
 	pCollider_ = std::make_unique<EnemyCollider>();
@@ -35,6 +32,8 @@ void Enemy::Initialize()
 	pCollider_->SetTransform(&transform_);
 	pCollider_->SetPushBackCallback([this](const Tako::Vector3& pushBack) {
 		transform_.translate += pushBack;
+		pModel_->SetTransform(transform_);
+		pModel_->Update();
 									});
 
 	// コライダーをマネージャーに登録
@@ -71,6 +70,9 @@ void Enemy::Update()
 		float angle = std::atan2(toTarget.x, toTarget.z);
 		transform_.rotate.y = angle;
 	}
+
+	// 重力の適用
+	transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
 	// トランスフォームの更新
 	pModel_->SetTransform(transform_);

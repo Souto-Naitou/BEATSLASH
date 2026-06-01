@@ -24,7 +24,6 @@ private:
 	std::unique_ptr<EnemyAttackCollider> pAttackCollider_;
 	// コライダーのトランスフォーム
 	Tako::Transform colliderTransform_;
-	
 	// 攻撃の持続時間
 	static constexpr float kAttackDuration = 1.0f;
 	// 攻撃持続時間
