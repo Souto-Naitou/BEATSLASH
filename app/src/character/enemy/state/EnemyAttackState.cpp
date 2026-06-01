@@ -16,6 +16,9 @@ void EnemyAttackState::Enter(Enemy* enemy)
 
 	// コライダートランスフォームの初期化
 	colliderTransform_ = enemy->GetTransform();
+	float yaw = colliderTransform_.rotate.y;
+	Tako::Vector3 forward = { std::sin(yaw), 0.0f, std::cos(yaw) };
+	colliderTransform_.translate += forward * kColliderOffset;
 
 	// 攻撃コライダーの生成と初期化
 	pAttackCollider_ = std::make_unique<EnemyAttackCollider>();
@@ -35,8 +38,6 @@ void EnemyAttackState::Update(Enemy* enemy)
 	// 時間の加算
 	timer_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
-	// コライダーを敵の方向に
-	pAttackCollider_->SetTransform(&colliderTransform_);
 }
 
 void EnemyAttackState::Exit(Enemy* enemy)
