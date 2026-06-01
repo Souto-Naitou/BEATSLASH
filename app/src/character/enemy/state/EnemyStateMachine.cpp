@@ -28,9 +28,19 @@ void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTy
 void EnemyStateMachine::Update()
 {
 	// 現在の状態の更新
-	if (states_.find(currentStateType_) != states_.end())
+	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
 	{
 		states_[currentStateType_]->Update(owner_);
+	}
+
+	// 状態遷移のチェック
+	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
+	{
+		std::optional<EnemyStateType> newStateType = states_[currentStateType_]->CheckTransition(owner_);
+		if (newStateType.has_value())
+		{
+			ChangeState(newStateType.value());
+		}
 	}
 }
 
@@ -43,7 +53,7 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 	}
 
 	// 現在の状態から抜ける
-	if (states_.find(currentStateType_) != states_.end())
+	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
 	{
 		states_[currentStateType_]->Exit(owner_); // 状態から抜けるときの処理
 
@@ -52,7 +62,7 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 	}
 
 	// 新しい状態に入る
-	if (states_.find(newStateType) != states_.end())
+	if (states_.find(newStateType) != states_.end() && states_[newStateType] != nullptr)
 	{
 		currentStateType_ = newStateType;
 		states_[currentStateType_]->Enter(owner_); // 状態に入るときの処理

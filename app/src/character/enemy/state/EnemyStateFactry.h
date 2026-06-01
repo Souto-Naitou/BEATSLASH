@@ -5,6 +5,7 @@
 #include <memory>
 #include "EnemyIdleState.h"
 #include "EnemyChaseState.h"
+#include "EnemyAttackState.h"
 
 class ICharacter;
 
@@ -16,11 +17,11 @@ public:
 		switch (type)
 		{
 		case EnemyStateType::Idle:
-			return std::make_unique<EnemyIdleState>();
+			return std::make_unique<EnemyIdleState>(target);
 		case EnemyStateType::Chase:
 			return std::make_unique<EnemyChaseState>(target);
 		case EnemyStateType::Attack:
-			//return std::make_unique<AttackState>();
+			return std::make_unique<EnemyAttackState>();
 		case EnemyStateType::Dead:
 			//return std::make_unique<DeadState>();
 		default:

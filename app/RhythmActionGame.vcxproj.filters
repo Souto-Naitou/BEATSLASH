@@ -134,6 +134,9 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp" />
+    <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
     <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
     <ClCompile Include="src\entity\camera\FocusCamera.cpp" />
     <ClCompile Include="src\entity\camera\CameraInput.cpp" />
@@ -430,6 +433,13 @@
     <ClInclude Include="src\entity\camera\CameraDirector.h">
       <Filter>entity\camera</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\player\FollowCamera.h" />
+    <ClInclude Include="src\character\player\CameraInput.h" />
+    <ClInclude Include="src\system\ScopedCursorHidden.h" />
+    <ClInclude Include="src\utility\wndutl.h" />
+    <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h" />
+    <ClInclude Include="src\character\enemy\state\EnemyAttackState.h" />
+    <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
     <ClInclude Include="src\entity\camera\CameraInput.h" />
     <ClInclude Include="src\entity\camera\FollowCamera.h" />
   </ItemGroup>
