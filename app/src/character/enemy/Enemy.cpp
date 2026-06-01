@@ -25,7 +25,7 @@ void Enemy::Initialize()
 	pModel_->SetMaterialColor({ 0,256,0,256 });
 	pModel_->SetEnableLighting(true);
 	pModel_->SetScale({ 1.0f, 1.0f, 1.0f });
-	pModel_->SetTranslate({ 0.0f,50.0f,0.0f });
+	pModel_->SetTranslate({ 0.0f,150.0f,0.0f });
 
 	// トランスフォームの初期化
 	transform_ = pModel_->GetTransform();
@@ -52,7 +52,7 @@ void Enemy::Initialize()
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
 
 	// ステートの初期化。｛　待機状態、　｝
-	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this, pTarget_);
+	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
     pHp_ = std::make_unique<HPComponent>();
     // HPコンポーネントの初期化 TODO : 仮の値
@@ -70,17 +70,6 @@ void Enemy::Update()
 	{
 		// ステートマシンの更新
 		stateMachine_.Update();
-	}
-
-	// 常にプレイヤーの方を向くようにする
-	if (pTarget_)
-	{
-		// ターゲットへのベクトルを計算
-		Tako::Vector3 toTarget = pTarget_->GetPosition() - transform_.translate;
-		
-		// Y軸を回転させる
-		float angle = std::atan2(toTarget.x, toTarget.z);
-		transform_.rotate.y = angle;
 	}
 
 	// 重力の適用

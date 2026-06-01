@@ -16,11 +16,24 @@ public:
 	std::optional<EnemyStateType> CheckTransition(Enemy* enemy) override;
 
 private:
+	// 追跡処理
+	void Chase(Enemy* enemy, float deltaTime);
+
+	// 常にターゲットの方を向く処理
+	void FaceTarget(Enemy* enemy);
+
+	// 攻撃のクールタイム処理
+	void UpdateAttackCooldown(float deltaTime);
+
+private:
 	// 追跡を諦めて待機に戻る距離
 	static constexpr float kChaseEndDistance = 25.0f;
 	// 攻撃を開始する距離
 	static constexpr float kAttackStartDistance = 3.5f;
-
+	// 攻撃のクールタイム
+	static constexpr float kAttackCooldown = 1.0f;
+	// 攻撃クールタイムのタイマー
+	float attackCooldownTimer_ = 0.0f;
 	// 追跡ターゲット
 	const ICharacter* pTarget_ = nullptr;
 
