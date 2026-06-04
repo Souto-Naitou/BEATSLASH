@@ -16,6 +16,7 @@
 #include <ShadowRenderer.h>
 #include <CollisionManager.h>
 #include <ozSound/audio/SoundEngine.h>
+#include <common/ParticleEmitterPresetNames.h>
 
 
 using namespace Tako;
@@ -32,9 +33,6 @@ void GameScene::Initialize()
     /// ================================== ///
     ///              初期化処理              ///
     /// ================================== ///
-
-    /// コライダーリポジトリと攻撃リポジトリの初期化
-    pAttackRepository_ = std::make_unique<AttackRepository>(colliderRepository_);
 
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
@@ -56,6 +54,26 @@ void GameScene::Initialize()
     /// コンボシステムと入力判定クラスの初期化
     pComboSystem_ = std::make_unique<ComboSystem>();
     pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
+
+    /// エミッターマネージャの初期化
+    pEmitterManager_ = std::make_unique<Tako::EmitterManager>(Tako::GPUParticle::GetInstance());
+    Tako::DebugUIManager::GetInstance()->SetEmitterManager(pEmitterManager_.get());
+    this->LoadParticleEmitterPresets();
+
+    PlayerAttackFactory::Dependencies playerAttackFactoryDeps
+    {
+        .comboBuffSystem = *pComboBuffSystem_,
+        .colliderRepository = colliderRepository_,
+        .emitterManager = *pEmitterManager_
+    };
+    pPlayerAttackFactory_ = std::make_unique<PlayerAttackFactory>(playerAttackFactoryDeps);
+
+    /// コライダーリポジトリと攻撃リポジトリの初期化
+    AttackRepository::FactoryDependencies attackRepoDeps
+    {
+        .pPlayerAttackFactory = pPlayerAttackFactory_.get()
+    };
+    pAttackRepository_ = std::make_unique<AttackRepository>(attackRepoDeps);
 
     /// プレイヤーの初期化
     Player::InitData playerInitData
@@ -136,6 +154,7 @@ void GameScene::Update()
         // TODO：敵が全部死んだらこいつを呼ぶ
         pStage_->NotifyClear();
     }
+    pEmitterManager_->Update();
     CollisionManager::GetInstance()->CheckAllCollisions();
 }
 
@@ -210,4 +229,10 @@ void GameScene::DrawImGui()
 
 
 #endif // _DEBUG
+}
+
+void GameScene::LoadParticleEmitterPresets()
+{
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrail);
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
 }

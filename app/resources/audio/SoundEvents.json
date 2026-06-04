@@ -31,7 +31,7 @@
                     "loop": true,
                     "soundId": "bgm_game_0",
                     "type": "Play",
-                    "volume": 0.3
+                    "volume": 0.1
                 }
             ],
             "name": "play_bgm_game_0"
