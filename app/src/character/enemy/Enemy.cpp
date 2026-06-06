@@ -4,6 +4,7 @@
 #include <imgui.h>
 #include <DebugUIManager.h>
 #include <type/ColliderTypeID.h>
+#include <FrameTimer.h>
 
 Enemy::Enemy(const ICharacter* target)
 	: pTarget_(target)
@@ -24,14 +25,10 @@ void Enemy::Initialize()
 	pModel_->SetMaterialColor({ 0,256,0,256 });
 	pModel_->SetEnableLighting(true);
 	pModel_->SetScale({ 1.0f, 1.0f, 1.0f });
+	pModel_->SetTranslate({ 0.0f,50.0f,0.0f });
 
 	// トランスフォームの初期化
 	transform_ = pModel_->GetTransform();
-	transform_ = {
-		.scale = { 1.0f, 1.0f, 1.0f },
-		.rotate = { 0.0f, 0.0f, 0.0f },
-		.translate = { 0.0f, 2.0f, 0.0f }
-	};
 
 	// コライダーの初期化
 	pCollider_ = std::make_unique<EnemyCollider>();
@@ -41,12 +38,15 @@ void Enemy::Initialize()
 	pCollider_->SetTransform(&transform_);
 	pCollider_->SetPushBackCallback([this](const Tako::Vector3& pushBack) {
 		transform_.translate += pushBack;
+		pModel_->SetTransform(transform_);
+		pModel_->Update();
 									});
 
 	// コライダーをマネージャーに登録
-	Tako::CollisionManager::GetInstance()->AddCollider(pCollider_.get());
-	Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
-	Tako::CollisionManager::GetInstance()->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
+	auto collisionManager = Tako::CollisionManager::GetInstance();
+	collisionManager->AddCollider(pCollider_.get());
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
 	// デバッグUIの登録
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
@@ -63,11 +63,28 @@ void Enemy::Initialize()
 
 void Enemy::Update()
 {
-	// 状態の切り替え（デバッグ用）
-	ChangeState();
+	// 状態の切り替え（デバッグ用）。切り替わった場合は自動遷移をスキップ
+	bool isManualChanged = ChangeState();
 
-	// ステートマシンの更新
-	stateMachine_.Update();
+	if (!isManualChanged)
+	{
+		// ステートマシンの更新
+		stateMachine_.Update();
+	}
+
+	// 常にプレイヤーの方を向くようにする
+	if (pTarget_)
+	{
+		// ターゲットへのベクトルを計算
+		Tako::Vector3 toTarget = pTarget_->GetPosition() - transform_.translate;
+		
+		// Y軸を回転させる
+		float angle = std::atan2(toTarget.x, toTarget.z);
+		transform_.rotate.y = angle;
+	}
+
+	// 重力の適用
+	transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
 	// トランスフォームの更新
 	pModel_->SetTransform(transform_);
@@ -80,25 +97,31 @@ void Enemy::Draw()
 	pModel_->Draw();
 }
 
-void Enemy::ChangeState()
+bool Enemy::ChangeState()
 {
 	if (Tako::Input::GetInstance()->PushKey(DIK_1))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Idle);
 		pModel_->SetMaterialColor({ 0,256,0,256 });
+		return true;
 	}
 	if (Tako::Input::GetInstance()->PushKey(DIK_2))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Chase);
 		pModel_->SetMaterialColor({ 256,0,0,256 });
+		return true;
 	}
+	return false;
 }
 
 void Enemy::DrawImGui()
 {
 #ifdef _DEBUG
+	ImGui::SeparatorText("Transform");
 	ImGui::SliderFloat3("Position", &transform_.translate.x, -10.0f, 10.0f);
 	ImGui::SliderFloat3("Rotation", &transform_.rotate.x, -3.14f, 3.14f);
 	ImGui::SliderFloat3("Scale", &transform_.scale.x, 0.1f, 5.0f);
+	ImGui::SeparatorText("State");
+	ImGui::Text("Current State: %s", GetStateName(stateMachine_.GetCurrentState()).c_str());
 #endif
 }

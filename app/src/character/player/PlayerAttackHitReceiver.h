@@ -3,7 +3,7 @@
 #include <presentation/animation/RadialBeat.h>
 #include <entity/attack/PlayerAttackPresentation.h>
 #include <debug\GameParameter.h>
-
+#include <skill/Overdrive.h>
 #include <EmitterManager.h>
 #include <Vector3.h>
 
@@ -26,6 +26,8 @@ public:
     {
         // コンボシステム
         ComboBuffSystem& comboBuffSystem;
+        // オーバードライブ
+        Overdrive& overdrive;
         PlayerAttackPresentation& playerAttackPresentation;
     };
 

@@ -30,13 +30,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
-    <ClCompile Include="src\character\player\CameraInput.cpp" />
-    <ClCompile Include="src\character\player\FollowCamera.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
@@ -46,6 +46,10 @@
     <ClCompile Include="src\entity\attack\AttackRepository.cpp" />
     <ClCompile Include="src\entity\attack\PlayerAttack.cpp" />
     <ClCompile Include="src\combo\ComboSystem.cpp" />
+    <ClCompile Include="src\entity\camera\CameraDirector.cpp" />
+    <ClCompile Include="src\entity\camera\CameraInput.cpp" />
+    <ClCompile Include="src\entity\camera\FocusCamera.cpp" />
+    <ClCompile Include="src\entity\camera\FollowCamera.cpp" />
     <ClCompile Include="src\entity\attack\PlayerAttackPresentation.cpp" />
     <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
     <ClCompile Include="src\factory\PlayerAttackFactory.cpp" />
@@ -72,6 +76,8 @@
     <ClCompile Include="src\physics\ColliderTimer.cpp" />
     <ClCompile Include="src\presentation\animation\RadialBeat.cpp" />
     <ClCompile Include="src\scene\GameScene.cpp" />
+    <ClCompile Include="src\skill\Overdrive.cpp" />
+    <ClCompile Include="src\skill\UpTempo.cpp" />
     <ClCompile Include="src\stage\stage.cpp" />
     <ClCompile Include="src\stage\StageClearFlow.cpp" />
     <ClCompile Include="src\stage\StageSequence.cpp" />
@@ -86,6 +92,8 @@
     <ClCompile Include="src\utility\StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
+    <ClInclude Include="src\character\enemy\state\EnemyAttackState.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h" />
     <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
@@ -97,8 +105,6 @@
     <ClInclude Include="src\character\enemy\state\EnemyStateFactry.h" />
     <ClInclude Include="src\character\enemy\state\EnemyStateType.h" />
     <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h" />
-    <ClInclude Include="src\character\player\CameraInput.h" />
-    <ClInclude Include="src\character\player\FollowCamera.h" />
     <ClInclude Include="src\character\player\Player.h" />
     <ClInclude Include="src\character\player\PlayerAttackTrigger.h" />
     <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h" />
@@ -119,6 +125,10 @@
     <ClInclude Include="src\debug\ImGuiTextTemplate.h" />
     <ClInclude Include="src\entity\attack\AttackRepository.h" />
     <ClInclude Include="src\entity\attack\PlayerAttack.h" />
+    <ClInclude Include="src\entity\camera\CameraDirector.h" />
+    <ClInclude Include="src\entity\camera\CameraInput.h" />
+    <ClInclude Include="src\entity\camera\FocusCamera.h" />
+    <ClInclude Include="src\entity\camera\FollowCamera.h" />
     <ClInclude Include="src\entity\attack\PlayerAttackPresentation.h" />
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
     <ClInclude Include="src\factory\PlayerAttackFactory.h" />
@@ -138,6 +148,9 @@
     <ClInclude Include="src\presentation\animation\AnimationTween.hpp" />
     <ClInclude Include="src\presentation\animation\RadialBeat.h" />
     <ClInclude Include="src\scene\GameScene.h" />
+    <ClInclude Include="src\skill\IPlayerSkill.h" />
+    <ClInclude Include="src\skill\Overdrive.h" />
+    <ClInclude Include="src\skill\UpTempo.h" />
     <ClInclude Include="src\stage\stage.h" />
     <ClInclude Include="src\stage\StageClearFlow.h" />
     <ClInclude Include="src\stage\StageData.h" />

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp">
+      <Filter>character\enemy\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp">
       <Filter>character\enemy\collider</Filter>
     </ClCompile>
@@ -15,12 +21,6 @@
     </ClCompile>
     <ClCompile Include="src\character\enemy\Enemy.cpp">
       <Filter>character\enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="src\character\player\CameraInput.cpp">
-      <Filter>character\player</Filter>
-    </ClCompile>
-    <ClCompile Include="src\character\player\FollowCamera.cpp">
-      <Filter>character\player</Filter>
     </ClCompile>
     <ClCompile Include="src\character\player\Player.cpp">
       <Filter>character\player</Filter>
@@ -48,6 +48,18 @@
     </ClCompile>
     <ClCompile Include="src\combo\ComboSystem.cpp">
       <Filter>combo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\CameraDirector.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\CameraInput.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\FocusCamera.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\FollowCamera.cpp">
+      <Filter>entity\camera</Filter>
     </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp">
       <Filter>entity\enemy</Filter>
@@ -103,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="src\scene\GameScene.cpp">
       <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skill\Overdrive.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skill\UpTempo.cpp">
+      <Filter>skill</Filter>
     </ClCompile>
     <ClCompile Include="src\stage\stage.cpp">
       <Filter>stage</Filter>
@@ -186,6 +204,9 @@
     <Filter Include="scene">
       <UniqueIdentifier>{837cbf4a-6386-47b6-b48f-d96629ee4788}</UniqueIdentifier>
     </Filter>
+    <Filter Include="skill">
+      <UniqueIdentifier>{093426fb-6ef5-4a33-aa3c-7b04eaef6711}</UniqueIdentifier>
+    </Filter>
     <Filter Include="stage">
       <UniqueIdentifier>{32404a00-5cbd-4bd8-9643-3da6f38082c5}</UniqueIdentifier>
     </Filter>
@@ -230,6 +251,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h">
+      <Filter>character\enemy\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyAttackState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h">
       <Filter>character\enemy\collider</Filter>
     </ClInclude>
@@ -262,12 +289,6 @@
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyStateMachine.h">
       <Filter>character\enemy\state</Filter>
-    </ClInclude>
-    <ClInclude Include="src\character\player\CameraInput.h">
-      <Filter>character\player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\character\player\FollowCamera.h">
-      <Filter>character\player</Filter>
     </ClInclude>
     <ClInclude Include="src\character\player\Player.h">
       <Filter>character\player</Filter>
@@ -326,6 +347,18 @@
     <ClInclude Include="src\entity\attack\PlayerAttack.h">
       <Filter>entity\attack</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity\camera\CameraDirector.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\CameraInput.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\FocusCamera.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\FollowCamera.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h">
       <Filter>entity\enemy</Filter>
     </ClInclude>
@@ -376,6 +409,15 @@
     </ClInclude>
     <ClInclude Include="src\scene\GameScene.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skill\IPlayerSkill.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skill\Overdrive.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skill\UpTempo.h">
+      <Filter>skill</Filter>
     </ClInclude>
     <ClInclude Include="src\stage\stage.h">
       <Filter>stage</Filter>

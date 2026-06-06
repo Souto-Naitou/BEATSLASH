@@ -7,7 +7,7 @@
 #include <memory>
 #include <physics/ColliderRepository.h>
 #include <entity/attack/AttackRepository.h>
-#include <character/player/FollowCamera.h>
+#include <entity/camera/CameraDirector.h>
 #include <entity/enemy/EnemiesOnField.h>
 
 #include <combo/ComboSystem.h>
@@ -68,6 +68,7 @@ private: // メンバ変数
     std::unique_ptr<PlayerAttackFactory>    pPlayerAttackFactory_;  // !< プレイヤー攻撃ファクトリー
     std::unique_ptr<GameHUD>                pGameHUD_;              // !< ゲームHUD
     std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー
+    std::unique_ptr<CameraDirector>         pCameraDirector_;       // !< カメラディレクターのインスタンス
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
 

@@ -335,6 +335,16 @@ void SoundEngine::SetVolume(SoundHandle handle, float volume)
         it->second.voiceInstance->SetVolume(volume);
 }
 
+void SoundEngine::SetPlaySpeed(SoundHandle handle, float speed)
+{
+    auto it = playingSounds_.find(handle);
+    if (it == playingSounds_.end())
+        return;
+
+    if (it->second.voiceInstance)
+        it->second.voiceInstance->SetPlaySpeed(speed);
+}
+
 bool SoundEngine::IsPlaying(SoundHandle handle) const
 {
     auto it = playingSounds_.find(handle);

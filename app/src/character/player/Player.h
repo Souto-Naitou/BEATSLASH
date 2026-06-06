@@ -8,13 +8,16 @@
 #include "PlayerMovement.h"
 #include "PlayerAttackTrigger.h"
 #include "PlayerAttackHitReceiver.h"
-#include "FollowCamera.h"
+
+#include <entity/camera/FollowCamera.h>
 
 #include <Object3d.h>
 #include <memory>
 #include <Transform.h>
 #include <component/collider/PlayerCollider.h>
 #include <entity/attack/AttackRepository.h>
+#include <skill/Overdrive.h>
+#include <skill/UpTempo.h>
 #include <manager/BeatManager.h>
 
 class ComboBuffSystem;
@@ -68,6 +71,9 @@ private:
     std::unique_ptr<Tako::Object3d>             pModel_;                // キャラクターの3Dモデル
     std::unique_ptr<PlayerAttackTrigger>        pAttackTrigger_;        // プレイヤーの攻撃トリガー
     std::unique_ptr<PlayerCollider>             pCollider_;             // プレイヤーのコライダー
+
+    std::unique_ptr<Overdrive> pOverdrive_; // オーバードライブスキル
+    std::unique_ptr<UpTempo> pUpTempo_;     // アップテンポスキル
 
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});                // キャラクターのトランスフォーム
