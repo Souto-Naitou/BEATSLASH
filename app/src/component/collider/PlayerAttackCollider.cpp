@@ -6,10 +6,12 @@
 void PlayerAttackCollider::OnCollisionEnter(Collider* other)
 {
     auto ID = static_cast<ColliderTypeID>(other->GetTypeID());
-
+    
     if (ID == ColliderTypeID::Enemy)
     {
-        hitReceiver_.ReceiveHit(PlayerAttackHitReceiver::HitInfo());
+        PlayerAttackHitReceiver::HitInfo info;
+        info.position = other->GetCenter();
+        hitReceiver_.ReceiveHit(info);
     }
 }
 

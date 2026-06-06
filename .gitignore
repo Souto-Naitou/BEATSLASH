@@ -9,6 +9,7 @@
 **/[Bb]in/
 Generated
 **/imgui.ini
+**/EngineResources/
 
 
 # VST3SDK (必要なものだけ残す)

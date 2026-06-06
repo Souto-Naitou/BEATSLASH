@@ -15,6 +15,8 @@
 #include <manager/BeatManager.h>
 #include <combo/ComboBuffSystem.h>
 #include <ui/GameHUD.h>
+#include <factory/PlayerAttackFactory.h>
+#include <EmitterManager.h>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -50,19 +52,25 @@ public: // メンバ関数
     /// </summary>
     void DrawImGui() override;
 
+private: // メンバ関数
+    void LoadParticleEmitterPresets();
+
 private: // メンバ変数
-    std::unique_ptr<Player> pPlayer_; // !< プレイヤー
-	std::unique_ptr<EnemiesOnField> pEnemies_; // !< 敵
-    std::unique_ptr<StageSequence> pStage_; // !< ステージクラスのインスタンス
-    std::unique_ptr<AttackRepository> pAttackRepository_; // !< コライダーリポジトリのインスタンス
-    std::unique_ptr<CameraDirector> pCameraDirector_; // !< カメラディレクターのインスタンス
+    std::unique_ptr<Player>                 pPlayer_;               // !< プレイヤー
+    std::unique_ptr<EnemiesOnField>         pEnemies_;              // !< 敵
+    std::unique_ptr<StageSequence>          pStage_;                // !< ステージクラスのインスタンス
+    std::unique_ptr<AttackRepository>       pAttackRepository_;     // !< コライダーリポジトリのインスタンス
+    std::unique_ptr<FollowCamera>           pFollowCamera_;         // !< カメラクラスのインスタンス
+    std::unique_ptr<ComboSystem>            pComboSystem_;          // !< コンボシステム
+    std::unique_ptr<InputTimingJudge>       pInputTimingJudge_;     // !< 入力判定クラス
+    std::unique_ptr<BeatClock>              pBeatClock_;            // !< ビートクロック
+    std::unique_ptr<ComboBuffSystem>        pComboBuffSystem_;      // !< コンボバフシステム
+    std::unique_ptr<PlayerAttackFactory>    pPlayerAttackFactory_;  // !< プレイヤー攻撃ファクトリー
+    std::unique_ptr<GameHUD>                pGameHUD_;              // !< ゲームHUD
+    std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー
+    std::unique_ptr<CameraDirector>         pCameraDirector_;       // !< カメラディレクターのインスタンス
+
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
 
-    std::unique_ptr<ComboSystem> pComboSystem_; // !< コンボシステム
-    std::unique_ptr<InputTimingJudge> pInputTimingJudge_; // !< 入力判定クラス
-    std::unique_ptr<BeatClock> pBeatClock_; // !< ビートクロック
-    std::unique_ptr<ComboBuffSystem> pComboBuffSystem_; // !< コンボバフシステム
-
-    std::unique_ptr<GameHUD> pGameHUD_; // !< ゲームHUD
 
 };

@@ -1,6 +1,6 @@
 #include "PlayerAttackHitReceiver.h"
 #include <GPUParticle.h>
-#include <DebugUIManager.h>
+
 
 
 
@@ -9,9 +9,6 @@ PlayerAttackHitReceiver::PlayerAttackHitReceiver(Executors& execs) : execs_(exec
     pRadialBeat_ = std::make_unique<RadialBeat>();
     pRadialBeat_->Initialize();
     pRadialBeat_->SetMaxWidth(0.03f);
-
-    pEmitterManager_ = std::make_unique<Tako::EmitterManager>(Tako::GPUParticle::GetInstance());
-    Tako::DebugUIManager::GetInstance()->SetEmitterManager(pEmitterManager_.get());
 }
 
 void PlayerAttackHitReceiver::Update()
@@ -21,8 +18,13 @@ void PlayerAttackHitReceiver::Update()
 
 void PlayerAttackHitReceiver::ReceiveHit(const HitInfo& info)
 {
-    // VFX
+    /// [ VFX ]
+   
+    // ビートエフェクト開始
     pRadialBeat_->Start(kTimeRadialBeat_);
+    
+    // パーティクル発生
+    execs_.playerAttackPresentation.OnHit();
 
     // カメラ
 

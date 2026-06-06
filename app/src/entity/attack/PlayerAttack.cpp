@@ -1,25 +1,39 @@
 #include "PlayerAttack.h"
 #include <utility>
 #include <component/collider/PlayerAttackCollider.h>
+#include <character/player/PlayerAttackHitReceiver.h>
 
 #include <type/ColliderTypeID.h>
 
-PlayerAttack::PlayerAttack(ColliderRepository& colliderRepository, PlayerAttackHitReceiver& hitReceiver, const Tako::Vector3& position)
+PlayerAttack::PlayerAttack(InitData& initData)
 {
-    auto pAttackCollider = std::make_unique<PlayerAttackCollider>(hitReceiver);
-    pCollider_ = colliderRepository.AddCollider(std::move(pAttackCollider));
-    colliderTimer_.Enable(kColliderActiveTime_);
+    // プレゼンテーションの生成
+    pPresentation_ = std::make_unique<PlayerAttackPresentation>(initData.emitterManager);
 
+    // ヒット受信クラスの生成
+    PlayerAttackHitReceiver::Executors receiverExecs =
+    {
+        .comboBuffSystem = initData.comboBuffSystem,
+        .playerAttackPresentation = *pPresentation_
+    };
+    pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(receiverExecs);
+
+    // コライダーの生成・リポジトリに登録
+    auto pAttackCollider = std::make_unique<PlayerAttackCollider>(*pHitReceiver_);
+    pCollider_ = initData.colliderRepository.AddCollider(std::move(pAttackCollider));
     transform_ = Tako::Transform(
         Tako::Vector3(1.0f, 1.0f, 1.0f),
         Tako::Vector3(0.0f, 0.0f, 0.0f),
-        Tako::Vector3(1.0f, 1.0f, 1.0f)
+        initData.position
     );
-
-    transform_.translate = position;
     pCollider_->SetTransform(&transform_);
-
     pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::PlayerAttack));
+
+    // コライダーの有効時間を設定
+    colliderTimer_.Enable(kColliderActiveTime_);
+
+    pPresentation_->SetColliderPositionRef(&transform_.translate);
+
 }
 
 void PlayerAttack::Update(float deltaTime)
@@ -32,4 +46,12 @@ void PlayerAttack::Update(float deltaTime)
         pCollider_->SetActive(false);
         pCollider_ = nullptr;
     }
+
+    if (pCollider_)
+    {
+        transform_.translate = pCollider_->GetCenter();
+    }
+
+    pHitReceiver_->Update();
+    pPresentation_->Update();
 }

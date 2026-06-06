@@ -71,7 +71,6 @@ private:
     std::unique_ptr<Tako::Object3d>             pModel_;                // キャラクターの3Dモデル
     std::unique_ptr<PlayerAttackTrigger>        pAttackTrigger_;        // プレイヤーの攻撃トリガー
     std::unique_ptr<PlayerCollider>             pCollider_;             // プレイヤーのコライダー
-    std::unique_ptr<PlayerAttackHitReceiver>    pHitReceiver_;          // プレイヤーの攻撃ヒット受信クラス
 
     std::unique_ptr<Overdrive> pOverdrive_; // オーバードライブスキル
     std::unique_ptr<UpTempo> pUpTempo_;     // アップテンポスキル

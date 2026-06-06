@@ -5,12 +5,13 @@
 #include <CollisionManager.h>
 #include <math/VectorMath.h>
 #include <ozSound/audio/SoundEngine.h>
+#include <utility/DeltaTimeManager.h>
+#include <Model.h>
 
 #ifdef _DEBUG
 #include <debug/DebugRegisterer.h>
 #include <imgui.h>
 #endif // _DEBUG
-#include <utility/DeltaTimeManager.h>
 
 void Player::Initialize()
 {
@@ -23,12 +24,16 @@ void Player::Initialize()
     // 3Dモデルの初期化
     pModel_ = std::make_unique<Tako::Object3d>();
     pModel_->Initialize();
-    pModel_->SetModel("white_cube.gltf");
+    pModel_->SetModel("PlayerAttack.gltf");
     pModel_->SetTransform(Tako::Transform());               // デフォルトのトランスフォームを設定
     pModel_->SetMaterialColor({ 0.1f, 0.8f, 0.1f, 1.0f });  // 緑色のマテリアルカラーを設定
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
-    pModel_->SetScale({ 0.75f, 2.0f, 0.75f });              // スケールを設定
+    pModel_->SetScale({ 1.0f, 1.0f, 1.0f });                // スケールを設定
     pModel_->SetTranslate({ 0.0f, 8.0f, 0.0f });            // 初期位置を設定
+    auto trueModel = pModel_->GetModel();
+    trueModel->SetAnimation("PlayerAttack");
+    trueModel->SetAnimationLoop("PlayerAttack", true);
+
 
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
@@ -92,7 +97,7 @@ void Player::Update()
     {
         Tako::Vector3 targetPos = transform_.translate;
         targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
-        attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
+        attackRepository_.CreatePlayerAttack(targetPos);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
 
@@ -109,9 +114,6 @@ void Player::Update()
     pUpTempo_->Update();
 
     pAttackTrigger_->UpdateCooldown(deltaTime);
-
-    // ヒット受信の更新
-    pHitReceiver_->Update();
 
     // モデルの更新
     pModel_->SetTransform(transform_);

@@ -61,8 +61,14 @@
     <ClCompile Include="src\entity\camera\FollowCamera.cpp">
       <Filter>entity\camera</Filter>
     </ClCompile>
+    <ClCompile Include="src\entity\attack\PlayerAttackPresentation.cpp">
+      <Filter>entity\attack</Filter>
+    </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp">
       <Filter>entity\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\factory\PlayerAttackFactory.cpp">
+      <Filter>factory</Filter>
     </ClCompile>
     <ClCompile Include="src\font\FontLayout.cpp">
       <Filter>font</Filter>
@@ -161,94 +167,97 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
-      <UniqueIdentifier>{37eb9597-6f0b-42a5-ac5e-ae4af0dfd14e}</UniqueIdentifier>
+      <UniqueIdentifier>{28fec6d8-cfa3-450f-aa82-18763d3da286}</UniqueIdentifier>
     </Filter>
     <Filter Include="combo">
-      <UniqueIdentifier>{c9026ffe-4601-4e18-b3f3-75e85c312ab0}</UniqueIdentifier>
+      <UniqueIdentifier>{12941fc6-21fd-4587-b57d-11112c58b946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{56c19f27-772c-4b19-899c-d463bfe92c66}</UniqueIdentifier>
     </Filter>
     <Filter Include="component">
-      <UniqueIdentifier>{eda9ea7f-135f-4047-873f-74205f2b00b4}</UniqueIdentifier>
+      <UniqueIdentifier>{9b5efa21-1932-48f5-88f2-e498d66fafa3}</UniqueIdentifier>
     </Filter>
     <Filter Include="debug">
-      <UniqueIdentifier>{e0ed7062-75e7-4d3b-a2f0-625689989e1e}</UniqueIdentifier>
+      <UniqueIdentifier>{b6d72645-77e6-42f1-949e-125d72f32c3d}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity">
-      <UniqueIdentifier>{4d09ed88-ba4c-4ed8-9882-30c9fef82b91}</UniqueIdentifier>
+      <UniqueIdentifier>{0ffa09e9-5f65-4499-b23d-5c3e22bca5fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="factory">
-      <UniqueIdentifier>{6ab73a66-a1bb-4a50-bbc1-46bb01ebc38c}</UniqueIdentifier>
+      <UniqueIdentifier>{f6ab7c2b-ee58-405f-b61a-24535010961e}</UniqueIdentifier>
     </Filter>
     <Filter Include="font">
-      <UniqueIdentifier>{27850d38-b579-4847-9d04-a8fe211e5d3d}</UniqueIdentifier>
+      <UniqueIdentifier>{1a144a4b-523b-4de0-b718-a8c2c3c71719}</UniqueIdentifier>
     </Filter>
     <Filter Include="framework">
-      <UniqueIdentifier>{41471620-8eaf-47e8-806a-e39a78d2a597}</UniqueIdentifier>
+      <UniqueIdentifier>{daefd97e-5ce1-46ac-ac32-bf3dd688f2bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="judge">
-      <UniqueIdentifier>{3d0ea9c7-e4c7-4840-bdda-827bdcbd3a77}</UniqueIdentifier>
+      <UniqueIdentifier>{ab5c48aa-4dbd-4a73-a00e-3a4506fcf8e3}</UniqueIdentifier>
     </Filter>
     <Filter Include="manager">
-      <UniqueIdentifier>{2c613856-3146-4278-b58b-2387f3339481}</UniqueIdentifier>
+      <UniqueIdentifier>{b1245861-3b07-48f5-b9cc-4b83162064d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="math">
-      <UniqueIdentifier>{2ffeb42a-0104-4422-a6c6-aa7906b694ab}</UniqueIdentifier>
+      <UniqueIdentifier>{456a926b-7eef-4cae-a240-89428a1d3d69}</UniqueIdentifier>
     </Filter>
     <Filter Include="physics">
-      <UniqueIdentifier>{19090089-a8fe-4faf-be38-f429a139a618}</UniqueIdentifier>
+      <UniqueIdentifier>{cb59c87c-f0d3-40ea-92de-3eeeeef4de88}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation">
-      <UniqueIdentifier>{2852d66a-9421-4210-b2aa-f37526854ed0}</UniqueIdentifier>
+      <UniqueIdentifier>{e133c435-452e-426d-9475-ec9a4d432ebd}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene">
-      <UniqueIdentifier>{2ee2422a-88f5-410d-ab9d-8bc58572ce50}</UniqueIdentifier>
+      <UniqueIdentifier>{95dfe2ea-2ad8-404b-98b5-86ede31db989}</UniqueIdentifier>
     </Filter>
     <Filter Include="skill">
-      <UniqueIdentifier>{093426fb-6ef5-4a33-aa3c-7b04eaef6711}</UniqueIdentifier>
+      <UniqueIdentifier>{315e3fb5-d5fa-448f-9698-e70797cedd06}</UniqueIdentifier>
     </Filter>
     <Filter Include="stage">
-      <UniqueIdentifier>{45bc2f57-128e-4e19-80ff-98164887093c}</UniqueIdentifier>
+      <UniqueIdentifier>{d9ec57ff-984d-4a67-a3e6-708f4e3c88f8}</UniqueIdentifier>
     </Filter>
     <Filter Include="system">
-      <UniqueIdentifier>{99869908-3135-4b3e-b0a7-1cab16954bf0}</UniqueIdentifier>
+      <UniqueIdentifier>{b81ebab2-6594-4945-a2fa-0ba74d8c05e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="test">
-      <UniqueIdentifier>{ad0216e7-027d-4f0e-9549-e29e73c3064b}</UniqueIdentifier>
+      <UniqueIdentifier>{bfacd8a4-fc9e-40d6-be90-d1346afa4d99}</UniqueIdentifier>
     </Filter>
     <Filter Include="type">
-      <UniqueIdentifier>{d9b23bed-66d9-436e-8ae9-831d1a57b01c}</UniqueIdentifier>
+      <UniqueIdentifier>{337394d7-69b8-4a3a-bacc-5d13118dcbbd}</UniqueIdentifier>
     </Filter>
     <Filter Include="ui">
-      <UniqueIdentifier>{3c0b1aca-da26-4fd9-ad71-f0eb0574067a}</UniqueIdentifier>
+      <UniqueIdentifier>{3bd83b48-3844-4f34-8c98-4e0b73925602}</UniqueIdentifier>
     </Filter>
     <Filter Include="utility">
-      <UniqueIdentifier>{4468f684-723e-4b2a-85d1-1cdc5b61796f}</UniqueIdentifier>
+      <UniqueIdentifier>{75fd2c0a-06eb-4c3c-9008-58b60dee88ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy">
-      <UniqueIdentifier>{929ba5a1-9631-4331-b8a2-ed2c5c9e2097}</UniqueIdentifier>
+      <UniqueIdentifier>{f18ca227-1201-44f5-8bb4-d8130d403ba1}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\player">
-      <UniqueIdentifier>{6a759c66-2bad-42ae-b4ac-21172d48539c}</UniqueIdentifier>
+      <UniqueIdentifier>{3ce97e09-2a3d-43ca-bf89-5b3bf2f11fe3}</UniqueIdentifier>
     </Filter>
     <Filter Include="component\collider">
-      <UniqueIdentifier>{ab5a62c3-9e43-4855-8594-91f129e38718}</UniqueIdentifier>
+      <UniqueIdentifier>{9893a2f6-fc9d-48f1-815c-4bd197a49965}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\attack">
-      <UniqueIdentifier>{c9fc7f4a-20a6-4ae6-aa01-3c477bdfa9cb}</UniqueIdentifier>
+      <UniqueIdentifier>{e4571d64-5aa0-4f9b-bdb7-5acbe920f69e}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\camera">
-      <UniqueIdentifier>{21ace570-37db-4bb8-b324-743e58de6ff0}</UniqueIdentifier>
+      <UniqueIdentifier>{6bc58825-2f7b-4402-9dd2-5a98e5843c25}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\enemy">
-      <UniqueIdentifier>{be550f6d-5f4c-4dba-be7b-6e2db9686bf2}</UniqueIdentifier>
+      <UniqueIdentifier>{e6fe2e40-0817-45fe-8125-a384e1e10fe8}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation\animation">
-      <UniqueIdentifier>{f3419be6-bc74-430b-ad30-13b7ac84ca0e}</UniqueIdentifier>
+      <UniqueIdentifier>{99d3e8cb-8d74-4bb3-8507-8a3fceae7218}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\collider">
-      <UniqueIdentifier>{1911da7f-2d7d-4463-ac38-33b091a1a2a1}</UniqueIdentifier>
+      <UniqueIdentifier>{50cb9e93-b7c7-4ea7-ab1d-cd5867008af5}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\state">
-      <UniqueIdentifier>{6beb8b75-2dff-49a9-a262-371e94ea6aa8}</UniqueIdentifier>
+      <UniqueIdentifier>{f0c6e998-743a-4fef-9176-b54352af9f81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +318,9 @@
     <ClInclude Include="src\combo\ComboBuffSystem.h">
       <Filter>combo</Filter>
     </ClInclude>
+    <ClInclude Include="src\common\ParticleEmitterPresetNames.h">
+      <Filter>common</Filter>
+    </ClInclude>
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h">
       <Filter>component\collider</Filter>
     </ClInclude>
@@ -360,8 +372,14 @@
     <ClInclude Include="src\entity\camera\FollowCamera.h">
       <Filter>entity\camera</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity\attack\PlayerAttackPresentation.h">
+      <Filter>entity\attack</Filter>
+    </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h">
       <Filter>entity\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\factory\PlayerAttackFactory.h">
+      <Filter>factory</Filter>
     </ClInclude>
     <ClInclude Include="src\font\FontLayout.h">
       <Filter>font</Filter>
