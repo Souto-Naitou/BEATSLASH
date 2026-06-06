@@ -57,7 +57,10 @@ void GameScene::Initialize()
 
     /// エミッターマネージャの初期化
     pEmitterManager_ = std::make_unique<Tako::EmitterManager>(Tako::GPUParticle::GetInstance());
+#ifdef _DEBUG
     Tako::DebugUIManager::GetInstance()->SetEmitterManager(pEmitterManager_.get());
+#endif // _DEBUG
+
     this->LoadParticleEmitterPresets();
 
     PlayerAttackFactory::Dependencies playerAttackFactoryDeps
