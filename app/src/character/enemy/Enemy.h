@@ -24,10 +24,10 @@ public:
 	/// 各種トランスフォームの取得
 	/// </summary>
 	/// <returns></returns>
-	const Tako::Transform& GetTransform() const { return transform_; }
+	Tako::Transform& GetTransform() { return transform_; }
 	const Tako::Vector3& GetPosition() const override { return transform_.translate; }
-	const Tako::Vector3& GetRotation() const { return transform_.rotate; }
-	const Tako::Vector3& GetScale() const { return transform_.scale; }
+	const Tako::Vector3& GetRotation() const override { return transform_.rotate; }
+	const Tako::Vector3& GetScale() const override { return transform_.scale; }
 
 
 	/// <summary>
@@ -42,7 +42,7 @@ public:
     bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
 private:
 	// 状態の切り替え（デバッグ用）
-	void ChangeState();
+	bool ChangeState();
 
 	// デバッグ表示
 	void DrawImGui();
@@ -59,6 +59,9 @@ private:
 	// ターゲット（所有しない）
 	const ICharacter* pTarget_ = nullptr;
 
-    std::unique_ptr<HPComponent> pHp_;
+	// 重力
+	static constexpr float kGravity = -9.8f;
+  
+  std::unique_ptr<HPComponent> pHp_;
 };
 
