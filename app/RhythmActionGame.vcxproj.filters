@@ -140,6 +140,7 @@
     <ClCompile Include="src\entity\camera\FollowCamera.cpp" />
     <ClCompile Include="src\entity\camera\CameraDirector.cpp" />
     <ClCompile Include="src\skill\Overdrive.cpp" />
+    <ClCompile Include="src\skill\UpTempo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -438,6 +439,7 @@
     <ClInclude Include="src\entity\camera\FollowCamera.h" />
     <ClInclude Include="src\skill\Overdrive.h" />
     <ClInclude Include="src\skill\IPlayerSkill.h" />
+    <ClInclude Include="src\skill\UpTempo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

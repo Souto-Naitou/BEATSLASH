@@ -42,7 +42,9 @@ void PlayerInput::Update()
     // 攻撃
     data_.isAttackTriggered = pInput_->TriggerMouse(0);
     // オーバードライブ
-    data_.isOverdriveTriggered = pInput_->PushKey(DIK_F); // TODO: 仮操作
+    data_.isOverdriveTriggered = pInput_->TriggerKey(DIK_F); // TODO: 仮操作
+    // アップテンポ
+    data_.isUpTempoTriggered = pInput_->TriggerKey(DIK_G); // TODO: 仮操作
 }
 
 void PlayerInput::ImGui()
