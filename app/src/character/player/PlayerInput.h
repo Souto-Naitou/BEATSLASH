@@ -22,7 +22,8 @@ public:
         bool            isAttackTriggered = false;
         // オーバードライブのトリガー状態
         bool            isOverdriveTriggered = false;
-
+        // アップテンポのトリガー状態
+        bool           isUpTempoTriggered = false;
     };
 
     PlayerInput() = default;

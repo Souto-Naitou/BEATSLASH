@@ -110,7 +110,7 @@ void GameScene::Initialize()
 
     //ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
     // ↑だとどうしてもずれが気になる
-    pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.5f));
+    pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.5f, true));
     pBeatClock_->Start();
 }
 

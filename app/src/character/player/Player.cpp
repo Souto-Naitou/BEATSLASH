@@ -18,6 +18,7 @@ void Player::Initialize()
 
     // オーバードライブの初期化
     pOverdrive_ = std::make_unique<Overdrive>(&comboBuffSystem_);
+    pUpTempo_ = std::make_unique<UpTempo>(beatClock_);
 
     // 3Dモデルの初期化
     pModel_ = std::make_unique<Tako::Object3d>();
@@ -99,7 +100,14 @@ void Player::Update()
     {
         pOverdrive_->Activate();
     }
+    if (inputCommand.isUpTempoTriggered)
+    {
+        pUpTempo_->Activate();
+    }
+
     pOverdrive_->Update();
+    pUpTempo_->Update();
+
     pAttackTrigger_->UpdateCooldown(deltaTime);
 
     // ヒット受信の更新
