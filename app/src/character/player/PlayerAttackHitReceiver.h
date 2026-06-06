@@ -3,6 +3,7 @@
 #include <memory>
 #include <presentation/animation/RadialBeat.h>
 #include <debug\GameParameter.h>
+#include <skill/Overdrive.h>
 #include <EmitterManager.h>
 
 class PlayerAttackHitReceiver
@@ -17,6 +18,8 @@ public:
     {
         // コンボシステム
         ComboBuffSystem& comboBuffSystem;
+        // オーバードライブ
+        Overdrive& overdrive;
     };
 
     PlayerAttackHitReceiver(Executors& execs);

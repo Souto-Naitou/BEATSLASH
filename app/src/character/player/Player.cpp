@@ -16,6 +16,10 @@ void Player::Initialize()
 {
     this->RegisterCallbacks();
 
+    // オーバードライブの初期化
+    pOverdrive_ = std::make_unique<Overdrive>(&comboBuffSystem_);
+    pUpTempo_ = std::make_unique<UpTempo>(beatClock_);
+
     // 3Dモデルの初期化
     pModel_ = std::make_unique<Tako::Object3d>();
     pModel_->Initialize();
@@ -54,6 +58,7 @@ void Player::Initialize()
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::StageTransitionEvent), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::PlayerAttack), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
+
 }
 
 void Player::Finalize()
@@ -90,6 +95,18 @@ void Player::Update()
         attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
+
+    if (inputCommand.isOverdriveTriggered)
+    {
+        pOverdrive_->Activate();
+    }
+    if (inputCommand.isUpTempoTriggered)
+    {
+        pUpTempo_->Activate();
+    }
+
+    pOverdrive_->Update();
+    pUpTempo_->Update();
 
     pAttackTrigger_->UpdateCooldown(deltaTime);
 
@@ -141,7 +158,8 @@ void Player::InitializeComponents()
     pMovement_->SetJumpPower(kJumpPower_);
     PlayerAttackHitReceiver::Executors hitReceiverExecs
     {
-        .comboBuffSystem = comboBuffSystem_
+        .comboBuffSystem = comboBuffSystem_,
+        .overdrive = *pOverdrive_
     };
     pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(hitReceiverExecs);
     pAttackTrigger_ = std::make_unique<PlayerAttackTrigger>();

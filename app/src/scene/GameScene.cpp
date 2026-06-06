@@ -65,7 +65,6 @@ void GameScene::Initialize()
 
     pBeatClock_ = std::make_unique<BeatClock>();
     pBeatClock_->Initialize(BPM, 0.55f);
-    pBeatClock_->Start();
 
     /// コンボシステムと入力判定クラスの初期化
     pComboSystem_ = std::make_unique<ComboSystem>();
@@ -76,7 +75,7 @@ void GameScene::Initialize()
     {
         *pAttackRepository_,
         *pCameraDirector_->GetFollowCamera(),
-        *pComboBuffSystem_
+        *pComboBuffSystem_,
         *pBeatClock_
     };
     pPlayer_ = std::make_unique<Player>(playerInitData);
@@ -109,7 +108,10 @@ void GameScene::Initialize()
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
-    ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
+    //ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
+    // ↑だとどうしてもずれが気になる
+    pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.5f, true));
+    pBeatClock_->Start();
 }
 
 
