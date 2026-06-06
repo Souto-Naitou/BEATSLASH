@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp">
+      <Filter>character\enemy\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp">
       <Filter>character\enemy\collider</Filter>
     </ClCompile>
@@ -152,108 +158,106 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
-    <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp" />
-    <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
-    <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp" />
-    <ClCompile Include="src\entity\camera\FocusCamera.cpp" />
-    <ClCompile Include="src\entity\camera\CameraInput.cpp" />
-    <ClCompile Include="src\entity\camera\FollowCamera.cpp" />
-    <ClCompile Include="src\entity\camera\CameraDirector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
-      <UniqueIdentifier>{31aab5b1-eae0-4284-977a-fe10215f382a}</UniqueIdentifier>
+      <UniqueIdentifier>{40856124-18f4-4c49-b6c5-a416871208c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="combo">
-      <UniqueIdentifier>{9b2085e5-b929-483b-9c82-1b5c928b0fc8}</UniqueIdentifier>
+      <UniqueIdentifier>{023a72fd-6595-4cee-800c-fe896c262ee7}</UniqueIdentifier>
     </Filter>
     <Filter Include="component">
-      <UniqueIdentifier>{cdeb2586-0460-4422-b870-e85f07be3708}</UniqueIdentifier>
+      <UniqueIdentifier>{24b343e9-cdc3-4378-875f-3d3481c9b95b}</UniqueIdentifier>
     </Filter>
     <Filter Include="debug">
-      <UniqueIdentifier>{2efbef9b-d457-4086-8072-b0990b7dee6d}</UniqueIdentifier>
+      <UniqueIdentifier>{029a3961-15df-413a-9d6b-ffb919bd1fc6}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity">
-      <UniqueIdentifier>{72f2d779-6498-42ff-891b-931f76456b23}</UniqueIdentifier>
+      <UniqueIdentifier>{4c1156af-8f57-46a8-9c38-0263cbed982d}</UniqueIdentifier>
     </Filter>
     <Filter Include="factory">
-      <UniqueIdentifier>{a6e9d771-0bff-4c16-8281-f78525e586d5}</UniqueIdentifier>
+      <UniqueIdentifier>{35136139-753f-44a8-b650-c988f66aac2f}</UniqueIdentifier>
     </Filter>
     <Filter Include="font">
-      <UniqueIdentifier>{14fd1995-125f-43ea-8179-e4c1343a322f}</UniqueIdentifier>
+      <UniqueIdentifier>{242c4b52-bd5a-42d1-9039-178f14e49a5b}</UniqueIdentifier>
     </Filter>
     <Filter Include="framework">
-      <UniqueIdentifier>{3081127c-0a5f-40d1-b62d-4e9a540e2fbe}</UniqueIdentifier>
+      <UniqueIdentifier>{d930a44d-1f38-40dd-94fa-06e05f762fa3}</UniqueIdentifier>
     </Filter>
     <Filter Include="judge">
-      <UniqueIdentifier>{93ae5cc5-eb8d-4f71-ba8e-a4632333cb61}</UniqueIdentifier>
+      <UniqueIdentifier>{683d60c5-e252-468c-9a36-f2c04eb9c2ab}</UniqueIdentifier>
     </Filter>
     <Filter Include="manager">
-      <UniqueIdentifier>{23f9a55b-02cd-4481-be5d-fbf32f86ab42}</UniqueIdentifier>
+      <UniqueIdentifier>{e8fa7164-f8aa-4250-8f21-8d35a1a5c386}</UniqueIdentifier>
     </Filter>
     <Filter Include="math">
-      <UniqueIdentifier>{891f931d-ebc8-4529-b9bc-8784e86c3790}</UniqueIdentifier>
+      <UniqueIdentifier>{c142230b-fa76-400a-93ce-ac8878a5c5da}</UniqueIdentifier>
     </Filter>
     <Filter Include="physics">
-      <UniqueIdentifier>{84f3b343-b5ac-45de-be27-5692d14528ff}</UniqueIdentifier>
+      <UniqueIdentifier>{8d67a20b-8b78-4732-b782-33a848684153}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation">
-      <UniqueIdentifier>{2f577563-7317-46c8-9a5b-ba8cb45b6d53}</UniqueIdentifier>
+      <UniqueIdentifier>{0d99e227-1282-4365-bb55-212654a3d681}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene">
-      <UniqueIdentifier>{511c79e2-0557-4316-a829-fb80b032fe66}</UniqueIdentifier>
+      <UniqueIdentifier>{e547b1cd-d339-4623-b484-4a33521a5ede}</UniqueIdentifier>
     </Filter>
     <Filter Include="skill">
-      <UniqueIdentifier>{0622a92e-83c7-4f95-ae9b-74f28da1ef1b}</UniqueIdentifier>
+      <UniqueIdentifier>{ae46d8ec-ee81-477b-b672-249a2afd8b5d}</UniqueIdentifier>
     </Filter>
     <Filter Include="stage">
-      <UniqueIdentifier>{1dca78b5-b90f-4a7e-9c64-28c6e972b31c}</UniqueIdentifier>
+      <UniqueIdentifier>{1ee463b7-949a-41d0-8669-06214df55e06}</UniqueIdentifier>
     </Filter>
     <Filter Include="system">
-      <UniqueIdentifier>{7938c25b-6e8b-4b22-953f-458632f7a7cc}</UniqueIdentifier>
+      <UniqueIdentifier>{b2bfddb1-7e0b-48c4-91fa-aca1fbcf95e9}</UniqueIdentifier>
     </Filter>
     <Filter Include="test">
-      <UniqueIdentifier>{aa585918-a40e-4017-b593-148b13b9a9db}</UniqueIdentifier>
+      <UniqueIdentifier>{83fbac81-c5de-4cb8-82c6-e2ebfed8c78b}</UniqueIdentifier>
     </Filter>
     <Filter Include="type">
-      <UniqueIdentifier>{8540dcbc-4e57-4835-8b02-c843516f0e2e}</UniqueIdentifier>
+      <UniqueIdentifier>{e61cbc46-bd2e-4790-8af6-34a27a6b8f56}</UniqueIdentifier>
     </Filter>
     <Filter Include="ui">
-      <UniqueIdentifier>{0a07c3e5-4ea8-4fe2-993d-927fa3c1c7ce}</UniqueIdentifier>
+      <UniqueIdentifier>{fd83f32d-db21-42f2-8b37-0f515a941908}</UniqueIdentifier>
     </Filter>
     <Filter Include="utility">
-      <UniqueIdentifier>{651103e4-b879-4b2e-962b-39b408f81288}</UniqueIdentifier>
+      <UniqueIdentifier>{5ff1c31b-b20c-40f5-b5f4-50fd14ba0b3d}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy">
-      <UniqueIdentifier>{e29a1d3f-efca-4924-9dd7-9a967109f8fe}</UniqueIdentifier>
+      <UniqueIdentifier>{def1adc2-e40d-4028-a9ef-1c097fc4a661}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\player">
-      <UniqueIdentifier>{3886fb85-8b29-4eab-b891-562a81224bf9}</UniqueIdentifier>
+      <UniqueIdentifier>{8d3c21e0-2e09-43bd-b520-e7d3e425f096}</UniqueIdentifier>
     </Filter>
     <Filter Include="component\collider">
-      <UniqueIdentifier>{adf3b20f-fdaf-469c-b150-8198a45ade70}</UniqueIdentifier>
+      <UniqueIdentifier>{5babe45a-1df2-489a-8af6-970cace4d522}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\attack">
-      <UniqueIdentifier>{ce2691d6-982d-4658-9534-fea248121394}</UniqueIdentifier>
+      <UniqueIdentifier>{d15fa9e8-b9c3-44a8-8d87-fce3fbafa9c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\camera">
-      <UniqueIdentifier>{41f457a1-ebed-4583-a9c9-5f546981e22f}</UniqueIdentifier>
+      <UniqueIdentifier>{7b1a7f54-2fa6-4ef5-8f47-8d579d34b243}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\enemy">
-      <UniqueIdentifier>{1e9f8aed-5009-4af9-9464-e71903748e9b}</UniqueIdentifier>
+      <UniqueIdentifier>{dcc6c4e3-3dd5-4b87-8a40-db94050d6773}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation\animation">
-      <UniqueIdentifier>{1396713b-feed-455e-8fb6-591ef627277f}</UniqueIdentifier>
+      <UniqueIdentifier>{2750e5f6-d183-4a79-a1cc-53f34e020c6b}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\collider">
-      <UniqueIdentifier>{1c7878ad-c7b8-4cf5-abb3-24d3f0b20c54}</UniqueIdentifier>
+      <UniqueIdentifier>{e684b877-13eb-42ff-b268-4269106b203b}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\state">
-      <UniqueIdentifier>{a448ce71-bcd6-4cca-86ae-9dcdea8c40a8}</UniqueIdentifier>
+      <UniqueIdentifier>{aec39160-5862-4720-911c-6602dded906c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h">
+      <Filter>character\enemy\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyAttackState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h">
       <Filter>character\enemy\collider</Filter>
     </ClInclude>
@@ -470,20 +474,6 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
-    <ClInclude Include="src\entity\camera\FocusCamera.h" />
-    <ClInclude Include="src\entity\camera\CameraDirector.h">
-      <Filter>entity\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="src\character\player\FollowCamera.h" />
-    <ClInclude Include="src\character\player\CameraInput.h" />
-    <ClInclude Include="src\system\ScopedCursorHidden.h" />
-    <ClInclude Include="src\utility\wndutl.h" />
-    <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h" />
-    <ClInclude Include="src\character\enemy\state\EnemyAttackState.h" />
-    <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
-    <ClInclude Include="src\entity\camera\CameraInput.h" />
-    <ClInclude Include="src\entity\camera\FollowCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
