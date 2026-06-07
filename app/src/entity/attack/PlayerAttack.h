@@ -7,6 +7,8 @@
 #include <Transform.h>
 #include <Collider.h>
 #include <Vector3.h>
+#include <judge/JudgeResutl.h>
+#include <functional>
 #include <memory>
 
 class ComboBuffSystem;
@@ -24,6 +26,8 @@ public:
         const Tako::Vector3&    position;
         // エミッターマネージャー
         Tako::EmitterManager&   emitterManager;
+        // 判定結果コールバック
+        std::function<void(JudgeResult)> onJudge;
     };
 
     PlayerAttack(InitData& initData);

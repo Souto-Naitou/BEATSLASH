@@ -30,5 +30,5 @@ void PlayerAttackHitReceiver::ReceiveHit(const HitInfo& info)
 
     // コンボ更新
     JudgeResult judge = execs_.comboBuffSystem.OnAttackHit();
-    execs_.overdrive.OnJudge(judge);
+    execs_.onJudgeCallback(judge);
 }
