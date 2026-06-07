@@ -17,7 +17,8 @@ std::unique_ptr<PlayerAttack> PlayerAttackFactory::Create(const Tako::Vector3& p
         .colliderRepository = colliderRepository_,
         .comboBuffSystem = comboBuffSystem_,
         .position = position,
-        .emitterManager = emitterManager_
+        .emitterManager = emitterManager_,
+        .onJudge = onJudge_
     };
 
     return std::make_unique<PlayerAttack>(initData);

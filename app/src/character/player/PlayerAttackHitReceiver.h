@@ -3,10 +3,11 @@
 #include <presentation/animation/RadialBeat.h>
 #include <entity/attack/PlayerAttackPresentation.h>
 #include <debug\GameParameter.h>
-#include <skill/Overdrive.h>
+#include <judge/JudgeResutl.h>
 #include <EmitterManager.h>
 #include <Vector3.h>
 
+#include <functional>
 #include <memory>
 
 
@@ -26,8 +27,7 @@ public:
     {
         // コンボシステム
         ComboBuffSystem& comboBuffSystem;
-        // オーバードライブ
-        Overdrive& overdrive;
+        std::function<void(JudgeResult)> onJudgeCallback;
         PlayerAttackPresentation& playerAttackPresentation;
     };
 

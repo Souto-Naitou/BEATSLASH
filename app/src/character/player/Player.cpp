@@ -21,6 +21,12 @@ void Player::Initialize()
     pOverdrive_ = std::make_unique<Overdrive>(&comboBuffSystem_);
     pUpTempo_ = std::make_unique<UpTempo>(beatClock_);
 
+    // 攻撃ヒット判定を Overdrive に通知するコールバックを登録
+    attackRepository_.SetOnJudgeCallback([this](JudgeResult j)
+    {
+        pOverdrive_->OnJudge(j);
+    });
+
     // 3Dモデルの初期化
     pModel_ = std::make_unique<Tako::Object3d>();
     pModel_->Initialize();
@@ -158,12 +164,7 @@ void Player::InitializeComponents()
     pMovement_ = std::make_unique<PlayerMovement>(pInput_.get(), followCamera_);
     pMovement_->SetMovePower(kMovePower_);
     pMovement_->SetJumpPower(kJumpPower_);
-    PlayerAttackHitReceiver::Executors hitReceiverExecs
-    {
-        .comboBuffSystem = comboBuffSystem_,
-        .overdrive = *pOverdrive_
-    };
-    pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(hitReceiverExecs);
+
     pAttackTrigger_ = std::make_unique<PlayerAttackTrigger>();
     pAttackTrigger_->CalculateCooldownTime(beatClock_.GetSecondsPerBeat());
 }

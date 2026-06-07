@@ -14,6 +14,7 @@ PlayerAttack::PlayerAttack(InitData& initData)
     PlayerAttackHitReceiver::Executors receiverExecs =
     {
         .comboBuffSystem = initData.comboBuffSystem,
+        .onJudgeCallback = initData.onJudge,
         .playerAttackPresentation = *pPresentation_
     };
     pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(receiverExecs);

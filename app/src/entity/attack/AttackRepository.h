@@ -1,8 +1,10 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <functional>
 #include <entity/attack/PlayerAttack.h>
 #include <factory/PlayerAttackFactory.h>
+#include <judge/JudgeResutl.h>
 
 class ComboSystem;
 
@@ -25,6 +27,11 @@ public:
     void EraseInactiveAttacks();
 
     void CreatePlayerAttack(const Tako::Vector3& position);
+
+    void SetOnJudgeCallback(std::function<void(JudgeResult)> cb)
+    {
+        factories_.pPlayerAttackFactory->SetOnJudgeCallback(std::move(cb));
+    }
 
 private:
     std::vector<std::unique_ptr<PlayerAttack>> playerAttacks_ = {};
