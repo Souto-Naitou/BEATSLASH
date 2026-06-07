@@ -62,8 +62,10 @@ void EnemyAttackState::Update(Enemy* enemy)
 		t = 1.0f;
 	}
 
-	// スムーズステップイージングの適用
-	float easedT = t * t * (3.0f - 2.0f * t);
+	// イージングの適用(EaseInOutQuint)
+	float easedT = t < 0.5f
+		? 16.0f * t * t * t * t * t
+		: 1.0f - std::pow(-2.0f * t + 2.0f, 5.0f) / 2.0f;
 
 	// 敵の現在の基準方向を取得
 	float baseYaw = enemy->GetTransform().rotate.y;
