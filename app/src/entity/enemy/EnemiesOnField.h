@@ -23,6 +23,15 @@ public:
 
     bool IsEmpty() const;
 
+    /**
+     * @brief フィールド上の敵の数を取得する。
+     * @return 敵の数
+     */
+    size_t GetCount() const
+    {
+        return enemies_.size();
+    }
+
 
 private:
 

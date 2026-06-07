@@ -22,7 +22,7 @@ void EnemyAttackState::Enter(Enemy* enemy)
 
 	// 攻撃コライダーの生成と初期化
 	pAttackCollider_ = std::make_unique<EnemyAttackCollider>();
-	pAttackCollider_->SetSize({ 2.0f, 2.0f, 2.0f });
+	pAttackCollider_->SetSize({ 3.5f, 3.5f, 3.5f });
 	pAttackCollider_->SetTransform(&colliderTransform_);
 	pAttackCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::EnemyAttack));
 	pAttackCollider_->SetOwner(this);

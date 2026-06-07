@@ -88,10 +88,9 @@ void GameScene::Initialize()
                                });
 
     // 敵の初期化
-    pEnemies_ = std::make_unique<EnemiesOnField>();
-    auto enemy1 = std::make_unique<Enemy>(pPlayer_.get());
-    enemy1->Initialize();
-    pEnemies_->Add(std::move(enemy1));
+    pEnemyManager_ = std::make_unique<EnemyManager>(pPlayer_.get());
+    // テスト用にステージ0に敵をスポーン
+    pEnemyManager_->SpawnEnemy(0, Tako::Vector3{ 0.0f, 150.0f, 0.0f });
 
     pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_);
     pGameHUD_->Initialize();
@@ -131,7 +130,7 @@ void GameScene::Update()
     // プレイヤーの更新
     pPlayer_->Update();
     // 敵の更新
-    pEnemies_->Update();
+    pEnemyManager_->Update(pStage_->GetCurrentIndex());
 
 
     pBeatClock_->Update();
@@ -145,7 +144,7 @@ void GameScene::Update()
     pCameraDirector_->Update(deltaTime);
     pGameHUD_->Update();
 
-    if (pEnemies_->IsEmpty())
+    if (pEnemyManager_->IsEmpty(pStage_->GetCurrentIndex()))
     {
         // TODO：敵が全部死んだらこいつを呼ぶ
         pStage_->NotifyClear();
@@ -170,7 +169,7 @@ void GameScene::Draw()
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
     pStage_->Draw();
     pPlayer_->Draw();
-    pEnemies_->Draw();
+    pEnemyManager_->Draw(pStage_->GetCurrentIndex());
 
     //------------------前景Spriteの描画------------------//
     // スプライト共通描画設定

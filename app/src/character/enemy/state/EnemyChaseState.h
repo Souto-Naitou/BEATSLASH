@@ -29,7 +29,7 @@ private:
 	// 追跡を諦めて待機に戻る距離
 	static constexpr float kChaseEndDistance = 25.0f;
 	// 攻撃を開始する距離
-	static constexpr float kAttackStartDistance = 3.5f;
+	static constexpr float kAttackStartDistance = 7.0f;
 	// 攻撃のクールタイム
 	static constexpr float kAttackCooldown = 1.0f;
 	// 攻撃クールタイムのタイマー

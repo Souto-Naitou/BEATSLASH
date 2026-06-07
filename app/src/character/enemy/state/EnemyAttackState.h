@@ -29,7 +29,7 @@ private:
 	// 攻撃持続時間
 	static constexpr float kAttackDuration_ = 1.0f;
 	// 攻撃コライダーの出現オフセット
-	static constexpr float kColliderOffset = 2.0f;
+	static constexpr float kColliderOffset = 5.0f;
 	// 攻撃時間のタイマー
 	float timer_ = 0.0f;
 	

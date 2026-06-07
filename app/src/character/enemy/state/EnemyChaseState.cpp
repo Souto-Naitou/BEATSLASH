@@ -98,10 +98,27 @@ void EnemyChaseState::Chase(Enemy* enemy, float deltaTime)
 	// １フレーム当たりの移動量を計算
 	float moveAmount = chaseSpeed_ * deltaTime;
 
-	// 到達判定
-	if (distanceSq <= moveAmount * moveAmount)
+	// 誤差対策として、攻撃開始距離よりも少し内側（バッファ分差し引いた距離）を目標として停止する
+	static constexpr float kStopBuffer = 0.5f;
+	float stopDistance = kAttackStartDistance - kStopBuffer;
+
+	// 既に目標距離以下の場合は移動しない
+	if (distanceSq <= stopDistance * stopDistance)
 	{
-		enemy->SetPosition(targetPos); // ターゲットの位置に直接設定
+		return;
+	}
+
+	// ターゲットから stopDistance だけ離れた位置を目標座標とする
+	float distance = std::sqrt(distanceSq);
+	Tako::Vector3 targetStopPos = currentPos + (direction / distance) * (distance - stopDistance);
+
+	Tako::Vector3 toTargetStopPos = targetStopPos - currentPos;
+	float stopDistSq = toTargetStopPos.LengthSquared();
+
+	// 到達判定
+	if (stopDistSq <= moveAmount * moveAmount)
+	{
+		enemy->SetPosition(targetStopPos); // 目標座標に直接設定
 		return;
 	}
 
