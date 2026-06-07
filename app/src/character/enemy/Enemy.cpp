@@ -25,7 +25,7 @@ void Enemy::Initialize()
 	pModel_->SetMaterialColor({ 0,256,0,256 });
 	pModel_->SetEnableLighting(true);
 	pModel_->SetScale({ 1.0f, 1.0f, 1.0f });
-	pModel_->SetTranslate({ 0.0f,150.0f,0.0f });
+	pModel_->SetTranslate({ 0.0f,20.0f,0.0f });
 
 	// トランスフォームの初期化
 	transform_ = pModel_->GetTransform();
@@ -84,6 +84,9 @@ void Enemy::Draw()
 {
 	// モデルの描画
 	pModel_->Draw();
+
+	// ステートの描画（攻撃エフェクトなどの描画）
+	stateMachine_.Draw();
 }
 
 bool Enemy::ChangeState()

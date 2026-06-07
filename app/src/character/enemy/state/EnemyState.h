@@ -19,4 +19,6 @@ public:
     virtual void Exit(Enemy* enemy) {}
 	// ImGuiの描画
 	virtual void DrawImGui(Enemy* enemy) {}
+	// 描画処理
+	virtual void Draw(Enemy* enemy) {}
 };

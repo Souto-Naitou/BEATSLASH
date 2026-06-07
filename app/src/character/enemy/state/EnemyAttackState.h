@@ -5,6 +5,7 @@
 #include <memory>
 #include "character/enemy/collider/EnemyAttackCollider.h"
 #include <character/ICharacter.h>
+#include <Object3d.h>
 
 class EnemyAttackState : public EnemyState
 {
@@ -13,6 +14,7 @@ public:
 	void Enter(Enemy* enemy) override;
 	void Update(Enemy* enemy) override;
 	void Exit(Enemy* enemy) override;
+	void Draw(Enemy* enemy) override;
 	void DrawImGui(Enemy* enemy) override;
 	std::optional<EnemyStateType> CheckTransition(Enemy* enemy) override;
 
@@ -22,6 +24,8 @@ private:
 
 	// 攻撃のコライダー
 	std::unique_ptr<EnemyAttackCollider> pAttackCollider_;
+	// 攻撃エフェクトモデル
+	std::unique_ptr<Tako::Object3d> pAttackModel_;
 	// コライダーのトランスフォーム
 	Tako::Transform colliderTransform_;
 	// 攻撃の持続時間

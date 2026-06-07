@@ -16,6 +16,9 @@ public:
 	// 状態の更新
 	void Update();
 
+	// 状態の描画
+	void Draw();
+
 	// 状態の切り替え
 	void ChangeState(EnemyStateType newStateType);
 

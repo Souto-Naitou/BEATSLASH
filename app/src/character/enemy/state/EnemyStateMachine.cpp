@@ -44,6 +44,15 @@ void EnemyStateMachine::Update()
 	}
 }
 
+void EnemyStateMachine::Draw()
+{
+	// 現在の状態の描画
+	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
+	{
+		states_[currentStateType_]->Draw(owner_);
+	}
+}
+
 void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 {
 	// すでに同じ状態の場合は早期リターン
