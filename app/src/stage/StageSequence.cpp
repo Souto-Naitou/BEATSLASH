@@ -1,10 +1,13 @@
 #include "StageSequence.h"
 #include <ozSound/audio/JsonUtils/JsonUtils.h>
 
+#include <Input.h>
+
 void StageSequence::Initialize(const std::string& jsonFilePath)
 {
     jsonFilePath_ = jsonFilePath;
     LoadFromJson(jsonFilePath_);
+    hasClearNotified_ = false;
 
     clearFlow_.Initialize(stageDataList_[0]);
     clearFlow_.SetOnFadeOutComplete([this]() { OnTransitionStage(); });
@@ -14,6 +17,12 @@ void StageSequence::Update(float deltaTime)
 {
 #ifdef _DEBUG
     CheckHotReload();
+
+    if(Tako::Input::GetInstance()->TriggerKey(DIK_RETURN))
+    {
+        NotifyClear();
+        hasClearNotified_ = false;
+    }
 #endif
     clearFlow_.Update(deltaTime);
     if (currentIndex_ < stages_.size())

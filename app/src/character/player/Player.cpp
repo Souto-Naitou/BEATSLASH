@@ -5,26 +5,41 @@
 #include <CollisionManager.h>
 #include <math/VectorMath.h>
 #include <ozSound/audio/SoundEngine.h>
+#include <utility/DeltaTimeManager.h>
+#include <Model.h>
 
 #ifdef _DEBUG
 #include <debug/DebugRegisterer.h>
 #include <imgui.h>
 #endif // _DEBUG
-#include <utility/DeltaTimeManager.h>
 
 void Player::Initialize()
 {
     this->RegisterCallbacks();
 
+    // オーバードライブの初期化
+    pOverdrive_ = std::make_unique<Overdrive>(&comboBuffSystem_);
+    pUpTempo_ = std::make_unique<UpTempo>(beatClock_);
+
+    // 攻撃ヒット判定を Overdrive に通知するコールバックを登録
+    attackRepository_.SetOnJudgeCallback([this](JudgeResult j)
+    {
+        pOverdrive_->OnJudge(j);
+    });
+
     // 3Dモデルの初期化
     pModel_ = std::make_unique<Tako::Object3d>();
     pModel_->Initialize();
-    pModel_->SetModel("white_cube.gltf");
+    pModel_->SetModel("PlayerAttack.gltf");
     pModel_->SetTransform(Tako::Transform());               // デフォルトのトランスフォームを設定
     pModel_->SetMaterialColor({ 0.1f, 0.8f, 0.1f, 1.0f });  // 緑色のマテリアルカラーを設定
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
-    pModel_->SetScale({ 0.75f, 2.0f, 0.75f });              // スケールを設定
+    pModel_->SetScale({ 1.0f, 1.0f, 1.0f });                // スケールを設定
     pModel_->SetTranslate({ 0.0f, 8.0f, 0.0f });            // 初期位置を設定
+    auto trueModel = pModel_->GetModel();
+    trueModel->SetAnimation("PlayerAttack");
+    trueModel->SetAnimationLoop("PlayerAttack", true);
+
 
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
@@ -54,6 +69,7 @@ void Player::Initialize()
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::StageTransitionEvent), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::PlayerAttack), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
+
 }
 
 void Player::Finalize()
@@ -87,14 +103,23 @@ void Player::Update()
     {
         Tako::Vector3 targetPos = transform_.translate;
         targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
-        attackRepository_.CreatePlayerAttack(*pHitReceiver_, targetPos);
+        attackRepository_.CreatePlayerAttack(targetPos);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
 
-    pAttackTrigger_->UpdateCooldown(deltaTime);
+    if (inputCommand.isOverdriveTriggered)
+    {
+        pOverdrive_->Activate();
+    }
+    if (inputCommand.isUpTempoTriggered)
+    {
+        pUpTempo_->Activate();
+    }
 
-    // ヒット受信の更新
-    pHitReceiver_->Update();
+    pOverdrive_->Update();
+    pUpTempo_->Update();
+
+    pAttackTrigger_->UpdateCooldown(deltaTime);
 
     // モデルの更新
     pModel_->SetTransform(transform_);
@@ -139,11 +164,7 @@ void Player::InitializeComponents()
     pMovement_ = std::make_unique<PlayerMovement>(pInput_.get(), followCamera_);
     pMovement_->SetMovePower(kMovePower_);
     pMovement_->SetJumpPower(kJumpPower_);
-    PlayerAttackHitReceiver::Executors hitReceiverExecs
-    {
-        .comboBuffSystem = comboBuffSystem_
-    };
-    pHitReceiver_ = std::make_unique<PlayerAttackHitReceiver>(hitReceiverExecs);
+
     pAttackTrigger_ = std::make_unique<PlayerAttackTrigger>();
     pAttackTrigger_->CalculateCooldownTime(beatClock_.GetSecondsPerBeat());
 }

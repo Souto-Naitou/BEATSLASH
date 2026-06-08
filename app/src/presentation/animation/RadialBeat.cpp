@@ -13,6 +13,7 @@ void RadialBeat::Initialize()
 
 void RadialBeat::Finalize()
 {
+    Tako::PostEffectManager::GetInstance()->RemoveEffectFromChain("RadialBlur");
 }
 
 void RadialBeat::Start(float duration)

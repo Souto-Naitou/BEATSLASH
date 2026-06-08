@@ -1,17 +1,23 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <functional>
 #include <entity/attack/PlayerAttack.h>
-#include <physics/ColliderRepository.h>
+#include <factory/PlayerAttackFactory.h>
+#include <judge/JudgeResutl.h>
 
 class ComboSystem;
 
 /// 攻撃のリポジトリクラス
-/// 時間の関係でファクトリーの作成を見送る
 class AttackRepository
 {
 public:
-    AttackRepository(ColliderRepository& c) : colliderRepository_(c) {}
+    struct FactoryDependencies
+    {
+        PlayerAttackFactory* pPlayerAttackFactory;
+    };
+
+    AttackRepository(const FactoryDependencies& factories) : factories_(factories) {}
 
     /// <summary>
     /// 攻撃の更新
@@ -20,9 +26,14 @@ public:
 
     void EraseInactiveAttacks();
 
-    void CreatePlayerAttack(PlayerAttackHitReceiver& hitReceiver, const Tako::Vector3& position);
+    void CreatePlayerAttack(const Tako::Vector3& position);
+
+    void SetOnJudgeCallback(std::function<void(JudgeResult)> cb)
+    {
+        factories_.pPlayerAttackFactory->SetOnJudgeCallback(std::move(cb));
+    }
 
 private:
     std::vector<std::unique_ptr<PlayerAttack>> playerAttacks_ = {};
-    ColliderRepository& colliderRepository_;
+    FactoryDependencies factories_;
 };

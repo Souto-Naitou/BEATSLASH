@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <judge/JudgeResutl.h>
 
 class ComboSystem;
 class InputTimingJudge;
@@ -16,7 +17,7 @@ public:
 
     uint32_t GetCurrentCombo() const;// 現在のコンボ数の取得
 
-    void OnAttackHit(); // 攻撃ヒット時の処理
+    JudgeResult OnAttackHit(); // 攻撃ヒット時の処理
 
     void OnDamaged(); // ダメージを受けたときの処理
 private:

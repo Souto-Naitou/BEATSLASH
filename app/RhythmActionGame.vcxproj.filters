@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp">
+      <Filter>character\enemy\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp">
       <Filter>character\enemy\collider</Filter>
     </ClCompile>
@@ -43,8 +49,26 @@
     <ClCompile Include="src\combo\ComboSystem.cpp">
       <Filter>combo</Filter>
     </ClCompile>
+    <ClCompile Include="src\entity\camera\CameraDirector.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\CameraInput.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\FocusCamera.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\FollowCamera.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\attack\PlayerAttackPresentation.cpp">
+      <Filter>entity\attack</Filter>
+    </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemiesOnField.cpp">
       <Filter>entity\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\factory\PlayerAttackFactory.cpp">
+      <Filter>factory</Filter>
     </ClCompile>
     <ClCompile Include="src\font\FontLayout.cpp">
       <Filter>font</Filter>
@@ -98,6 +122,12 @@
     <ClCompile Include="src\scene\GameScene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\skill\Overdrive.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skill\UpTempo.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
     <ClCompile Include="src\stage\stage.cpp">
       <Filter>stage</Filter>
     </ClCompile>
@@ -147,94 +177,109 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
-      <UniqueIdentifier>{ed50a781-4663-4626-aec0-46fe10fe2c4e}</UniqueIdentifier>
+      <UniqueIdentifier>{93c621dd-27ac-4681-aa80-ac98691d877e}</UniqueIdentifier>
     </Filter>
     <Filter Include="combo">
-      <UniqueIdentifier>{0d3104f3-4e80-4a29-b975-c7ea3836ca82}</UniqueIdentifier>
+      <UniqueIdentifier>{708140f2-e22a-4e63-a531-ae51d7665fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{e2dd4316-0ce7-47ab-9119-8428e69f0659}</UniqueIdentifier>
     </Filter>
     <Filter Include="component">
-      <UniqueIdentifier>{75facda2-eaaf-49e7-90bd-2499baa57f98}</UniqueIdentifier>
+      <UniqueIdentifier>{594ca77b-3193-495c-a1ad-62c4755206d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="debug">
-      <UniqueIdentifier>{5e3af312-c0d9-42d4-95a3-6f09be0876bc}</UniqueIdentifier>
+      <UniqueIdentifier>{f7335430-fe6a-4abf-b394-9422377ebb88}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity">
-      <UniqueIdentifier>{c6c8b74f-c297-4607-a7ae-b3569044e61b}</UniqueIdentifier>
+      <UniqueIdentifier>{8142e52a-411b-4087-b321-f8ca5066d513}</UniqueIdentifier>
     </Filter>
     <Filter Include="factory">
-      <UniqueIdentifier>{f534dd3c-b9e9-4ab9-a217-09bd8d3c47a0}</UniqueIdentifier>
+      <UniqueIdentifier>{6e614701-bd2b-4318-a4b4-5a18213d6c1e}</UniqueIdentifier>
     </Filter>
     <Filter Include="font">
-      <UniqueIdentifier>{af8fc1e0-0bb5-4074-a2c0-d533588c9e57}</UniqueIdentifier>
+      <UniqueIdentifier>{96ced7fc-f358-4d7a-b88d-67c1d99aa49b}</UniqueIdentifier>
     </Filter>
     <Filter Include="framework">
-      <UniqueIdentifier>{b2e53b8f-3d00-4454-b115-45c412b98642}</UniqueIdentifier>
+      <UniqueIdentifier>{7dfa06e3-acd1-4250-8b2e-fa2db97d5a06}</UniqueIdentifier>
     </Filter>
     <Filter Include="judge">
-      <UniqueIdentifier>{709553a2-9ac8-43a4-9f93-db1ebb258e40}</UniqueIdentifier>
+      <UniqueIdentifier>{223d740c-de34-4cc2-83f5-bf605b7e0631}</UniqueIdentifier>
     </Filter>
     <Filter Include="manager">
-      <UniqueIdentifier>{e3ffcb52-da63-4fe4-93ea-512a137d23a0}</UniqueIdentifier>
+      <UniqueIdentifier>{c11615b8-8778-4fd2-8354-6ac51dbd7faa}</UniqueIdentifier>
     </Filter>
     <Filter Include="math">
-      <UniqueIdentifier>{2e81caca-62c7-42e5-b909-7a4c7b6bc0aa}</UniqueIdentifier>
+      <UniqueIdentifier>{48bc6bb1-95cf-4d6f-9cbc-6c2a491d9df0}</UniqueIdentifier>
     </Filter>
     <Filter Include="physics">
-      <UniqueIdentifier>{b1c02a4c-591b-41d2-96fa-aba2026854ae}</UniqueIdentifier>
+      <UniqueIdentifier>{dd0cb5b8-1424-4fca-b396-207bb3461197}</UniqueIdentifier>
     </Filter>
     <Filter Include="presentation">
-      <UniqueIdentifier>{6145647e-e055-4e77-8cc7-8a77bd77e8c9}</UniqueIdentifier>
+      <UniqueIdentifier>{b307601b-5b37-45c4-8d22-771f95d34d8f}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene">
-      <UniqueIdentifier>{e1cc7d4d-258c-4300-b7ce-2af3160a604f}</UniqueIdentifier>
+      <UniqueIdentifier>{c97c16d1-9d8f-4e76-bf68-786feb20500c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="skill">
+      <UniqueIdentifier>{b9112db0-9fff-41ab-845b-41a50ef01ccc}</UniqueIdentifier>
     </Filter>
     <Filter Include="stage">
-      <UniqueIdentifier>{24f9a9b8-5d60-48e5-8308-b74ace704fc2}</UniqueIdentifier>
+      <UniqueIdentifier>{2a500e6a-d03c-4ddb-aa34-e6c5a715e147}</UniqueIdentifier>
     </Filter>
     <Filter Include="system">
-      <UniqueIdentifier>{f04c9d76-e156-4ee5-ae11-61b7e1922f4e}</UniqueIdentifier>
+      <UniqueIdentifier>{02a5345b-245f-4d51-bb8b-6aa72d94a544}</UniqueIdentifier>
     </Filter>
     <Filter Include="test">
-      <UniqueIdentifier>{5e53ab82-62bc-4823-9f10-3ae86aca5787}</UniqueIdentifier>
+      <UniqueIdentifier>{f6a8d529-2678-463e-a5cf-7f174cfcec3e}</UniqueIdentifier>
     </Filter>
     <Filter Include="type">
-      <UniqueIdentifier>{161fd520-a4fd-494a-b8bf-e451a51bc2f8}</UniqueIdentifier>
+      <UniqueIdentifier>{85e49931-89fe-4c91-8df8-b76598eb86bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="ui">
-      <UniqueIdentifier>{78533709-3e89-48e2-af92-263a2e2768b4}</UniqueIdentifier>
+      <UniqueIdentifier>{a0b8ce7c-69a9-4fcb-af88-62ad077bae86}</UniqueIdentifier>
     </Filter>
     <Filter Include="utility">
-      <UniqueIdentifier>{0fba5866-d027-40e7-b31e-3c185b3dabb8}</UniqueIdentifier>
+      <UniqueIdentifier>{cbf0305d-8d9f-4ddc-b19d-1cac2532913c}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy">
-      <UniqueIdentifier>{cb137a13-da68-4168-857b-1a6a8490816a}</UniqueIdentifier>
+      <UniqueIdentifier>{8f7cc266-5149-428d-b722-12820fb3e667}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\player">
-      <UniqueIdentifier>{354c012c-ae8f-424f-8dbb-3d978f9f2c8e}</UniqueIdentifier>
+      <UniqueIdentifier>{804f9d71-2c6f-4f87-87e1-d079d8e0efdb}</UniqueIdentifier>
     </Filter>
     <Filter Include="component\collider">
-      <UniqueIdentifier>{9a1cbbe8-3d93-4107-bf61-af27394eb122}</UniqueIdentifier>
+      <UniqueIdentifier>{51269141-8553-4fe9-ba39-15792bef8229}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\attack">
-      <UniqueIdentifier>{90125476-46b1-4ac3-a251-598cf6259469}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="entity\enemy">
-      <UniqueIdentifier>{956483ee-393d-46ad-b3d4-e52798583f39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="presentation\animation">
-      <UniqueIdentifier>{37093dfe-afe6-4144-8d72-777e981da06a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="character\enemy\collider">
-      <UniqueIdentifier>{ba1c73e6-e83f-4b5c-b6cc-6cdaa0e14230}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="character\enemy\state">
-      <UniqueIdentifier>{effb19e7-3b1d-48de-9736-1825efd759fe}</UniqueIdentifier>
+      <UniqueIdentifier>{d6deb8ad-81fd-48ae-a463-a31a7235ee57}</UniqueIdentifier>
     </Filter>
     <Filter Include="entity\camera">
-      <UniqueIdentifier>{0314cae5-c802-40f2-8697-ad4e1b8d1c45}</UniqueIdentifier>
+      <UniqueIdentifier>{ff1111af-5112-4c7d-a9ff-bc517e5ed028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entity\enemy">
+      <UniqueIdentifier>{df1af809-1a56-4c7e-ba8c-54fbad558cc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="presentation\animation">
+      <UniqueIdentifier>{ce12636a-574e-450c-abac-5322b0906684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\enemy\collider">
+      <UniqueIdentifier>{9310e04a-9601-40c6-8a24-3a87fd156c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\enemy\state">
+      <UniqueIdentifier>{71e480ee-48e4-498f-904e-47fe4a0dbd29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\player\state">
+      <UniqueIdentifier>{0389bc9c-ff20-46fc-bfd1-388d4d1f678d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h">
+      <Filter>character\enemy\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyAttackState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h">
       <Filter>character\enemy\collider</Filter>
     </ClInclude>
@@ -283,8 +328,14 @@
     <ClInclude Include="src\character\player\PlayerMovement.h">
       <Filter>character\player</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\player\state\PlayerState.h">
+      <Filter>character\player\state</Filter>
+    </ClInclude>
     <ClInclude Include="src\combo\ComboBuffSystem.h">
       <Filter>combo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\ParticleEmitterPresetNames.h">
+      <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h">
       <Filter>component\collider</Filter>
@@ -301,7 +352,13 @@
     <ClInclude Include="src\component\IMovement.h">
       <Filter>component</Filter>
     </ClInclude>
+    <ClInclude Include="src\component\IState.h">
+      <Filter>component</Filter>
+    </ClInclude>
     <ClInclude Include="src\component\PhysicsMovement.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\StateMachine.hpp">
       <Filter>component</Filter>
     </ClInclude>
     <ClInclude Include="src\debug\DebugEntry.h">
@@ -325,8 +382,26 @@
     <ClInclude Include="src\entity\attack\PlayerAttack.h">
       <Filter>entity\attack</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity\camera\CameraDirector.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\CameraInput.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\FocusCamera.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\FollowCamera.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\attack\PlayerAttackPresentation.h">
+      <Filter>entity\attack</Filter>
+    </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h">
       <Filter>entity\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\factory\PlayerAttackFactory.h">
+      <Filter>factory</Filter>
     </ClInclude>
     <ClInclude Include="src\font\FontLayout.h">
       <Filter>font</Filter>
@@ -375,6 +450,15 @@
     </ClInclude>
     <ClInclude Include="src\scene\GameScene.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skill\IPlayerSkill.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skill\Overdrive.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skill\UpTempo.h">
+      <Filter>skill</Filter>
     </ClInclude>
     <ClInclude Include="src\stage\stage.h">
       <Filter>stage</Filter>

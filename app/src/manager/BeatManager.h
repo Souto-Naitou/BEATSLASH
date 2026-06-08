@@ -52,7 +52,9 @@ public:
     /// Start() 呼び出し前に設定すること
     void SetMusicSoundHandle(ozSound::SoundHandle handle);
 
-    //  状態取得 
+    ozSound::SoundHandle GetMusicSoundHandle() const { return musicHandle_; }
+
+    float GetBPM() const { return bpm_; }
 
     /// 現在の時刻ソースモードを取得
     CountMode GetCountMode() const { return countMode_; }
@@ -97,6 +99,9 @@ private:
     bool  soundEnabled_ = true;
     bool  playing_      = false;
     int   lastBeat_     = -1;
+
+    // bpmの倍率
+    float bpmRate_ = 1.0f;
 
     // 時刻ソース
     CountMode     countMode_    = CountMode::QPC;

@@ -17,10 +17,12 @@ void NumericView::Initialize(std::span<TextureHandleType> textureHandles, const 
     debugName_ = "NumericView_" + name;
 
     // デバッグUIに登録
+    #ifdef _DEBUG
     Tako::DebugUIManager::GetInstance()->RegisterDebugInfo(
         debugName_,
         std::bind(&NumericView::ImGui, this)
     );
+    #endif // _DEBUG
 
     // テクスチャハンドルを保存
     for (uint32_t i = 0; i < kRadix_; ++i)
@@ -33,7 +35,9 @@ void NumericView::Initialize(std::span<TextureHandleType> textureHandles, const 
 
 void NumericView::Finalize()
 {
+#ifdef _DEBUG
     Tako::DebugUIManager::GetInstance()->UnregisterDebugInfo(debugName_);
+#endif // _DEBUG
 }
 
 void NumericView::Update()

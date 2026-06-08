@@ -1,7 +1,9 @@
 #pragma once
 #include <functional>
-#include <imgui.h>
 #include <string>
+#ifdef _DEBUG
+#include <imgui.h>
+#endif // _DEBUG
 
 // アニメーションの補間を管理するクラス
 //   ValueTypeはUpdate関数内で+-*を使用するため、演算子オーバーロードが必要
