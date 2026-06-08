@@ -57,6 +57,7 @@ private: // メンバ関数
 
 private: // メンバ変数
     std::unique_ptr<Player>                 pPlayer_;               // !< プレイヤー
+    std::unique_ptr<EnemyManager> pEnemyManager_;                   // !< 敵のマネージャー
     std::unique_ptr<StageSequence>          pStage_;                // !< ステージクラスのインスタンス
     std::unique_ptr<AttackRepository>       pAttackRepository_;     // !< コライダーリポジトリのインスタンス
     std::unique_ptr<FollowCamera>           pFollowCamera_;         // !< カメラクラスのインスタンス
@@ -68,7 +69,7 @@ private: // メンバ変数
     std::unique_ptr<GameHUD>                pGameHUD_;              // !< ゲームHUD
     std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー
     std::unique_ptr<CameraDirector>         pCameraDirector_;       // !< カメラディレクターのインスタンス
-	std::unique_ptr<EnemyManager> pEnemyManager_; // !< 敵のマネージャー
+
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
 
 
