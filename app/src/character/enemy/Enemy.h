@@ -41,7 +41,7 @@ public:
 	void SetRotation(const Tako::Vector3& rotation) { transform_.rotate = rotation; }
 	void SetScale(const Tako::Vector3& scale) { transform_.scale = scale; }
 
-    bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
+	bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
 
 	/**
 	 * @brief ビートクロックの取得
@@ -60,6 +60,20 @@ private:
 
 	// 拍同期の拡縮アニメーション更新
 	void UpdateBeatAnimation();
+
+private:	// 定数定義
+	// 初期化時の座標
+	static constexpr Tako::Vector3 kInitialTranslate = { 0.0f,10.0f,0.0f };
+	// 初期化時のスケール
+	static constexpr Tako::Vector3 kInitialScale = { 1.0f,1.0f,1.0f };
+	// 初期化時のマテリアルカラー
+	static constexpr Tako::Vector4 kInitialMaterialColor = { 0,256,0,256 };
+	//　追従ステートのマテリアルカラー
+	static constexpr Tako::Vector4 kChaseStateMaterialColor = { 256,0,0,256 };
+	// コライダーのスケールの倍率
+	static constexpr float kColliderScaleMultiplier = 3.0f;
+	// 初期HP
+	static constexpr uint32_t kInitialHP = 100;
 
 private:
 	// モデル

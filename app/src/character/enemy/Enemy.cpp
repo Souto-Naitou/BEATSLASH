@@ -25,17 +25,17 @@ void Enemy::Initialize()
 	pModel_ = std::make_unique<Tako::Object3d>();
 	pModel_->Initialize();
 	pModel_->SetModel("white_cube.gltf");
-	pModel_->SetMaterialColor({ 0,256,0,256 });
+	pModel_->SetMaterialColor(kInitialMaterialColor);
 	pModel_->SetEnableLighting(true);
-	pModel_->SetScale({ 1.0f, 1.0f, 1.0f });
-	pModel_->SetTranslate({ 0.0f,10.0f,0.0f });
+	pModel_->SetTranslate(kInitialTranslate);
+	pModel_->SetScale(kInitialScale);
 
 	// トランスフォームの初期化
 	transform_ = pModel_->GetTransform();
 
 	// コライダーの初期化
 	pCollider_ = std::make_unique<EnemyCollider>();
-	pCollider_->SetSize(pModel_->GetScale() * 3.0f);
+	pCollider_->SetSize(pModel_->GetScale() * kColliderScaleMultiplier);
 	pCollider_->SetOwner(this);
 	pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Enemy));
 	pCollider_->SetTransform(&transform_);
@@ -55,9 +55,9 @@ void Enemy::Initialize()
 	// ステートの初期化。｛　待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
+	// HPコンポーネントの生成と初期化
 	pHp_ = std::make_unique<HPComponent>();
-	// HPコンポーネントの初期化 TODO : 仮の値
-	pHp_->Initialize(100);
+	pHp_->Initialize(kInitialHP);
 	// コライダーにHPコンポーネントをセット
 	pCollider_->SetHPComponent(pHp_.get());
 }
@@ -98,13 +98,13 @@ bool Enemy::ChangeState()
 	if (Tako::Input::GetInstance()->PushKey(DIK_1))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Idle);
-		pModel_->SetMaterialColor({ 0,256,0,256 });
+		pModel_->SetMaterialColor(kInitialMaterialColor);
 		return true;
 	}
 	if (Tako::Input::GetInstance()->PushKey(DIK_2))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Chase);
-		pModel_->SetMaterialColor({ 256,0,0,256 });
+		pModel_->SetMaterialColor(kChaseStateMaterialColor);
 		return true;
 	}
 	return false;

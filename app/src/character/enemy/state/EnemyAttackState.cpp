@@ -10,6 +10,16 @@ EnemyAttackState::EnemyAttackState(const ICharacter* target)
 {
 }
 
+EnemyAttackState::~EnemyAttackState()
+{
+	// コライダーをマネージャーから削除
+	auto collisionManager = Tako::CollisionManager::GetInstance();
+	if (pAttackCollider_)
+	{
+		collisionManager->RemoveCollider(pAttackCollider_.get());
+	}
+}
+
 void EnemyAttackState::Enter(Enemy* enemy)
 {
 	// タイマーのリセット
@@ -27,7 +37,7 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	colliderTransform_.translate += forward * kColliderOffset;
 	colliderTransform_.translate.y += 0.5f; // 少し浮かす
 	colliderTransform_.rotate = { 0.0f, startAngle + 3.14159265f / 2.0f, 0.0f }; // 接線方向に向ける
-	colliderTransform_.scale = { 1.3f, 0.1f, 0.3f }; // コライダーを薄長くする
+	colliderTransform_.scale = { 1.8f, 0.1f, 0.3f }; // コライダーを薄長くする
 
 	// 攻撃モデルの生成と初期化
 	pAttackModel_ = std::make_unique<Tako::Object3d>();

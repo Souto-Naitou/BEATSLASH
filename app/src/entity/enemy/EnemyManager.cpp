@@ -60,7 +60,7 @@ void EnemyManager::DrawImGui()
 {
 #ifdef _DEBUG
 	static int spawnStageIndex = 0;
-	static float spawnPosition[3] = { 0.0f, 150.0f, 0.0f };
+	static Tako::Vector3 spawnPosition = { 0.0f, 10.0f, 0.0f };
 
 	// 敵の総数を計算
 	size_t totalEnemyCount = 0;
@@ -74,11 +74,11 @@ void EnemyManager::DrawImGui()
 
 	ImGui::SeparatorText("Spawn Enemy");
 	ImGui::SliderInt("Stage Index", &spawnStageIndex, 0, kMaxStages - 1);
-	ImGui::InputFloat3("Position", spawnPosition);
+	ImGui::InputFloat3("Position", &spawnPosition.x);
 
 	if (ImGui::Button("Spawn"))
 	{
-		SpawnEnemy(static_cast<uint32_t>(spawnStageIndex), Tako::Vector3{ spawnPosition[0], spawnPosition[1], spawnPosition[2] });
+		SpawnEnemy(static_cast<uint32_t>(spawnStageIndex), spawnPosition);
 	}
 
 	ImGui::SeparatorText("Stages Info");
