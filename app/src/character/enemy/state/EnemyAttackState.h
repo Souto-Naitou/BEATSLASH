@@ -31,10 +31,14 @@ private:
 	Tako::Transform colliderTransform_;
 	// 攻撃持続時間
 	static constexpr float kAttackDuration_ = 0.6f;
+	// 攻撃持続時間（拍数）
+	static constexpr float kAttackDurationInBeats = 2.0f;
 	// 攻撃コライダーの出現オフセット
 	static constexpr float kColliderOffset = 6.0f;
 	// 攻撃時間のタイマー
 	float timer_ = 0.0f;
+	// 攻撃開始時の拍数
+	float startBeat_ = 0.0f;
 	
 };
 

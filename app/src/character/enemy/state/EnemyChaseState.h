@@ -32,10 +32,14 @@ private:
 	static constexpr float kAttackStartDistance = 7.0f;
 	// 攻撃のクールタイム
 	static constexpr float kAttackCooldown = 1.0f;
+	// 攻撃のクールタイム（拍数）
+	static constexpr float kAttackCooldownBeats = 4.0f;
 	// 攻撃クールタイムのタイマー
 	float attackCooldownTimer_ = 0.0f;
 	// 追跡ターゲット
 	const ICharacter* pTarget_ = nullptr;
+	// 前フレームの拍インデックス
+	int lastBeatIndex_ = -1;
 
 	// デバッグ用のパラメータ
 	EnableDebug("EnemyChaseState");

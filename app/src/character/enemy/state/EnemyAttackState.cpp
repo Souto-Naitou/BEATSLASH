@@ -4,6 +4,8 @@
 #include <CollisionManager.h>
 #include <FrameTimer.h>
 #include <cmath>
+#include <manager/BeatManager.h>
+#include <imgui.h>
 
 EnemyAttackState::EnemyAttackState(const ICharacter* target)
 	: pTarget_(target)
@@ -24,6 +26,12 @@ void EnemyAttackState::Enter(Enemy* enemy)
 {
 	// タイマーのリセット
 	timer_ = 0.0f;
+
+	const BeatClock* beatClock = enemy->GetBeatClock();
+	if (beatClock)
+	{
+		startBeat_ = beatClock->GetCurrentBeat();
+	}
 
 	// 敵の現在の回転（基準方向）を取得
 	float baseYaw = enemy->GetTransform().rotate.y;
@@ -66,7 +74,18 @@ void EnemyAttackState::Update(Enemy* enemy)
 	// 時間の加算
 	timer_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
-	float t = timer_ / kAttackDuration_;
+	const BeatClock* beatClock = enemy->GetBeatClock();
+	float t = 0.0f;
+	if (beatClock)
+	{
+		float currentBeat = beatClock->GetCurrentBeat();
+		t = (currentBeat - startBeat_) / kAttackDurationInBeats;
+	}
+	else
+	{
+		t = timer_ / kAttackDuration_;
+	}
+
 	if (t > 1.0f)
 	{
 		t = 1.0f;
@@ -97,6 +116,21 @@ void EnemyAttackState::Update(Enemy* enemy)
 		pAttackModel_->SetTransform(colliderTransform_);
 		pAttackModel_->Update();
 	}
+
+	// デバッグ用ログ出力（ピーク到達時に1回出力）
+	static bool hasLoggedPeak = false;
+	if (std::abs(t - 0.5f) < 0.02f)
+	{
+		if (!hasLoggedPeak)
+		{
+			OutputDebugStringA("--- Attack reached peak (t = 0.5) directly in front! ---\n");
+			hasLoggedPeak = true;
+		}
+	}
+	else if (t < 0.1f)
+	{
+		hasLoggedPeak = false; // 次の攻撃のためにリセット
+	}
 }
 
 void EnemyAttackState::Exit(Enemy* enemy)
@@ -121,15 +155,38 @@ void EnemyAttackState::Draw(Enemy* enemy)
 
 void EnemyAttackState::DrawImGui(Enemy* enemy)
 {
-
+#ifdef _DEBUG
+	const BeatClock* beatClock = enemy->GetBeatClock();
+	if (beatClock)
+	{
+		float currentBeat = beatClock->GetCurrentBeat();
+		float elapsed = currentBeat - startBeat_;
+		ImGui::Text("Start Beat: %.4f", startBeat_);
+		ImGui::Text("Current Beat: %.4f", currentBeat);
+		ImGui::Text("Elapsed Beats: %.4f / %.2f", elapsed, kAttackDurationInBeats);
+		ImGui::Text("Progress (t): %.4f (Peak is 0.5)", elapsed / kAttackDurationInBeats);
+	}
+#endif
 }
 
 std::optional<EnemyStateType> EnemyAttackState::CheckTransition(Enemy* enemy)
 {
-	// 攻撃時間が経過したら追従状態に戻る
-	if (timer_ >= kAttackDuration_)
+	const BeatClock* beatClock = enemy->GetBeatClock();
+	if (beatClock)
 	{
-		return EnemyStateType::Chase;
+		float currentBeat = beatClock->GetCurrentBeat();
+		if (currentBeat - startBeat_ >= kAttackDurationInBeats)
+		{
+			return EnemyStateType::Chase;
+		}
+	}
+	else
+	{
+		// 攻撃時間が経過したら追従状態に戻る
+		if (timer_ >= kAttackDuration_)
+		{
+			return EnemyStateType::Chase;
+		}
 	}
 	return std::nullopt;
 }

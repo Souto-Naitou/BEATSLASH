@@ -1,6 +1,7 @@
 #include "EnemyChaseState.h"
 #include <character/ICharacter.h>
 #include <character/enemy/Enemy.h>
+#include <manager/BeatManager.h>
 #include <FrameTimer.h>
 #include <imgui.h>
 
@@ -13,6 +14,9 @@ void EnemyChaseState::Enter(Enemy* enemy)
 {
 	// わかりやすいように、追跡状態に入ったときに色を変える
 	enemy->GetModel()->SetMaterialColor({ 256,0,0,256 });
+
+	// ビートインデックスの初期化
+	lastBeatIndex_ = -1;
 }
 
 void EnemyChaseState::Update(Enemy* enemy)
@@ -62,13 +66,36 @@ std::optional<EnemyStateType> EnemyChaseState::CheckTransition(Enemy* enemy)
 	Tako::Vector3 direction = pTarget_->GetPosition() - enemy->GetPosition();
 	float distanceSq = direction.LengthSquared();
 
-	// 攻撃開始距離かつ攻撃のクールタイムが終了している場合は攻撃状態へ遷移
-	if (distanceSq <= kAttackStartDistance * kAttackStartDistance && attackCooldownTimer_ <= 0.0f)
+	const BeatClock* beatClock = enemy->GetBeatClock();
+	bool canAttack = (distanceSq <= kAttackStartDistance * kAttackStartDistance && attackCooldownTimer_ <= 0.0f);
+
+	if (beatClock)
 	{
-		// 攻撃クールタイムのリセット
-		attackCooldownTimer_ = kAttackCooldown;
-		
-		return EnemyStateType::Attack;
+		int currentBeatIndex = beatClock->GetCurrentBeatIndex();
+		if (lastBeatIndex_ == -1)
+		{
+			lastBeatIndex_ = currentBeatIndex;
+		}
+
+		// 直前のフレームから拍の境界を跨いだかどうか
+		bool beatPassed = (currentBeatIndex > lastBeatIndex_);
+		lastBeatIndex_ = currentBeatIndex;
+
+		if (canAttack && beatPassed)
+		{
+			// 拍数に基づいてクールタイムを秒数に換算して設定
+			attackCooldownTimer_ = kAttackCooldownBeats * beatClock->GetSecondsPerBeat();
+			return EnemyStateType::Attack;
+		}
+	}
+	else
+	{
+		// ビートクロックが無効な場合は即座に遷移
+		if (canAttack)
+		{
+			attackCooldownTimer_ = kAttackCooldown;
+			return EnemyStateType::Attack;
+		}
 	}
 
 	// 追跡限界距離より離れたら待機状態へ遷移
