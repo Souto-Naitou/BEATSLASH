@@ -108,6 +108,19 @@ $namespaceUri = "http://schemas.microsoft.com/developer/msbuild/2003"
 $namespaceManager = New-Object System.Xml.XmlNamespaceManager($projectXml.NameTable)
 $namespaceManager.AddNamespace("msb", $namespaceUri)
 
+$existingFilterIds = @{}
+if (Test-Path -LiteralPath $OutputPath) {
+    [xml]$existingFiltersXml = Get-Content -LiteralPath $OutputPath -Raw
+    $existingFilters = $existingFiltersXml.SelectNodes("/msb:Project/msb:ItemGroup/msb:Filter[@Include]", $namespaceManager)
+    foreach ($filter in $existingFilters) {
+        $filterName = $filter.GetAttribute("Include")
+        $uniqueIdNode = $filter.SelectSingleNode("msb:UniqueIdentifier", $namespaceManager)
+        if ($uniqueIdNode) {
+            $existingFilterIds[$filterName] = $uniqueIdNode.InnerText
+        }
+    }
+}
+
 $excludedNames = @("ProjectConfiguration", "ProjectReference")
 $projectItems = $projectXml.SelectNodes("/msb:Project/msb:ItemGroup/*[@Include]", $namespaceManager) |
     Where-Object {
@@ -176,12 +189,19 @@ foreach ($itemType in $orderedTypes) {
             $filterNode = $filtersDoc.CreateElement("Filter", $namespaceUri)
             $filterNode.SetAttribute("Include", $filter)
             $idNode = $filtersDoc.CreateElement("UniqueIdentifier", $namespaceUri)
-            $idNode.InnerText = ([guid]::NewGuid().ToString("B"))
+            
+            if ($existingFilterIds.ContainsKey($filter)) {
+                $idNode.InnerText = $existingFilterIds[$filter]
+            } else {
+                $idNode.InnerText = ([guid]::NewGuid().ToString("B"))
+            }
+            
             $null = $filterNode.AppendChild($idNode)
             $null = $filterGroup.AppendChild($filterNode)
         }
         $null = $projectNode.AppendChild($filterGroup)
     }
+
 }
 
 if (-not $orderedTypes) {
@@ -194,12 +214,19 @@ if (-not $orderedTypes) {
         $filterNode = $filtersDoc.CreateElement("Filter", $namespaceUri)
         $filterNode.SetAttribute("Include", $filter)
         $idNode = $filtersDoc.CreateElement("UniqueIdentifier", $namespaceUri)
-        $idNode.InnerText = ([guid]::NewGuid().ToString("B"))
+        
+        if ($existingFilterIds.ContainsKey($filter)) {
+            $idNode.InnerText = $existingFilterIds[$filter]
+        } else {
+            $idNode.InnerText = ([guid]::NewGuid().ToString("B"))
+        }
+        
         $null = $filterNode.AppendChild($idNode)
         $null = $filterGroup.AppendChild($filterNode)
     }
     $null = $projectNode.AppendChild($filterGroup)
 }
+
 
 $writerSettings = New-Object System.Xml.XmlWriterSettings
 $writerSettings.Indent = $true
