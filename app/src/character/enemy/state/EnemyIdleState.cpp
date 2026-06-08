@@ -2,6 +2,7 @@
 #include <character/ICharacter.h>
 #include <FrameTimer.h>
 #include <character/enemy/Enemy.h>
+#include <manager/BeatManager.h>
 
 std::optional<EnemyStateType> EnemyIdleState::CheckTransition(Enemy* enemy)
 {
@@ -26,20 +27,13 @@ std::optional<EnemyStateType> EnemyIdleState::CheckTransition(Enemy* enemy)
 
 void EnemyIdleState::Enter(Enemy* enemy)
 {
-	timer_ = 0.0f; // タイマーをリセット
-
 	// わかりやすいように、待機状態に入ったときに色を変える
 	enemy->GetModel()->SetMaterialColor({ 0,256,0,256 });
 }
 
 void EnemyIdleState::Update(Enemy* enemy)
 {
-	// タイマーの加算
-	timer_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
-
-	// モデルを少し大きくさせたり小さくさせてリズムに乗っているような動きをさせる
-	float scale = baseScale_ + scaleAmplitude_ * std::sin(timer_ * scaleSpeed_);
-	enemy->SetScale({ scale, scale, scale });
+	// 拡縮アニメーションはEnemy::Updateでグローバルに行われるため、ステート内での個別処理は不要
 }
 
 void EnemyIdleState::DrawImGui(Enemy* enemy)
