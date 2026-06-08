@@ -259,6 +259,9 @@
     <Filter Include="character\enemy\state">
       <UniqueIdentifier>{71e480ee-48e4-498f-904e-47fe4a0dbd29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="character\player\state">
+      <UniqueIdentifier>{0389bc9c-ff20-46fc-bfd1-388d4d1f678d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h">
@@ -315,6 +318,9 @@
     <ClInclude Include="src\character\player\PlayerMovement.h">
       <Filter>character\player</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\player\state\PlayerState.h">
+      <Filter>character\player\state</Filter>
+    </ClInclude>
     <ClInclude Include="src\combo\ComboBuffSystem.h">
       <Filter>combo</Filter>
     </ClInclude>
@@ -336,7 +342,13 @@
     <ClInclude Include="src\component\IMovement.h">
       <Filter>component</Filter>
     </ClInclude>
+    <ClInclude Include="src\component\IState.h">
+      <Filter>component</Filter>
+    </ClInclude>
     <ClInclude Include="src\component\PhysicsMovement.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\StateMachine.hpp">
       <Filter>component</Filter>
     </ClInclude>
     <ClInclude Include="src\debug\DebugEntry.h">
@@ -492,8 +504,6 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player\state\PlayerState.h" />
-    <ClInclude Include="src\component\StateMachine.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
