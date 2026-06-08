@@ -40,12 +40,15 @@ public:
 	void SetScale(const Tako::Vector3& scale) { transform_.scale = scale; }
 
     bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
+
+	/**
+	 * @brief デバッグ用のImGui描画を行う。
+	 */
+	void DrawImGui();
+
 private:
 	// 状態の切り替え（デバッグ用）
 	bool ChangeState();
-
-	// デバッグ表示
-	void DrawImGui();
 
 private:
 	// モデル

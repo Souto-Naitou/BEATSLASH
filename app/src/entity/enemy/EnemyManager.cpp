@@ -81,11 +81,7 @@ void EnemyManager::DrawImGui()
 	ImGui::SeparatorText("Stages Info");
 	for (uint32_t i = 0; i < kMaxStages; ++i)
 	{
-		size_t count = enemiesOnField_[i].GetCount();
-		if (count > 0)
-		{
-			ImGui::Text("Stage %u: %zu enemies", i, count);
-		}
+		enemiesOnField_[i].DrawImGui(i);
 	}
 #endif
 }

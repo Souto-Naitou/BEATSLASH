@@ -24,6 +24,12 @@ public:
     bool IsEmpty() const;
 
     /**
+     * @brief デバッグ用のImGui描画を行う。
+     * @param stageIndex ステージのインデックス
+     */
+    void DrawImGui(uint32_t stageIndex);
+
+    /**
      * @brief フィールド上の敵の数を取得する。
      * @return 敵の数
      */

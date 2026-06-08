@@ -20,8 +20,6 @@ void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTy
 	if (states_.find(currentStateType_) != states_.end())
 	{
 		states_[currentStateType_]->Enter(owner_);
-		// デバッグUIに登録
-		Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy State", [this]() { states_[currentStateType_]->DrawImGui(owner_); });
 	}
 }
 
@@ -65,9 +63,6 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
 	{
 		states_[currentStateType_]->Exit(owner_); // 状態から抜けるときの処理
-
-		// デバッグUIの登録解除
-		Tako::DebugUIManager::GetInstance()->UnregisterGameObject("Enemy State");
 	}
 
 	// 新しい状態に入る
@@ -75,8 +70,16 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 	{
 		currentStateType_ = newStateType;
 		states_[currentStateType_]->Enter(owner_); // 状態に入るときの処理
-
-		// デバッグUIに登録
-		Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy State", [this]() { states_[currentStateType_]->DrawImGui(owner_); });
 	}
+}
+
+void EnemyStateMachine::DrawImGui()
+{
+#ifdef _DEBUG
+	// 現在の状態のデバッグUIを描画
+	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
+	{
+		states_[currentStateType_]->DrawImGui(owner_);
+	}
+#endif
 }

@@ -25,6 +25,11 @@ public:
 	// 現在の状態の取得
 	EnemyStateType GetCurrentState() const { return currentStateType_; }
 
+	/**
+	 * @brief デバッグ用のImGui描画を行う。
+	 */
+	void DrawImGui();
+
 private:
 	// 状態の管理
 	std::unordered_map<EnemyStateType, std::unique_ptr<EnemyState>> states_;

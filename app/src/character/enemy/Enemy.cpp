@@ -48,9 +48,6 @@ void Enemy::Initialize()
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
-	// デバッグUIの登録
-	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
-
 	// ステートの初期化。｛　待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
@@ -115,5 +112,8 @@ void Enemy::DrawImGui()
 	ImGui::SliderFloat3("Scale", &transform_.scale.x, 0.1f, 5.0f);
 	ImGui::SeparatorText("State");
 	ImGui::Text("Current State: %s", GetStateName(stateMachine_.GetCurrentState()).c_str());
+
+	// ステートのデバッグUIを描画
+	stateMachine_.DrawImGui();
 #endif
 }
