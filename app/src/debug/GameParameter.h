@@ -84,7 +84,7 @@
     class GameParameterData
     {
     public:
-        GameParameterData(const std::string&, const std::string&, ValueType&& value = {}): v_(std::move(value)) {}
+        GameParameterData(const std::string&, const std::string&, ValueType&& value = {}) : v_(std::move(value)) {}
         GameParameterData(const GameParameterData&) = delete;
         GameParameterData& operator=(const GameParameterData&) = delete;
         ValueType& operator=(const ValueType& newValue)

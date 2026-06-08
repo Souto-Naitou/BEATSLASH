@@ -3,14 +3,12 @@
 #include <Input.h>
 #include <type/ColliderTypeID.h>
 #include <FrameTimer.h>
+#include <manager/BeatManager.h>
+#include <numbers>
 
-#ifdef _DEBUG
-#include <DebugUIManager.h>
-#include <imgui.h>
-#endif // _DEBUG
-
-Enemy::Enemy(const ICharacter* target)
+Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock)
 	: pTarget_(target)
+	, pBeatClock_(beatClock)
 {}
 
 Enemy::~Enemy()
@@ -25,17 +23,17 @@ void Enemy::Initialize()
 	pModel_ = std::make_unique<Tako::Object3d>();
 	pModel_->Initialize();
 	pModel_->SetModel("white_cube.gltf");
-	pModel_->SetMaterialColor({ 0,256,0,256 });
+	pModel_->SetMaterialColor(kInitialMaterialColor);
 	pModel_->SetEnableLighting(true);
-	pModel_->SetScale({ 1.0f, 1.0f, 1.0f });
-	pModel_->SetTranslate({ 0.0f,50.0f,0.0f });
+	pModel_->SetTranslate(kInitialTranslate);
+	pModel_->SetScale(kInitialScale);
 
 	// トランスフォームの初期化
 	transform_ = pModel_->GetTransform();
 
 	// コライダーの初期化
 	pCollider_ = std::make_unique<EnemyCollider>();
-	pCollider_->SetSize(pModel_->GetScale() * 3.0f);
+	pCollider_->SetSize(pModel_->GetScale() * kColliderScaleMultiplier);
 	pCollider_->SetOwner(this);
 	pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Enemy));
 	pCollider_->SetTransform(&transform_);
@@ -49,21 +47,17 @@ void Enemy::Initialize()
 	auto collisionManager = Tako::CollisionManager::GetInstance();
 	collisionManager->AddCollider(pCollider_.get());
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
-#ifdef _DEBUG
-	// デバッグUIの登録
-	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
-#endif // _DEBUG
-
 	// ステートの初期化。｛　待機状態、　｝
-	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this, pTarget_);
+	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
-    pHp_ = std::make_unique<HPComponent>();
-    // HPコンポーネントの初期化 TODO : 仮の値
-    pHp_->Initialize(100);
-    // コライダーにHPコンポーネントをセット
-    pCollider_->SetHPComponent(pHp_.get());
+	// HPコンポーネントの生成と初期化
+	pHp_ = std::make_unique<HPComponent>();
+	pHp_->Initialize(kInitialHP);
+	// コライダーにHPコンポーネントをセット
+	pCollider_->SetHPComponent(pHp_.get());
 }
 
 void Enemy::Update()
@@ -77,16 +71,8 @@ void Enemy::Update()
 		stateMachine_.Update();
 	}
 
-	// 常にプレイヤーの方を向くようにする
-	if (pTarget_)
-	{
-		// ターゲットへのベクトルを計算
-		Tako::Vector3 toTarget = pTarget_->GetPosition() - transform_.translate;
-		
-		// Y軸を回転させる
-		float angle = std::atan2(toTarget.x, toTarget.z);
-		transform_.rotate.y = angle;
-	}
+	// 拍同期の拡縮アニメーションを適用する
+	UpdateBeatAnimation();
 
 	// 重力の適用
 	transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
@@ -100,6 +86,9 @@ void Enemy::Draw()
 {
 	// モデルの描画
 	pModel_->Draw();
+
+	// ステートの描画（攻撃エフェクトなどの描画）
+	stateMachine_.Draw();
 }
 
 bool Enemy::ChangeState()
@@ -107,13 +96,13 @@ bool Enemy::ChangeState()
 	if (Tako::Input::GetInstance()->PushKey(DIK_1))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Idle);
-		pModel_->SetMaterialColor({ 0,256,0,256 });
+		pModel_->SetMaterialColor(kInitialMaterialColor);
 		return true;
 	}
 	if (Tako::Input::GetInstance()->PushKey(DIK_2))
 	{
 		stateMachine_.ChangeState(EnemyStateType::Chase);
-		pModel_->SetMaterialColor({ 256,0,0,256 });
+		pModel_->SetMaterialColor(kChaseStateMaterialColor);
 		return true;
 	}
 	return false;
@@ -128,5 +117,28 @@ void Enemy::DrawImGui()
 	ImGui::SliderFloat3("Scale", &transform_.scale.x, 0.1f, 5.0f);
 	ImGui::SeparatorText("State");
 	ImGui::Text("Current State: %s", GetStateName(stateMachine_.GetCurrentState()).c_str());
+
+	// ステートのデバッグUIを描画
+	stateMachine_.DrawImGui();
 #endif
+}
+
+void Enemy::UpdateBeatAnimation()
+{
+	if (pBeatClock_)
+	{
+		// 拍に同期したコサイン波で拡縮する
+		float beat = pBeatClock_->GetCurrentBeat();
+		float scale = baseScale_ + scaleAmplitude_ * std::cos(beat * 2.0f * std::numbers::pi_v<float>);
+		SetScale({ scale, scale, scale });
+	}
+	else
+	{
+		// タイマーの加算
+		timer_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
+
+		// 経過時間に基づいたサイン波
+		float scale = baseScale_ + scaleAmplitude_ * std::sin(timer_ * scaleSpeed_);
+		SetScale({ scale, scale, scale });
+	}
 }
