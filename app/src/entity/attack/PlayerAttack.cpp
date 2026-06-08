@@ -5,7 +5,7 @@
 
 #include <type/ColliderTypeID.h>
 
-PlayerAttack::PlayerAttack(InitData& initData)
+PlayerAttack::PlayerAttack(InitData& initData) : model_(initData.model)
 {
     // プレゼンテーションの生成
     pPresentation_ = std::make_unique<PlayerAttackPresentation>(initData.emitterManager);
@@ -32,9 +32,10 @@ PlayerAttack::PlayerAttack(InitData& initData)
 
     // コライダーの有効時間を設定
     colliderTimer_.Enable(kColliderActiveTime_);
+    // プレゼンテーションにコライダーの位置参照を渡す
+    pPresentation_->SetColliderPositionRef(&initData.position);
 
-    pPresentation_->SetColliderPositionRef(&transform_.translate);
-
+    model_.SetAnimation("PlayerAttack");
 }
 
 void PlayerAttack::Update(float deltaTime)

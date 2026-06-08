@@ -164,6 +164,7 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\state\PlayerStateIdle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -495,6 +496,8 @@
     <ClInclude Include="src\component\IState.h" />
     <ClInclude Include="src\component\StateMachine.hpp" />
     <ClInclude Include="src\character\player\state\PlayerStateContext.h" />
+    <ClInclude Include="src\character\player\state\PlayerStateIdle.h" />
+    <ClInclude Include="src\common\PlayerAttackRequest.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

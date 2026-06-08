@@ -5,7 +5,7 @@ class IState
 {
 public:
     virtual ~IState() = default;
-    virtual void Enter(Context&) = 0;
-    virtual void Update(Context&) = 0;
-    virtual void Exit(Context&) = 0;
+    virtual void Enter(Context& ctx) = 0;
+    virtual void Update(Context& ctx) = 0;
+    virtual void Exit(Context& ctx) = 0;
 };

@@ -1,10 +1,13 @@
 #include "Enemy.h"
 #include <CollisionManager.h>
 #include <Input.h>
-#include <imgui.h>
-#include <DebugUIManager.h>
 #include <type/ColliderTypeID.h>
 #include <FrameTimer.h>
+
+#ifdef _DEBUG
+#include <DebugUIManager.h>
+#include <imgui.h>
+#endif // _DEBUG
 
 Enemy::Enemy(const ICharacter* target)
 	: pTarget_(target)
@@ -48,8 +51,10 @@ void Enemy::Initialize()
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
+#ifdef _DEBUG
 	// デバッグUIの登録
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
+#endif // _DEBUG
 
 	// ステートの初期化。｛　待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase }, this, pTarget_);
