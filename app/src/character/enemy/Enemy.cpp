@@ -49,16 +49,17 @@ void Enemy::Initialize()
 	auto collisionManager = Tako::CollisionManager::GetInstance();
 	collisionManager->AddCollider(pCollider_.get());
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
 	// ステートの初期化。｛　待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
-    pHp_ = std::make_unique<HPComponent>();
-    // HPコンポーネントの初期化 TODO : 仮の値
-    pHp_->Initialize(100);
-    // コライダーにHPコンポーネントをセット
-    pCollider_->SetHPComponent(pHp_.get());
+	pHp_ = std::make_unique<HPComponent>();
+	// HPコンポーネントの初期化 TODO : 仮の値
+	pHp_->Initialize(100);
+	// コライダーにHPコンポーネントをセット
+	pCollider_->SetHPComponent(pHp_.get());
 }
 
 void Enemy::Update()
