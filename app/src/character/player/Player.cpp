@@ -7,6 +7,7 @@
 #include <ozSound/audio/SoundEngine.h>
 #include <utility/DeltaTimeManager.h>
 #include <Model.h>
+#include "state/PlayerStateContext.h"
 
 #ifdef _DEBUG
 #include <debug/DebugRegisterer.h>
@@ -70,6 +71,12 @@ void Player::Initialize()
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::PlayerAttack), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 
+    // ステートマシンの初期化
+    pStateMachine_ = std::make_unique<StateMachine<PlayerStateContext>>();
+    
+    // 初期状態を設定（例: IdleState）
+    auto ctx = PlayerStateContext{ *this };
+    pStateMachine_->ChangeState(/* 初期状態のインスタンス */, ctx);
 }
 
 void Player::Finalize()

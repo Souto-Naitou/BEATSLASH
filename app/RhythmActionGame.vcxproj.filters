@@ -492,8 +492,9 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player\state\PlayerState.h" />
-    <ClInclude Include="src\component\StateMachine.h" />
+    <ClInclude Include="src\component\IState.h" />
+    <ClInclude Include="src\component\StateMachine.hpp" />
+    <ClInclude Include="src\character\player\state\PlayerStateContext.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
