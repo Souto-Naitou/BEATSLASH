@@ -1,5 +1,7 @@
 #pragma once
 #include <character/ICharacter.h>
+
+class BeatClock;
 #include <character/enemy/state/EnemyStateMachine.h>
 #include <Object3d.h>
 #include <character/enemy/collider/EnemyCollider.h>
@@ -8,7 +10,7 @@
 class Enemy : public ICharacter
 {
 public:
-	Enemy(const ICharacter* target);
+	Enemy(const ICharacter* target, const BeatClock* beatClock = nullptr);
 	~Enemy() override;
 	void Initialize() override;
 	void Update() override;
@@ -42,6 +44,12 @@ public:
     bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
 
 	/**
+	 * @brief ビートクロックの取得
+	 * @return ビートクロックのポインタ
+	 */
+	const BeatClock* GetBeatClock() const { return pBeatClock_; }
+
+	/**
 	 * @brief デバッグ用のImGui描画を行う。
 	 */
 	void DrawImGui();
@@ -49,6 +57,9 @@ public:
 private:
 	// 状態の切り替え（デバッグ用）
 	bool ChangeState();
+
+	// 拍同期の拡縮アニメーション更新
+	void UpdateBeatAnimation();
 
 private:
 	// モデル
@@ -61,6 +72,14 @@ private:
 	EnemyStateMachine stateMachine_;
 	// ターゲット（所有しない）
 	const ICharacter* pTarget_ = nullptr;
+	// ビートクロックのポインタ（所有しない）
+	const BeatClock* pBeatClock_ = nullptr;
+
+	// 拡縮アニメーション用パラメータ
+	float baseScale_ = 1.0f;
+	float scaleAmplitude_ = 0.1f;
+	float scaleSpeed_ = 14.0f;
+	float timer_ = 0.0f;
 
 	// 重力
 	static constexpr float kGravity = -9.8f;

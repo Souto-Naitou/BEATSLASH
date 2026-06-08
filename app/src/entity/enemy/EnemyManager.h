@@ -1,5 +1,7 @@
 #pragma once
 #include "EnemiesOnField.h"
+
+class BeatClock;
 #include "EnemySpawner.h"
 #include <array>
 
@@ -15,8 +17,9 @@ public:
 	/**
 	 * @brief コンストラクタ
 	 * @param target プレイヤー（ターゲット）のポインタ
+	 * @param beatClock ビートクロックのポインタ
 	 */
-	EnemyManager(const ICharacter* target);
+	EnemyManager(const ICharacter* target, const BeatClock* beatClock);
 
 	/**
 	 * @brief 指定したアクティブステージの敵の更新処理を行う。
@@ -60,10 +63,13 @@ private:
 	// ターゲット（プレイヤー）のポインタ
 	const ICharacter* pTarget_ = nullptr;
 
+	// ビートクロックのポインタ
+	const BeatClock* pBeatClock_ = nullptr;
+
 	// フィールド上の敵の管理
 	std::array<EnemiesOnField, kMaxStages> enemiesOnField_;
 	
 	// 敵のスポナー
-	EnemySpawner spawner_{ pTarget_ };
+	EnemySpawner spawner_;
 };
 

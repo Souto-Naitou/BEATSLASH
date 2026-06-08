@@ -5,9 +5,12 @@
 #include <DebugUIManager.h>
 #include <type/ColliderTypeID.h>
 #include <FrameTimer.h>
+#include <manager/BeatManager.h>
+#include <numbers>
 
-Enemy::Enemy(const ICharacter* target)
+Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock)
 	: pTarget_(target)
+	, pBeatClock_(beatClock)
 {}
 
 Enemy::~Enemy()
@@ -69,6 +72,9 @@ void Enemy::Update()
 		stateMachine_.Update();
 	}
 
+	// 拍同期の拡縮アニメーションを適用する
+	UpdateBeatAnimation();
+
 	// 重力の適用
 	transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
@@ -116,4 +122,24 @@ void Enemy::DrawImGui()
 	// ステートのデバッグUIを描画
 	stateMachine_.DrawImGui();
 #endif
+}
+
+void Enemy::UpdateBeatAnimation()
+{
+	if (pBeatClock_)
+	{
+		// 拍に同期したコサイン波で拡縮する
+		float beat = pBeatClock_->GetCurrentBeat();
+		float scale = baseScale_ + scaleAmplitude_ * std::cos(beat * 2.0f * std::numbers::pi_v<float>);
+		SetScale({ scale, scale, scale });
+	}
+	else
+	{
+		// タイマーの加算
+		timer_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
+
+		// 経過時間に基づいたサイン波
+		float scale = baseScale_ + scaleAmplitude_ * std::sin(timer_ * scaleSpeed_);
+		SetScale({ scale, scale, scale });
+	}
 }

@@ -1,11 +1,14 @@
 #pragma once
 #include <character/ICharacter.h>
+
+class BeatClock;
 #include <character/enemy/Enemy.h>
 
 class EnemySpawner
 {
 public:
-	EnemySpawner(const ICharacter* target) : pTarget_(target) {}
+	EnemySpawner(const ICharacter* target = nullptr, const BeatClock* beatClock = nullptr)
+		: pTarget_(target), pBeatClock_(beatClock) {}
 	~EnemySpawner() = default;
 
 	/// <summary>
@@ -25,5 +28,7 @@ public:
 private:
 	// ターゲットのポインタ
 	const ICharacter* pTarget_ = nullptr;
+	// ビートクロックのポインタ
+	const BeatClock* pBeatClock_ = nullptr;
 };
 

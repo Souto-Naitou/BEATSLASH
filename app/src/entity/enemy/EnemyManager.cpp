@@ -1,9 +1,12 @@
 #include "EnemyManager.h"
 #include <imgui.h>
 #include <DebugUIManager.h>
+#include <manager/BeatManager.h>
 
-EnemyManager::EnemyManager(const ICharacter* target)
+EnemyManager::EnemyManager(const ICharacter* target, const BeatClock* beatClock)
 	: pTarget_(target)
+	, pBeatClock_(beatClock)
+	, spawner_(target, beatClock)
 {
 #ifdef _DEBUG
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("EnemyManager", [this]() { this->DrawImGui(); });
