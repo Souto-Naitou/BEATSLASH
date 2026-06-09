@@ -14,8 +14,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
+
+      - name: Initialize submodules
+        shell: pwsh
+        run: |
+          if (Test-Path ".git/modules") {
+            Remove-Item -Recurse -Force ".git/modules"
+          }
+          if (Test-Path "module/TakoEngine") {
+            Remove-Item -Recurse -Force "module/TakoEngine"
+          }
+          git submodule sync --recursive
+          git submodule update --init --recursive
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
