@@ -25,6 +25,9 @@
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp">
       <Filter>character\enemy\state</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemySpawnState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\enemy\Enemy.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
@@ -292,6 +295,9 @@
       <Filter>character\enemy\state</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemySpawnState.h">
       <Filter>character\enemy\state</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\Enemy.h">

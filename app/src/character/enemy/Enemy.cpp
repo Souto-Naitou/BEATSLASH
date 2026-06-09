@@ -54,8 +54,8 @@ void Enemy::Initialize()
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
-	// ステートの初期化。｛　待機状態、　｝
-	stateMachine_.Initialize({ EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
+	// ステートの初期化。｛　スポーン演出状態、待機状態、　｝
+	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
 	// HPコンポーネントの生成と初期化
 	pHp_ = std::make_unique<HPComponent>();
@@ -75,11 +75,15 @@ void Enemy::Update()
 		stateMachine_.Update();
 	}
 
-	// 拍同期の拡縮アニメーションを適用する
-	UpdateBeatAnimation();
+	// スポーン状態の場合は拡縮アニメーションと重力を適用しない
+	if (stateMachine_.GetCurrentState() != EnemyStateType::Spawn)
+	{
+		// 拍同期の拡縮アニメーションを適用する
+		UpdateBeatAnimation();
 
-	// 重力の適用
-	transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
+		// 重力の適用
+		transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
+	}
 
 	// トランスフォームの更新
 	pModel_->SetTransform(transform_);

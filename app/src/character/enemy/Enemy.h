@@ -44,6 +44,12 @@ public:
 	bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
 
 	/**
+	 * @brief HPコンポーネントの取得
+	 * @return HPコンポーネントのポインタ
+	 */
+	HPComponent* GetHPComponent() { return pHp_.get(); }
+
+	/**
 	 * @brief ビートクロックの取得
 	 * @return ビートクロックのポインタ
 	 */
