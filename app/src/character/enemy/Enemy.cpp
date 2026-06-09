@@ -6,6 +6,10 @@
 #include <manager/BeatManager.h>
 #include <numbers>
 
+#ifdef _DEBUG
+#include <imgui.h>
+#endif // _DEBUG
+
 Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock)
 	: pTarget_(target)
 	, pBeatClock_(beatClock)
