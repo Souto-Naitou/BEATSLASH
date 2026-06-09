@@ -40,7 +40,8 @@ void PlayerInput::Update()
         data_.jumpHoldTime = 0.0f;
     }
     // 攻撃
-    data_.isAttackTriggered = pInput_->TriggerMouse(0);
+    //data_.isAttackTriggered = pInput_->TriggerMouse(0);
+    data_.isAttackTriggered = pInput_->TriggerKey(DIK_E);
     // オーバードライブ
     data_.isOverdriveTriggered = pInput_->TriggerKey(DIK_F); // TODO: 仮操作
     // アップテンポ

@@ -1,8 +1,11 @@
 #include "EnemiesOnField.h"
 
 #include <character/enemy/Enemy.h>
-#include <imgui.h>
 #include <string>
+
+#ifdef _DEBUG
+#include <imgui.h>
+#endif // _DEBUG
 
 void EnemiesOnField::Add(std::unique_ptr<Enemy> enemy)
 {

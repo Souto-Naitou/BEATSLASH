@@ -1,7 +1,10 @@
 #include "EnemyManager.h"
-#include <imgui.h>
-#include <DebugUIManager.h>
 #include <manager/BeatManager.h>
+
+#ifdef _DEBUG
+#include <DebugUIManager.h>
+#include <imgui.h>
+#endif // _DEBUG
 
 EnemyManager::EnemyManager(const ICharacter* target, const BeatClock* beatClock)
 	: pTarget_(target)

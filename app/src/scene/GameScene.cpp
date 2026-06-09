@@ -34,6 +34,9 @@ void GameScene::Initialize()
     ///              初期化処理              ///
     /// ================================== ///
 
+    /// 画像の読み込み
+    this->LoadImageAll();
+
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
@@ -76,11 +79,13 @@ void GameScene::Initialize()
 
     this->LoadParticleEmitterPresets();
 
+    /// プレイヤー攻撃ファクトリーの初期化
+    /// プレイヤーモデルの参照が必要なため、プレイヤー初期化後に生成する必要がある
     PlayerAttackFactory::Dependencies playerAttackFactoryDeps
     {
         .comboBuffSystem = *pComboBuffSystem_,
         .colliderRepository = colliderRepository_,
-        .emitterManager = *pEmitterManager_
+        .emitterManager = *pEmitterManager_,
     };
     pPlayerAttackFactory_ = std::make_unique<PlayerAttackFactory>(playerAttackFactoryDeps);
 
@@ -253,4 +258,17 @@ void GameScene::LoadParticleEmitterPresets()
 {
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrail);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
+}
+
+void GameScene::LoadImageAll()
+{
+    auto tm = Tako::TextureManager::GetInstance();
+    for (const auto& entry : std::filesystem::recursive_directory_iterator("resources/Texture"))
+    {
+        if (entry.is_regular_file())
+        {
+            auto newPath = std::filesystem::relative(entry.path(), "resources/Texture");
+            tm->LoadTexture(newPath.string());
+        }
+    }
 }

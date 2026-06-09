@@ -1,6 +1,9 @@
 #include "EnemyStateMachine.h"
 #include <character/enemy/state/EnemyStateFactry.h>
+
+#ifdef _DEBUG
 #include <DebugUIManager.h>
+#endif // _DEBUG
 
 void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target)
 {
@@ -20,6 +23,10 @@ void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTy
 	if (states_.find(currentStateType_) != states_.end())
 	{
 		states_[currentStateType_]->Enter(owner_);
+#ifdef _DEBUG
+		// デバッグUIに登録
+		Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy State", [this]() { states_[currentStateType_]->DrawImGui(owner_); });
+#endif // _DEBUG
 	}
 }
 

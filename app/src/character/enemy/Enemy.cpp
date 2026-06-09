@@ -1,12 +1,14 @@
 #include "Enemy.h"
 #include <CollisionManager.h>
 #include <Input.h>
-#include <imgui.h>
-#include <DebugUIManager.h>
 #include <type/ColliderTypeID.h>
 #include <FrameTimer.h>
 #include <manager/BeatManager.h>
 #include <numbers>
+
+#ifdef _DEBUG
+#include <imgui.h>
+#endif // _DEBUG
 
 Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock)
 	: pTarget_(target)

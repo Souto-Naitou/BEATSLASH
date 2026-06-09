@@ -18,6 +18,7 @@ class PlayerAttackPresentation
 {
 public:
     PlayerAttackPresentation(Tako::EmitterManager& emitterManager);
+    ~PlayerAttackPresentation();
     void Update();
     void OnHit();
 

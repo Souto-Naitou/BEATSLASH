@@ -6,23 +6,25 @@ env:
 jobs:
   build:
     strategy:
+      fail-fast: true
       matrix:
-        configuration: [Debug, Release]
-
+        configuration:
+          - Debug
+          - Release
+    
     runs-on: self-hosted
-
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
+          fetch-depth: 0
+    
+      - uses: microsoft/setup-msbuild@v2
         with:
           msbuild-architecture: x64
-
-      - name: Build
+    
+      - shell: powershell
         run: |
-          msbuild ${{env.SOLUTION_FILE_PATH}} /t:Clean /p:Platform=x64,Configuration=${{matrix.configuration}}
-          msbuild ${{env.SOLUTION_FILE_PATH}} /t:Build /p:Platform=x64,Configuration=${{matrix.configuration}}
+          msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
+          msbuild $env:SOLUTION_FILE_PATH /t:Build /m /p:Platform=x64,Configuration=${{ matrix.configuration }}

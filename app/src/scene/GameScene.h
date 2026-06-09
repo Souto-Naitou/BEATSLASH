@@ -54,6 +54,7 @@ public: // メンバ関数
 
 private: // メンバ関数
     void LoadParticleEmitterPresets();
+    void LoadImageAll();
 
 private: // メンバ変数
     std::unique_ptr<Player>                 pPlayer_;               // !< プレイヤー
@@ -71,6 +72,4 @@ private: // メンバ変数
     std::unique_ptr<CameraDirector>         pCameraDirector_;       // !< カメラディレクターのインスタンス
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
-
-
 };

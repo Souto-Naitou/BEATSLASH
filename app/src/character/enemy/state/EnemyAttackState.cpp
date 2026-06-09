@@ -5,7 +5,10 @@
 #include <FrameTimer.h>
 #include <cmath>
 #include <manager/BeatManager.h>
+
+#ifdef _DEBUG
 #include <imgui.h>
+#endif // _DEBUG
 
 EnemyAttackState::EnemyAttackState(const ICharacter* target)
 	: pTarget_(target)

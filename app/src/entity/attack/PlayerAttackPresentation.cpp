@@ -15,8 +15,13 @@ PlayerAttackPresentation::PlayerAttackPresentation(Tako::EmitterManager& emitter
     /// トレイルの初期エミッターを作成しておく（位置は毎フレーム更新）
     auto& index = emitterIndexMap_.at(Global::ParticleEmitterPresetNames::kTrail);
     uniqueNameTrail_ = std::string(Global::ParticleEmitterPresetNames::kTrail) + '_' + std::to_string(index++);
-    emitterManager_.CreateTemporaryEmitterFrom(Global::ParticleEmitterPresetNames::kTrail, uniqueNameTrail_, 1.0f);
+    emitterManager_.CreateTemporaryEmitterFrom(Global::ParticleEmitterPresetNames::kTrail, uniqueNameTrail_, 3.0f);
     emitterManager_.SetEmitterActive(uniqueNameTrail_, true);
+}
+
+PlayerAttackPresentation::~PlayerAttackPresentation()
+{
+    emitterManager_.SetEmitterActive(uniqueNameTrail_, false);
 }
 
 void PlayerAttackPresentation::Update()

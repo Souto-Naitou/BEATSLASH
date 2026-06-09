@@ -5,6 +5,8 @@
 #include <combo/ComboBuffSystem.h>
 #include <judge/JudgeResutl.h>
 #include <EmitterManager.h>
+#include <Model.h>
+#include <common/PlayerAttackRequest.h>
 
 class PlayerAttackFactory
 {
@@ -18,7 +20,7 @@ public:
 
     PlayerAttackFactory(Dependencies& dependencies);
 
-    std::unique_ptr<PlayerAttack> Create(const Tako::Vector3& position);
+    std::unique_ptr<PlayerAttack> Create(const PlayerAttackRequest& request);
 
     void SetOnJudgeCallback(std::function<void(JudgeResult)> cb) { onJudge_ = std::move(cb); }
 

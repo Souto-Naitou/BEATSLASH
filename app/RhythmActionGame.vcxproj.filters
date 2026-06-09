@@ -170,6 +170,7 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\state\PlayerStateIdle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">

@@ -1,15 +1,21 @@
 #include "Player.h"
 
-#include <FrameTimer.h>
 #include <type/ColliderTypeID.h>
 #include <CollisionManager.h>
 #include <math/VectorMath.h>
 #include <ozSound/audio/SoundEngine.h>
 #include <utility/DeltaTimeManager.h>
+#include <common/PlayerAttackRequest.h>
+#include <debug/DebugRegisterer.h>
 #include <Model.h>
+#include <Vec3Func.h>
+#include <FrameTimer.h>
+
+// ステート
+#include "state/PlayerStateContext.h"
+#include "state/PlayerStateIdle.h"
 
 #ifdef _DEBUG
-#include <debug/DebugRegisterer.h>
 #include <imgui.h>
 #endif // _DEBUG
 
@@ -36,10 +42,9 @@ void Player::Initialize()
     pModel_->SetEnableLighting(true);                       // ライティングを有効にする
     pModel_->SetScale({ 1.0f, 1.0f, 1.0f });                // スケールを設定
     pModel_->SetTranslate({ 0.0f, 8.0f, 0.0f });            // 初期位置を設定
+    // アニメーションのループ設定
     auto trueModel = pModel_->GetModel();
-    trueModel->SetAnimation("PlayerAttack");
-    trueModel->SetAnimationLoop("PlayerAttack", true);
-
+    trueModel->SetAnimationLoop("PlayerAttack", false);
 
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();
@@ -59,26 +64,32 @@ void Player::Initialize()
             pMovement_->ResetVelocityY();
         }
         pModel_->SetTransform(transform_);
-        pModel_->Update();
     });
 
     auto colManeger = Tako::CollisionManager::GetInstance();
-
     colManeger->AddCollider(pCollider_.get());
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::StageTransitionEvent), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Player), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
     colManeger->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::PlayerAttack), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 
+    // ステートマシンの初期化
+    pStateMachine_ = std::make_unique<StateMachine<PlayerStateContext>>();
+
+    // 初期状態を設定（例: IdleState）
+    auto ctx = PlayerStateContext{ *this };
+    pStateMachine_->ChangeState(states_[static_cast<size_t>(State::Idle)].get(), ctx);
+
+    DebugRegister("PlayerModel", &Tako::Object3d::DrawImGui, pModel_.get());
 }
 
 void Player::Finalize()
 {
+    DebugUnregister("PlayerModel");
 }
 
 void Player::Update()
 {
-    //const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
     const float deltaTime = DeltaTimeManager::GetInstance()->GetDeltaTime(DeltaTimeChannelReserved::Game);
 
     // 入力の更新
@@ -96,14 +107,16 @@ void Player::Update()
         float yawCamera = followCamera_.GetRotation().y;
         float angle = VectorToAngle(inputCommand.move);
         transform_.rotate.y = angle + yawCamera;
-        directionAtackSpawning = pMovement_->GetMoveDirection();
     }
     /// 攻撃時
     if (pAttackTrigger_->ShouldAttack(inputCommand))
     {
-        Tako::Vector3 targetPos = transform_.translate;
-        targetPos += directionAtackSpawning * 3.0f; // 攻撃の発生位置をプレイヤーの前方に設定
-        attackRepository_.CreatePlayerAttack(targetPos);
+        PlayerAttackRequest request
+        {
+            .position = jointPosition_,
+            .model = *pModel_->GetModel()
+        };
+        attackRepository_.CreatePlayerAttack(request);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
 
@@ -124,6 +137,12 @@ void Player::Update()
     // モデルの更新
     pModel_->SetTransform(transform_);
     pModel_->Update();
+
+    /// ジョイントのワールド座標を取得して保存
+    auto matrix = pModel_->GetModel()->GetJointWorldMatrix("Tip", pModel_->GetWorldMatrix());
+    jointPosition_ = { matrix.m[3][0], matrix.m[3][1], matrix.m[3][2] };
+    Tako::Vector3 s, r;
+    Tako::Mat4x4::Decompose(matrix, jointPosition_, r, s);
 }
 
 void Player::Draw()
@@ -167,4 +186,9 @@ void Player::InitializeComponents()
 
     pAttackTrigger_ = std::make_unique<PlayerAttackTrigger>();
     pAttackTrigger_->CalculateCooldownTime(beatClock_.GetSecondsPerBeat());
+}
+
+void Player::InitializeStates()
+{
+    states_[static_cast<size_t>(State::Idle)] = std::make_unique<PlayerStateIdle>();
 }

@@ -9,7 +9,7 @@
 			"name":"Scene",
 			"nodes":[
 				0,
-				3
+				4
 			]
 		}
 	],
@@ -19,7 +19,40 @@
 			"name":"Player"
 		},
 		{
-			"name":"\u30dc\u30fc\u30f3"
+			"name":"Tip",
+			"rotation":[
+				0,
+				5.959009286016226e-08,
+				0,
+				1
+			],
+			"translation":[
+				-1.635635271668434e-08,
+				1.0000003576278687,
+				-4.98257577419281e-08
+			]
+		},
+		{
+			"children":[
+				1
+			],
+			"name":"Bone",
+			"rotation":[
+				0,
+				0.7072274088859558,
+				0,
+				0.706986129283905
+			],
+			"scale":[
+				1,
+				0.9999999403953552,
+				1
+			],
+			"translation":[
+				-1.0001733303070068,
+				1.2653716802597046,
+				-0.7490592002868652
+			]
 		},
 		{
 			"mesh":1,
@@ -28,15 +61,10 @@
 		},
 		{
 			"children":[
-				2,
-				1
+				3,
+				2
 			],
-			"name":"\u30a2\u30fc\u30de\u30c1\u30e5\u30a2",
-			"translation":[
-				0.75,
-				1.2663999795913696,
-				-1
-			]
+			"name":"\u30a2\u30fc\u30de\u30c1\u30e5\u30a2"
 		}
 	],
 	"animations":[
@@ -45,19 +73,40 @@
 				{
 					"sampler":0,
 					"target":{
-						"node":1,
+						"node":2,
 						"path":"translation"
 					}
 				},
 				{
 					"sampler":1,
 					"target":{
-						"node":1,
+						"node":2,
 						"path":"rotation"
 					}
 				},
 				{
 					"sampler":2,
+					"target":{
+						"node":2,
+						"path":"scale"
+					}
+				},
+				{
+					"sampler":3,
+					"target":{
+						"node":1,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":4,
+					"target":{
+						"node":1,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":5,
 					"target":{
 						"node":1,
 						"path":"scale"
@@ -80,6 +129,21 @@
 					"input":14,
 					"interpolation":"STEP",
 					"output":15
+				},
+				{
+					"input":14,
+					"interpolation":"STEP",
+					"output":16
+				},
+				{
+					"input":14,
+					"interpolation":"STEP",
+					"output":17
+				},
+				{
+					"input":14,
+					"interpolation":"STEP",
+					"output":18
 				}
 			]
 		}
@@ -135,6 +199,7 @@
 		{
 			"inverseBindMatrices":10,
 			"joints":[
+				2,
 				1
 			],
 			"name":"\u30a2\u30fc\u30de\u30c1\u30e5\u30a2"
@@ -146,14 +211,14 @@
 			"componentType":5126,
 			"count":24,
 			"max":[
-				0.5,
-				2,
-				0.5
+				0.5000824928283691,
+				1.9989718198776245,
+				0.5005994439125061
 			],
 			"min":[
-				-0.5,
-				0,
-				-0.5
+				-0.49991747736930847,
+				-0.0010281228460371494,
+				-0.4994005560874939
 			],
 			"type":"VEC3"
 		},
@@ -180,14 +245,14 @@
 			"componentType":5126,
 			"count":24,
 			"max":[
-				0.949999988079071,
-				2.255152702331543,
-				-0.7916650176048279
+				-0.7917701601982117,
+				2.254124641418457,
+				-0.5489937663078308
 			],
 			"min":[
-				0.550000011920929,
-				1.2551528215408325,
-				-1.1916650533676147
+				-1.1919065713882446,
+				1.2541245222091675,
+				-0.9491302371025085
 			],
 			"type":"VEC3"
 		},
@@ -224,7 +289,7 @@
 		{
 			"bufferView":10,
 			"componentType":5126,
-			"count":1,
+			"count":2,
 			"type":"MAT4"
 		},
 		{
@@ -265,6 +330,24 @@
 		},
 		{
 			"bufferView":15,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":16,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":17,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":18,
 			"componentType":5126,
 			"count":2,
 			"type":"VEC3"
@@ -333,38 +416,53 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":64,
+			"byteLength":128,
 			"byteOffset":2160
 		},
 		{
 			"buffer":0,
 			"byteLength":96,
-			"byteOffset":2224
+			"byteOffset":2288
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":2320
+			"byteOffset":2384
 		},
 		{
 			"buffer":0,
 			"byteLength":384,
-			"byteOffset":2608
+			"byteOffset":2672
 		},
 		{
 			"buffer":0,
 			"byteLength":8,
-			"byteOffset":2992
+			"byteOffset":3056
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":3000
+			"byteOffset":3064
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":3088
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":3112
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":3144
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":3024,
+			"byteLength":3168,
 			"uri":"PlayerAttack.bin"
 		}
 	]

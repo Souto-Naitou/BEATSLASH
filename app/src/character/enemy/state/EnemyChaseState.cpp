@@ -3,7 +3,10 @@
 #include <character/enemy/Enemy.h>
 #include <manager/BeatManager.h>
 #include <FrameTimer.h>
+
+#ifdef _DEBUG
 #include <imgui.h>
+#endif // _DEBUG
 
 EnemyChaseState::EnemyChaseState(const ICharacter* target)
 	: pTarget_(target)
@@ -42,6 +45,7 @@ void EnemyChaseState::Update(Enemy* enemy)
 
 void EnemyChaseState::DrawImGui(Enemy* enemy)
 {
+#ifdef _DEBUG
 	if (pTarget_)
 	{
 		// ターゲットの座標を表示
@@ -53,6 +57,7 @@ void EnemyChaseState::DrawImGui(Enemy* enemy)
 		float distanceSq = toTarget.LengthSquared();
 		ImGui::Text("DistanceSquared : %.2f, Distance : %.2f", distanceSq, std::sqrt(distanceSq));
 	}
+#endif // _DEBUG
 }
 
 std::optional<EnemyStateType> EnemyChaseState::CheckTransition(Enemy* enemy)
