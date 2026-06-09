@@ -37,6 +37,9 @@
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp">
       <Filter>character\player</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\state\PlayerStateIdle.cpp">
+      <Filter>character\player\state</Filter>
+    </ClCompile>
     <ClCompile Include="src\combo\ComboBuffSystem.cpp">
       <Filter>combo</Filter>
     </ClCompile>
@@ -170,7 +173,6 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player\state\PlayerStateIdle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -331,13 +333,19 @@
     <ClInclude Include="src\character\player\PlayerMovement.h">
       <Filter>character\player</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player\state\PlayerState.h">
+    <ClInclude Include="src\character\player\state\PlayerStateContext.h">
+      <Filter>character\player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\state\PlayerStateIdle.h">
       <Filter>character\player\state</Filter>
     </ClInclude>
     <ClInclude Include="src\combo\ComboBuffSystem.h">
       <Filter>combo</Filter>
     </ClInclude>
     <ClInclude Include="src\common\ParticleEmitterPresetNames.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\PlayerAttackRequest.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h">
