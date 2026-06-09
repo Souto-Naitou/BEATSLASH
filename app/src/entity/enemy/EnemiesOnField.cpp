@@ -67,11 +67,22 @@ void EnemiesOnField::DrawImGui(uint32_t stageIndex)
 					if (ImGui::TreeNode(enemyLabel.c_str()))
 					{
 						enemy->DrawImGui();
+
+						if (ImGui::Button("Delete Enemy"))
+						{
+							// HPを0にし、次のUpdateのタイミングで安全にリストから消去されるようにする
+							if (auto hpComponent = enemy->GetHPComponent())
+							{
+								hpComponent->Damage(hpComponent->GetCurrentHP());
+							}
+						}
+
 						ImGui::TreePop();
 					}
 					enemyIndex++;
 				}
 			}
+
 			ImGui::TreePop();
 		}
 	}
