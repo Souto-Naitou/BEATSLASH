@@ -50,11 +50,14 @@ void Player::Initialize()
     transform_ = pModel_->GetTransform();
     // コンポーネントの初期化
     this->InitializeComponents();
-    const float modelBaseSize = 3.0f;
+
+    colliderTransform_ = transform_;
+    colliderTransform_.translate.y = kColliderHeight_ * 0.5f;
+
     // コライダーの初期化
     pCollider_ = std::make_unique<PlayerCollider>();
-    pCollider_->SetSize(pModel_->GetScale() * modelBaseSize);
-    pCollider_->SetTransform(&transform_);
+    pCollider_->SetSize(pModel_->GetScale() * kColliderHeight_);
+    pCollider_->SetTransform(&colliderTransform_);
     pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Player));
     pCollider_->SetPushBackCallback([this](const Tako::Vector3& pushBack)
     {
@@ -105,6 +108,8 @@ void Player::Update()
     pMovement_->ApplyFriction(kFrictionPower_);
     pMovement_->ApplyGravity(kMass_, deltaTime);
     pMovement_->Update(transform_, deltaTime);
+    colliderTransform_ = transform_;
+    colliderTransform_.translate.y += kColliderHeight_ * 0.5f;
 
     /// 移動しているときだけ向きを変える
     /// TODO: クラスに分離する

@@ -58,7 +58,7 @@ private: // メンバ関数
 
 private: // メンバ変数
     std::unique_ptr<Player>                 pPlayer_;               // !< プレイヤー
-    std::unique_ptr<EnemyManager> pEnemyManager_;                   // !< 敵のマネージャー
+    std::unique_ptr<EnemyManager>           pEnemyManager_;         // !< 敵のマネージャー
     std::unique_ptr<StageSequence>          pStage_;                // !< ステージクラスのインスタンス
     std::unique_ptr<AttackRepository>       pAttackRepository_;     // !< コライダーリポジトリのインスタンス
     std::unique_ptr<FollowCamera>           pFollowCamera_;         // !< カメラクラスのインスタンス

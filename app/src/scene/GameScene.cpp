@@ -127,14 +127,12 @@ void GameScene::Initialize()
         1,
         1.0f                      // 強度
     );
-    //obj3d->SetSceneCenter(Vector3(0.0f, 0.0f, 0.0f));  // デフォルト値
+
     obj3d->SetAutoUpdatePosition(true);  // デフォルト値
 
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
-    //ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
-    // ↑だとどうしてもずれが気になる
     pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
     pBeatClock_->Start();
 }
@@ -257,6 +255,7 @@ void GameScene::DrawImGui()
 void GameScene::LoadParticleEmitterPresets()
 {
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrail);
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrailBlackBlue);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
 }
 
