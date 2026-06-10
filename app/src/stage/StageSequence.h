@@ -32,6 +32,15 @@ public:
     // カメラ補間完了後に呼ぶ
     void OpenCurrentDoor();
 
+    /**
+     * @brief 現在のステージインデックスを取得する。
+     * @return 現在のステージインデックス
+     */
+    int32_t GetCurrentIndex() const
+    {
+        return currentIndex_;
+    }
+
 
 private:
 

@@ -16,11 +16,19 @@ public:
 	// 状態の更新
 	void Update();
 
+	// 状態の描画
+	void Draw();
+
 	// 状態の切り替え
 	void ChangeState(EnemyStateType newStateType);
 
 	// 現在の状態の取得
 	EnemyStateType GetCurrentState() const { return currentStateType_; }
+
+	/**
+	 * @brief デバッグ用のImGui描画を行う。
+	 */
+	void DrawImGui();
 
 private:
 	// 状態の管理

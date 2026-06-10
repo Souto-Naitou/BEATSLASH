@@ -84,21 +84,21 @@
     class GameParameterData
     {
     public:
-            GameParameterData(const std::string&, const std::string&, ValueType&& value = {}) {}
-            GameParameterData(const GameParameterData&) = delete;
-            GameParameterData& operator=(const GameParameterData&) = delete;
-            ValueType& operator=(const ValueType& newValue)
-            {
-                v_ = newValue;
-                return v_;
-            }
-            operator ValueType& () { return v_; }
-            operator const ValueType& () const { return v_; }
-            ValueType* operator-> () { return &v_; }
-            const ValueType* operator-> () const { return &v_; }
-            ValueType* GetPtr() { return &v_; }
-            ValueType& Get() { return v_; }
-            const ValueType& Get() const { return v_; }
+        GameParameterData(const std::string&, const std::string&, ValueType&& value = {}) : v_(std::move(value)) {}
+        GameParameterData(const GameParameterData&) = delete;
+        GameParameterData& operator=(const GameParameterData&) = delete;
+        ValueType& operator=(const ValueType& newValue)
+        {
+            v_ = newValue;
+            return v_;
+        }
+        operator ValueType& () { return v_; }
+        operator const ValueType& () const { return v_; }
+        ValueType* operator-> () { return &v_; }
+        const ValueType* operator-> () const { return &v_; }
+        ValueType* GetPtr() { return &v_; }
+        ValueType& Get() { return v_; }
+        const ValueType& Get() const { return v_; }
     private:
         ValueType v_ = {};
     };

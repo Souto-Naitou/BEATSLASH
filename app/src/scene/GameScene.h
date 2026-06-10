@@ -8,7 +8,7 @@
 #include <physics/ColliderRepository.h>
 #include <entity/attack/AttackRepository.h>
 #include <entity/camera/CameraDirector.h>
-#include <entity/enemy/EnemiesOnField.h>
+#include <entity/enemy/EnemyManager.h>
 
 #include <combo/ComboSystem.h>
 #include <judge/InputTimingJudge.h>
@@ -54,10 +54,11 @@ public: // メンバ関数
 
 private: // メンバ関数
     void LoadParticleEmitterPresets();
+    void LoadImageAll();
 
 private: // メンバ変数
     std::unique_ptr<Player>                 pPlayer_;               // !< プレイヤー
-    std::unique_ptr<EnemiesOnField>         pEnemies_;              // !< 敵
+    std::unique_ptr<EnemyManager> pEnemyManager_;                   // !< 敵のマネージャー
     std::unique_ptr<StageSequence>          pStage_;                // !< ステージクラスのインスタンス
     std::unique_ptr<AttackRepository>       pAttackRepository_;     // !< コライダーリポジトリのインスタンス
     std::unique_ptr<FollowCamera>           pFollowCamera_;         // !< カメラクラスのインスタンス
@@ -71,6 +72,4 @@ private: // メンバ変数
     std::unique_ptr<CameraDirector>         pCameraDirector_;       // !< カメラディレクターのインスタンス
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
-
-
 };

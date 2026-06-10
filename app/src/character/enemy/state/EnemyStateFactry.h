@@ -3,6 +3,7 @@
 #include <character/enemy/state/EnemyStateType.h>
 #include <character/enemy/state/EnemyState.h>
 #include <memory>
+#include "EnemySpawnState.h"
 #include "EnemyIdleState.h"
 #include "EnemyChaseState.h"
 #include "EnemyAttackState.h"
@@ -16,6 +17,8 @@ public:
 	{
 		switch (type)
 		{
+		case EnemyStateType::Spawn:
+			return std::make_unique<EnemySpawnState>();
 		case EnemyStateType::Idle:
 			return std::make_unique<EnemyIdleState>(target);
 		case EnemyStateType::Chase:

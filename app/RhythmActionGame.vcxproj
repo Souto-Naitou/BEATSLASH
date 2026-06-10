@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="AddressSanitizer|x64">
@@ -30,16 +30,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\entity\enemy\EnemyManager.cpp" />
+    <ClCompile Include="src\entity\enemy\EnemySpawner.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemySpawnState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
+    <ClCompile Include="src\character\player\state\PlayerStateIdle.cpp" />
     <ClCompile Include="src\combo\ComboBuffSystem.cpp" />
     <ClCompile Include="src\component\collider\PlayerAttackCollider.cpp" />
     <ClCompile Include="src\component\HPComponent.cpp" />
@@ -93,11 +97,14 @@
     <ClCompile Include="src\utility\StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity\enemy\EnemyManager.h" />
+    <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
     <ClInclude Include="src\character\enemy\state\EnemyAttackState.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h" />
     <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
+    <ClInclude Include="src\character\enemy\state\EnemySpawnState.h" />
     <ClInclude Include="src\character\enemy\Enemy.h" />
     <ClInclude Include="src\character\enemy\state\EnemyState.h" />
     <ClInclude Include="src\character\ICharacter.h" />
@@ -111,14 +118,19 @@
     <ClInclude Include="src\character\player\PlayerAttackHitReceiver.h" />
     <ClInclude Include="src\character\player\PlayerInput.h" />
     <ClInclude Include="src\character\player\PlayerMovement.h" />
+    <ClInclude Include="src\character\player\state\PlayerStateContext.h" />
+    <ClInclude Include="src\character\player\state\PlayerStateIdle.h" />
     <ClInclude Include="src\combo\ComboBuffSystem.h" />
     <ClInclude Include="src\common\ParticleEmitterPresetNames.h" />
+    <ClInclude Include="src\common\PlayerAttackRequest.h" />
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h" />
     <ClInclude Include="src\combo\ComboSystem.h" />
     <ClInclude Include="src\component\collider\PlayerCollider.h" />
     <ClInclude Include="src\component\HPComponent.h" />
     <ClInclude Include="src\component\IMovement.h" />
+    <ClInclude Include="src\component\IState.h" />
     <ClInclude Include="src\component\PhysicsMovement.h" />
+    <ClInclude Include="src\component\StateMachine.hpp" />
     <ClInclude Include="src\debug\DebugEntry.h" />
     <ClInclude Include="src\debug\DebugRegisterer.h" />
     <ClInclude Include="src\debug\DebugUIWrapper.h" />

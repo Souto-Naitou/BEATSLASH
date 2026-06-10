@@ -18,8 +18,8 @@ void AttackRepository::EraseInactiveAttacks()
     });
 }
 
-void AttackRepository::CreatePlayerAttack(const Tako::Vector3& position)
+void AttackRepository::CreatePlayerAttack(const PlayerAttackRequest& request)
 {
-    auto attack = factories_.pPlayerAttackFactory->Create(position);
+    auto attack = factories_.pPlayerAttackFactory->Create(request);
     playerAttacks_.emplace_back(std::move(attack));
 }

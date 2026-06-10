@@ -5,6 +5,7 @@
 #include <entity/attack/PlayerAttack.h>
 #include <factory/PlayerAttackFactory.h>
 #include <judge/JudgeResutl.h>
+#include <common/PlayerAttackRequest.h>
 
 class ComboSystem;
 
@@ -26,7 +27,7 @@ public:
 
     void EraseInactiveAttacks();
 
-    void CreatePlayerAttack(const Tako::Vector3& position);
+    void CreatePlayerAttack(const PlayerAttackRequest& request);
 
     void SetOnJudgeCallback(std::function<void(JudgeResult)> cb)
     {

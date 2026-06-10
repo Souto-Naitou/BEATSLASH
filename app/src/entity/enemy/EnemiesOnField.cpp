@@ -1,6 +1,11 @@
 #include "EnemiesOnField.h"
 
 #include <character/enemy/Enemy.h>
+#include <string>
+
+#ifdef _DEBUG
+#include <imgui.h>
+#endif // _DEBUG
 
 void EnemiesOnField::Add(std::unique_ptr<Enemy> enemy)
 {
@@ -42,4 +47,58 @@ void EnemiesOnField::Draw()
 bool EnemiesOnField::IsEmpty() const
 {
     return enemies_.empty();
+}
+
+void EnemiesOnField::DrawImGui(uint32_t stageIndex)
+{
+#ifdef _DEBUG
+	size_t count = GetCount();
+	if (count > 0)
+	{
+		std::string stageLabel = "Stage " + std::to_string(stageIndex) + " (" + std::to_string(count) + " enemies)";
+		if (ImGui::TreeNode(stageLabel.c_str()))
+		{
+			if (ImGui::Button("Delete All Enemies"))
+			{
+				for (auto& enemy : enemies_)
+				{
+					if (enemy)
+					{
+						if (auto hpComponent = enemy->GetHPComponent())
+						{
+							hpComponent->Damage(hpComponent->GetCurrentHP());
+						}
+					}
+				}
+			}
+
+			int enemyIndex = 0;
+			for (auto& enemy : enemies_)
+			{
+				if (enemy)
+				{
+					std::string enemyLabel = "Enemy " + std::to_string(enemyIndex) + " (Address: " + std::to_string(reinterpret_cast<uintptr_t>(enemy.get())) + ")";
+					if (ImGui::TreeNode(enemyLabel.c_str()))
+					{
+						enemy->DrawImGui();
+
+						if (ImGui::Button("Delete Enemy"))
+						{
+							// HPを0にし、次のUpdateのタイミングで安全にリストから消去されるようにする
+							if (auto hpComponent = enemy->GetHPComponent())
+							{
+								hpComponent->Damage(hpComponent->GetCurrentHP());
+							}
+						}
+
+						ImGui::TreePop();
+					}
+					enemyIndex++;
+				}
+			}
+
+			ImGui::TreePop();
+		}
+	}
+#endif
 }
