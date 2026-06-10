@@ -18,7 +18,7 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
         if (pushBackCallback_)
             pushBackCallback_(pushback);
     }
-    else if(otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::EnemyAttack)
+    else if(otherID == ColliderTypeID::EnemyAttack)
     {
         if(pComboBuffSystem_)
         {
