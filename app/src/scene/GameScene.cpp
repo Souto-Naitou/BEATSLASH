@@ -117,7 +117,7 @@ void GameScene::Initialize()
     // テスト用にステージ0に敵をスポーン
     pEnemyManager_->SpawnEnemy(0, Tako::Vector3{ 0.0f, 150.0f, 0.0f });
 
-    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_,*pBeatClock_);
+    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_,*pBeatClock_,pPlayer_->GetHPComponent());
     pGameHUD_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();

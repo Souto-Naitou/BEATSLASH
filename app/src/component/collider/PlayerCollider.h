@@ -6,6 +6,7 @@
 using PlayerPushBackCallback = std::function<void(const Tako::Vector3& pushback)>;
 
 class ComboBuffSystem;
+class HPComponent;
 
 class PlayerCollider : public Tako::OBBCollider
 {
@@ -22,8 +23,10 @@ public:
 
     void SetPushBackCallback(PlayerPushBackCallback callback) { pushBackCallback_ = callback; }
     void SetComboSystem(ComboBuffSystem* comboBuffSystem) { pComboBuffSystem_ = comboBuffSystem; }
+    void SetHPComponent(HPComponent* hpComponent) { pHPComponent_ = hpComponent; }
 private:
 
     PlayerPushBackCallback pushBackCallback_;
     ComboBuffSystem* pComboBuffSystem_ = nullptr; // コンボシステムの参照
+    HPComponent* pHPComponent_ = nullptr; // HPコンポーネントの参照
 };
