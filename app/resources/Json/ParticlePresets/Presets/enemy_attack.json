@@ -7,9 +7,9 @@
   "convergeToTarget": false,
   "damping": 0.9900000095367432,
   "endColor": [
-    0.0,
-    0.0,
-    0.0,
+    0.0961262583732605,
+    0.01107911765575409,
+    0.01107911765575409,
     1.0
   ],
   "endScaleDefault": [
@@ -42,7 +42,7 @@
   ],
   "noiseScale": 0.05000000074505806,
   "noiseStrength": 0.0010000000474974513,
-  "particleCount": 99,
+  "particleCount": 32,
   "particleRadius": 0.5,
   "position": [
     0.0,
@@ -61,9 +61,9 @@
   "spawnLocation": 0,
   "spawnLock": false,
   "startColor": [
-    0.9952176213264465,
-    0.014754562638700008,
-    0.014754562638700008,
+    0.9091343879699707,
+    0.11782662570476532,
+    0.11782662570476532,
     1.0
   ],
   "targetPosition": [
@@ -71,7 +71,7 @@
     0.0,
     0.0
   ],
-  "texturePath": "circle2.png",
+  "texturePath": "white.dds",
   "type": 3,
   "useAlphaFade": true,
   "useCurlNoise": true,

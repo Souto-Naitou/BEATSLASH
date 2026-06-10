@@ -30,6 +30,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\character\player\ParryHistory.cpp" />
+    <ClCompile Include="src\character\player\ParryJudgement.cpp" />
+    <ClCompile Include="src\character\player\ParryPresentation.cpp" />
     <ClCompile Include="src\entity\enemy\EnemyManager.cpp" />
     <ClCompile Include="src\entity\enemy\EnemySpawner.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
@@ -99,6 +102,10 @@
     <ClCompile Include="src\utility\StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\player\ParryHistory.h" />
+    <ClInclude Include="src\character\player\ParryJudgement.h" />
+    <ClInclude Include="src\character\player\ParryPresentation.h" />
+    <ClInclude Include="src\common\AnimationNames.h" />
     <ClInclude Include="src\entity\enemy\EnemyManager.h" />
     <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />

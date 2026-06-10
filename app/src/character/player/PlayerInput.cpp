@@ -50,9 +50,12 @@ void PlayerInput::Update()
     //data_.isAttackTriggered = pInput_->TriggerMouse(0);
     data_.isAttackTriggered = pInput_->TriggerKey(DIK_E) || pInput_->TriggerButton(Tako::GamepadButton::R_Shoulder);
     // オーバードライブ
-    data_.isOverdriveTriggered = pInput_->TriggerKey(DIK_F) || pInput_->GetRightTrigger() != 0.5f;
+    data_.isOverdriveTriggered = pInput_->TriggerKey(DIK_F) || pInput_->GetRightTrigger() > 0.5f;
     // アップテンポ
-    data_.isUpTempoTriggered = pInput_->TriggerKey(DIK_G) || pInput_->GetRightTrigger() > 0.5f;
+    data_.isUpTempoTriggered = pInput_->TriggerKey(DIK_G) || pInput_->GetLeftTrigger() > 0.5f;
+    // パリィ
+    data_.isParryTriggered = pInput_->TriggerMouse(1);
+    data_.isParryTriggered |= pInput_->TriggerKey(DIK_LSHIFT);
 }
 
 void PlayerInput::ImGui()
@@ -64,6 +67,7 @@ void PlayerInput::ImGui()
     ImGuiTemplate::TextBoolean("Jump Pressed", data_.isJumpPressed);
     ImGui::InputFloat("Jump Hold Time", &data_.jumpHoldTime, 0.01f, 0.1f, "%.2f", ImGuiInputTextFlags_ReadOnly);
     ImGuiTemplate::TextBoolean("Overdrive Triggered", data_.isOverdriveTriggered);
+    ImGuiTemplate::TextBoolean("UpTempo Triggered", data_.isUpTempoTriggered);
 
 #endif // _DEBUG
 }

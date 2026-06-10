@@ -102,7 +102,8 @@ void GameScene::Initialize()
         *pAttackRepository_,
         *pCameraDirector_->GetFollowCamera(),
         *pComboBuffSystem_,
-        *pBeatClock_
+        *pBeatClock_,
+        *pEmitterManager_
     };
     pPlayer_ = std::make_unique<Player>(playerInitData);
     pPlayer_->Initialize();
@@ -257,6 +258,7 @@ void GameScene::LoadParticleEmitterPresets()
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrail);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrailBlackBlue);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kParrySuccess);
 }
 
 void GameScene::LoadImageAll()
