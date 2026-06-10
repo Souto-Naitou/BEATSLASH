@@ -176,6 +176,9 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\RhythmHint.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -530,6 +533,9 @@
     </ClInclude>
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\RhythmHint.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

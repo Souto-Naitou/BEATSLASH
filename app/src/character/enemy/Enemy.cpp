@@ -1,6 +1,10 @@
 #include "Enemy.h"
 #include <CollisionManager.h>
 #include <Input.h>
+#ifdef _DEBUG
+#include <imgui.h>
+#include <DebugUIManager.h>
+#endif
 #include <type/ColliderTypeID.h>
 #include <FrameTimer.h>
 #include <manager/BeatManager.h>
@@ -54,6 +58,10 @@ void Enemy::Initialize()
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
+	// デバッグUIの登録
+#ifdef _DEBUG
+	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
+#endif
 	// ステートの初期化。｛　スポーン演出状態、待機状態、　｝
 	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
