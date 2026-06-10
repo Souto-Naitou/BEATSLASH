@@ -13,4 +13,5 @@ enum class ColliderTypeID
     Terrain,			// 地形
     StageTransitionEvent,         // ステージ遷移用コライダー
     Boss,				// ボス
+    BossAttack,			// ボスの攻撃
 };

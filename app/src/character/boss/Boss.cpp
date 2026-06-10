@@ -1,8 +1,10 @@
 #include "Boss.h"
 #include <CollisionManager.h>
+#include <EmitterManager.h>
 #include <manager/BeatManager.h>
 #include <type/ColliderTypeID.h>
 #include <character/boss/bt/BossBlackboardKeys.h>
+#include <common/ParticleEmitterPresetNames.h>
 #include <utility/DeltaTimeManager.h>
 #include <numbers>
 
@@ -11,9 +13,10 @@
 #include <DebugUIManager.h>
 #endif
 
-Boss::Boss(const ICharacter* target, const BeatClock* beatClock)
+Boss::Boss(const ICharacter* target, const BeatClock* beatClock, Tako::EmitterManager* emitterManager)
     : pTarget_(target)
     , pBeatClock_(beatClock)
+    , pEmitterManager_(emitterManager)
 {}
 
 Boss::~Boss()
@@ -73,6 +76,18 @@ void Boss::Initialize()
     pHp_->Initialize(kInitialHP);
     pCollider_->SetHPComponent(pHp_.get());
 
+    // レーザー攻撃用エミッタープリセットのロード（テンプレートとして保持するため非活性化）
+    if (pEmitterManager_)
+    {
+        using namespace Global::ParticleEmitterPresetNames;
+        pEmitterManager_->LoadPreset(kBossRazerBall);
+        pEmitterManager_->SetEmitterActive(kBossRazerBall, false);
+        pEmitterManager_->LoadPreset(kBossRazerCharge);
+        pEmitterManager_->SetEmitterActive(kBossRazerCharge, false);
+        pEmitterManager_->LoadPreset(kBossRazerTrail);
+        pEmitterManager_->SetEmitterActive(kBossRazerTrail, false);
+    }
+
     // ビヘイビアツリーの構築（JSONロード前にブラックボードを設定しておく）
     pBehaviorTree_ = std::make_unique<Tako::BehaviorTree>();
     SetupBlackboard();
@@ -119,6 +134,8 @@ void Boss::Draw()
 
 void Boss::SetBehaviorTreeRoot(Tako::BTNodePtr root)
 {
+    // 旧ツリーのノードをResetし、実行中ノードのエフェクトやコライダーを掃除してから差し替える
+    pBehaviorTree_->Reset();
     pBehaviorTree_->SetRootNode(root);
     pBehaviorTree_->Reset();
 }
@@ -129,6 +146,7 @@ void Boss::SetupBlackboard()
     blackboard->SetPtr<Boss>(BossBlackboardKeys::kBoss, this);
     blackboard->SetPtr<const ICharacter>(BossBlackboardKeys::kTarget, pTarget_);
     blackboard->SetPtr<const BeatClock>(BossBlackboardKeys::kBeatClock, pBeatClock_);
+    blackboard->SetPtr<Tako::EmitterManager>(BossBlackboardKeys::kEmitterManager, pEmitterManager_);
 }
 
 void Boss::DrawImGui()

@@ -9,6 +9,7 @@ namespace BossBlackboardKeys
     inline constexpr const char* kBoss = "boss";                          // Boss*
     inline constexpr const char* kTarget = "target";                      // const ICharacter*
     inline constexpr const char* kBeatClock = "beatClock";                // const BeatClock*
+    inline constexpr const char* kEmitterManager = "emitterManager";      // Tako::EmitterManager*
     inline constexpr const char* kBeatPassed = "beatPassed";              // bool（拍境界を跨いだフレームのみtrue）
     inline constexpr const char* kCurrentBeatIndex = "currentBeatIndex";  // int
     inline constexpr const char* kSecondsPerBeat = "secondsPerBeat";      // float

@@ -11,13 +11,13 @@
       "id": 30001,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
-      "targetNodeId": 10002,
-      "targetPinId": 20003
+      "targetNodeId": 10003,
+      "targetPinId": 20004
     }
   ],
   "metadata": {
-    "created": "2026-06-11T00:17:44",
-    "modified": "2026-06-11T00:17:44",
+    "created": "2026-06-11T04:53:25",
+    "modified": "2026-06-11T04:53:25",
     "name": "Behavior Tree"
   },
   "nodes": [
@@ -26,8 +26,8 @@
       "id": 10000,
       "parameters": null,
       "position": {
-        "x": -40.0,
-        "y": -50.0
+        "x": -8.0,
+        "y": -40.0
       },
       "type": "BTSequence"
     },
@@ -44,17 +44,28 @@
       "type": "BTWaitAction"
     },
     {
-      "displayName": "RandomMove",
-      "id": 10002,
+      "displayName": "ChargeRazer",
+      "id": 10003,
       "parameters": {
-        "moveRange": 2.0,
-        "moveSpeed": 4.0
+        "aimOffsetY": 0.0,
+        "ballOffset": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "ballStartRadius": 0.10000000149011612,
+        "chargeCount": 3,
+        "chargeIntervalBeats": 2.0,
+        "fireDuration": 0.10000000149011612,
+        "laserExtraLength": 0.0,
+        "laserThicknessScale": 1.0,
+        "radiusPerCharge": 0.5
       },
       "position": {
-        "x": 72.0,
-        "y": 159.0
+        "x": 312.0,
+        "y": 175.0
       },
-      "type": "BTRandomMoveAction"
+      "type": "BTChargeRazer"
     }
   ],
   "version": "1.0"

@@ -17,7 +17,7 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
         if (pushBackCallback_)
             pushBackCallback_(pushback);
     }
-    else if(otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::Boss)
+    else if(otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::Boss || otherID == ColliderTypeID::BossAttack)
     {
         if(pComboBuffSystem_)
         {

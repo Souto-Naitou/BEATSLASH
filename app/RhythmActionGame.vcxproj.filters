@@ -46,8 +46,14 @@
     <ClCompile Include="src\character\boss\bt\BTRandomMoveAction.cpp">
       <Filter>character\boss\bt</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BTChargeRazer.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\boss\bt\BossBTNodeRegistration.cpp">
       <Filter>character\boss\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\collider\BossRazerCollider.cpp">
+      <Filter>character\boss\collider</Filter>
     </ClCompile>
     <ClCompile Include="src\character\player\Player.cpp">
       <Filter>character\player</Filter>
@@ -348,11 +354,17 @@
     <ClInclude Include="src\character\boss\bt\BTRandomMoveAction.h">
       <Filter>character\boss\bt</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BTChargeRazer.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
     <ClInclude Include="src\character\boss\bt\BossBTNodeRegistration.h">
       <Filter>character\boss\bt</Filter>
     </ClInclude>
     <ClInclude Include="src\character\boss\bt\BossBlackboardKeys.h">
       <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\collider\BossRazerCollider.h">
+      <Filter>character\boss\collider</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyState.h">
       <Filter>character\enemy\state</Filter>

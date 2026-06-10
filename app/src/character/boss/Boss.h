@@ -2,6 +2,7 @@
 #include <character/ICharacter.h>
 
 class BeatClock;
+namespace Tako { class EmitterManager; }
 #include <Object3d.h>
 #include <BehaviorTree.h>
 #include <character/boss/collider/BossCollider.h>
@@ -17,7 +18,7 @@ class BeatClock;
 class Boss : public ICharacter
 {
 public:
-    Boss(const ICharacter* target, const BeatClock* beatClock = nullptr);
+    Boss(const ICharacter* target, const BeatClock* beatClock = nullptr, Tako::EmitterManager* emitterManager = nullptr);
     ~Boss() override;
     void Initialize() override;
     void Update() override;
@@ -117,6 +118,8 @@ private:
     const ICharacter* pTarget_ = nullptr;
     // ビートクロックのポインタ（所有しない）
     const BeatClock* pBeatClock_ = nullptr;
+    // エミッターマネージャー（所有しない）
+    Tako::EmitterManager* pEmitterManager_ = nullptr;
     // HP
     std::unique_ptr<HPComponent> pHp_;
 

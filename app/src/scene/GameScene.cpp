@@ -120,7 +120,7 @@ void GameScene::Initialize()
 
     // ボス用BTノードの登録とボスの初期化
     RegisterBossBTNodes();
-    pBoss_ = std::make_unique<Boss>(pPlayer_.get(), pBeatClock_.get());
+    pBoss_ = std::make_unique<Boss>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
     pBoss_->Initialize();
 
 #ifdef _DEBUG
