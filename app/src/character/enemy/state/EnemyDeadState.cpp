@@ -42,6 +42,7 @@ void EnemyDeadState::Enter(Enemy* enemy)
 	if (enemy)
 	{
 		startScale_ = enemy->GetScale();
+		startPosition_ = enemy->GetPosition();
 		// 死亡演出開始時に当たり判定を無効化する
 		enemy->DisableCollider();
 	}
@@ -56,6 +57,9 @@ void EnemyDeadState::Update(Enemy* enemy)
 
 	timer_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
 	float t = timer_ / kDeadDuration_;
+
+	// 位置が変わらないようにする
+	enemy->SetPosition(startPosition_);
 
 	if (t >= 1.0f)
 	{

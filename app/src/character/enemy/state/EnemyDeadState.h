@@ -31,4 +31,7 @@ private:
 
 	// 初期スケール
 	Tako::Vector3 startScale_ = { 1.0f, 1.0f, 1.0f };
+
+	// 初期位置
+	Tako::Vector3 startPosition_ = { 0.0f, 0.0f, 0.0f };
 };
