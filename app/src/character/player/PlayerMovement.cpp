@@ -34,9 +34,10 @@ void PlayerMovement::UpdateByInput(float dt)
 
     ApplyForce(moveDirection_ * movePower_);
     
-    if (inputData.isJumpTriggered)
+    if (inputData.isJumpTriggered && isGrounded_)
     {
         AddImpulse(Tako::Vector3(0.0f, jumpPower_, 0.0f));
+        isGrounded_ = false; // ジャンプしたので地面から離れる
     }
 }
 

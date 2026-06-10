@@ -21,6 +21,8 @@ public:
     void SetJumpPower(float power) { jumpPower_ = power; }
     Tako::Vector3 GetMoveDirection() const { return moveDirection_; }
 
+    void SetGrounded(bool grounded) { isGrounded_ = grounded; }
+    bool IsGrounded() const { return isGrounded_; }
 private:
     void UpdateByInput(float dt);
     void UpdateByCamera(float dt);
@@ -30,4 +32,6 @@ private:
     FollowCamera&   followCamera_;
     float           movePower_  = 25.0f;
     float           jumpPower_  = 8.0f;
+
+    bool isGrounded_ = false; // 地面に接地しているかのフラグ
 };
