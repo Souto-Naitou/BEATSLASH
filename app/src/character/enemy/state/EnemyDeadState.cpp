@@ -45,6 +45,12 @@ void EnemyDeadState::Enter(Enemy* enemy)
 		startPosition_ = enemy->GetPosition();
 		// 死亡演出開始時に当たり判定を無効化する
 		enemy->DisableCollider();
+
+		// わかりやすいように色を変える
+		if (enemy->GetModel())
+		{
+			enemy->GetModel()->SetMaterialColor({ 128, 128, 128, 256 }); // グレー
+		}
 	}
 }
 
