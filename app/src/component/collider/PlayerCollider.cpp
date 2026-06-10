@@ -3,6 +3,7 @@
 
 #include <type/ColliderTypeID.h>
 #include <combo/ComboBuffSystem.h>
+#include <component/HPComponent.h>
 
 using namespace Tako;
 
@@ -17,11 +18,15 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
         if (pushBackCallback_)
             pushBackCallback_(pushback);
     }
-    else if(otherID == ColliderTypeID::Enemy)
+    else if(otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::EnemyAttack)
     {
         if(pComboBuffSystem_)
         {
             pComboBuffSystem_->OnDamaged();
+        }
+        if (pHPComponent_)
+        {
+            pHPComponent_->Damage(10); // 仮のダメージ量
         }
     }
 

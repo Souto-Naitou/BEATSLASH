@@ -1,0 +1,39 @@
+{
+    "animation": {
+        "barAnimDuration": 1.0
+    },
+    "back": {
+        "color": {
+            "w": 1.0,
+            "x": 0.07163102924823761,
+            "y": 0.09281639009714127,
+            "z": 0.1869918704032898
+        },
+        "position": {
+            "x": 32.0,
+            "y": 960.0
+        },
+        "size": {
+            "x": 400.0,
+            "y": 100.0
+        },
+        "texturePath": "EngineResources/Texture/white.dds"
+    },
+    "bar": {
+        "color": {
+            "w": 1.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "position": {
+            "x": 42.0,
+            "y": 960.0
+        },
+        "size": {
+            "x": 380.0,
+            "y": 64.0
+        },
+        "texturePath": "EngineResources/Texture/white.dds"
+    }
+}

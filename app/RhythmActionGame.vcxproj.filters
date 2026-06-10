@@ -179,6 +179,7 @@
     <ClCompile Include="src\ui\RhythmHint.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\PlayerHPBarUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -535,6 +536,9 @@
       <Filter>utility</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\RhythmHint.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\PlayerHPBarUI.h">
       <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>

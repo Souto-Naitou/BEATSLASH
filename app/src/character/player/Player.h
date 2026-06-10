@@ -15,6 +15,7 @@
 #include <skill/Overdrive.h>
 #include <skill/UpTempo.h>
 #include <component/StateMachine.hpp>
+#include <component/HPComponent.h>
 
 #include <Object3d.h>
 #include <Transform.h>
@@ -64,6 +65,8 @@ public:
     const Tako::Transform& GetTransform()   const           { return transform_; }
     Tako::Transform& GetTransform()                         { return transform_; }
 
+    const HPComponent& GetHPComponent() const { return *pHPComponent_; }
+
     void Respawn(const Tako::Transform& spawnTransform);
 
 private:
@@ -86,6 +89,7 @@ private:
     std::unique_ptr<PlayerCollider>                     pCollider_;             // プレイヤーのコライダー
     std::unique_ptr<Overdrive>                          pOverdrive_;            // オーバードライブスキル
     std::unique_ptr<UpTempo>                            pUpTempo_;              // アップテンポスキル
+    std::unique_ptr<HPComponent>                        pHPComponent_;          // HPコンポーネント
     
     /// ステート
     std::unique_ptr<StateMachine<PlayerStateContext>>   pStateMachine_;         // プレイヤーの状態遷移を管理するステートマシン
