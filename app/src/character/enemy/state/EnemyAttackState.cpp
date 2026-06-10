@@ -5,14 +5,39 @@
 #include <FrameTimer.h>
 #include <cmath>
 #include <manager/BeatManager.h>
+#include <EmitterManager.h>
 
 #ifdef _DEBUG
 #include <imgui.h>
 #endif // _DEBUG
 
-EnemyAttackState::EnemyAttackState(const ICharacter* target)
+uint32_t EnemyAttackState::attackEffectCount_ = 0;
+uint32_t EnemyAttackState::attackEffectModelCount_ = 0;
+
+EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManager* emitterManager)
 	: pTarget_(target)
+	, pEmitterManager_(emitterManager)
 {
+	// 攻撃モデルの生成と初期化
+	pAttackModel_ = std::make_unique<Tako::Object3d>();
+	pAttackModel_->Initialize();
+	pAttackModel_->SetModel("white_cube.gltf");
+	pAttackModel_->SetMaterialColor({ 256, 128, 0, 256 }); // オレンジ色
+	pAttackModel_->SetEnableLighting(true);
+	pAttackModel_->SetTransform(colliderTransform_);
+	pAttackModel_->Update();
+
+	// 攻撃コライダーの生成と初期化
+	pAttackCollider_ = std::make_unique<EnemyAttackCollider>();
+	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 3.0f); // コライダーは少し大きめにする
+	pAttackCollider_->SetTransform(&colliderTransform_);
+	pAttackCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::EnemyAttack));
+	pAttackCollider_->SetOwner(this);
+
+	// 攻撃エフェクトのロード
+	effectName_ = "enemy_attack_" + std::to_string(attackEffectModelCount_++);
+	pEmitterManager_->LoadPreset("enemy_attack", effectName_, pAttackModel_.get());
+	pEmitterManager_->SetEmitterActive(effectName_, false); // 最初は非アクティブにしておく
 }
 
 EnemyAttackState::~EnemyAttackState()
@@ -38,7 +63,7 @@ void EnemyAttackState::Enter(Enemy* enemy)
 
 	// 敵の現在の回転（基準方向）を取得
 	float baseYaw = enemy->GetTransform().rotate.y;
-	
+
 	// 開始角度は右に60度（DirectXや数学座標系において、右から左へ薙ぎ払う）
 	float startAngle = baseYaw + 3.14159265f / 3.0f;
 
@@ -50,26 +75,14 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	colliderTransform_.rotate = { 0.0f, startAngle + 3.14159265f / 2.0f, 0.0f }; // 接線方向に向ける
 	colliderTransform_.scale = { 1.8f, 0.1f, 0.3f }; // コライダーを薄長くする
 
-	// 攻撃モデルの生成と初期化
-	pAttackModel_ = std::make_unique<Tako::Object3d>();
-	pAttackModel_->Initialize();
-	pAttackModel_->SetModel("white_cube.gltf");
-	pAttackModel_->SetMaterialColor({ 256, 128, 0, 256 }); // オレンジ色
-	pAttackModel_->SetEnableLighting(true);
-	pAttackModel_->SetTransform(colliderTransform_);
-	pAttackModel_->Update();
-
-	// 攻撃コライダーの生成と初期化
-	pAttackCollider_ = std::make_unique<EnemyAttackCollider>();
-	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 3.0f); // コライダーは少し大きめにする
-	pAttackCollider_->SetTransform(&colliderTransform_);
-	pAttackCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::EnemyAttack));
-	pAttackCollider_->SetOwner(this);
-
 	// コライダーをマネージャーに登録
 	auto collisionManager = Tako::CollisionManager::GetInstance();
 	collisionManager->AddCollider(pAttackCollider_.get());
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::EnemyAttack), static_cast<uint32_t>(ColliderTypeID::Player), true);
+
+	// 攻撃エフェクトの再生
+	emitterTempName_ = effectName_ + "_temp_" + std::to_string(attackEffectCount_++);
+	pEmitterManager_->CreateTemporaryEmitterFrom(effectName_, emitterTempName_, kAttackDuration_);
 }
 
 void EnemyAttackState::Update(Enemy* enemy)
@@ -101,7 +114,7 @@ void EnemyAttackState::Update(Enemy* enemy)
 
 	// 敵の現在の基準方向を取得
 	float baseYaw = enemy->GetTransform().rotate.y;
-	
+
 	// 右60度から左60度へ補間
 	float startAngle = baseYaw + 3.14159265f / 3.0f;
 	float endAngle = baseYaw - 3.14159265f / 3.0f;
@@ -141,10 +154,7 @@ void EnemyAttackState::Exit(Enemy* enemy)
 	// コライダーをマネージャーから削除
 	auto collisionManager = Tako::CollisionManager::GetInstance();
 	collisionManager->RemoveCollider(pAttackCollider_.get());
-	pAttackCollider_ = nullptr;
 
-	// モデルの破棄
-	pAttackModel_ = nullptr;
 }
 
 void EnemyAttackState::Draw(Enemy* enemy)

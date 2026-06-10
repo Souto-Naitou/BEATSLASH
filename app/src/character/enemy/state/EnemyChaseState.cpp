@@ -3,10 +3,10 @@
 #include <character/enemy/Enemy.h>
 #include <manager/BeatManager.h>
 #include <FrameTimer.h>
-
 #ifdef _DEBUG
 #include <imgui.h>
-#endif // _DEBUG
+#endif
+
 
 EnemyChaseState::EnemyChaseState(const ICharacter* target)
 	: pTarget_(target)
@@ -166,8 +166,9 @@ void EnemyChaseState::Chase(Enemy* enemy, float deltaTime)
 
 void EnemyChaseState::FaceTarget(Enemy* enemy)
 {
-	// 常にプレイヤーの方を向くようにする
+#ifdef _DEBUG
 	if (pTarget_)
+	// 常にプレイヤーの方を向くようにする
 	{
 		// 自身の座標を取得
 		Tako::Vector3 currentPos = enemy->GetPosition();
@@ -181,6 +182,7 @@ void EnemyChaseState::FaceTarget(Enemy* enemy)
 		// 回転を設定
 		enemy->SetRotation({ 0.0f, angle, 0.0f });
 	}
+#endif
 }
 
 void EnemyChaseState::UpdateAttackCooldown(float deltaTime)

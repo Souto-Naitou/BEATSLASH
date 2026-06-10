@@ -25,6 +25,9 @@
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp">
       <Filter>character\enemy\state</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemySpawnState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\enemy\Enemy.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
@@ -36,6 +39,9 @@
     </ClCompile>
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp">
       <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\state\PlayerStateIdle.cpp">
+      <Filter>character\player\state</Filter>
     </ClCompile>
     <ClCompile Include="src\combo\ComboBuffSystem.cpp">
       <Filter>combo</Filter>
@@ -155,6 +161,12 @@
     <ClCompile Include="src\ui\GameHUD.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\PlayerHPBarUI.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\RhythmHint.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
     <ClCompile Include="src\utility\CollisionUtility.cpp">
       <Filter>utility</Filter>
     </ClCompile>
@@ -170,7 +182,6 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player\state\PlayerStateIdle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -292,6 +303,9 @@
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h">
       <Filter>character\enemy\state</Filter>
     </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemySpawnState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
     <ClInclude Include="src\character\enemy\Enemy.h">
       <Filter>character\enemy</Filter>
     </ClInclude>
@@ -331,13 +345,19 @@
     <ClInclude Include="src\character\player\PlayerMovement.h">
       <Filter>character\player</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player\state\PlayerState.h">
+    <ClInclude Include="src\character\player\state\PlayerStateContext.h">
+      <Filter>character\player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\state\PlayerStateIdle.h">
       <Filter>character\player\state</Filter>
     </ClInclude>
     <ClInclude Include="src\combo\ComboBuffSystem.h">
       <Filter>combo</Filter>
     </ClInclude>
     <ClInclude Include="src\common\ParticleEmitterPresetNames.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\PlayerAttackRequest.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="src\component\collider\PlayerAttackCollider.h">
@@ -494,6 +514,12 @@
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\GameHUD.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\PlayerHPBarUI.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\RhythmHint.h">
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="src\utility\CollisionUtility.h">

@@ -6,12 +6,16 @@
 #include <memory>
 
 class ICharacter;
+namespace Tako
+{
+	class EmitterManager;
+}
 
 class EnemyStateMachine
 {
 public:
 	// 状態の初期化
-	void Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target);
+	void Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target, Tako::EmitterManager* emitterManager = nullptr);
 
 	// 状態の更新
 	void Update();

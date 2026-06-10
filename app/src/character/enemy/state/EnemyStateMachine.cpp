@@ -1,16 +1,16 @@
 #include "EnemyStateMachine.h"
 #include <character/enemy/state/EnemyStateFactry.h>
-
 #ifdef _DEBUG
 #include <DebugUIManager.h>
-#endif // _DEBUG
+#endif
 
-void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target)
+
+void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target, Tako::EmitterManager* emitterManager)
 {
 	// 指定された状態に基づいて状態を初期化
 	for (EnemyStateType type : stateTypes)
 	{
-		states_[type] = EnemyStateFactory::Create(type, target);
+		states_[type] = EnemyStateFactory::Create(type, target, emitterManager);
 	}
 
 	// 最初の状態を設定(受け取った状態リストの最初の要素を渡す)
@@ -23,10 +23,10 @@ void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTy
 	if (states_.find(currentStateType_) != states_.end())
 	{
 		states_[currentStateType_]->Enter(owner_);
-#ifdef _DEBUG
 		// デバッグUIに登録
+#ifdef _DEBUG
 		Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy State", [this]() { states_[currentStateType_]->DrawImGui(owner_); });
-#endif // _DEBUG
+#endif
 	}
 }
 
@@ -70,6 +70,11 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
 	{
 		states_[currentStateType_]->Exit(owner_); // 状態から抜けるときの処理
+
+		// デバッグUIの登録解除
+#ifdef _DEBUG
+		Tako::DebugUIManager::GetInstance()->UnregisterGameObject("Enemy State");
+#endif
 	}
 
 	// 新しい状態に入る

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="AddressSanitizer|x64">
@@ -38,6 +38,7 @@
     <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemySpawnState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
@@ -88,6 +89,8 @@
     <ClCompile Include="src\test\TestScene.cpp" />
     <ClCompile Include="src\ui\ComboUI.cpp" />
     <ClCompile Include="src\ui\GameHUD.cpp" />
+    <ClCompile Include="src\ui\PlayerHPBarUI.cpp" />
+    <ClCompile Include="src\ui\RhythmHint.cpp" />
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
     <ClCompile Include="src\utility\DeltaTimeStopWatch.cpp" />
@@ -102,6 +105,7 @@
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h" />
     <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
+    <ClInclude Include="src\character\enemy\state\EnemySpawnState.h" />
     <ClInclude Include="src\character\enemy\Enemy.h" />
     <ClInclude Include="src\character\enemy\state\EnemyState.h" />
     <ClInclude Include="src\character\ICharacter.h" />
@@ -172,6 +176,8 @@
     <ClInclude Include="src\type\ColliderTypeID.h" />
     <ClInclude Include="src\ui\ComboUI.h" />
     <ClInclude Include="src\ui\GameHUD.h" />
+    <ClInclude Include="src\ui\PlayerHPBarUI.h" />
+    <ClInclude Include="src\ui\RhythmHint.h" />
     <ClInclude Include="src\utility\CollisionUtility.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
     <ClInclude Include="src\utility\DeltaTimeStopWatch.h" />

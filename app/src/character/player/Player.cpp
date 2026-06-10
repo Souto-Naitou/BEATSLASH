@@ -62,9 +62,11 @@ void Player::Initialize()
         if (pushBack.y > 0)
         {
             pMovement_->ResetVelocityY();
+            pMovement_->SetGrounded(true);
         }
         pModel_->SetTransform(transform_);
     });
+    pCollider_->SetComboSystem(&comboBuffSystem_);
 
     auto colManeger = Tako::CollisionManager::GetInstance();
     colManeger->AddCollider(pCollider_.get());
@@ -75,6 +77,10 @@ void Player::Initialize()
 
     // ステートマシンの初期化
     pStateMachine_ = std::make_unique<StateMachine<PlayerStateContext>>();
+
+    pHPComponent_ = std::make_unique<HPComponent>(); 
+    pHPComponent_->Initialize(100);// TODO : 仮の最大HPを100に設定
+    pCollider_->SetHPComponent(pHPComponent_.get());
 
     // 初期状態を設定（例: IdleState）
     auto ctx = PlayerStateContext{ *this };

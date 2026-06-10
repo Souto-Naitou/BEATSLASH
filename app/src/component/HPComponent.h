@@ -21,7 +21,7 @@ public:
     int32_t GetCurrentHP() const { return currentHP_; }
 
     /// 最大HP割合を取得
-    float GetHPRation() const;
+    float GetHPRatio() const;
 
     /// <summary>
     /// 生きていますか？

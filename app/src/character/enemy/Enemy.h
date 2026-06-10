@@ -7,10 +7,15 @@ class BeatClock;
 #include <character/enemy/collider/EnemyCollider.h>
 #include <component/HPComponent.h>
 
+namespace Tako
+{
+	class EmitterManager;
+}
+
 class Enemy : public ICharacter
 {
 public:
-	Enemy(const ICharacter* target, const BeatClock* beatClock = nullptr);
+	Enemy(const ICharacter* target, const BeatClock* beatClock = nullptr, Tako::EmitterManager* emitterManager = nullptr);
 	~Enemy() override;
 	void Initialize() override;
 	void Update() override;
@@ -42,6 +47,12 @@ public:
 	void SetScale(const Tako::Vector3& scale) { transform_.scale = scale; }
 
 	bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
+
+	/**
+	 * @brief HPコンポーネントの取得
+	 * @return HPコンポーネントのポインタ
+	 */
+	HPComponent* GetHPComponent() { return pHp_.get(); }
 
 	/**
 	 * @brief ビートクロックの取得
@@ -88,6 +99,8 @@ private:
 	const ICharacter* pTarget_ = nullptr;
 	// ビートクロックのポインタ（所有しない）
 	const BeatClock* pBeatClock_ = nullptr;
+	// エミッターマネージャーのポインタ。所有しない（GameSceneが所有し、GameSceneの寿命まで生きる）
+	Tako::EmitterManager* pEmitterManager_ = nullptr;
 
 	// 拡縮アニメーション用パラメータ
 	float baseScale_ = 1.0f;

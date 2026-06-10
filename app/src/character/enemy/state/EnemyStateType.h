@@ -3,6 +3,7 @@
 
 enum class EnemyStateType
 {
+	Spawn,		// スポーン演出状態
 	Idle,		// 待機状態
 	Chase,		// 追跡状態
 	Attack,		// 攻撃状態
@@ -13,6 +14,8 @@ inline const std::string GetStateName(EnemyStateType type)
 {
 	switch (type)
 	{
+	case EnemyStateType::Spawn:
+		return "Spawn";
 	case EnemyStateType::Idle:
 		return "Idle";
 	case EnemyStateType::Chase:

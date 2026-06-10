@@ -58,6 +58,20 @@ void EnemiesOnField::DrawImGui(uint32_t stageIndex)
 		std::string stageLabel = "Stage " + std::to_string(stageIndex) + " (" + std::to_string(count) + " enemies)";
 		if (ImGui::TreeNode(stageLabel.c_str()))
 		{
+			if (ImGui::Button("Delete All Enemies"))
+			{
+				for (auto& enemy : enemies_)
+				{
+					if (enemy)
+					{
+						if (auto hpComponent = enemy->GetHPComponent())
+						{
+							hpComponent->Damage(hpComponent->GetCurrentHP());
+						}
+					}
+				}
+			}
+
 			int enemyIndex = 0;
 			for (auto& enemy : enemies_)
 			{
@@ -67,11 +81,22 @@ void EnemiesOnField::DrawImGui(uint32_t stageIndex)
 					if (ImGui::TreeNode(enemyLabel.c_str()))
 					{
 						enemy->DrawImGui();
+
+						if (ImGui::Button("Delete Enemy"))
+						{
+							// HPを0にし、次のUpdateのタイミングで安全にリストから消去されるようにする
+							if (auto hpComponent = enemy->GetHPComponent())
+							{
+								hpComponent->Damage(hpComponent->GetCurrentHP());
+							}
+						}
+
 						ImGui::TreePop();
 					}
 					enemyIndex++;
 				}
 			}
+
 			ImGui::TreePop();
 		}
 	}
