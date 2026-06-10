@@ -54,6 +54,7 @@ void StageSequence::OpenCurrentDoor()
 {
     stages_[currentIndex_]->SetOnDoorOpenFinished([this]()
     {
+        clearFlow_.ActivateTransitionCollider();
         if (onDoorOpenFinished_) onDoorOpenFinished_();
     });
     stages_[currentIndex_]->OpenDoor();

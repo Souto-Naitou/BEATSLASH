@@ -26,7 +26,7 @@ public:
 
     // ステージクリアした時に呼び出す
     void NotifyClear();
-
+    void ActivateTransitionCollider();
     void SetOnFadeOutComplete(std::function<void()> callback) { onFadeOutComplete_ = callback; }
 
 private:
