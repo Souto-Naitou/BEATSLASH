@@ -1,0 +1,94 @@
+{
+  "billboard": true,
+  "blendMode": 2,
+  "boxRotation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "boxSize": [
+    1.5,
+    1.899999976158142,
+    1.0
+  ],
+  "collisionRestitution": 0.5,
+  "convergeDamping": 2.0,
+  "convergeStiffness": 8.0,
+  "convergeToTarget": false,
+  "damping": 0.9900000095367432,
+  "endColor": [
+    0.799139142036438,
+    0.799139142036438,
+    0.799139142036438,
+    1.0
+  ],
+  "endScaleDefault": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "frequency": 0.03799999877810478,
+  "frequencyTime": 0.033293694257736206,
+  "isActive": false,
+  "isEmitting": false,
+  "isNormalize": false,
+  "isRandomRotateZ": false,
+  "isTemporary": false,
+  "lifeTimeRange": [
+    0.25,
+    0.25
+  ],
+  "lockDamping": 9.699999809265137,
+  "lockStiffness": 19.700000762939453,
+  "noiseScale": 0.05000000074505806,
+  "noiseStrength": 0.0010000000474974513,
+  "particleCount": 50,
+  "particleRadius": 0.5,
+  "position": [
+    20.5,
+    2.299999952316284,
+    -0.10000000149011612
+  ],
+  "randomFlags": 63,
+  "renderModelPath": "white_cube.gltf",
+  "scaleRangeX": [
+    0.5,
+    0.5
+  ],
+  "scaleRangeY": [
+    0.5,
+    0.5
+  ],
+  "spawnLocation": 1,
+  "spawnLock": false,
+  "startColor": [
+    0.9617407917976379,
+    0.1392941176891327,
+    0.032656002789735794,
+    1.0
+  ],
+  "targetPosition": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "texturePath": "white.png",
+  "type": 1,
+  "useAlphaFade": true,
+  "useCurlNoise": false,
+  "useDepthCollision": false,
+  "useForceField": true,
+  "useScaleFade": true,
+  "velRangeX": [
+    -0.25,
+    0.25
+  ],
+  "velRangeY": [
+    0.05000000074505806,
+    0.3499999940395355
+  ],
+  "velRangeZ": [
+    -0.25,
+    0.25
+  ]
+}

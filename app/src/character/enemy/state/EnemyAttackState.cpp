@@ -18,6 +18,9 @@ EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManage
 	: pTarget_(target)
 	, pEmitterManager_(emitterManager)
 {
+	// コライダートランスフォームの初期化
+	colliderTransform_.scale = { 1.8f, 0.1f, 0.3f };
+
 	// 攻撃モデルの生成と初期化
 	pAttackModel_ = std::make_unique<Tako::Object3d>();
 	pAttackModel_->Initialize();
@@ -28,8 +31,8 @@ EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManage
 	pAttackModel_->Update();
 
 	// 攻撃コライダーの生成と初期化
-	pAttackCollider_ = std::make_unique<EnemyAttackCollider>();
-	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 3.0f); // コライダーは少し大きめにする
+	pAttackCollider_ = std::make_unique<EnemyAttackCollider>(pEmitterManager_);
+	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 4.0f); // コライダーは少し大きめにする
 	pAttackCollider_->SetTransform(&colliderTransform_);
 	pAttackCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::EnemyAttack));
 	pAttackCollider_->SetOwner(this);
@@ -82,7 +85,7 @@ void EnemyAttackState::Enter(Enemy* enemy)
 
 	// 攻撃エフェクトの再生
 	emitterTempName_ = effectName_ + "_temp_" + std::to_string(attackEffectCount_++);
-	pEmitterManager_->CreateTemporaryEmitterFrom(effectName_, emitterTempName_, kAttackDuration_);
+	//pEmitterManager_->CreateTemporaryEmitterFrom(effectName_, emitterTempName_, kAttackDuration_);
 }
 
 void EnemyAttackState::Update(Enemy* enemy)
