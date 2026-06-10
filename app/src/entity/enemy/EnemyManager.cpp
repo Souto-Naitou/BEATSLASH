@@ -1,13 +1,10 @@
 #include "EnemyManager.h"
 #include <manager/BeatManager.h>
-#include <EmitterManager.h>
 
 #ifdef _DEBUG
 #include <DebugUIManager.h>
 #include <imgui.h>
 #endif // _DEBUG
-
-uint32_t EnemyManager::enemyIDCounter_ = 0;
 
 EnemyManager::EnemyManager(const ICharacter* target, const BeatClock* beatClock, Tako::EmitterManager* emitterManager)
 	: pTarget_(target)
@@ -18,9 +15,7 @@ EnemyManager::EnemyManager(const ICharacter* target, const BeatClock* beatClock,
 #ifdef _DEBUG
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("EnemyManager", [this]() { this->DrawImGui(); });
 #endif
-	// スポーンの際に使うエフェクトのロード
-	pEmitterManager_->LoadPreset("enemy_spawn");
-	pEmitterManager_->SetEmitterActive("enemy_spawn", false);
+	
 }
 
 void EnemyManager::Update(uint32_t activeStageIndex)
@@ -45,13 +40,6 @@ void EnemyManager::SpawnEnemy(uint32_t stageIndex, const Tako::Vector3& position
 	{
 		// 敵の生成
 		auto enemy = spawner_.Spawn(position);
-
-		// スポーンエフェクトの再生
-		const std::string newEmitterName = "enemy_spawn" + std::to_string(enemyIDCounter_++);
-		pEmitterManager_->CreateTemporaryEmitterFrom("enemy_spawn", newEmitterName, 1.0f);
-		pEmitterManager_->SetEmitterPosition(newEmitterName, position);
-		pEmitterManager_->SetEmitterActive(newEmitterName, true);
-
 		// 敵をフィールドに追加
 		enemiesOnField_[stageIndex].Add(std::move(enemy));
 	}
@@ -63,13 +51,6 @@ void EnemyManager::SpawnEnemy(uint32_t stageIndex, const Tako::Transform& transf
 	{
 		// 敵の生成
 		auto enemy = spawner_.Spawn(transform);
-
-		// スポーンエフェクトの再生
-		const std::string newEmitterName = "enemy_spawn" + std::to_string(enemyIDCounter_++);
-		pEmitterManager_->CreateTemporaryEmitterFrom("enemy_spawn", newEmitterName, 1.0f);
-		pEmitterManager_->SetEmitterPosition(newEmitterName, transform.translate);
-		pEmitterManager_->SetEmitterActive(newEmitterName, true);
-
 		// 敵をフィールドに追加
 		enemiesOnField_[stageIndex].Add(std::move(enemy));
 	}

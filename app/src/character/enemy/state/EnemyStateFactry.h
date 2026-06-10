@@ -23,7 +23,7 @@ public:
 		switch (type)
 		{
 		case EnemyStateType::Spawn:
-			return std::make_unique<EnemySpawnState>();
+			return std::make_unique<EnemySpawnState>(emitterManager);
 		case EnemyStateType::Idle:
 			return std::make_unique<EnemyIdleState>(target);
 		case EnemyStateType::Chase:
