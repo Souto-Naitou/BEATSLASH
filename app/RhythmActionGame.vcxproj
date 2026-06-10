@@ -40,6 +40,12 @@
     <ClCompile Include="src\character\enemy\state\EnemyIdleState.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemySpawnState.cpp" />
     <ClCompile Include="src\character\enemy\Enemy.cpp" />
+    <ClCompile Include="src\character\boss\Boss.cpp" />
+    <ClCompile Include="src\character\boss\BeatEdgeDetector.cpp" />
+    <ClCompile Include="src\character\boss\collider\BossCollider.cpp" />
+    <ClCompile Include="src\character\boss\bt\BTWaitAction.cpp" />
+    <ClCompile Include="src\character\boss\bt\BTRandomMoveAction.cpp" />
+    <ClCompile Include="src\character\boss\bt\BossBTNodeRegistration.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackHitReceiver.cpp" />
     <ClCompile Include="src\character\player\PlayerAttackTrigger.cpp" />
@@ -106,6 +112,13 @@
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
     <ClInclude Include="src\character\enemy\state\EnemySpawnState.h" />
     <ClInclude Include="src\character\enemy\Enemy.h" />
+    <ClInclude Include="src\character\boss\Boss.h" />
+    <ClInclude Include="src\character\boss\BeatEdgeDetector.h" />
+    <ClInclude Include="src\character\boss\collider\BossCollider.h" />
+    <ClInclude Include="src\character\boss\bt\BTWaitAction.h" />
+    <ClInclude Include="src\character\boss\bt\BTRandomMoveAction.h" />
+    <ClInclude Include="src\character\boss\bt\BossBTNodeRegistration.h" />
+    <ClInclude Include="src\character\boss\bt\BossBlackboardKeys.h" />
     <ClInclude Include="src\character\enemy\state\EnemyState.h" />
     <ClInclude Include="src\character\ICharacter.h" />
     <ClInclude Include="src\character\CharacterCollider.h" />

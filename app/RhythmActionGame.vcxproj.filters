@@ -31,6 +31,24 @@
     <ClCompile Include="src\character\enemy\Enemy.cpp">
       <Filter>character\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\boss\Boss.cpp">
+      <Filter>character\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\BeatEdgeDetector.cpp">
+      <Filter>character\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\collider\BossCollider.cpp">
+      <Filter>character\boss\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BTWaitAction.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BTRandomMoveAction.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BossBTNodeRegistration.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\player\Player.cpp">
       <Filter>character\player</Filter>
     </ClCompile>
@@ -247,6 +265,9 @@
     <Filter Include="utility">
       <UniqueIdentifier>{cbf0305d-8d9f-4ddc-b19d-1cac2532913c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="character\boss">
+      <UniqueIdentifier>{e6f704ff-24b8-4e76-95f0-77c81844f8bc}</UniqueIdentifier>
+    </Filter>
     <Filter Include="character\enemy">
       <UniqueIdentifier>{8f7cc266-5149-428d-b722-12820fb3e667}</UniqueIdentifier>
     </Filter>
@@ -267,6 +288,12 @@
     </Filter>
     <Filter Include="presentation\animation">
       <UniqueIdentifier>{ce12636a-574e-450c-abac-5322b0906684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\boss\bt">
+      <UniqueIdentifier>{4003837e-28f0-4e35-bdfa-3bad957e52f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="character\boss\collider">
+      <UniqueIdentifier>{731ddffd-faac-4893-8eeb-6e879c0ed84e}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\enemy\collider">
       <UniqueIdentifier>{9310e04a-9601-40c6-8a24-3a87fd156c60}</UniqueIdentifier>
@@ -305,6 +332,27 @@
     </ClInclude>
     <ClInclude Include="src\character\enemy\Enemy.h">
       <Filter>character\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\Boss.h">
+      <Filter>character\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\BeatEdgeDetector.h">
+      <Filter>character\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\collider\BossCollider.h">
+      <Filter>character\boss\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BTWaitAction.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BTRandomMoveAction.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BossBTNodeRegistration.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BossBlackboardKeys.h">
+      <Filter>character\boss\bt</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyState.h">
       <Filter>character\enemy\state</Filter>
