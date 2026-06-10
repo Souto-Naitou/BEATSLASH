@@ -9,6 +9,7 @@
 #include <Collider.h>
 #include <Vector3.h>
 #include <Model.h>
+#include <common/AnimationNames.h>
 
 #include <functional>
 #include <memory>
@@ -35,8 +36,13 @@ public:
     };
 
     PlayerAttack(InitData& initData);
+    ~PlayerAttack();
     void Update(float deltaTime);
-    bool IsActive() const { return pCollider_ != nullptr || !model_.IsAnimationFinished("PlayerAttack"); }
+    bool IsActive() const 
+    {
+        return pCollider_ != nullptr ||
+            !model_.IsAnimationFinished(Global::AnimationNames::Player::kAttackHorizontal);
+    }
 
 private:
     std::unique_ptr<PlayerAttackHitReceiver>    pHitReceiver_;      // プレイヤーの攻撃ヒット受信クラス

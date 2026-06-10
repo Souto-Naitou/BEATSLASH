@@ -81,6 +81,7 @@ private:
     GameParameter(float, kJumpPower_, 5.0f);        // ジャンプ力
     GameParameter(float, kMass_, 60.0f);            // 重力
     GameParameter(float, kColliderHeight_, 3.0f);   // コライダーの高さ
+    GameParameter(float, kAnimationSpeed_, 3.5f);   // アニメーションの速度
 
     /// インスタンス
     std::unique_ptr<PlayerInput>                        pInput_;                // プレイヤー入力管理クラス

@@ -6,6 +6,7 @@
 #include <ozSound/audio/SoundEngine.h>
 #include <utility/DeltaTimeManager.h>
 #include <common/PlayerAttackRequest.h>
+#include <common/AnimationNames.h>
 #include <debug/DebugRegisterer.h>
 #include <Model.h>
 #include <Vec3Func.h>
@@ -44,7 +45,10 @@ void Player::Initialize()
     pModel_->SetTranslate({ 0.0f, 8.0f, 0.0f });            // 初期位置を設定
     // アニメーションのループ設定
     auto trueModel = pModel_->GetModel();
-    trueModel->SetAnimationLoop("PlayerAttack", false);
+    trueModel->SetAnimationLoop(Global::AnimationNames::Player::kAttackHorizontal, false);
+    trueModel->SetAnimationSpeed(kAnimationSpeed_);
+    // 攻撃用のメッシュは最初は非表示にしておく
+    trueModel->SetMeshVisible("mesh_stick", false);
 
     // トランスフォームの初期化
     transform_ = pModel_->GetTransform();

@@ -98,6 +98,7 @@
     <ClCompile Include="src\utility\StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\AnimationNames.h" />
     <ClInclude Include="src\entity\enemy\EnemyManager.h" />
     <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />

@@ -13,7 +13,7 @@ using namespace Tako;
 
 void BeatSlash::Initialize()
 {
-    winApp_->SetWindowSize(1920, 1080);
+    winApp_->SetWindowSize(1600, 900);
 
     winApp_->SetWindowTitle(L"Beat Slash");
 
