@@ -7,6 +7,7 @@
 #include "EnemyIdleState.h"
 #include "EnemyChaseState.h"
 #include "EnemyAttackState.h"
+#include "EnemyDeadState.h"
 
 class ICharacter;
 namespace Tako
@@ -30,7 +31,7 @@ public:
 		case EnemyStateType::Attack:
 			return std::make_unique<EnemyAttackState>(target, emitterManager);
 		case EnemyStateType::Dead:
-			//return std::make_unique<DeadState>();
+			return std::make_unique<EnemyDeadState>(emitterManager);
 		default:
 			return nullptr;
 		}

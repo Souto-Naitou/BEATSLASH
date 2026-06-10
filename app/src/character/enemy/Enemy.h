@@ -46,7 +46,17 @@ public:
 	void SetRotation(const Tako::Vector3& rotation) { transform_.rotate = rotation; }
 	void SetScale(const Tako::Vector3& scale) { transform_.scale = scale; }
 
-	bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
+	bool IsAlive() const { return !isDeadFinished_; }
+
+	/**
+	 * @brief 死亡演出が完了したかを取得・設定する
+	 */
+	void SetDeadFinished(bool finished) { isDeadFinished_ = finished; }
+
+	/**
+	 * @brief コライダーを衝突判定マネージャーから除外する
+	 */
+	void DisableCollider();
 
 	/**
 	 * @brief HPコンポーネントの取得
@@ -111,6 +121,7 @@ private:
 	// 重力
 	static constexpr float kGravity = -9.8f;
   
-  std::unique_ptr<HPComponent> pHp_;
+	std::unique_ptr<HPComponent> pHp_;
+	// 死亡演出が完了したか
+	bool isDeadFinished_ = false;
 };
-
