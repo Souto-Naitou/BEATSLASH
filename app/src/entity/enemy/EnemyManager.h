@@ -5,6 +5,11 @@ class BeatClock;
 #include "EnemySpawner.h"
 #include <array>
 
+namespace Tako
+{
+	class EmitterManager;
+}
+
 /**
  * @brief 敵の生成とステージごとの管理を行うクラス
  */
@@ -18,8 +23,9 @@ public:
 	 * @brief コンストラクタ
 	 * @param target プレイヤー（ターゲット）のポインタ
 	 * @param beatClock ビートクロックのポインタ
+	 * @param emitterManager エミッターマネージャーのポインタ
 	 */
-	EnemyManager(const ICharacter* target, const BeatClock* beatClock);
+	EnemyManager(const ICharacter* target, const BeatClock* beatClock, Tako::EmitterManager* emitterManager);
 
 	/**
 	 * @brief 指定したアクティブステージの敵の更新処理を行う。
@@ -66,10 +72,16 @@ private:
 	// ビートクロックのポインタ
 	const BeatClock* pBeatClock_ = nullptr;
 
+	// エミッターマネージャーのポインタ。所有しない
+	Tako::EmitterManager* pEmitterManager_ = nullptr;
+
 	// フィールド上の敵の管理
 	std::array<EnemiesOnField, kMaxStages> enemiesOnField_;
 	
 	// 敵のスポナー
 	EnemySpawner spawner_;
+
+	// 敵スポーンエフェクトを出すときに新しいエミッター名を生成するためのカウンター
+	static uint32_t enemyIDCounter_;
 };
 

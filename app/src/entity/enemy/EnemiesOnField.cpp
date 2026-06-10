@@ -58,6 +58,20 @@ void EnemiesOnField::DrawImGui(uint32_t stageIndex)
 		std::string stageLabel = "Stage " + std::to_string(stageIndex) + " (" + std::to_string(count) + " enemies)";
 		if (ImGui::TreeNode(stageLabel.c_str()))
 		{
+			if (ImGui::Button("Delete All Enemies"))
+			{
+				for (auto& enemy : enemies_)
+				{
+					if (enemy)
+					{
+						if (auto hpComponent = enemy->GetHPComponent())
+						{
+							hpComponent->Damage(hpComponent->GetCurrentHP());
+						}
+					}
+				}
+			}
+
 			int enemyIndex = 0;
 			for (auto& enemy : enemies_)
 			{
