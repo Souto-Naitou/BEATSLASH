@@ -1,0 +1,53 @@
+{
+    "back": {
+        "color": {
+            "w": 1.0,
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        },
+        "position": {
+            "x": 960.0,
+            "y": 900.0
+        },
+        "size": {
+            "x": 800.0,
+            "y": 48.0
+        },
+        "texturePath": "EngineResources/Texture/white.dds"
+    },
+    "center": {
+        "color": {
+            "w": 1.0,
+            "x": 1.0,
+            "y": 0.3176470696926117,
+            "z": 0.3176470696926117
+        },
+        "position": {
+            "x": 960.0,
+            "y": 900.0
+        },
+        "size": {
+            "x": 80.0,
+            "y": 80.0
+        },
+        "texturePath": "EngineResources/Texture/white.dds"
+    },
+    "note": {
+        "color": {
+            "w": 1.0,
+            "x": 0.17742711305618286,
+            "y": 0.17742711305618286,
+            "z": 0.17742711305618286
+        },
+        "position": {
+            "x": 100.0,
+            "y": 100.0
+        },
+        "size": {
+            "x": 16.0,
+            "y": 100.0
+        },
+        "texturePath": "EngineResources/Texture/white.dds"
+    }
+}

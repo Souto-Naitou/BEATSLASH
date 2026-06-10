@@ -113,7 +113,7 @@ void GameScene::Initialize()
     enemy1->Initialize();
     pEnemies_->Add(std::move(enemy1));
 
-    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_);
+    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_,*pBeatClock_);
     pGameHUD_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();

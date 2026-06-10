@@ -1,6 +1,9 @@
 #include "EnemyStateMachine.h"
 #include <character/enemy/state/EnemyStateFactry.h>
+#ifdef _DEBUG
 #include <DebugUIManager.h>
+#endif
+
 
 void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target)
 {
@@ -21,7 +24,9 @@ void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTy
 	{
 		states_[currentStateType_]->Enter(owner_);
 		// デバッグUIに登録
+#ifdef _DEBUG
 		Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy State", [this]() { states_[currentStateType_]->DrawImGui(owner_); });
+#endif
 	}
 }
 
@@ -58,7 +63,9 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 		states_[currentStateType_]->Exit(owner_); // 状態から抜けるときの処理
 
 		// デバッグUIの登録解除
+#ifdef _DEBUG
 		Tako::DebugUIManager::GetInstance()->UnregisterGameObject("Enemy State");
+#endif
 	}
 
 	// 新しい状態に入る
@@ -68,6 +75,8 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 		states_[currentStateType_]->Enter(owner_); // 状態に入るときの処理
 
 		// デバッグUIに登録
+#ifdef _DEBUG
 		Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy State", [this]() { states_[currentStateType_]->DrawImGui(owner_); });
+#endif
 	}
 }
