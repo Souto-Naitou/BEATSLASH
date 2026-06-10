@@ -161,6 +161,9 @@
     <ClCompile Include="src\ui\GameHUD.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\RhythmHint.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
     <ClCompile Include="src\utility\CollisionUtility.cpp">
       <Filter>utility</Filter>
     </ClCompile>
@@ -175,9 +178,6 @@
     </ClCompile>
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ui\RhythmHint.cpp">
-      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -513,6 +513,9 @@
     <ClInclude Include="src\ui\GameHUD.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\RhythmHint.h">
+      <Filter>ui</Filter>
+    </ClInclude>
     <ClInclude Include="src\utility\CollisionUtility.h">
       <Filter>utility</Filter>
     </ClInclude>
@@ -533,9 +536,6 @@
     </ClInclude>
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ui\RhythmHint.h">
-      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
