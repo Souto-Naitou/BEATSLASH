@@ -9,11 +9,15 @@
 #include "EnemyAttackState.h"
 
 class ICharacter;
+namespace Tako
+{
+	class EmitterManager;
+}
 
 class EnemyStateFactory
 {
 public:
-	static std::unique_ptr<EnemyState> Create(EnemyStateType type, const ICharacter* target)
+	static std::unique_ptr<EnemyState> Create(EnemyStateType type, const ICharacter* target, Tako::EmitterManager* emitterManager = nullptr)
 	{
 		switch (type)
 		{
@@ -24,7 +28,7 @@ public:
 		case EnemyStateType::Chase:
 			return std::make_unique<EnemyChaseState>(target);
 		case EnemyStateType::Attack:
-			return std::make_unique<EnemyAttackState>();
+			return std::make_unique<EnemyAttackState>(target, emitterManager);
 		case EnemyStateType::Dead:
 			//return std::make_unique<DeadState>();
 		default:
