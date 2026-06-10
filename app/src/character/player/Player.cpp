@@ -62,6 +62,7 @@ void Player::Initialize()
         if (pushBack.y > 0)
         {
             pMovement_->ResetVelocityY();
+            pMovement_->SetGrounded(true);
         }
         pModel_->SetTransform(transform_);
     });
