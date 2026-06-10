@@ -42,9 +42,10 @@ private:
     std::unique_ptr<PlayerAttackHitReceiver>    pHitReceiver_;      // プレイヤーの攻撃ヒット受信クラス
     std::unique_ptr<PlayerAttackPresentation>   pPresentation_;     // 攻撃のエフェクト管理クラス
 
-    float           kColliderActiveTime_    = 0.5f;     // コライダーの有効時間
-    Tako::Transform transform_              = {};       // 攻撃のトランスフォーム（デバッグ表示用）
-    Tako::Collider* pCollider_              = nullptr;  // 攻撃用コライダー
-    ColliderTimer   colliderTimer_          = {};       // コライダーの有効時間管理
-    Tako::Model&    model_;                             // アニメーション再生用のモデル
+    float                   kColliderActiveTime_    = 0.5f;     // コライダーの有効時間
+    Tako::Transform         transform_              = {};       // 攻撃のトランスフォーム（デバッグ表示用）
+    Tako::Collider*         pCollider_              = nullptr;  // 攻撃用コライダー
+    ColliderTimer           colliderTimer_          = {};       // コライダーの有効時間管理
+    Tako::Model&            model_;                             // アニメーション再生用のモデル
+    const Tako::Vector3&    position_;                          // 攻撃の中心座標（追尾用）
 };

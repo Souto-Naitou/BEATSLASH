@@ -80,6 +80,7 @@ private:
     GameParameter(float, kMovePower_, 180.0f);      // 移動力
     GameParameter(float, kJumpPower_, 5.0f);        // ジャンプ力
     GameParameter(float, kMass_, 60.0f);            // 重力
+    GameParameter(float, kColliderHeight_, 3.0f);   // コライダーの高さ
 
     /// インスタンス
     std::unique_ptr<PlayerInput>                        pInput_;                // プレイヤー入力管理クラス
@@ -97,6 +98,7 @@ private:
 
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});                // キャラクターのトランスフォーム
+    GameParameterView(Tako::Transform,  colliderTransform_, {});        // キャラクターのトランスフォーム
     GameParameterView(Tako::Vector3,    directionAtackSpawning, {});    // 攻撃生成の方向（デバッグ表示用）
     GameParameterView(Tako::Vector3,    jointPosition_, {});            // ジョイントの位置（デバッグ表示用）
 
