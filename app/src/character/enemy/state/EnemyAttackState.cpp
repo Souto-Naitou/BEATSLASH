@@ -4,6 +4,7 @@
 #include <CollisionManager.h>
 #include <FrameTimer.h>
 #include <cmath>
+#include <numbers>
 #include <manager/BeatManager.h>
 #include <EmitterManager.h>
 
@@ -18,6 +19,9 @@ EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManage
 	: pTarget_(target)
 	, pEmitterManager_(emitterManager)
 {
+	// コライダートランスフォームの初期化
+	colliderTransform_.scale = { 1.8f, 0.1f, 0.3f };
+
 	// 攻撃モデルの生成と初期化
 	pAttackModel_ = std::make_unique<Tako::Object3d>();
 	pAttackModel_->Initialize();
@@ -28,8 +32,8 @@ EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManage
 	pAttackModel_->Update();
 
 	// 攻撃コライダーの生成と初期化
-	pAttackCollider_ = std::make_unique<EnemyAttackCollider>();
-	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 3.0f); // コライダーは少し大きめにする
+	pAttackCollider_ = std::make_unique<EnemyAttackCollider>(pEmitterManager_);
+	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 4.0f); // コライダーは少し大きめにする
 	pAttackCollider_->SetTransform(&colliderTransform_);
 	pAttackCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::EnemyAttack));
 	pAttackCollider_->SetOwner(this);
@@ -61,18 +65,18 @@ void EnemyAttackState::Enter(Enemy* enemy)
 		startBeat_ = beatClock->GetCurrentBeat();
 	}
 
-	// 敵の現在の回転（基準方向）を取得
+	// 敵の現在の回転を取得
 	float baseYaw = enemy->GetTransform().rotate.y;
 
-	// 開始角度は右に60度（DirectXや数学座標系において、右から左へ薙ぎ払う）
-	float startAngle = baseYaw + 3.14159265f / 3.0f;
+	// 開始角度は右に60度
+	float startAngle = baseYaw + std::numbers::pi_v<float> / 3.0f;
 
 	// コライダートランスフォームの初期化
 	colliderTransform_ = enemy->GetTransform();
 	Tako::Vector3 forward = { std::sin(startAngle), 0.0f, std::cos(startAngle) };
 	colliderTransform_.translate += forward * kColliderOffset;
 	colliderTransform_.translate.y += 0.5f; // 少し浮かす
-	colliderTransform_.rotate = { 0.0f, startAngle + 3.14159265f / 2.0f, 0.0f }; // 接線方向に向ける
+	colliderTransform_.rotate = { 0.0f, startAngle + std::numbers::pi_v<float> / 2.0f, 0.0f }; // 接線方向に向ける
 	colliderTransform_.scale = { 1.8f, 0.1f, 0.3f }; // コライダーを薄長くする
 
 	// コライダーをマネージャーに登録
@@ -116,36 +120,21 @@ void EnemyAttackState::Update(Enemy* enemy)
 	float baseYaw = enemy->GetTransform().rotate.y;
 
 	// 右60度から左60度へ補間
-	float startAngle = baseYaw + 3.14159265f / 3.0f;
-	float endAngle = baseYaw - 3.14159265f / 3.0f;
+	float startAngle = baseYaw + std::numbers::pi_v<float> / 3.0f;
+	float endAngle = baseYaw - std::numbers::pi_v<float> / 3.0f;
 	float currentAngle = startAngle + (endAngle - startAngle) * easedT;
 
 	// 新しい位置と回転の計算
 	Tako::Vector3 offset = { std::sin(currentAngle) * kColliderOffset, 0.0f, std::cos(currentAngle) * kColliderOffset };
 	colliderTransform_.translate = enemy->GetPosition() + offset;
 	colliderTransform_.translate.y += 0.5f; // 少し浮かす
-	colliderTransform_.rotate = { 0.0f, currentAngle + 3.14159265f / 2.0f, 0.0f }; // 接線方向に向ける
+	colliderTransform_.rotate = { 0.0f, currentAngle + std::numbers::pi_v<float> / 2.0f, 0.0f }; // 接線方向に向ける
 
 	// モデルのトランスフォーム更新
 	if (pAttackModel_)
 	{
 		pAttackModel_->SetTransform(colliderTransform_);
 		pAttackModel_->Update();
-	}
-
-	// デバッグ用ログ出力（ピーク到達時に1回出力）
-	static bool hasLoggedPeak = false;
-	if (std::abs(t - 0.5f) < 0.02f)
-	{
-		if (!hasLoggedPeak)
-		{
-			OutputDebugStringA("--- Attack reached peak (t = 0.5) directly in front! ---\n");
-			hasLoggedPeak = true;
-		}
-	}
-	else if (t < 0.1f)
-	{
-		hasLoggedPeak = false; // 次の攻撃のためにリセット
 	}
 }
 

@@ -3,7 +3,7 @@
 #include <font/NumericView.h>
 
 #include <debug/GameParameter.h>
-
+#include <presentation/animation/AnimationTimeline.hpp>
 class ComboUI
 {
 
@@ -27,6 +27,11 @@ private:
     NumericView comboValue_;
 
     std::vector<NumericView::TextureHandleType> numberTextureHandles_;
+
+    uint32_t currentCombo_ = 0;
+
+    AnimationTimeline<float> scaleAnimTl_={};
+
 
     GameParameter(float, comboFontSize, 100.0f);
     GameParameter(Tako::Vector4, comboFontColor, Tako::Vector4(0.42f, 0.5f, 0.8f, 1.0f));

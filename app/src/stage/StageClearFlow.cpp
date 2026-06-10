@@ -63,13 +63,19 @@ void StageClearFlow::NotifyClear()
     ClearEnter();
 }
 
+void StageClearFlow::ActivateTransitionCollider()
+{
+    if (state_ == StageFlowState::StageClear)
+        transitionCollider_->SetActive(true);
+}
+
 void StageClearFlow::ClearEnter()
 {
     if (state_ != StageFlowState::Playing)
         return;
 
     state_ = StageFlowState::StageClear;
-    transitionCollider_->SetActive(true);
+    //transitionCollider_->SetActive(true);
 }
 
 void StageClearFlow::FadeOutEnter()

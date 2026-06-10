@@ -13,6 +13,9 @@
     <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp">
       <Filter>character\enemy\state</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyDeadState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp">
       <Filter>character\enemy\collider</Filter>
     </ClCompile>
@@ -295,6 +298,9 @@
       <Filter>character\enemy\collider</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyAttackState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyDeadState.h">
       <Filter>character\enemy\state</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h">

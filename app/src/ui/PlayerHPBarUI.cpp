@@ -1,17 +1,20 @@
 #include "PlayerHPBarUI.h"
 
 #include <ozSound/audio/JsonUtils/JsonUtils.h>
-#include <ImGuiManager.h>
 #include <utility/DeltaTimeManager.h>
 #include <TextureManager.h>
-#include <DebugUIManager.h>
 #include <math/Easing.h>
+#ifdef _DEBUG
+#include <ImGuiManager.h>
+#include <DebugUIManager.h>
+#endif // _DEBUG
 static constexpr const char* kJsonPath_ = "resources/json/ui/PlayerHPBarUI.json";
 
 using namespace ozSound;
 using namespace Tako;
 
 using json = ozSound::json;
+
 
 PlayerHPBarUI::PlayerHPBarUI()
 {

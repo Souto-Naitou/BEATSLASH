@@ -18,7 +18,7 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
         if (pushBackCallback_)
             pushBackCallback_(pushback);
     }
-    else if(otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::EnemyAttack)
+    else if(otherID == ColliderTypeID::EnemyAttack)
     {
         /// 敵との衝突、または敵の攻撃と衝突した場合の処理
         if (!parryJudgement_.Judge())
