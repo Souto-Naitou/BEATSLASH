@@ -2,6 +2,7 @@
 #include <character/enemy/state/EnemyStateFactry.h>
 #ifdef _DEBUG
 #include <DebugUIManager.h>
+#include <imgui.h>
 #endif
 
 
@@ -88,6 +89,27 @@ void EnemyStateMachine::ChangeState(EnemyStateType newStateType)
 void EnemyStateMachine::DrawImGui()
 {
 #ifdef _DEBUG
+	// ステートの強制変更
+	const char* stateNames[] = { "Spawn", "Idle", "Chase", "Attack", "Dead" };
+	EnemyStateType stateTypes[] = { EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack, EnemyStateType::Dead };
+	
+	int currentStateIndex = 0;
+	for (int i = 0; i < 5; ++i)
+	{
+		if (stateTypes[i] == currentStateType_)
+		{
+			currentStateIndex = i;
+			break;
+		}
+	}
+
+	if (ImGui::Combo("Force State", &currentStateIndex, stateNames, IM_ARRAYSIZE(stateNames)))
+	{
+		ChangeState(stateTypes[currentStateIndex]);
+	}
+
+	ImGui::Separator();
+
 	// 現在の状態のデバッグUIを描画
 	if (states_.find(currentStateType_) != states_.end() && states_[currentStateType_] != nullptr)
 	{
