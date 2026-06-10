@@ -3,6 +3,7 @@
 
 // TODO:WinAppのインクルードは良くないので引数などで持ってくる
 #include <WinApp.h>
+#include <math/Easing.h>
 
 void ComboUI::Initialize()
 {
@@ -18,13 +19,37 @@ void ComboUI::Initialize()
     //中央を基準点にする
     fontLayoutProps.anchorPoint = { 0.5f, 0.5f };
 
+    AnimationTween<float> tween0(0.0f, 0.15f, 1.0f, 1.4f);
+    //tween0.SetTransitionFunction(&Math::Easing::EaseInQuad);
+    AnimationTween<float> tween1(0.15f, 0.3f, 1.4f, 1.0f);
+    //tween1.SetTransitionFunction(&Math::Easing::EaseInQuad);
+    scaleAnimTl_.ClearTween();
+    scaleAnimTl_.AddTween(tween0);
+    scaleAnimTl_.AddTween(tween1);
+
     RegisterCallvacks();
 }
 
 void ComboUI::Update(uint32_t combo)
 {
+    if (currentCombo_ != combo)
+    {
+        // アニメーション
+        scaleAnimTl_.Start();
+    }
+
+    if (scaleAnimTl_.IsPlaying())
+    {
+        float scale = scaleAnimTl_.Update();
+        float newSize = comboFontSize * scale;
+
+        comboValue_.SetFontSize(newSize);
+    }
+
     comboValue_.SetNumber(combo);
     comboValue_.Update();
+
+    currentCombo_ = combo;
 }
 
 void ComboUI::Draw()
