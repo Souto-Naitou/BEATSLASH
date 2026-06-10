@@ -9,16 +9,10 @@
 #include <common/AnimationNames.h>
 #include <debug/DebugRegisterer.h>
 #include <Model.h>
-#include <Vec3Func.h>
-#include <FrameTimer.h>
 
 // ステート
 #include "state/PlayerStateContext.h"
 #include "state/PlayerStateIdle.h"
-
-#ifdef _DEBUG
-#include <imgui.h>
-#endif // _DEBUG
 
 void Player::Initialize()
 {
@@ -59,21 +53,32 @@ void Player::Initialize()
     colliderTransform_.translate.y = kColliderHeight_ * 0.5f;
 
     // コライダーの初期化
-    pCollider_ = std::make_unique<PlayerCollider>();
+    PlayerCollider::InitData colliderInitData
+    {
+        .pushBackCallback = [this](const Tako::Vector3& pushBack)
+        {
+            transform_.translate += pushBack;
+            if (pushBack.y > 0)
+            {
+                pMovement_->ResetVelocityY();
+                pMovement_->SetGrounded(true);
+            }
+            pModel_->SetTransform(transform_);
+        },
+        .parrySuccessCallback = [this]()
+        {
+            // パリィ成功時の処理（例: コンボバフの付与、エフェクトの再生など）
+            pParryPresentation_->Play(transform_.translate);
+        },
+        .comboBuffSystem = comboBuffSystem_,
+        .hpComponent = *pHPComponent_,
+        .parryJudgement = *pParryJudgement_,
+    };
+
+    pCollider_ = std::make_unique<PlayerCollider>(colliderInitData);
     pCollider_->SetSize(pModel_->GetScale() * kColliderHeight_);
     pCollider_->SetTransform(&colliderTransform_);
     pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Player));
-    pCollider_->SetPushBackCallback([this](const Tako::Vector3& pushBack)
-    {
-        transform_.translate += pushBack;
-        if (pushBack.y > 0)
-        {
-            pMovement_->ResetVelocityY();
-            pMovement_->SetGrounded(true);
-        }
-        pModel_->SetTransform(transform_);
-    });
-    pCollider_->SetComboSystem(&comboBuffSystem_);
 
     auto colManeger = Tako::CollisionManager::GetInstance();
     colManeger->AddCollider(pCollider_.get());
@@ -84,10 +89,6 @@ void Player::Initialize()
 
     // ステートマシンの初期化
     pStateMachine_ = std::make_unique<StateMachine<PlayerStateContext>>();
-
-    pHPComponent_ = std::make_unique<HPComponent>(); 
-    pHPComponent_->Initialize(100);// TODO : 仮の最大HPを100に設定
-    pCollider_->SetHPComponent(pHPComponent_.get());
 
     // 初期状態を設定（例: IdleState）
     auto ctx = PlayerStateContext{ *this };
@@ -134,6 +135,11 @@ void Player::Update()
         attackRepository_.CreatePlayerAttack(request);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
     }
+    /// パリィ
+    if (inputCommand.isParryTriggered)
+    {
+        pParryHistory_->Record();
+    }
 
     if (inputCommand.isOverdriveTriggered)
     {
@@ -146,6 +152,8 @@ void Player::Update()
 
     pOverdrive_->Update();
     pUpTempo_->Update();
+
+    pParryPresentation_->Update();
 
     pAttackTrigger_->UpdateCooldown(deltaTime);
 
@@ -201,6 +209,13 @@ void Player::InitializeComponents()
 
     pAttackTrigger_ = std::make_unique<PlayerAttackTrigger>();
     pAttackTrigger_->CalculateCooldownTime(beatClock_.GetSecondsPerBeat());
+
+    pHPComponent_ = std::make_unique<HPComponent>();
+    pHPComponent_->Initialize(100);// TODO : 仮の最大HPを100に設定
+
+    pParryHistory_ = std::make_unique<ParryHistory>();
+    pParryJudgement_ = std::make_unique<ParryJudgement>(*pParryHistory_);
+    pParryPresentation_ = std::make_unique<ParryPresentation>(particleEmitter_);
 }
 
 void Player::InitializeStates()

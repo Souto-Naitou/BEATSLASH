@@ -20,13 +20,17 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
     }
     else if(otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::EnemyAttack)
     {
-        if(pComboBuffSystem_)
+        /// 敵との衝突、または敵の攻撃と衝突した場合の処理
+        if (!parryJudgement_.Judge())
         {
-            pComboBuffSystem_->OnDamaged();
+            /// パリィ失敗時の処理
+            comboBuffSystem_.OnDamaged();
+            hpComponent_.Damage(10); // 仮のダメージ量
         }
-        if (pHPComponent_)
+        else
         {
-            pHPComponent_->Damage(10); // 仮のダメージ量
+            /// パリィ成功時の処理 (外部)
+            parrySuccessCallback_();
         }
     }
 

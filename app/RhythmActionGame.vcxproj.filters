@@ -182,6 +182,9 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\player\ParryHistory.cpp" />
+    <ClCompile Include="src\character\player\ParryJudgement.cpp" />
+    <ClCompile Include="src\character\player\ParryPresentation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -544,6 +547,9 @@
       <Filter>utility</Filter>
     </ClInclude>
     <ClInclude Include="src\common\AnimationNames.h" />
+    <ClInclude Include="src\character\player\ParryHistory.h" />
+    <ClInclude Include="src\character\player\ParryJudgement.h" />
+    <ClInclude Include="src\character\player\ParryPresentation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

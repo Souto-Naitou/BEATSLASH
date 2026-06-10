@@ -15,7 +15,7 @@ void BeatSlash::Initialize()
 {
     winApp_->SetWindowSize(1600, 900);
 
-    winApp_->SetWindowTitle(L"Beat Slash");
+    winApp_->SetWindowTitle(L"ビート スラッシュ！");
 
     TakoFramework::Initialize();
 

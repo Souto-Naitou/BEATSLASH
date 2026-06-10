@@ -8,4 +8,5 @@ namespace Global::ParticleEmitterPresetNames
     static constexpr const char* kTrail = "player_attack_trail";
     static constexpr const char* kTrailBlackBlue = "player_attack_trail_blackblue";
     static constexpr const char* kShort = "player_attack_short";
+    static constexpr const char* kParrySuccess = "parry_success";
 }

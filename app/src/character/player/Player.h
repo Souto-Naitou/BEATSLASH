@@ -7,6 +7,9 @@
 #include "PlayerInput.h"
 #include "PlayerMovement.h"
 #include "PlayerAttackTrigger.h"
+#include "ParryHistory.h"
+#include "ParryJudgement.h"
+#include "ParryPresentation.h"
 
 #include <entity/camera/FollowCamera.h>
 #include <component/collider/PlayerCollider.h>
@@ -21,6 +24,7 @@
 #include <Transform.h>
 #include <memory>
 #include <array>
+#include <EmitterManager.h>
 
 // 前方宣言
 class ComboBuffSystem;
@@ -42,6 +46,7 @@ public:
         FollowCamera& followCamera;
         ComboBuffSystem& comboBuffSystem;
         BeatClock& beatClock;
+        Tako::EmitterManager& emitterManager_;
     };
 
     using IPlayerState = IState<PlayerStateContext>;
@@ -50,7 +55,8 @@ public:
         attackRepository_(initData.attackRepository), 
         followCamera_(initData.followCamera),
         comboBuffSystem_(initData.comboBuffSystem),
-        beatClock_(initData.beatClock)
+        beatClock_(initData.beatClock),
+        particleEmitter_(initData.emitterManager_)
     {}
 
     void Initialize() override;
@@ -84,14 +90,17 @@ private:
     GameParameter(float, kAnimationSpeed_, 3.5f);   // アニメーションの速度
 
     /// インスタンス
-    std::unique_ptr<PlayerInput>                        pInput_;                // プレイヤー入力管理クラス
-    std::unique_ptr<PlayerMovement>                     pMovement_;             // プレイヤー移動処理クラス
-    std::unique_ptr<Tako::Object3d>                     pModel_;                // キャラクターの3Dモデル
-    std::unique_ptr<PlayerAttackTrigger>                pAttackTrigger_;        // プレイヤーの攻撃トリガー
-    std::unique_ptr<PlayerCollider>                     pCollider_;             // プレイヤーのコライダー
-    std::unique_ptr<Overdrive>                          pOverdrive_;            // オーバードライブスキル
-    std::unique_ptr<UpTempo>                            pUpTempo_;              // アップテンポスキル
-    std::unique_ptr<HPComponent>                        pHPComponent_;          // HPコンポーネント
+    std::unique_ptr<PlayerInput>                        pInput_;                    // プレイヤー入力管理クラス
+    std::unique_ptr<PlayerMovement>                     pMovement_;                 // プレイヤー移動処理クラス
+    std::unique_ptr<Tako::Object3d>                     pModel_;                    // キャラクターの3Dモデル
+    std::unique_ptr<PlayerAttackTrigger>                pAttackTrigger_;            // プレイヤーの攻撃トリガー
+    std::unique_ptr<PlayerCollider>                     pCollider_;                 // プレイヤーのコライダー
+    std::unique_ptr<Overdrive>                          pOverdrive_;                // オーバードライブスキル
+    std::unique_ptr<UpTempo>                            pUpTempo_;                  // アップテンポスキル
+    std::unique_ptr<HPComponent>                        pHPComponent_;              // HPコンポーネント
+    std::unique_ptr<ParryHistory>                       pParryHistory_;             // パリィヒット記録クラス
+    std::unique_ptr<ParryJudgement>                     pParryJudgement_;           // パリィ判定クラス
+    std::unique_ptr<ParryPresentation>                  pParryPresentation_;         // パリィエフェクト管理クラス
     
     /// ステート
     std::unique_ptr<StateMachine<PlayerStateContext>>   pStateMachine_;         // プレイヤーの状態遷移を管理するステートマシン
@@ -104,8 +113,9 @@ private:
     GameParameterView(Tako::Vector3,    jointPosition_, {});            // ジョイントの位置（デバッグ表示用）
 
     /// 参照
-    AttackRepository&   attackRepository_;          // 攻撃リポジトリの参照
-    FollowCamera&       followCamera_;              // フォローカメラの参照
-    ComboBuffSystem&    comboBuffSystem_;           // コンボバフシステムの参照
-    BeatClock&          beatClock_;                 // ビートクロックの参照
+    AttackRepository&       attackRepository_;          // 攻撃リポジトリの参照
+    FollowCamera&           followCamera_;              // フォローカメラの参照
+    ComboBuffSystem&        comboBuffSystem_;           // コンボバフシステムの参照
+    BeatClock&              beatClock_;                 // ビートクロックの参照
+    Tako::EmitterManager&   particleEmitter_;           // パーティクルエミッターの参照
 };
