@@ -113,7 +113,7 @@ void GameScene::Initialize()
                                });
 
     // 敵の初期化
-    pEnemyManager_ = std::make_unique<EnemyManager>(pPlayer_.get(), pBeatClock_.get());
+    pEnemyManager_ = std::make_unique<EnemyManager>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
     // テスト用にステージ0に敵をスポーン
     pEnemyManager_->SpawnEnemy(0, Tako::Vector3{ 0.0f, 150.0f, 0.0f });
 
