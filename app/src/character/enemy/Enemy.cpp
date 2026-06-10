@@ -14,9 +14,10 @@
 #include <imgui.h>
 #endif // _DEBUG
 
-Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock)
+Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock, Tako::EmitterManager* emitterManager)
 	: pTarget_(target)
 	, pBeatClock_(beatClock)
+	, pEmitterManager_(emitterManager)
 {}
 
 Enemy::~Enemy()
@@ -58,12 +59,8 @@ void Enemy::Initialize()
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
 
-	// デバッグUIの登録
-#ifdef _DEBUG
-	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
-#endif
-	// ステートの初期化。｛　スポーン演出状態、待機状態、　｝
-	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
+	// ステートの初期化。｛　スポーン状態、待機状態、追従状態、攻撃状態　｝
+	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_, pEmitterManager_);
 
 	// HPコンポーネントの生成と初期化
 	pHp_ = std::make_unique<HPComponent>();

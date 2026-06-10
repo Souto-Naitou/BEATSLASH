@@ -5,12 +5,12 @@
 #endif
 
 
-void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target)
+void EnemyStateMachine::Initialize(std::initializer_list<EnemyStateType> stateTypes, Enemy* enemy, const ICharacter* target, Tako::EmitterManager* emitterManager)
 {
 	// 指定された状態に基づいて状態を初期化
 	for (EnemyStateType type : stateTypes)
 	{
-		states_[type] = EnemyStateFactory::Create(type, target);
+		states_[type] = EnemyStateFactory::Create(type, target, emitterManager);
 	}
 
 	// 最初の状態を設定(受け取った状態リストの最初の要素を渡す)
