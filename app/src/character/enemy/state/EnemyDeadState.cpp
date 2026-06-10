@@ -1,6 +1,9 @@
 #include "EnemyDeadState.h"
 #include <character/enemy/Enemy.h>
 #include <FrameTimer.h>
+#include <EmitterManager.h>
+
+uint32_t EnemyDeadState::effectCount_ = 0;
 
 namespace
 {
@@ -34,6 +37,12 @@ namespace
 EnemyDeadState::EnemyDeadState(Tako::EmitterManager* emitterManager)
 	: pEmitterManager_(emitterManager)
 {
+	// 死亡エフェクトのロード
+	if (pEmitterManager_)
+	{
+		pEmitterManager_->LoadPreset("enemy_dead");
+		pEmitterManager_->SetEmitterActive("enemy_dead", false); // 最初は非アクティブにしておく
+	}
 }
 
 void EnemyDeadState::Enter(Enemy* enemy)
@@ -45,6 +54,14 @@ void EnemyDeadState::Enter(Enemy* enemy)
 		startPosition_ = enemy->GetPosition();
 		// 死亡演出開始時に当たり判定を無効化する
 		enemy->DisableCollider();
+
+		// 死亡エフェクトを再生
+		if (pEmitterManager_)
+		{
+			const std::string newEmitterName = "enemy_dead" + std::to_string(effectCount_++);
+			pEmitterManager_->CreateTemporaryEmitterFrom("enemy_dead", newEmitterName, 0.5f);
+			pEmitterManager_->SetEmitterPosition(newEmitterName, enemy->GetPosition());
+		}
 
 		// わかりやすいように色を変える
 		if (enemy->GetModel())
