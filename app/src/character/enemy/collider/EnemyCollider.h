@@ -2,6 +2,9 @@
 #include <OBBCollider.h>
 #include <functional>
 #include <string>
+#include <Vector4.h>
+
+#include <debug/GameParameter.h>
 
 namespace Tako
 {
@@ -33,5 +36,9 @@ private:
 	std::string effectName_ = "enemy_attack_hit_effect";
 	// エフェクトのカウント
 	static uint32_t effectCount_;
-};
 
+	//// デバッグ用のパラメータ
+	EnableDebug("EnemyCollider");
+	// 追跡速度
+	GameParameter(Tako::Vector4, color, Tako::Vector4(0.5f, 0.5f, 0.5f, 0.5f));
+};

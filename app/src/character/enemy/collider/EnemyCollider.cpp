@@ -41,7 +41,7 @@ void EnemyCollider::OnCollisionEnter(Collider* other)
 		if (auto owner = GetOwner())
 		{
 			auto enemy = static_cast<Enemy*>(owner);
-			enemy->GetModel()->SetMaterialColor({ 256, 256, 256, 256 });
+			enemy->GetModel()->SetMaterialColor(enemy->GetModel()->GetMaterialColor() + color);
 			enemy->GetModel()->Update();
 		}
 
@@ -74,7 +74,7 @@ void EnemyCollider::OnCollisionStay(Collider* other)
         if (auto owner = GetOwner())
         {
             auto enemy = static_cast<Enemy*>(owner);
-            enemy->GetModel()->SetMaterialColor({ 256, 0, 0, 256 });
+            enemy->GetModel()->SetMaterialColor({ 1.0f, 0.0f, 0.0f, 1.0f });
             enemy->GetModel()->Update();
         }
     }
