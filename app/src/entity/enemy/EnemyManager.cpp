@@ -13,7 +13,7 @@ EnemyManager::EnemyManager(const ICharacter* target, const BeatClock* beatClock,
 	: pTarget_(target)
 	, pBeatClock_(beatClock)
 	, pEmitterManager_(emitterManager)
-	, spawner_(target, beatClock)
+	, spawner_(target, beatClock, emitterManager)
 {
 #ifdef _DEBUG
 	Tako::DebugUIManager::GetInstance()->RegisterGameObject("EnemyManager", [this]() { this->DrawImGui(); });
