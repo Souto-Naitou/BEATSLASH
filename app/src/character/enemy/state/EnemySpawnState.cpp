@@ -2,9 +2,16 @@
 #include <character/enemy/Enemy.h>
 #include <FrameTimer.h>
 #include <cmath>
+#include <EmitterManager.h>
 
-EnemySpawnState::EnemySpawnState()
+uint32_t EnemySpawnState::effectCount_ = 0;
+
+EnemySpawnState::EnemySpawnState(Tako::EmitterManager* emitterManager)
+	: pEmitterManager_(emitterManager)
 {
+	// スポーンの際に使うエフェクトのロード
+	pEmitterManager_->LoadPreset("enemy_spawn");
+	pEmitterManager_->SetEmitterActive("enemy_spawn", false);
 }
 
 void EnemySpawnState::Enter(Enemy* enemy)
@@ -18,6 +25,14 @@ void EnemySpawnState::Enter(Enemy* enemy)
 	// 初期状態の設定（スケール0、目標角度から回転した状態）
 	enemy->SetScale({ 0.0f, 0.0f, 0.0f });
 	enemy->SetRotation({ 0.0f, targetAngle_ - kSpinAngle, 0.0f });
+
+	// スポーンエフェクトの再生
+	if (pEmitterManager_)
+	{
+		std::string effectName = "enemy_spawn_" + std::to_string(effectCount_++);
+		pEmitterManager_->CreateTemporaryEmitterFrom("enemy_spawn", effectName, 1.0f);
+		pEmitterManager_->SetEmitterPosition(effectName, enemy->GetPosition());
+	}
 }
 
 namespace

@@ -41,7 +41,7 @@ void Enemy::Initialize()
 	transform_ = pModel_->GetTransform();
 
 	// コライダーの初期化
-	pCollider_ = std::make_unique<EnemyCollider>();
+	pCollider_ = std::make_unique<EnemyCollider>(pEmitterManager_);
 	pCollider_->SetSize(pModel_->GetScale() * kColliderScaleMultiplier);
 	pCollider_->SetOwner(this);
 	pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Enemy));
