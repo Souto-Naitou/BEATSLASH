@@ -97,7 +97,7 @@ private: // 定数定義
     // 初期化時のスケール
     static constexpr Tako::Vector3 kInitialScale = { 5.0f, 5.0f, 5.0f };
     // 初期化時のマテリアルカラー
-    static constexpr Tako::Vector4 kInitialMaterialColor = { 256, 0, 256, 256 };
+    static constexpr Tako::Vector4 kInitialMaterialColor = {0.38f, 0.167f, 0.603f, 1.0f };
     // コライダーのスケールの倍率
     static constexpr float kColliderScaleMultiplier = 1.3f;
     // 初期HP

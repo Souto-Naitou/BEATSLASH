@@ -165,14 +165,14 @@ void GameScene::Initialize()
     pBtEditor_->Initialize(btEditorConfig);
 #endif
 
-    // ボスステージでのみボスを生成する
-    if (pStage_->GetCurrentStageData().spawnBoss)
+    HUDContext hudContext
     {
-        SpawnBoss();
-    }
-
-    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_, *pBeatClock_,
-                                          pPlayer_->GetHPComponent(), pPlayer_->GetPlayerInput());
+        .comboBuffSystem = *pComboBuffSystem_,
+        .beatClock = *pBeatClock_,
+        .playerHPComponent = pPlayer_->GetHPComponent(),
+        .playerInput = pPlayer_->GetPlayerInput()
+    };
+    pGameHUD_ = std::make_unique<GameHUD>(hudContext);
     pGameHUD_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
@@ -190,6 +190,12 @@ void GameScene::Initialize()
 
     pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
     pBeatClock_->Start();
+
+    // ボスステージでのみボスを生成する
+    if (pStage_->GetCurrentStageData().spawnBoss)
+    {
+        SpawnBoss();
+    }
 }
 
 
@@ -354,6 +360,7 @@ void GameScene::SpawnBoss()
     pBoss_ = std::make_unique<Boss>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
     pBoss_->Initialize();
 
+    pGameHUD_->SetBossHPComponent(pBoss_->GetHPComponent());
 #ifdef _DEBUG
     // エディタが構築したランタイムツリーを共有し、実行中ノードのハイライトとライブ編集を有効化する
     if (auto root = pBtEditor_->BuildRuntimeTree())
@@ -392,6 +399,8 @@ void GameScene::SpawnBoss()
             pBtEditor_->HighlightRunningNode(pBoss_->GetBehaviorTree()->GetCurrentRunningNode());
         }
     });
+
+    
 #endif
 }
 
