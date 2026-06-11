@@ -42,6 +42,15 @@ public:
         return currentIndex_;
     }
 
+    /**
+     * @brief 現在のステージのデータを取得する。
+     * @return 現在のステージのStageData
+     */
+    const StageData& GetCurrentStageData() const
+    {
+        return stageDataList_[currentIndex_];
+    }
+
 
 private:
 

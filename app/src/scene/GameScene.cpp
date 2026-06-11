@@ -127,6 +127,19 @@ void GameScene::Initialize()
     pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
                                {
                                    pPlayer_->Respawn(spawnTransform);
+
+                                   // ボスステージでのみボスを存在させる
+                                   if (pStage_->GetCurrentStageData().spawnBoss)
+                                   {
+                                       if (!pBoss_)
+                                       {
+                                           SpawnBoss();
+                                       }
+                                   }
+                                   else
+                                   {
+                                       pBoss_.reset();
+                                   }
                                });
 
     // 敵の初期化
@@ -134,52 +147,23 @@ void GameScene::Initialize()
     // テスト用にステージ0に敵をスポーン
     pEnemyManager_->SpawnEnemy(0, Tako::Vector3{ 0.0f, 150.0f, 0.0f });
 
-    // ボス用BTノードの登録とボスの初期化
+    // ボス用BTノードのファクトリ登録（一度だけでよい）
     RegisterBossBTNodes();
-    pBoss_ = std::make_unique<Boss>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
-    pBoss_->Initialize();
 
 #ifdef _DEBUG
-    // BTエディタの初期化（ボスのツリーを初期ロード）
+    // BTエディタの初期化（ボス不在時も使えるようボス生成とは独立して行う）
     Tako::EditorConfig btEditorConfig;
     btEditorConfig.btJsonDir = "resources/Json/BT/";
     btEditorConfig.initialTreeFile = "BossTree.json";
     pBtEditor_ = std::make_unique<Tako::BehaviorTreeEditor>();
     pBtEditor_->Initialize(btEditorConfig);
-    // エディタが構築したランタイムツリーを共有し、実行中ノードのハイライトとライブ編集を有効化する
-    if (auto root = pBtEditor_->BuildRuntimeTree())
-    {
-        pBoss_->SetBehaviorTreeRoot(root);
-    }
-
-    // ボスのデバッグUIからノードエディタの表示を切り替えられるようにする
-    pBoss_->SetNodeEditorToggleCallback([this]()
-    {
-        pBtEditor_->SetVisible(!pBtEditor_->IsVisible());
-    });
-
-    // ボスのデバッグUIとノードエディタの描画をDebugUIManagerへ登録
-    Tako::DebugUIManager::GetInstance()->RegisterGameObject("Boss", [this]()
-    {
-        pBoss_->DrawImGui();
-
-        // エディタで編集したツリーをボスへ再適用する
-        if (ImGui::Button("Apply Tree To Boss"))
-        {
-            if (auto root = pBtEditor_->BuildRuntimeTree())
-            {
-                pBoss_->SetBehaviorTreeRoot(root);
-            }
-        }
-
-        // ノードエディタの描画と実行中ノードのハイライト
-        pBtEditor_->Update();
-        if (pBoss_->GetBehaviorTree())
-        {
-            pBtEditor_->HighlightRunningNode(pBoss_->GetBehaviorTree()->GetCurrentRunningNode());
-        }
-    });
 #endif
+
+    // ボスステージでのみボスを生成する
+    if (pStage_->GetCurrentStageData().spawnBoss)
+    {
+        SpawnBoss();
+    }
 
     pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_, *pBeatClock_,
                                           pPlayer_->GetHPComponent(), pPlayer_->GetPlayerInput());
@@ -233,8 +217,11 @@ void GameScene::Update()
     pPlayer_->Update();
     // 敵の更新
     pEnemyManager_->Update(pStage_->GetCurrentIndex());
-    // ボスの更新
-    pBoss_->Update();
+    // ボスの更新（ボスステージ以外では存在しない）
+    if (pBoss_)
+    {
+        pBoss_->Update();
+    }
 
     pBeatClock_->Update();
     pAttackRepository_->Update();
@@ -274,7 +261,10 @@ void GameScene::Draw()
     pStage_->Draw();
     pPlayer_->Draw();
     pEnemyManager_->Draw(pStage_->GetCurrentIndex());
-    pBoss_->Draw();
+    if (pBoss_)
+    {
+        pBoss_->Draw();
+    }
 
     //------------------前景Spriteの描画------------------//
     // スプライト共通描画設定
@@ -349,4 +339,50 @@ void GameScene::LoadImageAll()
             tm->LoadTexture(newPath.string());
         }
     }
+}
+
+void GameScene::SpawnBoss()
+{
+    pBoss_ = std::make_unique<Boss>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
+    pBoss_->Initialize();
+
+#ifdef _DEBUG
+    // エディタが構築したランタイムツリーを共有し、実行中ノードのハイライトとライブ編集を有効化する
+    if (auto root = pBtEditor_->BuildRuntimeTree())
+    {
+        pBoss_->SetBehaviorTreeRoot(root);
+    }
+
+    // ボスのデバッグUIからノードエディタの表示を切り替えられるようにする
+    pBoss_->SetNodeEditorToggleCallback([this]()
+    {
+        pBtEditor_->SetVisible(!pBtEditor_->IsVisible());
+    });
+
+    // ボスのデバッグUIとノードエディタの描画をDebugUIManagerへ登録（~BossがUnregisterするため生成のたびに再登録する）
+    Tako::DebugUIManager::GetInstance()->RegisterGameObject("Boss", [this]()
+    {
+        if (!pBoss_)
+        {
+            return;
+        }
+        pBoss_->DrawImGui();
+
+        // エディタで編集したツリーをボスへ再適用する
+        if (ImGui::Button("Apply Tree To Boss"))
+        {
+            if (auto root = pBtEditor_->BuildRuntimeTree())
+            {
+                pBoss_->SetBehaviorTreeRoot(root);
+            }
+        }
+
+        // ノードエディタの描画と実行中ノードのハイライト
+        pBtEditor_->Update();
+        if (pBoss_->GetBehaviorTree())
+        {
+            pBtEditor_->HighlightRunningNode(pBoss_->GetBehaviorTree()->GetCurrentRunningNode());
+        }
+    });
+#endif
 }

@@ -79,8 +79,11 @@ void StageSequence::OnTransitionStage()
 	if (currentIndex_ < static_cast<int32_t>(stageDataList_.size())) {
 		clearFlow_.Initialize(stageDataList_[currentIndex_]);
 		stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
-		stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
+		for (size_t i = 0; i < stageDataList_.size(); ++i) {
+			if (i != currentIndex_)
+				stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
 
+		}
 		if (onStageChanged_) {
 			onStageChanged_(stageDataList_[currentIndex_].playerStartTransform);
 		}
@@ -131,6 +134,9 @@ void StageSequence::LoadFromJson(const std::string& path)
 		auto& spr = sp["rotate"];
 		data.playerStartTransform.translate = { spt["x"], spt["y"], spt["z"] };
 		data.playerStartTransform.rotate = { spr["x"], spr["y"], spr["z"] };
+
+		data.surroundWalls = s.value("surroundWalls", false);
+		data.spawnBoss = s.value("spawnBoss", false);
 
 		stageDataList_.push_back(data);
 

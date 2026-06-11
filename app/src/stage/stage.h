@@ -31,10 +31,16 @@ public:
 
 private:
 
+    void CreateSurroundingWalls(const Tako::Transform& floorTf, float cubeDefaultSize);
+
+private:
+
     StageData stageData_;
 
     std::vector<std::unique_ptr<Tako::Object3d>> models_;
     std::vector<std::unique_ptr<Tako::OBBCollider>> colliders_;
+    // 見えない壁コライダーが参照するトランスフォームの実体
+    std::vector<Tako::Transform> wallTransforms_;
 
     std::unique_ptr<Tako::Object3d> door_;
     bool isDoorOpening_ = false;

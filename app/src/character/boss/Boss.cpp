@@ -77,15 +77,18 @@ void Boss::Initialize()
     pCollider_->SetHPComponent(pHp_.get());
 
     // レーザー攻撃用エミッタープリセットのロード（テンプレートとして保持するため非活性化）
+    // ボス再生成時の二重登録（旧エミッタの残留）を防ぐためロード済みならスキップする
     if (pEmitterManager_)
     {
         using namespace Global::ParticleEmitterPresetNames;
-        pEmitterManager_->LoadPreset(kBossRazerBall);
-        pEmitterManager_->SetEmitterActive(kBossRazerBall, false);
-        pEmitterManager_->LoadPreset(kBossRazerCharge);
-        pEmitterManager_->SetEmitterActive(kBossRazerCharge, false);
-        pEmitterManager_->LoadPreset(kBossRazerTrail);
-        pEmitterManager_->SetEmitterActive(kBossRazerTrail, false);
+        for (const char* preset : { kBossRazerBall, kBossRazerCharge, kBossRazerTrail })
+        {
+            if (!pEmitterManager_->HasEmitter(preset))
+            {
+                pEmitterManager_->LoadPreset(preset);
+            }
+            pEmitterManager_->SetEmitterActive(preset, false);
+        }
     }
 
     // ビヘイビアツリーの構築（JSONロード前にブラックボードを設定しておく）

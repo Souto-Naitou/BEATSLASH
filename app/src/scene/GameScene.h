@@ -60,6 +60,7 @@ public: // メンバ関数
 private: // メンバ関数
     void LoadParticleEmitterPresets();
     void LoadImageAll();
+    void SpawnBoss();
 
 private: // メンバ変数
     std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー
