@@ -200,6 +200,8 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\system\EventListener.cpp" />
+    <ClCompile Include="src\system\EventSubscription.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -588,6 +590,8 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\system\EventListener.h" />
+    <ClInclude Include="src\system\EventSubscription.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

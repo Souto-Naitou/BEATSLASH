@@ -79,6 +79,10 @@ public:
 private:
     void InitializeComponents();
     void InitializeStates();
+    void InitializeSkills();
+    void InitializeObject3d();
+    void InitializeCollider();
+    void UpdateSkills(const PlayerInput::PlayerCommand& inputCommand);
 
     EnableDebug("Player");
 
