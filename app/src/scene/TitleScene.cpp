@@ -29,6 +29,9 @@ void TitleScene::Initialize()
     Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleLogo);
     Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleStartPrompt);
 
+	// BGMの再生
+	bgmHandle_ = ozSound::SoundEngine::GetInstance()->Play("title_bgm", 0.5f, true);
+
     pSpriteTitle_ = std::make_unique<Tako::Sprite>();
     pSpriteTitle_->Initialize(Global::ResourcePath::Texture::kTitleLogo);
 
@@ -71,6 +74,9 @@ void TitleScene::Initialize()
 void TitleScene::Finalize()
 {
     Tako::CollisionManager::GetInstance()->Reset();
+
+	// BGMの停止
+	ozSound::SoundEngine::GetInstance()->Stop(bgmHandle_);
 }
 
 void TitleScene::Update()
@@ -92,6 +98,9 @@ void TitleScene::Update()
 
     if (Tako::Input::GetInstance()->TriggerKey(DIK_SPACE) || Tako::Input::GetInstance()->TriggerButton(Tako::GamepadButton::A))
     {
+		// 効果音の再生
+		ozSound::SoundEngine::GetInstance()->Play("select_SE", 1.0f, false);
+
         Tako::SceneManager::GetInstance()->ChangeScene("game", Tako::TransitionManager::EffectType::Fade, 1.0f);
     }
     auto& colls = Tako::CollisionManager::GetInstance()->GetColliders();

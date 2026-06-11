@@ -1,7 +1,7 @@
 #include "PlayerMovement.h"
 #include <cassert>
 #include <algorithm>
-
+#include <ozSound/audio/SoundEngine.h>
 
 void PlayerMovement::Update(Tako::Transform& transform, float deltaTime)
 {
@@ -38,6 +38,8 @@ void PlayerMovement::UpdateByInput(float dt)
     {
         AddImpulse(Tako::Vector3(0.0f, jumpPower_, 0.0f));
         isGrounded_ = false; // ジャンプしたので地面から離れる
+		// ジャンプのSEを流す
+		ozSound::SoundEngine::GetInstance()->Play("player_jump", 0.9f, false);
     }
 }
 

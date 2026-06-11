@@ -4,6 +4,7 @@
 #include <type/ColliderTypeID.h>
 #include <combo/ComboBuffSystem.h>
 #include <component/HPComponent.h>
+#include <Ozsound/audio/SoundEngine.h>
 
 using namespace Tako;
 
@@ -29,6 +30,9 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
 
             if (damagedCallback_)
                 damagedCallback_();
+
+            // 被弾のサウンドの再生
+            ozSound::SoundEngine::GetInstance()->Play("player_take_hit", 0.7f, false);
         }
         else
         {
