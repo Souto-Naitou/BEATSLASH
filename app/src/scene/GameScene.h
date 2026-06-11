@@ -83,6 +83,10 @@ private: // メンバ変数
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
 
+    float bossDeathTimer_ = 0.0f;
+    bool isBossDeathStarted_ = false;
+    Tako::Vector3 bossDeathStartScale_{ 5.0f, 5.0f, 5.0f };
+
 #ifdef _DEBUG
     std::unique_ptr<Tako::BehaviorTreeEditor> pBtEditor_;           // !< ビヘイビアツリーエディタ
 #endif
