@@ -121,7 +121,8 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	auto& warningEffect = effects_[static_cast<size_t>(AttackEffectType::Warning)];
 	warningEffect.tempName = warningEffect.baseName + "_temp_" + std::to_string(playCount_);
 	pEmitterManager_->CreateTemporaryEmitterFrom(warningEffect.baseName, warningEffect.tempName, kWarningDuration_);
-	pEmitterManager_->SetEmitterPosition(warningEffect.tempName, colliderTransform_.translate);
+	pEmitterManager_->SetEmitterPosition(warningEffect.tempName, enemy->GetPosition());
+	pEmitterManager_->GetEmitterByName(warningEffect.tempName)->BindTargetPosition(&enemy->GetPosition());
 
 	// 予備動作エフェクト（武器）の再生
 	auto& warningWeaponEffect = effects_[static_cast<size_t>(AttackEffectType::WarningWeapon)];
