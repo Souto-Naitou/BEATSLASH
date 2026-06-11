@@ -33,6 +33,8 @@
     <ClCompile Include="src\character\player\ParryHistory.cpp" />
     <ClCompile Include="src\character\player\ParryJudgement.cpp" />
     <ClCompile Include="src\character\player\ParryPresentation.cpp" />
+    <ClCompile Include="src\component\FocusOrientation.cpp" />
+    <ClCompile Include="src\entity\camera\RailCamera.cpp" />
     <ClCompile Include="src\entity\enemy\EnemyManager.cpp" />
     <ClCompile Include="src\entity\enemy\EnemySpawner.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
@@ -125,6 +127,9 @@
     <ClInclude Include="src\character\player\ParryJudgement.h" />
     <ClInclude Include="src\character\player\ParryPresentation.h" />
     <ClInclude Include="src\common\AnimationNames.h" />
+    <ClInclude Include="src\common\ResourcePath.h" />
+    <ClInclude Include="src\component\FocusOrientation.h" />
+    <ClInclude Include="src\entity\camera\RailCamera.h" />
     <ClInclude Include="src\entity\enemy\EnemyManager.h" />
     <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />

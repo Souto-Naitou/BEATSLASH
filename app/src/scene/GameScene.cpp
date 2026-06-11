@@ -234,6 +234,7 @@ void GameScene::Initialize()
 void GameScene::Finalize()
 {
     pPlayer_->Finalize();
+    colliderRepository_.Clear();
 
 #ifdef _DEBUG
     if (pBtEditor_)
@@ -350,7 +351,9 @@ void GameScene::Draw()
     pStage_->DrawTransition();
 
 
+#ifdef _DEBUG
     Tako::CollisionManager::GetInstance()->DrawColliders();
+#endif // _DEBUG
 }
 
 void GameScene::DrawWithoutEffect()
