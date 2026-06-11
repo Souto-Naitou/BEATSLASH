@@ -212,7 +212,7 @@
     <ClCompile Include="src\ui\GameHUD.cpp">
       <Filter>ui</Filter>
     </ClCompile>
-    <ClCompile Include="src\ui\PlayerHPBarUI.cpp">
+    <ClCompile Include="src\ui\HPBarUI.cpp">
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="src\ui\RhythmHint.cpp">
@@ -639,7 +639,7 @@
     <ClInclude Include="src\ui\GameHUD.h">
       <Filter>ui</Filter>
     </ClInclude>
-    <ClInclude Include="src\ui\PlayerHPBarUI.h">
+    <ClInclude Include="src\ui\HPBarUI.h">
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\RhythmHint.h">

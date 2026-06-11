@@ -10,12 +10,12 @@
             "z": 0.253945529460907
         },
         "position": {
-            "x": 32.0,
-            "y": 960.0
+            "x": 2.5,
+            "y": 90.0
         },
         "size": {
-            "x": 400.0,
-            "y": 100.0
+            "x": 20.0,
+            "y": 9.0
         },
         "texturePath": "EngineResources/Texture/white.dds"
     },
@@ -27,12 +27,12 @@
             "z": 0.0
         },
         "position": {
-            "x": 42.0,
-            "y": 960.0
+            "x": 3.5,
+            "y": 90.0
         },
         "size": {
-            "x": 380.0,
-            "y": 64.0
+            "x": 18.0,
+            "y": 7.0
         },
         "texturePath": "EngineResources/Texture/white.dds"
     }

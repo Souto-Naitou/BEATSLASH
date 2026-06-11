@@ -5,12 +5,12 @@
 
 #include <debug/GameParameter.h>
 
-class PlayerHPBarUI
+class HPBarUI
 {
 public:
 
-    PlayerHPBarUI();
-    ~PlayerHPBarUI();
+    HPBarUI(const std::string& name);
+    ~HPBarUI();
 
     void Initialize();
     void Update(float hpRatio);
@@ -32,6 +32,7 @@ private:
 
     bool ImGuiForSpriteData(const std::string& label, SpriteData& data);
 
+    Tako::Vector2 ApplyViewportUnit(const Tako::Vector2& vec) const;
 private:
 
     SpriteData backgroundData_; // 背景枠のスプライトデータ
@@ -44,7 +45,11 @@ private:
     // バーアニメーションのためのスプライト
     std::unique_ptr<Tako::Sprite> pAnimBar_;
 
-    EnableDebug("PlayerHPBarUI");
+    std::string name_;
+
+    Tako::Vector4 frontColor_ = { 0.0f, 1.0f, 0.0f, 1.0f }; // HPバーの前景色（緑）
+    Tako::Vector4 backColor_ = { 1.0f, 0.0f, 0.0f, 1.0f }; // HPバーの前景色（赤）
+
 
     float barAnimDuration_ = 1.0f; // バーアニメーションの継続時間
     float elapsedAnimTime_ = 0.0f; // バーアニメーションの経過時間

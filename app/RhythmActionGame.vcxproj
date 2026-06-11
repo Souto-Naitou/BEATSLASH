@@ -106,7 +106,7 @@
     <ClCompile Include="src\ui\ComboUI.cpp" />
     <ClCompile Include="src\ui\ControlKeyUI.cpp" />
     <ClCompile Include="src\ui\GameHUD.cpp" />
-    <ClCompile Include="src\ui\PlayerHPBarUI.cpp" />
+    <ClCompile Include="src\ui\HPBarUI.cpp" />
     <ClCompile Include="src\ui\RhythmHint.cpp" />
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
@@ -213,7 +213,7 @@
     <ClInclude Include="src\ui\ComboUI.h" />
     <ClInclude Include="src\ui\ControlKeyUI.h" />
     <ClInclude Include="src\ui\GameHUD.h" />
-    <ClInclude Include="src\ui\PlayerHPBarUI.h" />
+    <ClInclude Include="src\ui\HPBarUI.h" />
     <ClInclude Include="src\ui\RhythmHint.h" />
     <ClInclude Include="src\utility\CollisionUtility.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />
