@@ -257,6 +257,9 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\ResultScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -713,6 +716,9 @@
     </ClInclude>
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\ResultScene.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

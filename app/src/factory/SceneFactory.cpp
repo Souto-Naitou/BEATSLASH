@@ -2,6 +2,7 @@
 
 #include <scene/GameScene.h>
 #include <scene/TitleScene.h>
+#include <scene/ResultScene.h>
 
 #ifdef _DEBUG
 #include "DebugUIManager.h"
@@ -19,6 +20,9 @@ std::unique_ptr<Tako::BaseScene> SceneFactory::CreateScene(const std::string& sc
     else if (sceneName == "title")
     {
         return std::make_unique<TitleScene>();
+    }
+    else if (sceneName == "result") {
+        return std::make_unique<ResultScene>();
     }
 
     #ifdef _DEBUG
