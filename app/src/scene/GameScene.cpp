@@ -243,6 +243,9 @@ void GameScene::Finalize()
     }
 #endif
 
+    // コライダーの全削除
+    CollisionManager::GetInstance()->Reset();
+
 	// エフェクトを削除
 	pEmitterManager_->RemoveEmitter("door_open");
 	pEmitterManager_->RemoveEmitter("field_background");
