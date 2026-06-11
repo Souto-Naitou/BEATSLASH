@@ -2,6 +2,7 @@
 #include <BTBlackboard.h>
 #include <character/boss/Boss.h>
 #include <character/boss/bt/BossBlackboardKeys.h>
+#include <algorithm>
 #include <cmath>
 #include <numbers>
 #include <random>
@@ -54,23 +55,44 @@ Tako::BTNodeStatus BTRandomMoveAction::Execute(Tako::BTBlackboard* blackboard)
     float step = moveSpeed_ * blackboard->GetDeltaTime();
     Tako::Vector3 direction = toDest.Normalize();
 
+    bool finished = false;
+
     // 行き過ぎ防止のため残距離でクランプする
     if (step >= distance)
     {
-        transform.translate.x = destination_.x;
-        transform.translate.z = destination_.z;
+        step = distance;
+        finished = true;
+    }
+
+    // 累計移動距離が上限に達したら目的地未到達でも終了する（実行中の上限変更による負値はクランプ）
+    float remainBudget = (std::max)(moveDistance_ - movedDistance_, 0.0f);
+    if (step >= remainBudget)
+    {
+        step = remainBudget;
+        finished = true;
+    }
+
+    transform.translate += direction * step;
+    movedDistance_ += step;
+    // 進行方向へ向きを合わせる
+    transform.rotate.y = std::atan2(direction.x, direction.z);
+
+    if (finished)
+    {
         hasDestination_ = false;
         ResetStartGate();
         status_ = Tako::BTNodeStatus::Success;
         return status_;
     }
 
-    transform.translate += direction * step;
-    // 進行方向へ向きを合わせる
-    transform.rotate.y = std::atan2(direction.x, direction.z);
-
     status_ = Tako::BTNodeStatus::Running;
     return status_;
+}
+
+void BTRandomMoveAction::OnStart(Tako::BTBlackboard* blackboard)
+{
+    (void)blackboard;
+    movedDistance_ = 0.0f;
 }
 
 Tako::Vector3 BTRandomMoveAction::PickRandomDestination(const Tako::Vector3& origin) const
@@ -88,6 +110,7 @@ void BTRandomMoveAction::Reset()
 {
     BossBTActionBase::Reset();
     hasDestination_ = false;
+    movedDistance_ = 0.0f;
 }
 
 void BTRandomMoveAction::ApplyParameters(const nlohmann::json& params)
@@ -101,6 +124,10 @@ void BTRandomMoveAction::ApplyParameters(const nlohmann::json& params)
     {
         moveSpeed_ = params["moveSpeed"].get<float>();
     }
+    if (params.contains("moveDistance"))
+    {
+        moveDistance_ = params["moveDistance"].get<float>();
+    }
 }
 
 nlohmann::json BTRandomMoveAction::ExtractParameters() const
@@ -108,6 +135,7 @@ nlohmann::json BTRandomMoveAction::ExtractParameters() const
     nlohmann::json params = BossBTActionBase::ExtractParameters();
     params["moveRange"] = moveRange_;
     params["moveSpeed"] = moveSpeed_;
+    params["moveDistance"] = moveDistance_;
     return params;
 }
 
@@ -117,6 +145,7 @@ bool BTRandomMoveAction::DrawImGui()
     bool changed = BossBTActionBase::DrawImGui();
     changed |= ImGui::DragFloat("Move Range", &moveRange_, 0.1f, 0.5f, 100.0f);
     changed |= ImGui::DragFloat("Move Speed", &moveSpeed_, 0.1f, 0.1f, 50.0f);
+    changed |= ImGui::DragFloat("Move Distance", &moveDistance_, 0.1f, 0.1f, 100.0f);
     return changed;
 }
 #endif

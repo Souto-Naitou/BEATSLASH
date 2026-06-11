@@ -8,7 +8,14 @@
       "targetPinId": 20002
     },
     {
-      "id": 30001,
+      "id": 30002,
+      "sourceNodeId": 10000,
+      "sourcePinId": 20001,
+      "targetNodeId": 10003,
+      "targetPinId": 20004
+    },
+    {
+      "id": 30003,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
       "targetNodeId": 10002,
@@ -16,8 +23,8 @@
     }
   ],
   "metadata": {
-    "created": "2026-06-11T19:11:25",
-    "modified": "2026-06-11T19:11:25",
+    "created": "2026-06-11T19:29:58",
+    "modified": "2026-06-11T19:29:58",
     "name": "Behavior Tree"
   },
   "nodes": [
@@ -39,7 +46,7 @@
         "waitBeats": 2.0
       },
       "position": {
-        "x": -169.0,
+        "x": -281.0,
         "y": 159.0
       },
       "type": "BTWaitAction"
@@ -67,10 +74,25 @@
         "syncStartToBeat": true
       },
       "position": {
-        "x": 56.0,
+        "x": 264.0,
         "y": 159.0
       },
       "type": "BTChargeRazer"
+    },
+    {
+      "displayName": "RandomMove",
+      "id": 10003,
+      "parameters": {
+        "moveDistance": 8.0,
+        "moveRange": 8.0,
+        "moveSpeed": 10.0,
+        "syncStartToBeat": true
+      },
+      "position": {
+        "x": -8.0,
+        "y": 175.0
+      },
+      "type": "BTRandomMoveAction"
     }
   ],
   "version": "1.0"
