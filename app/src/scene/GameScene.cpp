@@ -337,7 +337,7 @@ void GameScene::Update()
 
     // カーソルスイッチのガイドスプライトの更新
     pSpriteCursorSwitchGuide_->Update();
-
+    this->UpdateBackgroundColor();
     pEmitterManager_->Update();
     CollisionManager::GetInstance()->CheckAllCollisions();
 }
@@ -358,7 +358,7 @@ void GameScene::Draw()
     //------------------背景Spriteの描画------------------//
     // スプライト共通描画設定
     SpriteBasic::GetInstance()->SetCommonRenderSetting();
-
+    pSpriteBackground_->Draw();
 
 
 
@@ -540,4 +540,26 @@ void GameScene::InitializeSprites()
     // 背景スプライト
     pSpriteBackground_ = std::make_unique<Tako::Sprite>();
     pSpriteBackground_->Initialize(EnginePaths::TexturePath("white.dds"));
+    pSpriteBackground_->SetSize({ 100_vw, 100_vh });
+    backgroundColor_.h() = 273.0f; 
+    backgroundColor_.s() = 35.0f;
+    backgroundColor_.v() = 32.0f;
+    pSpriteBackground_->SetColor(backgroundColor_.to_RGB().to_Vector4(1.0f));
+};
+
+void GameScene::UpdateBackgroundColor()
+{
+    float deltaBeat = pBeatClock_->GetDeltaToNearestBeat();
+    // deltaBeat は -0.5 から 0.5 の範囲を振動する値で、0がビートのタイミング
+    // tを0から1の範囲に正規化（1がビートのタイミング)
+    float t = 1.0f - std::abs(deltaBeat) / 0.5f;
+
+    float value = std::lerp(kMinValue_, kMaxValue_, t);
+    float hue = backgroundColor_.h() + kDeltaHue_;
+    backgroundColor_.h() = std::fmod(hue, 360.0f); // 色相は0-360度の範囲でループ
+    backgroundColor_.v() = value;
+
+    pSpriteBackground_->SetColor(backgroundColor_.to_RGB().to_Vector4(1.0f));
+    pSpriteBackground_->Update();
 }
+

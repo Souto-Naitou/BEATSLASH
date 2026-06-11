@@ -23,6 +23,7 @@
 #include <factory/PlayerAttackFactory.h>
 #include <EmitterManager.h>
 #include <wrapper/InputAwareSprite.h>
+#include <math/Color.h>
 
 /// <summary>
 /// サンプルシーンクラス
@@ -66,6 +67,7 @@ private: // メンバ関数
     void DrawObjects();
     void ApplyPostEffects();
     void InitializeSprites();
+    void UpdateBackgroundColor();
 
 private: // メンバ変数
     std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;           // !< エミッターマネージャー
@@ -85,6 +87,7 @@ private: // メンバ変数
     std::unique_ptr<Tako::Sprite>           pSpriteCursorSwitchGuide_;  // !< カーソルスイッチのガイドスプライト
     std::unique_ptr<Tako::Sprite>           pSpriteBackground_;         // !< 背景スプライト
     InputAwareSprite                        inputAwareSprite_;          // !< 入力に反応してエフェクトを出すスプライト
+    HSV                                     backgroundColor_;           // !< 背景色（HSV）
 
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
@@ -94,6 +97,9 @@ private: // メンバ変数
     bool isBossDeathStarted_ = false;
     bool isClearHandled_ = false;  // クリア時のランキング記録・シーン遷移を一度だけ行うためのフラグ
     Tako::Vector3 bossDeathStartScale_{ 5.0f, 5.0f, 5.0f };
+    static constexpr float kDeltaHue_ = 0.05f; // 背景色の色相変化量
+    static constexpr float kMinValue_ = 32.0f; // 背景色の明度 - 最小値
+    static constexpr float kMaxValue_ = 35.0f; // 背景色の明度 - 最大値
 
 #ifdef _DEBUG
     std::unique_ptr<Tako::BehaviorTreeEditor> pBtEditor_;           // !< ビヘイビアツリーエディタ
