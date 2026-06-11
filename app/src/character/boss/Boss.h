@@ -10,6 +10,7 @@ namespace Tako { class EmitterManager; }
 #include <component/HPComponent.h>
 #include <component/PhysicsMovement.h>
 #include <functional>
+#include <vector>
 
 /// <summary>
 /// ビヘイビアツリーで行動するボス
@@ -69,6 +70,11 @@ public:
     void SetBehaviorTreeRoot(Tako::BTNodePtr root);
 
     /**
+     * @brief このフレームで追加描画するモデルを積む（BTノードの攻撃演出用。毎フレームUpdate冒頭でクリアされる）
+     */
+    void QueueAttachedModelDraw(Tako::Object3d* model) { frameAttachedModels_.push_back(model); }
+
+    /**
      * @brief デバッグ用のImGui描画を行う。
      */
     void DrawImGui();
@@ -87,7 +93,7 @@ private:
 
 private: // 定数定義
     // 初期化時の座標
-    static constexpr Tako::Vector3 kInitialTranslate = { 0.0f, 50.0f, 0.0f };
+    static constexpr Tako::Vector3 kInitialTranslate = { 0.0f, 10.0f, 0.0f };
     // 初期化時のスケール
     static constexpr Tako::Vector3 kInitialScale = { 5.0f, 5.0f, 5.0f };
     // 初期化時のマテリアルカラー
@@ -110,6 +116,8 @@ private:
     std::unique_ptr<BossCollider> pCollider_;
     // 速度・加速度に基づく移動コンポーネント
     std::unique_ptr<PhysicsMovement> pMovement_;
+    // BTノードがこのフレームで追加描画を要求したモデル（所有しない）
+    std::vector<Tako::Object3d*> frameAttachedModels_;
     // ビヘイビアツリー
     std::unique_ptr<Tako::BehaviorTree> pBehaviorTree_;
     // 拍境界の検知（リズム連携基盤）

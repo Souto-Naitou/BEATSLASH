@@ -109,6 +109,9 @@ void Boss::Update()
 {
     const float deltaTime = DeltaTimeManager::GetInstance()->GetDeltaTime(DeltaTimeChannelReserved::Game);
 
+    // 前フレームに積まれた追加描画モデルをクリアする（BTノードが毎フレーム積み直す）
+    frameAttachedModels_.clear();
+
     // 拍境界の検知結果と拍情報をブラックボードへ共有する
     beatEdge_.Update(pBeatClock_, pBehaviorTree_->GetBlackboard());
 
@@ -133,6 +136,11 @@ void Boss::Update()
 void Boss::Draw()
 {
     pModel_->Draw();
+
+    for (auto* model : frameAttachedModels_)
+    {
+        model->Draw();
+    }
 }
 
 void Boss::SetBehaviorTreeRoot(Tako::BTNodePtr root)

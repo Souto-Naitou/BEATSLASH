@@ -64,6 +64,18 @@
     <ClCompile Include="src\character\boss\bt\BTChargeRazer.cpp">
       <Filter>character\boss\bt</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BTApproachAction.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BTRetreatAction.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BTDistanceCondition.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BTMeleeAttackAction.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\boss\bt\BossBTNodeRegistration.cpp">
       <Filter>character\boss\bt</Filter>
     </ClCompile>
@@ -406,6 +418,18 @@
       <Filter>character\boss\bt</Filter>
     </ClInclude>
     <ClInclude Include="src\character\boss\bt\BTChargeRazer.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BTApproachAction.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BTRetreatAction.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BTDistanceCondition.h">
+      <Filter>character\boss\bt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BTMeleeAttackAction.h">
       <Filter>character\boss\bt</Filter>
     </ClInclude>
     <ClInclude Include="src\character\boss\bt\BossBTNodeRegistration.h">

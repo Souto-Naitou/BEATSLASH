@@ -51,6 +51,10 @@
     <ClCompile Include="src\character\boss\bt\BTWaitAction.cpp" />
     <ClCompile Include="src\character\boss\bt\BTRandomMoveAction.cpp" />
     <ClCompile Include="src\character\boss\bt\BTChargeRazer.cpp" />
+    <ClCompile Include="src\character\boss\bt\BTApproachAction.cpp" />
+    <ClCompile Include="src\character\boss\bt\BTRetreatAction.cpp" />
+    <ClCompile Include="src\character\boss\bt\BTDistanceCondition.cpp" />
+    <ClCompile Include="src\character\boss\bt\BTMeleeAttackAction.cpp" />
     <ClCompile Include="src\character\boss\bt\BossBTNodeRegistration.cpp" />
     <ClCompile Include="src\character\boss\collider\BossRazerCollider.cpp" />
     <ClCompile Include="src\character\player\Player.cpp" />
@@ -136,6 +140,10 @@
     <ClInclude Include="src\character\boss\bt\BTWaitAction.h" />
     <ClInclude Include="src\character\boss\bt\BTRandomMoveAction.h" />
     <ClInclude Include="src\character\boss\bt\BTChargeRazer.h" />
+    <ClInclude Include="src\character\boss\bt\BTApproachAction.h" />
+    <ClInclude Include="src\character\boss\bt\BTRetreatAction.h" />
+    <ClInclude Include="src\character\boss\bt\BTDistanceCondition.h" />
+    <ClInclude Include="src\character\boss\bt\BTMeleeAttackAction.h" />
     <ClInclude Include="src\character\boss\bt\BossBTNodeRegistration.h" />
     <ClInclude Include="src\character\boss\bt\BossBlackboardKeys.h" />
     <ClInclude Include="src\character\boss\collider\BossRazerCollider.h" />

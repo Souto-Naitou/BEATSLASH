@@ -1,30 +1,93 @@
 {
   "links": [
     {
-      "id": 30000,
+      "id": 30004,
+      "sourceNodeId": 10004,
+      "sourcePinId": 20006,
+      "targetNodeId": 10005,
+      "targetPinId": 20007
+    },
+    {
+      "id": 30005,
+      "sourceNodeId": 10004,
+      "sourcePinId": 20006,
+      "targetNodeId": 10002,
+      "targetPinId": 20003
+    },
+    {
+      "id": 30011,
+      "sourceNodeId": 10012,
+      "sourcePinId": 20017,
+      "targetNodeId": 10010,
+      "targetPinId": 20014
+    },
+    {
+      "id": 30014,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
       "targetNodeId": 10001,
       "targetPinId": 20002
     },
     {
-      "id": 30001,
+      "id": 30015,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
+      "targetNodeId": 10012,
+      "targetPinId": 20016
+    },
+    {
+      "id": 30018,
+      "sourceNodeId": 10008,
+      "sourcePinId": 20012,
+      "targetNodeId": 10009,
+      "targetPinId": 20013
+    },
+    {
+      "id": 30019,
+      "sourceNodeId": 10008,
+      "sourcePinId": 20012,
+      "targetNodeId": 10011,
+      "targetPinId": 20015
+    },
+    {
+      "id": 30021,
+      "sourceNodeId": 10012,
+      "sourcePinId": 20017,
       "targetNodeId": 10003,
       "targetPinId": 20004
     },
     {
-      "id": 30002,
+      "id": 30022,
+      "sourceNodeId": 10012,
+      "sourcePinId": 20017,
+      "targetNodeId": 10006,
+      "targetPinId": 20008
+    },
+    {
+      "id": 30023,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
-      "targetNodeId": 10002,
-      "targetPinId": 20003
+      "targetNodeId": 10013,
+      "targetPinId": 20018
+    },
+    {
+      "id": 30024,
+      "sourceNodeId": 10013,
+      "sourcePinId": 20019,
+      "targetNodeId": 10004,
+      "targetPinId": 20005
+    },
+    {
+      "id": 30025,
+      "sourceNodeId": 10013,
+      "sourcePinId": 20019,
+      "targetNodeId": 10008,
+      "targetPinId": 20011
     }
   ],
   "metadata": {
-    "created": "2026-06-11T19:52:53",
-    "modified": "2026-06-11T19:52:53",
+    "created": "2026-06-11T22:20:28",
+    "modified": "2026-06-11T22:20:28",
     "name": "Behavior Tree"
   },
   "nodes": [
@@ -42,12 +105,12 @@
       "displayName": "Wait",
       "id": 10001,
       "parameters": {
-        "syncStartToBeat": false,
+        "syncStartToBeat": true,
         "waitBeats": 2.0
       },
       "position": {
-        "x": -265.0,
-        "y": 175.0
+        "x": -345.0,
+        "y": 111.0
       },
       "type": "BTWaitAction"
     },
@@ -58,7 +121,7 @@
         "aimOffsetY": 0.0,
         "ballOffset": [
           0.0,
-          7.0,
+          6.0,
           0.0
         ],
         "ballStartRadius": 0.10000000149011612,
@@ -74,8 +137,8 @@
         "syncStartToBeat": true
       },
       "position": {
-        "x": 264.0,
-        "y": 159.0
+        "x": 104.0,
+        "y": 473.0
       },
       "type": "BTChargeRazer"
     },
@@ -85,14 +148,131 @@
       "parameters": {
         "moveDistance": 15.0,
         "moveRange": 50.0,
-        "moveSpeed": 10.0,
-        "syncStartToBeat": false
+        "moveSpeed": 40.0,
+        "syncStartToBeat": true
       },
       "position": {
-        "x": -8.0,
-        "y": 159.0
+        "x": -121.0,
+        "y": 239.0
       },
       "type": "BTRandomMoveAction"
+    },
+    {
+      "displayName": "Sequence",
+      "id": 10004,
+      "parameters": null,
+      "position": {
+        "x": 107.0,
+        "y": 249.0
+      },
+      "type": "BTSequence"
+    },
+    {
+      "displayName": "DistanceCheck",
+      "id": 10005,
+      "parameters": {
+        "checkWithin": false,
+        "distance": 30.0
+      },
+      "position": {
+        "x": 104.0,
+        "y": 377.0
+      },
+      "type": "BTDistanceCondition"
+    },
+    {
+      "displayName": "Retreat",
+      "id": 10006,
+      "parameters": {
+        "moveDistance": 45.0,
+        "moveSpeed": 50.0,
+        "retreatDistance": 45.0,
+        "syncStartToBeat": true
+      },
+      "position": {
+        "x": -121.0,
+        "y": 335.0
+      },
+      "type": "BTRetreatAction"
+    },
+    {
+      "displayName": "Sequence",
+      "id": 10008,
+      "parameters": null,
+      "position": {
+        "x": 347.0,
+        "y": 249.0
+      },
+      "type": "BTSequence"
+    },
+    {
+      "displayName": "DistanceCheck",
+      "id": 10009,
+      "parameters": {
+        "checkWithin": true,
+        "distance": 20.0
+      },
+      "position": {
+        "x": 344.0,
+        "y": 383.0
+      },
+      "type": "BTDistanceCondition"
+    },
+    {
+      "displayName": "Approach",
+      "id": 10010,
+      "parameters": {
+        "moveSpeed": 50.0,
+        "stopDistance": 9.0,
+        "syncStartToBeat": true
+      },
+      "position": {
+        "x": -121.0,
+        "y": 431.0
+      },
+      "type": "BTApproachAction"
+    },
+    {
+      "displayName": "MeleeAttack",
+      "id": 10011,
+      "parameters": {
+        "barDepth": 0.25,
+        "barHeight": 0.15000000596046448,
+        "barOffsetY": -2.5999999046325684,
+        "barStartLength": 1.5,
+        "growCount": 3,
+        "growIntervalBeats": 1.0,
+        "lengthPerGrow": 3.0,
+        "offsetDistance": 15.0,
+        "swingDurationBeats": 2.0,
+        "swingHalfAngleDeg": 60.0,
+        "syncStartToBeat": true
+      },
+      "position": {
+        "x": 344.0,
+        "y": 479.0
+      },
+      "type": "BTMeleeAttackAction"
+    },
+    {
+      "displayName": "RandomSelector",
+      "id": 10012,
+      "parameters": null,
+      "position": {
+        "x": -117.0,
+        "y": 105.0
+      },
+      "type": "BTRandomSelector"
+    },
+    {
+      "displayName": "Selector",
+      "id": 10013,
+      "parameters": null,
+      "position": {
+        "x": 200.0,
+        "y": 105.0
+      },
+      "type": "BTSelector"
     }
   ],
   "version": "1.0"

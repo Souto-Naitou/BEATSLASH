@@ -1,7 +1,7 @@
 {
   "stages": [
     {
-      "name": "Stage 1",
+      "name": "Stage 0",
       "surroundWalls": true,
       "floors": [
         {
