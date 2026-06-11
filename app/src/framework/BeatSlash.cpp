@@ -40,7 +40,7 @@ void BeatSlash::Initialize()
     // シーンの初期化
     sceneFactory_ = std::make_unique<SceneFactory>();
     SceneManager::GetInstance()->SetSceneFactory(sceneFactory_.get());
-    SceneManager::GetInstance()->ChangeScene("title", 0.0f);
+    SceneManager::GetInstance()->ChangeScene("gameover", 0.0f);
 }
 
 void BeatSlash::Finalize()

@@ -90,6 +90,13 @@
             "path": "resources/audio/RazerShoot.wav",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "bgm_gameover",
+            "path": "resources/audio/bgm_gameover.mp3",
+            "submix": "BGM",
+            "type": "BGM"
         }
     ]
 }

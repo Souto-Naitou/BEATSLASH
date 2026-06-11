@@ -246,31 +246,34 @@ void GameScene::Update()
 
 	const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
-	if (!pPlayer_->GetHPComponent().IsAlive()) {
-		SceneManager::GetInstance()->ChangeScene("title");
-	}
+    if (!pPlayer_->GetHPComponent().IsAlive())
+    {
+        SceneManager::GetInstance()->ChangeScene("gameover", TransitionManager::EffectType::Fade, 0.5f);
+        return;
+    }
 
-	// ステージの更新
-	pStage_->Update(deltaTime);
-	// プレイヤーの更新
-	pPlayer_->Update();
-	// 敵の更新
-	pEnemyManager_->Update(pStage_->GetCurrentIndex());
-	// ボスの更新（ボスステージ以外では存在しない）
-	if (pBoss_) {
-		pBoss_->Update();
-	}
+    // ステージの更新
+    pStage_->Update(deltaTime);
+    // プレイヤーの更新
+    pPlayer_->Update();
+    // 敵の更新
+    pEnemyManager_->Update(pStage_->GetCurrentIndex());
+    // ボスの更新（ボスステージ以外では存在しない）
+    if (pBoss_)
+    {
+        pBoss_->Update();
+    }
 
-	pBeatClock_->Update();
-	pAttackRepository_->Update();
+    pBeatClock_->Update();
+    pAttackRepository_->Update();
+    
+    // 非アクティブの攻撃を削除
+    pAttackRepository_->EraseInactiveAttacks();
+    // 非アクティブのコライダーを削除
+    colliderRepository_.EraseInactiveColliders();
 
-	// 非アクティブの攻撃を削除
-	pAttackRepository_->EraseInactiveAttacks();
-	// 非アクティブのコライダーを削除
-	colliderRepository_.EraseInactiveColliders();
-
-	pCameraDirector_->Update(deltaTime);
-	pGameHUD_->Update();
+    pCameraDirector_->Update(deltaTime);
+    pGameHUD_->Update();
 
     if (pStage_->IsStageComplete())
     {

@@ -18,7 +18,7 @@ void ComboUI::Initialize()
     fontLayoutProps.leftTop = Tako::Vector2(Math::Viewport::Unit::vw(comboFontLayoutLeftTop->x), Math::Viewport::Unit::vh(comboFontLayoutLeftTop->y));
     //中央を基準点にする
     fontLayoutProps.anchorPoint = { 0.5f, 0.5f };
-
+    fontLayoutProps.letterSpacing = -0.05f * Math::Viewport::Unit::vw(1.0f); // 文字間を少し詰める
     AnimationTween<float> tween0(0.0f, 0.15f, 1.0f, 1.4f);
     //tween0.SetTransitionFunction(&Math::Easing::EaseInQuad);
     AnimationTween<float> tween1(0.15f, 0.3f, 1.4f, 1.0f);
@@ -47,6 +47,7 @@ void ComboUI::Update(uint32_t combo)
     }
     auto& fontLayoutProps = comboValue_.GetFontLayoutProperties();
     fontLayoutProps.leftTop = Tako::Vector2(Math::Viewport::Unit::vw(comboFontLayoutLeftTop->x), Math::Viewport::Unit::vh(comboFontLayoutLeftTop->y));
+    fontLayoutProps.letterSpacing = -3.0f * Math::Viewport::Unit::vw(1.0f); // 文字間を少し詰める
 
     comboValue_.SetFontSize(Math::Viewport::Unit::vw(comboFontSize));
 
