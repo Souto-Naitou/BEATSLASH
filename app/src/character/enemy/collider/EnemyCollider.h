@@ -40,5 +40,5 @@ private:
 	//// デバッグ用のパラメータ
 	EnableDebug("EnemyCollider");
 	// 追跡速度
-	GameParameter(Tako::Vector4, color, Tako::Vector4(0.5f, 0.5f, 0.5f, 0.5f));
+	GameParameter(Tako::Vector4, color, Tako::Vector4(1.0f, 1.0f, 1.0f, 0.5f));
 };

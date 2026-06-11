@@ -1,0 +1,93 @@
+{
+  "billboard": true,
+  "blendMode": 2,
+  "boxRotation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "boxSize": [
+    65.0,
+    35.29999923706055,
+    65.0
+  ],
+  "collisionRestitution": 0.5,
+  "convergeDamping": 10.800000190734863,
+  "convergeStiffness": 0.8999999761581421,
+  "convergeToTarget": true,
+  "damping": 0.9900000095367432,
+  "endColor": [
+    0.02439028024673462,
+    0.02439028024673462,
+    0.02439028024673462,
+    1.0
+  ],
+  "endScaleDefault": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "frequency": 0.01600000075995922,
+  "frequencyTime": 0.005697200074791908,
+  "isActive": true,
+  "isEmitting": true,
+  "isNormalize": false,
+  "isRandomRotateZ": false,
+  "isTemporary": false,
+  "lifeTimeRange": [
+    0.0,
+    0.0
+  ],
+  "lockDamping": 3.0,
+  "lockStiffness": 20.0,
+  "noiseScale": 0.05000000074505806,
+  "noiseStrength": 0.0010000000474974513,
+  "particleCount": 6,
+  "particleRadius": 0.5,
+  "position": [
+    0.0,
+    10.399999618530273,
+    0.0
+  ],
+  "randomFlags": 31,
+  "scaleRangeX": [
+    0.10000000149011612,
+    0.10000000149011612
+  ],
+  "scaleRangeY": [
+    0.10000000149011612,
+    0.10000000149011612
+  ],
+  "spawnLocation": 1,
+  "spawnLock": false,
+  "startColor": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "targetPosition": [
+    0.0,
+    51.900001525878906,
+    0.0
+  ],
+  "texturePath": "white.png",
+  "type": 1,
+  "useAlphaFade": false,
+  "useCurlNoise": true,
+  "useDepthCollision": false,
+  "useForceField": true,
+  "useScaleFade": true,
+  "velRangeX": [
+    0.0,
+    0.0
+  ],
+  "velRangeY": [
+    0.009999999776482582,
+    0.20000000298023224
+  ],
+  "velRangeZ": [
+    0.0,
+    0.0
+  ]
+}
