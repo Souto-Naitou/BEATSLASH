@@ -94,7 +94,8 @@ void Player::Update()
         PlayerAttackRequest request
         {
             .position = jointPosition_,
-            .model = *pModel_->GetModel()
+            .model = *pModel_->GetModel(),
+            .attackIndex = countAttack_++
         };
         attackRepository_.CreatePlayerAttack(request);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");

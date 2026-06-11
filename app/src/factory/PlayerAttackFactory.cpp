@@ -19,7 +19,8 @@ std::unique_ptr<PlayerAttack> PlayerAttackFactory::Create(const PlayerAttackRequ
         .position = request.position,
         .emitterManager = emitterManager_,
         .onJudge = onJudge_,
-        .model = request.model
+        .model = request.model,
+        .attackIndex = request.attackIndex
     };
 
     return std::make_unique<PlayerAttack>(initData);

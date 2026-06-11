@@ -96,6 +96,8 @@ private:
     GameParameter(Tako::Vector3, kColliderSize_, Tako::Vector3(1.0f, 2.0f, 1.0f));  // コライダーのサイズ
     GameParameter(float, kDamagedEffectDuration_, 0.1f);                            // 被弾エフェクトの生存秒数
 
+    uint32_t countAttack_ = 0; // 攻撃のカウント
+
     /// インスタンス
     std::unique_ptr<PlayerInput>                        pInput_;                    // プレイヤー入力管理クラス
     std::unique_ptr<PlayerMovement>                     pMovement_;                 // プレイヤー移動処理クラス

@@ -8,4 +8,6 @@ struct PlayerAttackRequest
     const Tako::Vector3& position;
     // アニメーション再生用のモデル
     Tako::Model& model;
+    // 攻撃のインデックス
+    uint32_t attackIndex;
 };

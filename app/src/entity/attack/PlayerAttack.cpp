@@ -36,7 +36,14 @@ PlayerAttack::PlayerAttack(InitData& initData) : model_(initData.model), positio
     // プレゼンテーションにコライダーの位置参照を渡す
     pPresentation_->SetColliderPositionRef(&initData.position);
 
-    model_.SetAnimation(Global::AnimationNames::Player::kAttackHorizontal);
+    if (initData.attackIndex % 2 == 0)
+    {
+        model_.SetAnimation(Global::AnimationNames::Player::kAttackHorizontal);
+    }
+    else
+    {
+        model_.SetAnimation(Global::AnimationNames::Player::kAttackHorizontalInv);
+    }
 
     model_.SetMeshVisible("mesh_stick", true);
 }

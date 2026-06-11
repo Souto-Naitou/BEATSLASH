@@ -64,7 +64,7 @@
 				3,
 				2
 			],
-			"name":"\u30a2\u30fc\u30de\u30c1\u30e5\u30a2"
+			"name":"armature"
 		}
 	],
 	"animations":[
@@ -146,6 +146,85 @@
 					"output":18
 				}
 			]
+		},
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":2,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":2,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":2,
+						"path":"scale"
+					}
+				},
+				{
+					"sampler":3,
+					"target":{
+						"node":1,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":4,
+					"target":{
+						"node":1,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":5,
+					"target":{
+						"node":1,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"attack_horizontal_inv",
+			"samplers":[
+				{
+					"input":11,
+					"interpolation":"LINEAR",
+					"output":19
+				},
+				{
+					"input":11,
+					"interpolation":"LINEAR",
+					"output":20
+				},
+				{
+					"input":14,
+					"interpolation":"STEP",
+					"output":21
+				},
+				{
+					"input":14,
+					"interpolation":"STEP",
+					"output":22
+				},
+				{
+					"input":14,
+					"interpolation":"STEP",
+					"output":23
+				},
+				{
+					"input":14,
+					"interpolation":"STEP",
+					"output":24
+				}
+			]
 		}
 	],
 	"materials":[
@@ -202,7 +281,7 @@
 				2,
 				1
 			],
-			"name":"\u30a2\u30fc\u30de\u30c1\u30e5\u30a2"
+			"name":"armature"
 		}
 	],
 	"accessors":[
@@ -351,6 +430,42 @@
 			"componentType":5126,
 			"count":2,
 			"type":"VEC3"
+		},
+		{
+			"bufferView":19,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":20,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":21,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":22,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":23,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":24,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
 		}
 	],
 	"bufferViews":[
@@ -458,11 +573,41 @@
 			"buffer":0,
 			"byteLength":24,
 			"byteOffset":3144
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":3168
+		},
+		{
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":3456
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":3840
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":3864
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":3888
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":3920
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":3168,
+			"byteLength":3944,
 			"uri":"PlayerAttack.bin"
 		}
 	]
