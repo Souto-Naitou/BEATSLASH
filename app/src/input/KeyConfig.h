@@ -8,6 +8,7 @@
 struct KeyboardBinding
 {
     int         dikKey;
+    int         mouseButton; // -1 = なし 
     std::string imagePath;
     std::string backgroundImagePath; // ボタン画像の背景に表示する画像
 };

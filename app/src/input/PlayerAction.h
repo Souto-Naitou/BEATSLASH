@@ -10,4 +10,5 @@ enum class PlayerAction
     Attack,
     Overdrive,
     UpTempo,
+    Parry,
 };

@@ -43,7 +43,7 @@ private:
     std::unique_ptr<SpriteGroup> pOverdriveSprite_ = nullptr;
     std::unique_ptr<SpriteGroup> pUpTempoSprite_ = nullptr;
 
-    GameParameter(Tako::Vector2, textOffset_, Tako::Vector2(2.0f, 0.0f));
+    GameParameter(Tako::Vector2, textOffset_, Tako::Vector2(3.0f, 0.0f));
     std::unique_ptr<Tako::Sprite> pAttackTextSprite_ = nullptr;
     std::unique_ptr<Tako::Sprite> pOverdriveTextSprite_ = nullptr;
     std::unique_ptr<Tako::Sprite> pUpTempoTextSprite_ = nullptr;

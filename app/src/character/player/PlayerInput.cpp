@@ -30,7 +30,7 @@ void PlayerInput::Update()
         // パッド入力があればパッドモードへ
         bool anyPadInput = !pInput_->LStickInDeadZone()
             || pInput_->GetRightTrigger() > 0.1f
-            || pInput_->GetLeftTrigger()  > 0.1f;
+            || pInput_->GetLeftTrigger() > 0.1f;
         if (!anyPadInput)
         {
             for (auto btn : Tako::GamepadButton::ALL)
@@ -64,7 +64,7 @@ void PlayerInput::Update()
     const auto& kbLeft = KeyConfig::GetKeyboard(PlayerAction::MoveLeft);
     const auto& kbRight= KeyConfig::GetKeyboard(PlayerAction::MoveRight);
     auto dirX = pInput_->PushKey(kbRight.dikKey) - pInput_->PushKey(kbLeft.dikKey);
-    auto dirZ = pInput_->PushKey(kbFwd.dikKey)   - pInput_->PushKey(kbBack.dikKey);
+    auto dirZ = pInput_->PushKey(kbFwd.dikKey) - pInput_->PushKey(kbBack.dikKey);
     data_.move = Tako::Vector3(static_cast<float>(dirX), 0.0f, static_cast<float>(dirZ)) + padDir;
     data_.move = data_.move.Normalize();
 
@@ -95,9 +95,11 @@ void PlayerInput::Update()
     // アップテンポ
     const auto& kbUt = KeyConfig::GetKeyboard(PlayerAction::UpTempo);
     data_.isUpTempoTriggered = pInput_->TriggerKey(kbUt.dikKey) || pInput_->GetRightTrigger() > 0.5f;
-  
-    data_.isParryTriggered = pInput_->TriggerMouse(1);
-    data_.isParryTriggered |= pInput_->TriggerKey(DIK_LSHIFT);
+
+    const auto& kbParry = KeyConfig::GetKeyboard(PlayerAction::Parry);
+    const auto& padParry = KeyConfig::GetPad(PlayerAction::Parry);
+    data_.isParryTriggered = pInput_->TriggerKey(kbParry.dikKey) || (kbParry.mouseButton != -1 && pInput_->TriggerMouse(kbParry.mouseButton));
+    data_.isParryTriggered |= pInput_->TriggerButton(padParry.button);
 }
 
 void PlayerInput::ImGui()

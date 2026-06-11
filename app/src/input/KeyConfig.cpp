@@ -3,14 +3,15 @@
 
 const std::unordered_map<PlayerAction, KeyboardBinding> KeyConfig::kKeyboardBindings_ =
 {
-    { PlayerAction::MoveForward, { DIK_W,     "kb/W.png"     ,""} },
-    { PlayerAction::MoveBack,    { DIK_S,     "kb/S.png"     ,""} },
-    { PlayerAction::MoveLeft,    { DIK_A,     "kb/A.png"     ,""} },
-    { PlayerAction::MoveRight,   { DIK_D,     "kb/D.png"     ,""} },
-    { PlayerAction::Jump,        { DIK_SPACE, "key\\key_Space.png" ,"key\\key_back.png"} },
-    { PlayerAction::Attack,      { DIK_E,     "key\\key_E.png"     ,"key\\key_back.png"} },
-    { PlayerAction::Overdrive,   { DIK_F,     "key\\key_F.png"     ,"key\\key_back.png"} },
-    { PlayerAction::UpTempo,     { DIK_G,     "key\\key_G.png"     ,"key\\key_back.png"} },
+    { PlayerAction::MoveForward, { DIK_W,     -1,"kb/W.png"     ,""} },
+    { PlayerAction::MoveBack,    { DIK_S,     -1,"kb/S.png"     ,""} },
+    { PlayerAction::MoveLeft,    { DIK_A,     -1,"kb/A.png"     ,""} },
+    { PlayerAction::MoveRight,   { DIK_D,     -1,"kb/D.png"     ,""} },
+    { PlayerAction::Jump,        { DIK_SPACE, -1,"key\\key_Space.png" ,"key\\key_back.png"} },
+    { PlayerAction::Attack,      { DIK_E,      0,"key\\key_E.png"     ,"key\\key_back.png"} },
+    { PlayerAction::Overdrive,   { DIK_F,     -1,"key\\key_F.png"     ,"key\\key_back.png"} },
+    { PlayerAction::UpTempo,     { DIK_G,     -1,"key\\key_G.png"     ,"key\\key_back.png"} },
+    { PlayerAction::Parry,       { DIK_LSHIFT,      1,"key\\key_Q.png"     ,"key\\key_back.png"} },
 };
 
 const std::unordered_map<PlayerAction, PadBinding> KeyConfig::kPadBindings_ =
@@ -23,6 +24,7 @@ const std::unordered_map<PlayerAction, PadBinding> KeyConfig::kPadBindings_ =
     { PlayerAction::Attack,      { Tako::GamepadButton::R_Shoulder,     "key\\pad_RB.png"     ,"key\\pad_bumper_back_.png"      ,AnalogTrigger::None,false} },
     { PlayerAction::Overdrive,   { 0,                                   "key\\pad_RT.png"     ,"key\\pad_triger_back.png"       ,AnalogTrigger::Right,false} },
     { PlayerAction::UpTempo,     { 0,                                   "key\\pad_LT.png"     ,"key\\pad_triger_back.png"       ,AnalogTrigger::Left,true} },
+    { PlayerAction::Parry,       { Tako::GamepadButton::L_Shoulder,     "key\\pad_LB.png"     ,"key\\pad_bumper_back_.png"      ,AnalogTrigger::None,true} },
 };
 
 const KeyboardBinding& KeyConfig::GetKeyboard(PlayerAction action)
@@ -40,7 +42,10 @@ bool KeyConfig::IsActionTriggered(const PadBinding& pd, const KeyboardBinding& k
     auto pInput = Tako::Input::GetInstance();
 
     if (!isGamepad)
-        return pInput->TriggerKey(kb.dikKey);
+    {
+        return pInput->TriggerKey(kb.dikKey)
+            || (kb.mouseButton != -1 && pInput->TriggerMouse(kb.mouseButton));
+    }
 
     if (pd.button != 0)
         return pInput->TriggerButton(pd.button);
