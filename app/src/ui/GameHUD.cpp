@@ -10,6 +10,9 @@ void GameHUD::Initialize()
 
     playerHPBarUI_ = std::make_unique<PlayerHPBarUI>();
     playerHPBarUI_->Initialize();
+
+    controlKeyUI_ = std::make_unique<ControlKeyUI>();
+    controlKeyUI_->Initialize(playerInput_.IsGamepadMode());
 }
 
 void GameHUD::Update()
@@ -17,6 +20,7 @@ void GameHUD::Update()
     comboUI_->Update(comboBuffSystem_.GetCurrentCombo());
     rhythmHintUI_->Update(beatClock_.GetDeltaToNearestBeat());
     playerHPBarUI_->Update(hpComponent_.GetHPRatio());
+    controlKeyUI_->Update(playerInput_.IsGamepadMode());
 }
 
 void GameHUD::Draw()
@@ -24,4 +28,5 @@ void GameHUD::Draw()
     comboUI_->Draw();
     rhythmHintUI_->Draw();
     playerHPBarUI_->Draw();
+    controlKeyUI_->Draw();
 }

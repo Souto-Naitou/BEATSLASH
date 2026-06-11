@@ -73,6 +73,7 @@
     <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\BeatSlash.cpp" />
+    <ClCompile Include="src\input\KeyConfig.cpp" />
     <ClCompile Include="src\judge\InputTimingJudge.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\manager\BeatManager.cpp" />
@@ -89,6 +90,7 @@
     <ClCompile Include="src\stage\StageTransitionCollider.cpp" />
     <ClCompile Include="src\test\TestScene.cpp" />
     <ClCompile Include="src\ui\ComboUI.cpp" />
+    <ClCompile Include="src\ui\ControlKeyUI.cpp" />
     <ClCompile Include="src\ui\GameHUD.cpp" />
     <ClCompile Include="src\ui\PlayerHPBarUI.cpp" />
     <ClCompile Include="src\ui\RhythmHint.cpp" />
@@ -152,6 +154,8 @@
     <ClInclude Include="src\font\NumericView.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\BeatSlash.h" />
+    <ClInclude Include="src\input\KeyConfig.h" />
+    <ClInclude Include="src\input\PlayerAction.h" />
     <ClInclude Include="src\judge\InputTimingJudge.h" />
     <ClInclude Include="src\judge\JudgeResutl.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
@@ -177,6 +181,7 @@
     <ClInclude Include="src\test\TestScene.h" />
     <ClInclude Include="src\type\ColliderTypeID.h" />
     <ClInclude Include="src\ui\ComboUI.h" />
+    <ClInclude Include="src\ui\ControlKeyUI.h" />
     <ClInclude Include="src\ui\GameHUD.h" />
     <ClInclude Include="src\ui\PlayerHPBarUI.h" />
     <ClInclude Include="src\ui\RhythmHint.h" />
