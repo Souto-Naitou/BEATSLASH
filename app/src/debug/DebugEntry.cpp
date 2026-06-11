@@ -119,6 +119,21 @@ void DebugEntry::ImGui()
                     }
                 }
             }
+            else if constexpr (std::is_same_v<T, RGBA*>)
+            {
+                float color[4] = { arg->r / 255.0f, arg->g / 255.0f, arg->b / 255.0f, arg->a / 255.0f };
+                if (ImGui::ColorEdit4(name.c_str(), color))
+                {
+                    arg->r = static_cast<uint8_t>(color[0] * 255);
+                    arg->g = static_cast<uint8_t>(color[1] * 255);
+                    arg->b = static_cast<uint8_t>(color[2] * 255);
+                    arg->a = static_cast<uint8_t>(color[3] * 255);
+                    if (data.onChange)
+                    {
+                        data.onChange();
+                    }
+                }
+            } 
         }, data.ptr);
     }
 
@@ -162,6 +177,10 @@ void DebugEntry::ImGui()
             else if constexpr (std::is_same_v<T, const Tako::Vector2*>)
             {
                 ImGui::Text("%s: (%.2f, %.2f)", name.c_str(), arg->x, arg->y);
+            }
+            else if constexpr (std::is_same_v<T, const RGBA*>)
+            {
+                ImGui::Text("%s: (R: %d, G: %d, B: %d, A: %d)", name.c_str(), arg->r, arg->g, arg->b, arg->a);
             }
         }, data);
     }

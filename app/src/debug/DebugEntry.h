@@ -4,6 +4,7 @@
 #include <Vector3.h>
 #include <Vector4.h>
 #include <Vector2.h>
+#include <math/Color.h>
 #include <unordered_map>
 #include <Transform.h>
 #include <functional>
@@ -19,7 +20,8 @@ public:
         Tako::Transform*,
         Tako::Vector4*,
         Tako::Vector3*,
-        Tako::Vector2*
+        Tako::Vector2*,
+        RGBA*
     >;
 
     using ConstAvailableType = std::variant<
@@ -30,7 +32,8 @@ public:
         const Tako::Transform*,
         const Tako::Vector4*,
         const Tako::Vector3*,
-        const Tako::Vector2*
+        const Tako::Vector2*,
+        const RGBA*
     >;
 
     struct ParameterData

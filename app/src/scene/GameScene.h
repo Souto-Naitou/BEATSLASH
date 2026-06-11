@@ -45,6 +45,7 @@ public: // メンバ関数
     /// 描画
     /// </summary>
     void Draw() override;
+
     void DrawWithoutEffect() override;
 
     /// <summary>
@@ -55,6 +56,8 @@ public: // メンバ関数
 private: // メンバ関数
     void LoadParticleEmitterPresets();
     void LoadImageAll();
+    void DrawObjects();
+    void ApplyPostEffects();
 
 private: // メンバ変数
     std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー

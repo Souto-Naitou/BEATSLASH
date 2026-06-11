@@ -7,6 +7,8 @@
 
 #include <memory>
 #include <functional>
+#include "debug/GameParameter.h"
+#include <math/Color.h>
 
 
 class Stage
@@ -30,6 +32,9 @@ public:
     void CollisionActive(bool active) { for (auto& col : colliders_) col->SetActive(active); }
 
 private:
+
+    EnableDebug("Stage");
+    GameParameter(RGBA, kStageColor_, RGBA(0x0d0e14ff));
 
     StageData stageData_;
 
