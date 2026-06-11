@@ -124,6 +124,9 @@
     <ClCompile Include="src\framework\BeatSlash.cpp">
       <Filter>framework</Filter>
     </ClCompile>
+    <ClCompile Include="src\input\KeyConfig.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
     <ClCompile Include="src\judge\InputTimingJudge.cpp">
       <Filter>judge</Filter>
     </ClCompile>
@@ -170,6 +173,9 @@
     <ClCompile Include="src\ui\ComboUI.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\ControlKeyUI.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
     <ClCompile Include="src\ui\GameHUD.cpp">
       <Filter>ui</Filter>
     </ClCompile>
@@ -193,12 +199,6 @@
     </ClCompile>
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\KeyConfig.cpp">
-      <Filter>input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ui\ControlKeyUI.cpp">
-      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +228,9 @@
     </Filter>
     <Filter Include="framework">
       <UniqueIdentifier>{7dfa06e3-acd1-4250-8b2e-fa2db97d5a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{8b642bfd-ac00-44c4-8e61-b4d47482d277}</UniqueIdentifier>
     </Filter>
     <Filter Include="judge">
       <UniqueIdentifier>{223d740c-de34-4cc2-83f5-bf605b7e0631}</UniqueIdentifier>
@@ -297,9 +300,6 @@
     </Filter>
     <Filter Include="character\player\state">
       <UniqueIdentifier>{0389bc9c-ff20-46fc-bfd1-388d4d1f678d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="input">
-      <UniqueIdentifier>{8b642bfd-ac00-44c4-8e61-b4d47482d277}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -474,6 +474,12 @@
     <ClInclude Include="src\framework\BeatSlash.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="src\input\KeyConfig.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\PlayerAction.h">
+      <Filter>input</Filter>
+    </ClInclude>
     <ClInclude Include="src\judge\InputTimingJudge.h">
       <Filter>judge</Filter>
     </ClInclude>
@@ -549,6 +555,9 @@
     <ClInclude Include="src\ui\ComboUI.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\ControlKeyUI.h">
+      <Filter>ui</Filter>
+    </ClInclude>
     <ClInclude Include="src\ui\GameHUD.h">
       <Filter>ui</Filter>
     </ClInclude>
@@ -578,15 +587,6 @@
     </ClInclude>
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ui\ControlKeyUI.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\input\PlayerAction.h">
-      <Filter>input</Filter>
-    </ClInclude>
-    <ClInclude Include="src\input\KeyConfig.h">
-      <Filter>input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
