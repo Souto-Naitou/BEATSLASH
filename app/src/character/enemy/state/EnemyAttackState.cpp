@@ -58,6 +58,7 @@ void EnemyAttackState::Enter(Enemy* enemy)
 {
 	// タイマーのリセット
 	timer_ = 0.0f;
+	isAttackStarted_ = false;
 
 	const BeatClock* beatClock = enemy->GetBeatClock();
 	if (beatClock)
@@ -79,14 +80,19 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	colliderTransform_.rotate = { 0.0f, startAngle + std::numbers::pi_v<float> / 2.0f, 0.0f }; // 接線方向に向ける
 	colliderTransform_.scale = { 1.8f, 0.1f, 0.3f }; // コライダーを薄長くする
 
+	// コライダーは最初は非アクティブに設定
+	pAttackCollider_->SetActive(false);
+
 	// コライダーをマネージャーに登録
 	auto collisionManager = Tako::CollisionManager::GetInstance();
 	collisionManager->AddCollider(pAttackCollider_.get());
 	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::EnemyAttack), static_cast<uint32_t>(ColliderTypeID::Player), true);
 
-	// 攻撃エフェクトの再生
-	emitterTempName_ = effectName_ + "_temp_" + std::to_string(attackEffectCount_++);
-	pEmitterManager_->CreateTemporaryEmitterFrom(effectName_, emitterTempName_, kAttackDuration_);
+	// 警告表示用の初期カラーを設定（赤色、半透明）
+	pAttackModel_->SetMaterialColor({ 256.0f, 0.0f, 0.0f, 120.0f });
+	pAttackModel_->SetTransparent(true);
+	pAttackModel_->SetTransform(colliderTransform_);
+	pAttackModel_->Update();
 }
 
 void EnemyAttackState::Update(Enemy* enemy)
@@ -95,40 +101,86 @@ void EnemyAttackState::Update(Enemy* enemy)
 	timer_ += Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
 	const BeatClock* beatClock = enemy->GetBeatClock();
-	float t = 0.0f;
+	bool isWarning = true;
+	float attackProgress = 0.0f;
 	if (beatClock)
 	{
 		float currentBeat = beatClock->GetCurrentBeat();
-		t = (currentBeat - startBeat_) / kAttackDurationInBeats;
+		float elapsedBeats = currentBeat - startBeat_;
+		if (elapsedBeats < kWarningDurationInBeats)
+		{
+			isWarning = true;
+		}
+		else
+		{
+			isWarning = false;
+			attackProgress = (elapsedBeats - kWarningDurationInBeats) / kAttackDurationInBeats;
+		}
 	}
 	else
 	{
-		t = timer_ / kAttackDuration_;
+		if (timer_ < kWarningDuration_)
+		{
+			isWarning = true;
+		}
+		else
+		{
+			isWarning = false;
+			attackProgress = (timer_ - kWarningDuration_) / kAttackDuration_;
+		}
 	}
 
-	if (t > 1.0f)
+	if (attackProgress > 1.0f)
 	{
-		t = 1.0f;
+		attackProgress = 1.0f;
 	}
 
-	// イージングの適用(EaseInOutQuint)
-	float easedT = t < 0.5f
-		? 16.0f * t * t * t * t * t
-		: 1.0f - std::pow(-2.0f * t + 2.0f, 5.0f) / 2.0f;
+	if (isWarning)
+	{
+		// 警告フェーズ：開始角度で赤色点滅
+		float flashAngle = timer_ * 15.0f;
+		float alpha = 120.0f + 80.0f * std::sin(flashAngle);
+		pAttackModel_->SetMaterialColor({ 256.0f, 0.0f, 0.0f, alpha });
+		pAttackModel_->SetTransparent(true);
 
-	// 敵の現在の基準方向を取得
-	float baseYaw = enemy->GetTransform().rotate.y;
+		float baseYaw = enemy->GetTransform().rotate.y;
+		float startAngle = baseYaw + std::numbers::pi_v<float> / 3.0f;
 
-	// 右60度から左60度へ補間
-	float startAngle = baseYaw + std::numbers::pi_v<float> / 3.0f;
-	float endAngle = baseYaw - std::numbers::pi_v<float> / 3.0f;
-	float currentAngle = startAngle + (endAngle - startAngle) * easedT;
+		Tako::Vector3 offset = { std::sin(startAngle) * kColliderOffset, 0.0f, std::cos(startAngle) * kColliderOffset };
+		colliderTransform_.translate = enemy->GetPosition() + offset;
+		colliderTransform_.translate.y += 0.5f;
+		colliderTransform_.rotate = { 0.0f, startAngle + std::numbers::pi_v<float> / 2.0f, 0.0f };
+	}
+	else
+	{
+		// 攻撃開始の瞬間処理
+		if (!isAttackStarted_)
+		{
+			isAttackStarted_ = true;
+			pAttackCollider_->SetActive(true);
+			pAttackModel_->SetMaterialColor({ 256.0f, 128.0f, 0.0f, 256.0f }); // オレンジ色
+			pAttackModel_->SetTransparent(false);
 
-	// 新しい位置と回転の計算
-	Tako::Vector3 offset = { std::sin(currentAngle) * kColliderOffset, 0.0f, std::cos(currentAngle) * kColliderOffset };
-	colliderTransform_.translate = enemy->GetPosition() + offset;
-	colliderTransform_.translate.y += 0.5f; // 少し浮かす
-	colliderTransform_.rotate = { 0.0f, currentAngle + std::numbers::pi_v<float> / 2.0f, 0.0f }; // 接線方向に向ける
+			// 攻撃エフェクトの再生
+			emitterTempName_ = effectName_ + "_temp_" + std::to_string(attackEffectCount_++);
+			pEmitterManager_->CreateTemporaryEmitterFrom(effectName_, emitterTempName_, kAttackDuration_);
+		}
+
+		// 攻撃フェーズ：イージングを適用したスイング
+		float easedT = attackProgress < 0.5f
+			? 16.0f * attackProgress * attackProgress * attackProgress * attackProgress * attackProgress
+			: 1.0f - std::pow(-2.0f * attackProgress + 2.0f, 5.0f) / 2.0f;
+
+		float baseYaw = enemy->GetTransform().rotate.y;
+		float startAngle = baseYaw + std::numbers::pi_v<float> / 3.0f;
+		float endAngle = baseYaw - std::numbers::pi_v<float> / 3.0f;
+		float currentAngle = startAngle + (endAngle - startAngle) * easedT;
+
+		Tako::Vector3 offset = { std::sin(currentAngle) * kColliderOffset, 0.0f, std::cos(currentAngle) * kColliderOffset };
+		colliderTransform_.translate = enemy->GetPosition() + offset;
+		colliderTransform_.translate.y += 0.5f;
+		colliderTransform_.rotate = { 0.0f, currentAngle + std::numbers::pi_v<float> / 2.0f, 0.0f };
+	}
 
 	// モデルのトランスフォーム更新
 	if (pAttackModel_)
@@ -143,7 +195,6 @@ void EnemyAttackState::Exit(Enemy* enemy)
 	// コライダーをマネージャーから削除
 	auto collisionManager = Tako::CollisionManager::GetInstance();
 	collisionManager->RemoveCollider(pAttackCollider_.get());
-
 }
 
 void EnemyAttackState::Draw(Enemy* enemy)
@@ -165,8 +216,12 @@ void EnemyAttackState::DrawImGui(Enemy* enemy)
 		float elapsed = currentBeat - startBeat_;
 		ImGui::Text("Start Beat: %.4f", startBeat_);
 		ImGui::Text("Current Beat: %.4f", currentBeat);
-		ImGui::Text("Elapsed Beats: %.4f / %.2f", elapsed, kAttackDurationInBeats);
-		ImGui::Text("Progress (t): %.4f (Peak is 0.5)", elapsed / kAttackDurationInBeats);
+		ImGui::Text("Elapsed Beats: %.4f / %.2f", elapsed, kWarningDurationInBeats + kAttackDurationInBeats);
+		ImGui::Text("Is Warning: %s", (elapsed < kWarningDurationInBeats) ? "Yes" : "No");
+		if (elapsed >= kWarningDurationInBeats)
+		{
+			ImGui::Text("Attack Progress: %.4f", (elapsed - kWarningDurationInBeats) / kAttackDurationInBeats);
+		}
 	}
 #endif
 }
@@ -177,15 +232,15 @@ std::optional<EnemyStateType> EnemyAttackState::CheckTransition(Enemy* enemy)
 	if (beatClock)
 	{
 		float currentBeat = beatClock->GetCurrentBeat();
-		if (currentBeat - startBeat_ >= kAttackDurationInBeats)
+		if (currentBeat - startBeat_ >= kWarningDurationInBeats + kAttackDurationInBeats)
 		{
 			return EnemyStateType::Chase;
 		}
 	}
 	else
 	{
-		// 攻撃時間が経過したら追従状態に戻る
-		if (timer_ >= kAttackDuration_)
+		// 予備動作時間＋攻撃時間が経過したら追従状態に戻る
+		if (timer_ >= kWarningDuration_ + kAttackDuration_)
 		{
 			return EnemyStateType::Chase;
 		}
