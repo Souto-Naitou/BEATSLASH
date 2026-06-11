@@ -41,6 +41,10 @@ private:
 	static uint32_t attackEffectModelCount_;
 	// エフェクトプリセット名のベース
 	std::string effectName_;
+	// 予備動作エフェクトの名前
+	std::string warningEffectName_;
+	// 予備動作エフェクトの一時的なエミッターの名前
+	std::string warningEmitterTempName_;
 	// エフェクトの一時的なエミッターの名前
 	std::string emitterTempName_;
 	// エミッターのボックスサイズ

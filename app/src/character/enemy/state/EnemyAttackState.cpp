@@ -39,9 +39,14 @@ EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManage
 	pAttackCollider_->SetOwner(this);
 
 	// 攻撃エフェクトのロード
-	effectName_ = "enemy_attack_" + std::to_string(attackEffectModelCount_++);
+	effectName_ = "enemy_attack_" + std::to_string(attackEffectModelCount_);
 	pEmitterManager_->LoadPreset("enemy_attack", effectName_, pAttackModel_.get());
 	pEmitterManager_->SetEmitterActive(effectName_, false); // 最初は非アクティブにしておく
+
+	// 攻撃の予備動作エフェクトのロード
+	warningEffectName_ = "enemy_attack_sign_weapon_" + std::to_string(attackEffectModelCount_++);
+	pEmitterManager_->LoadPreset("enemy_attack_sign_weapon", warningEffectName_, pAttackModel_.get());
+	pEmitterManager_->SetEmitterActive(warningEffectName_, false); // 最初は非アクティブにしておく
 }
 
 EnemyAttackState::~EnemyAttackState()
@@ -51,6 +56,13 @@ EnemyAttackState::~EnemyAttackState()
 	if (pAttackCollider_)
 	{
 		collisionManager->RemoveCollider(pAttackCollider_.get());
+	}
+
+	// エフェクトの削除
+	if (pEmitterManager_)
+	{
+		pEmitterManager_->RemoveEmitter(effectName_);
+		pEmitterManager_->RemoveEmitter(warningEffectName_);
 	}
 }
 
@@ -93,6 +105,11 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	pAttackModel_->SetTransparent(true);
 	pAttackModel_->SetTransform(colliderTransform_);
 	pAttackModel_->Update();
+
+	// 予備動作エフェクトの再生
+	warningEmitterTempName_ = warningEffectName_ + "_temp_" + std::to_string(attackEffectModelCount_++);
+	pEmitterManager_->CreateTemporaryEmitterFrom(warningEffectName_, warningEmitterTempName_, kWarningDuration_);
+	pEmitterManager_->SetEmitterPosition(warningEmitterTempName_, colliderTransform_.translate);
 }
 
 void EnemyAttackState::Update(Enemy* enemy)
