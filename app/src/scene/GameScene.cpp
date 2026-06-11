@@ -19,9 +19,26 @@
 #include <common/ParticleEmitterPresetNames.h>
 #include <character/boss/bt/BossBTNodeRegistration.h>
 #include <PostEffectManager.h>
+#include <math/Easing.h>
 
 
 using namespace Tako;
+
+namespace
+{
+    float EaseInOutQuint(float x)
+    {
+        if (x < 0.5f)
+        {
+            return 16.0f * x * x * x * x * x;
+        }
+        else
+        {
+            float val = -2.0f * x + 2.0f;
+            return 1.0f - (val * val * val * val * val) / 2.0f;
+        }
+    }
+}
 
 void GameScene::Initialize()
 {
@@ -55,6 +72,10 @@ void GameScene::Initialize()
 	// 背景エフェクトをロード
 	pEmitterManager_->LoadPreset("field_background");
 	pEmitterManager_->SetEmitterActive("field_background", true);
+
+    // ボス死亡時のエフェクト（敵スポーンのエフェクトを流用）
+    pEmitterManager_->LoadPreset("boss_dead");
+    pEmitterManager_->SetEmitterActive("boss_dead", false);
 
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
@@ -265,7 +286,31 @@ void GameScene::Update()
     }
     else if (pBoss_ && !pBoss_->IsAlive())
     {
-        pStage_->NotifyClear();
+        if (!isBossDeathStarted_)
+        {
+			// ボスの死亡エフェクトを再生
+			pEmitterManager_->CreateTemporaryEmitterFrom("boss_dead", "boss_dead_temp", 2.0f);
+			pEmitterManager_->SetEmitterPosition("boss_dead_temp", pBoss_->GetTransform().translate);
+
+            isBossDeathStarted_ = true;
+            bossDeathTimer_ = 0.0f;
+            bossDeathStartScale_ = pBoss_->GetScale();
+        }
+
+        bossDeathTimer_ += deltaTime;
+        const float kDeathDuration = 1.5f;
+        float t = bossDeathTimer_ / kDeathDuration;
+        if (t >= 1.0f)
+        {
+            t = 1.0f;
+            pBoss_->SetScale({ 0.0f, 0.0f, 0.0f });
+            pStage_->NotifyClear();
+        }
+        else
+        {
+            float easedT = 1.0f - EaseInOutQuint(t);
+            pBoss_->SetScale(bossDeathStartScale_ * easedT);
+        }
     }
     pEmitterManager_->Update();
     CollisionManager::GetInstance()->CheckAllCollisions();
@@ -373,6 +418,9 @@ void GameScene::LoadImageAll()
 
 void GameScene::SpawnBoss()
 {
+    isBossDeathStarted_ = false;
+    bossDeathTimer_ = 0.0f;
+
     pBoss_ = std::make_unique<Boss>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
     pBoss_->Initialize();
 
