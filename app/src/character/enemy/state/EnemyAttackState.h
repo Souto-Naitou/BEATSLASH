@@ -45,6 +45,10 @@ private:
 	std::string emitterTempName_;
 	// エミッターのボックスサイズ
 	static constexpr Tako::Vector3 kEmitterBoxSize = { 5.0f, 0.2f, 0.7f };
+	// 予備動作時間
+	static constexpr float kWarningDuration_ = 0.4f;
+	// 予備動作時間（拍数）
+	static constexpr float kWarningDurationInBeats = 1.0f;
 	// 攻撃持続時間
 	static constexpr float kAttackDuration_ = 0.6f;
 	// 攻撃持続時間（拍数）
@@ -55,6 +59,7 @@ private:
 	float timer_ = 0.0f;
 	// 攻撃開始時の拍数
 	float startBeat_ = 0.0f;
-	
+	// 攻撃が開始されたか
+	bool isAttackStarted_ = false;
 };
 
