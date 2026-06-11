@@ -30,10 +30,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\character\player\ParryHistory.cpp" />
+    <ClCompile Include="src\character\player\ParryJudgement.cpp" />
+    <ClCompile Include="src\character\player\ParryPresentation.cpp" />
     <ClCompile Include="src\entity\enemy\EnemyManager.cpp" />
     <ClCompile Include="src\entity\enemy\EnemySpawner.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyAttackCollider.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp" />
+    <ClCompile Include="src\character\enemy\state\EnemyDeadState.cpp" />
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyChaseState.cpp" />
     <ClCompile Include="src\character\enemy\state\EnemyStateMachine.cpp" />
@@ -81,6 +85,7 @@
     <ClCompile Include="src\debug\DebugUIWrapper.cpp" />
     <ClCompile Include="src\factory\SceneFactory.cpp" />
     <ClCompile Include="src\framework\BeatSlash.cpp" />
+    <ClCompile Include="src\input\KeyConfig.cpp" />
     <ClCompile Include="src\judge\InputTimingJudge.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\manager\BeatManager.cpp" />
@@ -95,9 +100,13 @@
     <ClCompile Include="src\stage\StageClearFlow.cpp" />
     <ClCompile Include="src\stage\StageSequence.cpp" />
     <ClCompile Include="src\stage\StageTransitionCollider.cpp" />
+    <ClCompile Include="src\system\EventListener.cpp" />
+    <ClCompile Include="src\system\EventSubscription.cpp" />
     <ClCompile Include="src\test\TestScene.cpp" />
     <ClCompile Include="src\ui\ComboUI.cpp" />
+    <ClCompile Include="src\ui\ControlKeyUI.cpp" />
     <ClCompile Include="src\ui\GameHUD.cpp" />
+    <ClCompile Include="src\ui\PlayerHPBarUI.cpp" />
     <ClCompile Include="src\ui\RhythmHint.cpp" />
     <ClCompile Include="src\utility\CollisionUtility.cpp" />
     <ClCompile Include="src\utility\DeltaTimeManager.cpp" />
@@ -106,10 +115,15 @@
     <ClCompile Include="src\utility\StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\player\ParryHistory.h" />
+    <ClInclude Include="src\character\player\ParryJudgement.h" />
+    <ClInclude Include="src\character\player\ParryPresentation.h" />
+    <ClInclude Include="src\common\AnimationNames.h" />
     <ClInclude Include="src\entity\enemy\EnemyManager.h" />
     <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />
     <ClInclude Include="src\character\enemy\state\EnemyAttackState.h" />
+    <ClInclude Include="src\character\enemy\state\EnemyDeadState.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h" />
     <ClInclude Include="src\character\enemy\state\EnemyChaseState.h" />
     <ClInclude Include="src\character\enemy\state\EnemyIdleState.h" />
@@ -168,6 +182,8 @@
     <ClInclude Include="src\font\NumericView.h" />
     <ClInclude Include="src\factory\SceneFactory.h" />
     <ClInclude Include="src\framework\BeatSlash.h" />
+    <ClInclude Include="src\input\KeyConfig.h" />
+    <ClInclude Include="src\input\PlayerAction.h" />
     <ClInclude Include="src\judge\InputTimingJudge.h" />
     <ClInclude Include="src\judge\JudgeResutl.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
@@ -188,12 +204,16 @@
     <ClInclude Include="src\stage\StageData.h" />
     <ClInclude Include="src\stage\StageSequence.h" />
     <ClInclude Include="src\stage\StageTransitionCollider.h" />
+    <ClInclude Include="src\system\EventListener.h" />
+    <ClInclude Include="src\system\EventSubscription.h" />
     <ClInclude Include="src\system\ScopedCursorHidden.h" />
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />
     <ClInclude Include="src\type\ColliderTypeID.h" />
     <ClInclude Include="src\ui\ComboUI.h" />
+    <ClInclude Include="src\ui\ControlKeyUI.h" />
     <ClInclude Include="src\ui\GameHUD.h" />
+    <ClInclude Include="src\ui\PlayerHPBarUI.h" />
     <ClInclude Include="src\ui\RhythmHint.h" />
     <ClInclude Include="src\utility\CollisionUtility.h" />
     <ClInclude Include="src\utility\DeltaTimeManager.h" />

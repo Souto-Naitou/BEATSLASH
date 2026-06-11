@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\character\player\ParryHistory.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\ParryJudgement.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\ParryPresentation.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemyManager.cpp">
       <Filter>entity\enemy</Filter>
     </ClCompile>
@@ -11,6 +20,9 @@
       <Filter>character\enemy\collider</Filter>
     </ClCompile>
     <ClCompile Include="src\character\enemy\state\EnemyAttackState.cpp">
+      <Filter>character\enemy\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\enemy\state\EnemyDeadState.cpp">
       <Filter>character\enemy\state</Filter>
     </ClCompile>
     <ClCompile Include="src\character\enemy\collider\EnemyCollider.cpp">
@@ -139,6 +151,9 @@
     <ClCompile Include="src\framework\BeatSlash.cpp">
       <Filter>framework</Filter>
     </ClCompile>
+    <ClCompile Include="src\input\KeyConfig.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
     <ClCompile Include="src\judge\InputTimingJudge.cpp">
       <Filter>judge</Filter>
     </ClCompile>
@@ -179,13 +194,25 @@
     <ClCompile Include="src\stage\StageTransitionCollider.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="src\system\EventListener.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\EventSubscription.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
     <ClCompile Include="src\test\TestScene.cpp">
       <Filter>test</Filter>
     </ClCompile>
     <ClCompile Include="src\ui\ComboUI.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\ControlKeyUI.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
     <ClCompile Include="src\ui\GameHUD.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\PlayerHPBarUI.cpp">
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="src\ui\RhythmHint.cpp">
@@ -234,6 +261,9 @@
     </Filter>
     <Filter Include="framework">
       <UniqueIdentifier>{7dfa06e3-acd1-4250-8b2e-fa2db97d5a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{8b642bfd-ac00-44c4-8e61-b4d47482d277}</UniqueIdentifier>
     </Filter>
     <Filter Include="judge">
       <UniqueIdentifier>{223d740c-de34-4cc2-83f5-bf605b7e0631}</UniqueIdentifier>
@@ -315,6 +345,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\player\ParryHistory.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\ParryJudgement.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\ParryPresentation.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\AnimationNames.h">
+      <Filter>common</Filter>
+    </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemyManager.h">
       <Filter>entity\enemy</Filter>
     </ClInclude>
@@ -325,6 +367,9 @@
       <Filter>character\enemy\collider</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\state\EnemyAttackState.h">
+      <Filter>character\enemy\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\enemy\state\EnemyDeadState.h">
       <Filter>character\enemy\state</Filter>
     </ClInclude>
     <ClInclude Include="src\character\enemy\collider\EnemyCollider.h">
@@ -501,6 +546,12 @@
     <ClInclude Include="src\framework\BeatSlash.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="src\input\KeyConfig.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\PlayerAction.h">
+      <Filter>input</Filter>
+    </ClInclude>
     <ClInclude Include="src\judge\InputTimingJudge.h">
       <Filter>judge</Filter>
     </ClInclude>
@@ -561,6 +612,12 @@
     <ClInclude Include="src\stage\StageTransitionCollider.h">
       <Filter>stage</Filter>
     </ClInclude>
+    <ClInclude Include="src\system\EventListener.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\EventSubscription.h">
+      <Filter>system</Filter>
+    </ClInclude>
     <ClInclude Include="src\system\ScopedCursorHidden.h">
       <Filter>system</Filter>
     </ClInclude>
@@ -576,7 +633,13 @@
     <ClInclude Include="src\ui\ComboUI.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\ControlKeyUI.h">
+      <Filter>ui</Filter>
+    </ClInclude>
     <ClInclude Include="src\ui\GameHUD.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\PlayerHPBarUI.h">
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\RhythmHint.h">

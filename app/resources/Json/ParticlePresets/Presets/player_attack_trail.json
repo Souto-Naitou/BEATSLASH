@@ -2,46 +2,45 @@
   "billboard": true,
   "blendMode": 2,
   "collisionRestitution": 0.5,
-  "convergeDamping": 2.0,
-  "convergeStiffness": 8.0,
-  "convergeToTarget": false,
+  "convergeDamping": 20.0,
+  "convergeStiffness": 25.0,
+  "convergeToTarget": true,
   "damping": 0.8999999761581421,
   "endColor": [
-    1.0,
-    1.0,
-    1.0,
+    0.9808704257011414,
+    0.32672667503356934,
+    0.09897835552692413,
     1.0
   ],
   "endScaleDefault": [
     0.0,
     0.0,
-    0.0
+    1.649999976158142
   ],
   "frequency": 0.0010000000474974513,
-  "frequencyTime": 0.0006585960509255528,
+  "frequencyTime": 0.0009053965331986547,
   "isActive": false,
   "isEmitting": true,
   "isNormalize": false,
   "isRandomRotateZ": false,
   "isTemporary": false,
   "lifeTimeRange": [
-    0.0,
-    0.0
+    0.2800000011920929,
+    0.7099999785423279
   ],
   "lockDamping": 3.0,
   "lockStiffness": 2.0,
   "noiseScale": 0.05000000074505806,
   "noiseStrength": 0.0010000000474974513,
-  "particleCount": 35,
+  "particleCount": 2,
   "particleRadius": 0.5,
   "position": [
     -12.100000381469727,
     11.300000190734863,
     0.0
   ],
-  "radius": 0.30000001192092896,
-  "randomFlags": 0,
-  "renderAsMesh": false,
+  "radius": 0.10000000149011612,
+  "randomFlags": 63,
   "scaleRangeX": [
     0.20000000298023224,
     0.20000000298023224
@@ -53,9 +52,9 @@
   "spawnLocation": 1,
   "spawnLock": false,
   "startColor": [
+    0.871376097202301,
     1.0,
-    0.6223344206809998,
-    0.301769495010376,
+    0.1296030879020691,
     1.0
   ],
   "targetPosition": [
@@ -63,7 +62,7 @@
     0.0,
     0.0
   ],
-  "texturePath": "particle/spark.dds",
+  "texturePath": "white.dds",
   "type": 0,
   "useAlphaFade": false,
   "useCurlNoise": true,

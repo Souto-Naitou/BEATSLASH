@@ -38,6 +38,18 @@ void GameScene::Initialize()
     /// 画像の読み込み
     this->LoadImageAll();
 
+    /// エミッターマネージャの初期化
+    pEmitterManager_ = std::make_unique<Tako::EmitterManager>(Tako::GPUParticle::GetInstance());
+	
+    /// エフェクトのプリセットの読み込み
+    // ドアが開いているときのエフェクトをロード
+    pEmitterManager_->LoadPreset("door_open");
+    pEmitterManager_->SetEmitterActive("door_open", false);
+
+	// 背景エフェクトをロード
+	pEmitterManager_->LoadPreset("field_background");
+	pEmitterManager_->SetEmitterActive("field_background", true);
+
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
@@ -49,6 +61,10 @@ void GameScene::Initialize()
     pStage_->SetOnDoorOpened([this](const Tako::Transform& doorTransform)
     {
         pCameraDirector_->StartFocus(doorTransform, 1.0f);
+		
+        // ドアが開いているときのエフェクトを再生
+		pEmitterManager_->SetEmitterActive("door_open", true);
+		pEmitterManager_->SetEmitterPosition("door_open", doorTransform.translate + Tako::Vector3( -3.5f, 4.5f, 0.0f ));
     });
 
     pCameraDirector_->SetOnFocusArrived([this]()
@@ -72,8 +88,7 @@ void GameScene::Initialize()
     pComboSystem_ = std::make_unique<ComboSystem>();
     pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
 
-    /// エミッターマネージャの初期化
-    pEmitterManager_ = std::make_unique<Tako::EmitterManager>(Tako::GPUParticle::GetInstance());
+   
 #ifdef _DEBUG
     Tako::DebugUIManager::GetInstance()->SetEmitterManager(pEmitterManager_.get());
 #endif // _DEBUG
@@ -103,7 +118,8 @@ void GameScene::Initialize()
         *pAttackRepository_,
         *pCameraDirector_->GetFollowCamera(),
         *pComboBuffSystem_,
-        *pBeatClock_
+        *pBeatClock_,
+        *pEmitterManager_
     };
     pPlayer_ = std::make_unique<Player>(playerInitData);
     pPlayer_->Initialize();
@@ -166,6 +182,8 @@ void GameScene::Initialize()
 #endif
 
     pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_,*pBeatClock_);
+    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_, *pBeatClock_,
+                                          pPlayer_->GetHPComponent(), pPlayer_->GetPlayerInput());
     pGameHUD_->Initialize();
 
     Object3dBasic* obj3d = Object3dBasic::GetInstance();
@@ -175,14 +193,12 @@ void GameScene::Initialize()
         1,
         1.0f                      // 強度
     );
-    //obj3d->SetSceneCenter(Vector3(0.0f, 0.0f, 0.0f));  // デフォルト値
+
     obj3d->SetAutoUpdatePosition(true);  // デフォルト値
 
     Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
-    //ozSound::SoundEngine::GetInstance()->PostEvent("play_bgm_game_0");
-    // ↑だとどうしてもずれが気になる
     pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
     pBeatClock_->Start();
 }
@@ -198,6 +214,10 @@ void GameScene::Finalize()
         pBtEditor_->Finalize();
     }
 #endif
+
+	// エフェクトを削除
+	pEmitterManager_->RemoveEmitter("door_open");
+	pEmitterManager_->RemoveEmitter("field_background");
 }
 
 void GameScene::Update()
@@ -314,7 +334,9 @@ void GameScene::DrawImGui()
 void GameScene::LoadParticleEmitterPresets()
 {
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrail);
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrailBlackBlue);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kParrySuccess);
 }
 
 void GameScene::LoadImageAll()

@@ -5,7 +5,8 @@
 
 #include <type/ColliderTypeID.h>
 
-PlayerAttack::PlayerAttack(InitData& initData) : model_(initData.model)
+
+PlayerAttack::PlayerAttack(InitData& initData) : model_(initData.model), position_(initData.position)
 {
     // プレゼンテーションの生成
     pPresentation_ = std::make_unique<PlayerAttackPresentation>(initData.emitterManager);
@@ -35,7 +36,14 @@ PlayerAttack::PlayerAttack(InitData& initData) : model_(initData.model)
     // プレゼンテーションにコライダーの位置参照を渡す
     pPresentation_->SetColliderPositionRef(&initData.position);
 
-    model_.SetAnimation("PlayerAttack");
+    model_.SetAnimation(Global::AnimationNames::Player::kAttackHorizontal);
+
+    model_.SetMeshVisible("mesh_stick", true);
+}
+
+PlayerAttack::~PlayerAttack()
+{
+    model_.SetMeshVisible("mesh_stick", false);
 }
 
 void PlayerAttack::Update(float deltaTime)
@@ -51,7 +59,8 @@ void PlayerAttack::Update(float deltaTime)
 
     if (pCollider_)
     {
-        transform_.translate = pCollider_->GetCenter();
+        transform_.translate = position_;
+        pCollider_->SetTransform(&transform_);
     }
 
     pHitReceiver_->Update();

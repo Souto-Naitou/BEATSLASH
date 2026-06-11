@@ -62,6 +62,7 @@ private: // メンバ関数
     void LoadImageAll();
 
 private: // メンバ変数
+    std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー
     std::unique_ptr<Player>                 pPlayer_;               // !< プレイヤー
     std::unique_ptr<EnemyManager> pEnemyManager_;                   // !< 敵のマネージャー
     std::unique_ptr<Boss>                   pBoss_;                 // !< ボス
@@ -74,7 +75,6 @@ private: // メンバ変数
     std::unique_ptr<ComboBuffSystem>        pComboBuffSystem_;      // !< コンボバフシステム
     std::unique_ptr<PlayerAttackFactory>    pPlayerAttackFactory_;  // !< プレイヤー攻撃ファクトリー
     std::unique_ptr<GameHUD>                pGameHUD_;              // !< ゲームHUD
-    std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー
     std::unique_ptr<CameraDirector>         pCameraDirector_;       // !< カメラディレクターのインスタンス
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス

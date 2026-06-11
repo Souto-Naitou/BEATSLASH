@@ -1,12 +1,18 @@
 #include "EnemyAttackCollider.h"
 #include <type/ColliderTypeID.h>
+#include <EmitterManager.h>
+#include <Collider.h>
+
+EnemyAttackCollider::EnemyAttackCollider(Tako::EmitterManager* emitterManager)
+	: pEmitterManager_(emitterManager)
+{
+}
 
 void EnemyAttackCollider::OnCollisionEnter(Tako::Collider* other)
 {
 	ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
 	if (otherID == ColliderTypeID::Player)
 	{
-		// プレイヤーにダメージを与える処理をここに追加
 	}
 }
 

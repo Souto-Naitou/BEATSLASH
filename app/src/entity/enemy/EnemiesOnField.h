@@ -38,6 +38,8 @@ public:
         return enemies_.size();
     }
 
+	// 敵のリストへのアクセス
+	std::vector <std::unique_ptr<Enemy>>& GetEnemies() { return enemies_; }
 
 private:
 

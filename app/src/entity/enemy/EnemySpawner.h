@@ -4,11 +4,16 @@
 class BeatClock;
 #include <character/enemy/Enemy.h>
 
+namespace Tako
+{
+	class EmitterManager;
+}
+
 class EnemySpawner
 {
 public:
-	EnemySpawner(const ICharacter* target = nullptr, const BeatClock* beatClock = nullptr)
-		: pTarget_(target), pBeatClock_(beatClock) {}
+	EnemySpawner(const ICharacter* target = nullptr, const BeatClock* beatClock = nullptr, Tako::EmitterManager* emitterManager = nullptr)
+		: pTarget_(target), pBeatClock_(beatClock), pEmitterManager_(emitterManager) {}
 	~EnemySpawner() = default;
 
 	/// <summary>
@@ -30,5 +35,8 @@ private:
 	const ICharacter* pTarget_ = nullptr;
 	// ビートクロックのポインタ
 	const BeatClock* pBeatClock_ = nullptr;
+	// エミッターマネージャーのポインタ。所有しない（GameSceneが所有し、GameSceneの寿命まで生きる）
+	Tako::EmitterManager* pEmitterManager_ = nullptr;
 };
+
 

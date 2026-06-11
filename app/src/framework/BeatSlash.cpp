@@ -7,14 +7,15 @@
 #include <ozSound/audio/AudioSystem.h>
 #include <ozSound/audio/SoundEngine.h>
 #include <utility/DeltaTimeManager.h>
+#include <TextureManager.h>
 
 using namespace Tako;
 
 void BeatSlash::Initialize()
 {
-    winApp_->SetWindowSize(1920, 1080);
+    winApp_->SetWindowSize(1600, 900);
 
-    winApp_->SetWindowTitle(L"Beat Slash");
+    winApp_->SetWindowTitle(L"ビート スラッシュ！");
 
     TakoFramework::Initialize();
 
@@ -26,6 +27,12 @@ void BeatSlash::Initialize()
     ozSound::SoundEngine::GetInstance()->Initialize();
     ozSound::SoundEngine::GetInstance()->LoadSoundData("resources/audio/SoundData.json");
     ozSound::SoundEngine::GetInstance()->LoadEventData("resources/audio/SoundEvents.json");
+
+    // テクスチャの読み込み
+	Tako::TextureManager::GetInstance()->LoadTexture("circle2.png");
+	Tako::TextureManager::GetInstance()->LoadTexture("ring.png");
+    Tako::TextureManager::GetInstance()->LoadTexture("notes_1.png");
+    Tako::TextureManager::GetInstance()->LoadTexture("notes_2.png");
 
     DeltaTimeManager::GetInstance()->SetDeltaTime(DeltaTimeChannelReserved::Default, 1.0f / 60.0f);
     DeltaTimeManager::GetInstance()->SetDeltaTime(DeltaTimeChannelReserved::Game, 1.0f / 60.0f);

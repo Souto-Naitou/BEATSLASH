@@ -34,4 +34,5 @@ private:
 
     // 一意なトレイルの名前
     std::string uniqueNameTrail_;
+    std::string uniqueNameTrailBB_;
 };

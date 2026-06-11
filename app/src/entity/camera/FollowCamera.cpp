@@ -16,6 +16,8 @@ void FollowCamera::Initialize()
     {
         shiftDirection_ = shiftDirection_->Normalize();
     });
+#else
+    isActive_ = true; // デバッグモード以外では常にカメラ制御を有効にする
 #endif // _DEBUG
 
     pCamera_ = std::make_unique<Tako::Camera>();
@@ -47,7 +49,10 @@ void FollowCamera::Update()
 
 void FollowCamera::CameraActivationUpdate(const CameraInput::Command& command)
 {
+#ifdef _DEBUG
     if (command.isCameraActivationTriggered) isActive_ = !isActive_;
+#endif // _DEBUG
+
 
     if (!pCursorHidden_ && isActive_)
     {

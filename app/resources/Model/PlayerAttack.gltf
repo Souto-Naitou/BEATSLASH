@@ -113,7 +113,7 @@
 					}
 				}
 			],
-			"name":"PlayerAttack",
+			"name":"attack_horizontal",
 			"samplers":[
 				{
 					"input":11,
@@ -179,7 +179,7 @@
 			]
 		},
 		{
-			"name":"Cube",
+			"name":"mesh_stick",
 			"primitives":[
 				{
 					"attributes":{

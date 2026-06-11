@@ -15,8 +15,8 @@ EnemyChaseState::EnemyChaseState(const ICharacter* target)
 
 void EnemyChaseState::Enter(Enemy* enemy)
 {
-	// わかりやすいように、追跡状態に入ったときに色を変える
-	enemy->GetModel()->SetMaterialColor({ 256,0,0,256 });
+	//　色を変更
+	enemy->GetModel()->SetMaterialColor({ 1.0f, 0.0f, 0.0f, 1.0f });
 
 	// ビートインデックスの初期化
 	lastBeatIndex_ = -1;

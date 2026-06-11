@@ -14,9 +14,10 @@
 #include <imgui.h>
 #endif // _DEBUG
 
-Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock)
+Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock, Tako::EmitterManager* emitterManager)
 	: pTarget_(target)
 	, pBeatClock_(beatClock)
+	, pEmitterManager_(emitterManager)
 {}
 
 Enemy::~Enemy()
@@ -40,7 +41,7 @@ void Enemy::Initialize()
 	transform_ = pModel_->GetTransform();
 
 	// コライダーの初期化
-	pCollider_ = std::make_unique<EnemyCollider>();
+	pCollider_ = std::make_unique<EnemyCollider>(pEmitterManager_);
 	pCollider_->SetSize(pModel_->GetScale() * kColliderScaleMultiplier);
 	pCollider_->SetOwner(this);
 	pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Enemy));
@@ -50,20 +51,6 @@ void Enemy::Initialize()
 		pModel_->SetTransform(transform_);
 		pModel_->Update();
 									});
-
-	// コライダーをマネージャーに登録
-	auto collisionManager = Tako::CollisionManager::GetInstance();
-	collisionManager->AddCollider(pCollider_.get());
-	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
-	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
-	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
-
-	// デバッグUIの登録
-#ifdef _DEBUG
-	Tako::DebugUIManager::GetInstance()->RegisterGameObject("Enemy", [this]() { this->DrawImGui(); });
-#endif
-	// ステートの初期化。｛　スポーン演出状態、待機状態、　｝
-	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack }, this, pTarget_);
 
 	// HPコンポーネントの生成と初期化
 	pHp_ = std::make_unique<HPComponent>();
@@ -79,16 +66,26 @@ void Enemy::Update()
 
 	if (!isManualChanged)
 	{
+		// HPが0以下かつ現在のステートがDeadでなければ、死亡状態に遷移する
+		if (pHp_ && !pHp_->IsAlive() && stateMachine_.GetCurrentState() != EnemyStateType::Dead)
+		{
+			stateMachine_.ChangeState(EnemyStateType::Dead);
+		}
+
 		// ステートマシンの更新
 		stateMachine_.Update();
 	}
 
-	// スポーン状態の場合は拡縮アニメーションと重力を適用しない
-	if (stateMachine_.GetCurrentState() != EnemyStateType::Spawn)
+	// スポーン状態および死亡状態の場合は拡縮アニメーションを適用しない
+	if (stateMachine_.GetCurrentState() != EnemyStateType::Spawn && stateMachine_.GetCurrentState() != EnemyStateType::Dead)
 	{
 		// 拍同期の拡縮アニメーションを適用する
 		UpdateBeatAnimation();
+	}
 
+	// スポーン状態以外は重力を適用する
+	if (stateMachine_.GetCurrentState() != EnemyStateType::Spawn)
+	{
 		// 重力の適用
 		transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
 	}
@@ -156,5 +153,30 @@ void Enemy::UpdateBeatAnimation()
 		// 経過時間に基づいたサイン波
 		float scale = baseScale_ + scaleAmplitude_ * std::sin(timer_ * scaleSpeed_);
 		SetScale({ scale, scale, scale });
+	}
+}
+
+void Enemy::InitializeStateMachine()
+{
+	// ステートの初期化。｛　スポーン状態、待機状態、追従状態、攻撃状態、死亡状態　｝
+	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack, EnemyStateType::Dead }, this, pTarget_, pEmitterManager_);
+}
+
+void Enemy::EnableCollider()
+{
+	// コライダーをマネージャーに登録
+	auto collisionManager = Tako::CollisionManager::GetInstance();
+	collisionManager->AddCollider(pCollider_.get());
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
+
+}
+
+void Enemy::DisableCollider()
+{
+	if (pCollider_)
+	{
+		Tako::CollisionManager::GetInstance()->RemoveCollider(pCollider_.get());
 	}
 }

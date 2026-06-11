@@ -7,10 +7,15 @@ class BeatClock;
 #include <character/enemy/collider/EnemyCollider.h>
 #include <component/HPComponent.h>
 
+namespace Tako
+{
+	class EmitterManager;
+}
+
 class Enemy : public ICharacter
 {
 public:
-	Enemy(const ICharacter* target, const BeatClock* beatClock = nullptr);
+	Enemy(const ICharacter* target, const BeatClock* beatClock = nullptr, Tako::EmitterManager* emitterManager = nullptr);
 	~Enemy() override;
 	void Initialize() override;
 	void Update() override;
@@ -41,7 +46,27 @@ public:
 	void SetRotation(const Tako::Vector3& rotation) { transform_.rotate = rotation; }
 	void SetScale(const Tako::Vector3& scale) { transform_.scale = scale; }
 
-	bool IsAlive() const { return pHp_ && pHp_->IsAlive(); }
+	bool IsAlive() const { return !isDeadFinished_; }
+
+	/**
+	 * @brief ステートマシンの初期化
+	 */
+	void InitializeStateMachine();
+
+	/**
+	 * @brief 死亡演出が完了したかを取得・設定する
+	 */
+	void SetDeadFinished(bool finished) { isDeadFinished_ = finished; }
+
+	/**
+	 * @brief コライダーを衝突判定マネージャーに登録する
+	 */
+	void EnableCollider();
+
+	/**
+	 * @brief コライダーを衝突判定マネージャーから除外する
+	 */
+	void DisableCollider();
 
 	/**
 	 * @brief HPコンポーネントの取得
@@ -94,6 +119,8 @@ private:
 	const ICharacter* pTarget_ = nullptr;
 	// ビートクロックのポインタ（所有しない）
 	const BeatClock* pBeatClock_ = nullptr;
+	// エミッターマネージャーのポインタ。所有しない（GameSceneが所有し、GameSceneの寿命まで生きる）
+	Tako::EmitterManager* pEmitterManager_ = nullptr;
 
 	// 拡縮アニメーション用パラメータ
 	float baseScale_ = 1.0f;
@@ -104,6 +131,7 @@ private:
 	// 重力
 	static constexpr float kGravity = -9.8f;
   
-  std::unique_ptr<HPComponent> pHp_;
+	std::unique_ptr<HPComponent> pHp_;
+	// 死亡演出が完了したか
+	bool isDeadFinished_ = false;
 };
-
