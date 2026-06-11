@@ -23,6 +23,9 @@ void TitleScene::Initialize()
     Tako::Object3dBasic::GetInstance()->SetDebug(false);
     #endif // _DEBUG
 
+    Tako::ShadowRenderer::GetInstance()->SetEnabled(true);
+    Tako::ShadowRenderer::GetInstance()->SetMaxShadowDistance(100.0f);
+
     Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleLogo);
     Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleStartPrompt);
 

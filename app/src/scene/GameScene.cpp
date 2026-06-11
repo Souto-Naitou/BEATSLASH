@@ -51,10 +51,8 @@ void GameScene::Initialize()
 	///              初期化処理              ///
 	/// ================================== ///
 
-	ShadowRenderer::GetInstance()->SetMaxShadowDistance(50.0f);
-
-	// 画像の読み込み
-	this->LoadImageAll();
+    // 画像の読み込み
+    this->LoadImageAll();
 
 	// ポストエフェクトの初期化と適用
 	this->ApplyPostEffects();
@@ -212,8 +210,7 @@ void GameScene::Initialize()
 
 	obj3d->SetAutoUpdatePosition(true);  // デフォルト値
 
-	Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
-	Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
+    Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
 	pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
 	pBeatClock_->Start();
