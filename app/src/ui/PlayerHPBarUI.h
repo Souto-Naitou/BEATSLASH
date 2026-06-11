@@ -32,6 +32,7 @@ private:
 
     bool ImGuiForSpriteData(const std::string& label, SpriteData& data);
 
+    Tako::Vector2 ApplyViewportUnit(const Tako::Vector2& vec) const;
 private:
 
     SpriteData backgroundData_; // 背景枠のスプライトデータ

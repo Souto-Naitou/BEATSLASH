@@ -2,8 +2,8 @@
 #include <TextureManager.h>
 
 // TODO:WinAppのインクルードは良くないので引数などで持ってくる
-#include <WinApp.h>
-#include <math/Easing.h>
+#include <utility/ViewportUnits.hpp>
+
 
 void ComboUI::Initialize()
 {
@@ -11,11 +11,11 @@ void ComboUI::Initialize()
     LoadNumberTextures();
 
     comboValue_.Initialize(numberTextureHandles_, "ComboValue");
-    comboValue_.SetFontSize(comboFontSize);
+    comboValue_.SetFontSize(Math::Viewport::Unit::vw(comboFontSize));
     comboValue_.SetColor(comboFontColor);
     // フォントレイアウトの初期設定 
     auto& fontLayoutProps = comboValue_.GetFontLayoutProperties();
-    fontLayoutProps.leftTop = *comboFontLayoutLeftTop.GetPtr();
+    fontLayoutProps.leftTop = Tako::Vector2(Math::Viewport::Unit::vw(comboFontLayoutLeftTop->x), Math::Viewport::Unit::vh(comboFontLayoutLeftTop->y));
     //中央を基準点にする
     fontLayoutProps.anchorPoint = { 0.5f, 0.5f };
 
@@ -45,6 +45,10 @@ void ComboUI::Update(uint32_t combo)
 
         comboValue_.SetFontSize(newSize);
     }
+    auto& fontLayoutProps = comboValue_.GetFontLayoutProperties();
+    fontLayoutProps.leftTop = Tako::Vector2(Math::Viewport::Unit::vw(comboFontLayoutLeftTop->x), Math::Viewport::Unit::vh(comboFontLayoutLeftTop->y));
+
+    comboValue_.SetFontSize(Math::Viewport::Unit::vw(comboFontSize));
 
     comboValue_.SetNumber(combo);
     comboValue_.Update();
@@ -78,7 +82,7 @@ void ComboUI::RegisterCallvacks()
     // デバッグ用のコールバック登録
     comboFontSize.SetOnChange([this](float newValue)
     {
-        comboValue_.SetFontSize(newValue);
+        comboValue_.SetFontSize(Math::Viewport::Unit::vw(newValue));
     });
     comboFontColor.SetOnChange([this](const Tako::Vector4& newColor)
     {
@@ -87,7 +91,7 @@ void ComboUI::RegisterCallvacks()
     comboFontLayoutLeftTop.SetOnChange([this](const Tako::Vector2& newLeftTop)
     {
         auto& fontLayoutProps = comboValue_.GetFontLayoutProperties();
-        fontLayoutProps.leftTop = newLeftTop;
+        fontLayoutProps.leftTop = Tako::Vector2(Math::Viewport::Unit::vw(newLeftTop.x), Math::Viewport::Unit::vh(newLeftTop.y));
     });
 #endif // _DEBUG
 }

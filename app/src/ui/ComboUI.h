@@ -33,9 +33,9 @@ private:
     AnimationTimeline<float> scaleAnimTl_={};
 
 
-    GameParameter(float, comboFontSize, 100.0f);
+    GameParameter(float, comboFontSize, 8.0f);
     GameParameter(Tako::Vector4, comboFontColor, Tako::Vector4(0.42f, 0.5f, 0.8f, 1.0f));
-    GameParameter(Tako::Vector2, comboFontLayoutLeftTop, Tako::Vector2(1500.0f, 540.0f));
+    GameParameter(Tako::Vector2, comboFontLayoutLeftTop, Tako::Vector2(80.0f, 40.0f));
 
 
 };
