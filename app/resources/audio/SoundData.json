@@ -34,6 +34,27 @@
             "path": "resources/audio/bgm_game_1.mp3",
             "submix": "BGM",
             "type": "BGM"
+        },
+        {
+            "enableOverlap": false,
+            "id": "se_boss_charge",
+            "path": "resources/audio/charge.wav",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": true,
+            "id": "se_boss_charge_complete",
+            "path": "resources/audio/EX_chargeComplete.wav",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": true,
+            "id": "se_boss_razer_shoot",
+            "path": "resources/audio/RazerShoot.wav",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }

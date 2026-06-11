@@ -57,6 +57,9 @@ void BeatSlash::Update()
     }
 
     TakoFramework::Update();
+
+    // 再生終了したボイスのエントリを解放する
+    ozSound::SoundEngine::GetInstance()->CleanupStoppedVoices();
 }
 
 void BeatSlash::Draw()
