@@ -92,6 +92,13 @@
             "type": "SE"
         },
         {
+            "enableOverlap": false,
+            "id": "bgm_gameover",
+            "path": "resources/audio/bgm_gameover.mp3",
+            "submix": "BGM",
+            "type": "BGM"
+        },
+        {
             "enableOverlap": true,
             "id": "title_bgm",
             "path": "resources/audio/title_bgm.mp3",

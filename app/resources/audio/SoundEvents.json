@@ -113,6 +113,30 @@
                 {
                     "effects": [],
                     "loop": true,
+                    "soundId": "bgm_gameover",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_bgm_gameover"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": true,
+                    "soundId": "bgm_gameover",
+                    "type": "Stop",
+                    "volume": 0.3
+                }
+            ],
+            "name": "stop_bgm_gameover"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": true,
                     "soundId": "title_bgm",
                     "type": "Play",
                     "volume": 0.3

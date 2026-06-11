@@ -203,16 +203,6 @@ void GameScene::Initialize()
 	pGameHUD_ = std::make_unique<GameHUD>(hudContext);
 	pGameHUD_->Initialize();
 
-	Object3dBasic* obj3d = Object3dBasic::GetInstance();
-	obj3d->SetDirectionalLight(
-		{ 0.0f, -1.0f, 1.0f },   // 方向
-		{ 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
-		1,
-		1.0f                      // 強度
-	);
-
-	obj3d->SetAutoUpdatePosition(true);  // デフォルト値
-
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
 	pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
@@ -249,31 +239,34 @@ void GameScene::Update()
 
 	const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
-	if (!pPlayer_->GetHPComponent().IsAlive()) {
-		SceneManager::GetInstance()->ChangeScene("title");
-	}
+    if (!pPlayer_->GetHPComponent().IsAlive())
+    {
+        SceneManager::GetInstance()->ChangeScene("gameover", TransitionManager::EffectType::Fade, 0.5f);
+        return;
+    }
 
-	// ステージの更新
-	pStage_->Update(deltaTime);
-	// プレイヤーの更新
-	pPlayer_->Update();
-	// 敵の更新
-	pEnemyManager_->Update(pStage_->GetCurrentIndex());
-	// ボスの更新（ボスステージ以外では存在しない）
-	if (pBoss_) {
-		pBoss_->Update();
-	}
+    // ステージの更新
+    pStage_->Update(deltaTime);
+    // プレイヤーの更新
+    pPlayer_->Update();
+    // 敵の更新
+    pEnemyManager_->Update(pStage_->GetCurrentIndex());
+    // ボスの更新（ボスステージ以外では存在しない）
+    if (pBoss_)
+    {
+        pBoss_->Update();
+    }
 
-	pBeatClock_->Update();
-	pAttackRepository_->Update();
+    pBeatClock_->Update();
+    pAttackRepository_->Update();
+    
+    // 非アクティブの攻撃を削除
+    pAttackRepository_->EraseInactiveAttacks();
+    // 非アクティブのコライダーを削除
+    colliderRepository_.EraseInactiveColliders();
 
-	// 非アクティブの攻撃を削除
-	pAttackRepository_->EraseInactiveAttacks();
-	// 非アクティブのコライダーを削除
-	colliderRepository_.EraseInactiveColliders();
-
-	pCameraDirector_->Update(deltaTime);
-	pGameHUD_->Update();
+    pCameraDirector_->Update(deltaTime);
+    pGameHUD_->Update();
 
     if (pStage_->IsStageComplete())
     {

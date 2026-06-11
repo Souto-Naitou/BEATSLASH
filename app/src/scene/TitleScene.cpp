@@ -24,7 +24,7 @@ void TitleScene::Initialize()
     #endif // _DEBUG
 
     Tako::ShadowRenderer::GetInstance()->SetEnabled(true);
-    Tako::ShadowRenderer::GetInstance()->SetMaxShadowDistance(100.0f);
+    Tako::ShadowRenderer::GetInstance()->SetMaxShadowDistance(150.0f);
 
     Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleLogo);
     Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleStartPrompt);
@@ -59,6 +59,16 @@ void TitleScene::Initialize()
     tween2.SetTransitionFunction(Math::Easing::EaseInOutCubic);
     railCameraTimeline_.AddTween(tween1);
     railCameraTimeline_.AddTween(tween2);
+
+    Tako::Object3dBasic* obj3d = Tako::Object3dBasic::GetInstance();
+    obj3d->SetDirectionalLight(
+        { 0.0f, -1.0f, 1.0f },   // 方向
+        { 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
+        1,
+        1.0f                      // 強度
+    );
+
+    obj3d->SetAutoUpdatePosition(true);  // デフォルト値
 }
 
 void TitleScene::Finalize()

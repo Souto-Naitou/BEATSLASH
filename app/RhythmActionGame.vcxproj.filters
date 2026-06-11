@@ -194,6 +194,9 @@
     <ClCompile Include="src\presentation\animation\RadialBeat.cpp">
       <Filter>presentation\animation</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\GameoverScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\scene\GameScene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
@@ -629,6 +632,9 @@
     </ClInclude>
     <ClInclude Include="src\presentation\animation\RadialBeat.h">
       <Filter>presentation\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\GameoverScene.h">
+      <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="src\scene\GameScene.h">
       <Filter>scene</Filter>
