@@ -11,6 +11,7 @@ struct KeyboardBinding
     int         mouseButton; // -1 = なし 
     std::string imagePath;
     std::string backgroundImagePath; // ボタン画像の背景に表示する画像
+    bool flipU = false; // 画像の左右反転フラグ
 };
 enum class AnalogTrigger { None, Left, Right };
 

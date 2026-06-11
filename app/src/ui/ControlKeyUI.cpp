@@ -6,10 +6,12 @@
 void ControlKeyUI::Initialize(bool isGamepadMode)
 {
     pAttackSprite_ = std::make_unique<SpriteGroup>();
+    pParrySprite_ = std::make_unique<SpriteGroup>();
     pOverdriveSprite_ = std::make_unique<SpriteGroup>();
     pUpTempoSprite_ = std::make_unique<SpriteGroup>();
 
     InitSpriteGroup(pAttackSprite_.get(), PlayerAction::Attack, isGamepadMode);
+    InitSpriteGroup(pParrySprite_.get(), PlayerAction::Parry, isGamepadMode);
     InitSpriteGroup(pOverdriveSprite_.get(), PlayerAction::Overdrive, isGamepadMode);
     InitSpriteGroup(pUpTempoSprite_.get(), PlayerAction::UpTempo, isGamepadMode);
 
@@ -24,6 +26,7 @@ void ControlKeyUI::Update(bool isGamepadMode)
     if (isGamepadMode != prevIsGamepad_)
     {
         SetUpSprite(pAttackSprite_.get(), PlayerAction::Attack, isGamepadMode);
+        SetUpSprite(pParrySprite_.get(), PlayerAction::Parry, isGamepadMode);
         SetUpSprite(pOverdriveSprite_.get(), PlayerAction::Overdrive, isGamepadMode);
         SetUpSprite(pUpTempoSprite_.get(), PlayerAction::UpTempo, isGamepadMode);
         prevIsGamepad_ = isGamepadMode;
@@ -39,28 +42,33 @@ void ControlKeyUI::Update(bool isGamepadMode)
         };
 
     Tako::Vector2 attackPos    = toVP(attackPos_);
+    Tako::Vector2 parryPos     = toVP(parryPos_);
     Tako::Vector2 overdrivePos = toVP(overdrivePos_);
     Tako::Vector2 upTempoPos   = toVP(upTempoPos_);
     Tako::Vector2 keySize      = toVP(keySize_);
 
     auto checkAndAnimate = [&](SpriteGroup* psg, PlayerAction action)
-    {
-        if (KeyConfig::IsActionTriggered(KeyConfig::GetPad(action), KeyConfig::GetKeyboard(action), isGamepadMode))
-            psg->scaleAnim.Start(1.0f);
-    };
-    checkAndAnimate(pAttackSprite_.get(),    PlayerAction::Attack);
+        {
+            if (KeyConfig::IsActionTriggered(KeyConfig::GetPad(action), KeyConfig::GetKeyboard(action), isGamepadMode))
+                psg->scaleAnim.Start(1.0f);
+        };
+    checkAndAnimate(pAttackSprite_.get(), PlayerAction::Attack);
+    checkAndAnimate(pParrySprite_.get(), PlayerAction::Parry);
     checkAndAnimate(pOverdriveSprite_.get(), PlayerAction::Overdrive);
-    checkAndAnimate(pUpTempoSprite_.get(),   PlayerAction::UpTempo);
+    checkAndAnimate(pUpTempoSprite_.get(), PlayerAction::UpTempo);
 
-    UpdateSprite(pAttackSprite_.get(),    attackPos,    keySize);
+    UpdateSprite(pAttackSprite_.get(), attackPos, keySize);
+    UpdateSprite(pParrySprite_.get(), parryPos, keySize);
     UpdateSprite(pOverdriveSprite_.get(), overdrivePos, keySize);
-    UpdateSprite(pUpTempoSprite_.get(),   upTempoPos,   keySize);
+    UpdateSprite(pUpTempoSprite_.get(), upTempoPos, keySize);
 
     pAttackTextSprite_->SetPos(toVP(attackPos_.Get() + textOffset_));
+    pParryTextSprite_->SetPos(toVP(parryPos_.Get() + textOffset_));
     pOverdriveTextSprite_->SetPos(toVP(overdrivePos_.Get() + textOffset_));
     pUpTempoTextSprite_->SetPos(toVP(upTempoPos_.Get() + textOffset_));
 
     pAttackTextSprite_->Update();
+    pParryTextSprite_->Update();
     pOverdriveTextSprite_->Update();
     pUpTempoTextSprite_->Update();
 }
@@ -68,10 +76,12 @@ void ControlKeyUI::Update(bool isGamepadMode)
 void ControlKeyUI::Draw()
 {
     DrawSprite(pAttackSprite_.get());
+    DrawSprite(pParrySprite_.get());
     DrawSprite(pOverdriveSprite_.get());
     DrawSprite(pUpTempoSprite_.get());
 
     pAttackTextSprite_->Draw();
+    pParryTextSprite_->Draw();
     pOverdriveTextSprite_->Draw();
     pUpTempoTextSprite_->Draw();
 }
@@ -108,6 +118,7 @@ void ControlKeyUI::SetUpSprite(SpriteGroup* psg, PlayerAction action, bool isGam
     const auto& pdConf = KeyConfig::GetPad(action);
 
     psg->pSprite->SetTexture(isGamepad ? pdConf.imagePath : kbConf.imagePath);
+    psg->pSprite->SetIsFlipX(isGamepad ? false : kbConf.flipU);
 
     std::string backTexturePath = isGamepad ? pdConf.backgroundImagePath : kbConf.backgroundImagePath;
     psg->pbackSprite->SetTexture(backTexturePath);
@@ -146,14 +157,17 @@ void ControlKeyUI::InitSpriteGroup(SpriteGroup* psg, PlayerAction action, bool i
 void ControlKeyUI::InitTextSprite()
 {
     pAttackTextSprite_ = std::make_unique<Tako::Sprite>();
+    pParryTextSprite_ = std::make_unique<Tako::Sprite>();
     pOverdriveTextSprite_ = std::make_unique<Tako::Sprite>();
     pUpTempoTextSprite_ = std::make_unique<Tako::Sprite>();
 
     pAttackTextSprite_->Initialize("text_attack.png");
+    pParryTextSprite_->Initialize("text_parry.png");
     pOverdriveTextSprite_->Initialize("text_overdrive.png");
     pUpTempoTextSprite_->Initialize("text_upTempo.png");
 
     pAttackTextSprite_->SetAnchorPoint({ 0.0f, 0.5f });
+    pParryTextSprite_->SetAnchorPoint({ 0.0f, 0.5f });
     pOverdriveTextSprite_->SetAnchorPoint({ 0.0f, 0.5f });
     pUpTempoTextSprite_->SetAnchorPoint({ 0.0f, 0.5f });
 }

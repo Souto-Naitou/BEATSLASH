@@ -3,15 +3,15 @@
 
 const std::unordered_map<PlayerAction, KeyboardBinding> KeyConfig::kKeyboardBindings_ =
 {
-    { PlayerAction::MoveForward, { DIK_W,     -1,"kb/W.png"     ,""} },
-    { PlayerAction::MoveBack,    { DIK_S,     -1,"kb/S.png"     ,""} },
-    { PlayerAction::MoveLeft,    { DIK_A,     -1,"kb/A.png"     ,""} },
-    { PlayerAction::MoveRight,   { DIK_D,     -1,"kb/D.png"     ,""} },
-    { PlayerAction::Jump,        { DIK_SPACE, -1,"key\\key_Space.png" ,"key\\key_back.png"} },
-    { PlayerAction::Attack,      { DIK_E,      0,"key\\key_E.png"     ,"key\\key_back.png"} },
-    { PlayerAction::Overdrive,   { DIK_F,     -1,"key\\key_F.png"     ,"key\\key_back.png"} },
-    { PlayerAction::UpTempo,     { DIK_G,     -1,"key\\key_G.png"     ,"key\\key_back.png"} },
-    { PlayerAction::Parry,       { DIK_LSHIFT,      1,"key\\key_Q.png"     ,"key\\key_back.png"} },
+    { PlayerAction::MoveForward, { DIK_W,     -1,"kb/W.png"     ,"",false} },
+    { PlayerAction::MoveBack,    { DIK_S,     -1,"kb/S.png"     ,"",false} },
+    { PlayerAction::MoveLeft,    { DIK_A,     -1,"kb/A.png"     ,"",false} },
+    { PlayerAction::MoveRight,   { DIK_D,     -1,"kb/D.png"     ,"",false} },
+    { PlayerAction::Jump,        { DIK_SPACE, -1,"key\\key_Space.png" ,"key\\key_back.png",false} },
+    { PlayerAction::Attack,      { DIK_E,      0,"key\\mouse_button.png","",false} },
+    { PlayerAction::Overdrive,   { DIK_F,     -1,"key\\key_F.png"     ,"key\\key_back.png",false} },
+    { PlayerAction::UpTempo,     { DIK_G,     -1,"key\\key_G.png"     ,"key\\key_back.png",false} },
+    { PlayerAction::Parry,       { DIK_LSHIFT, 1,"key\\mouse_button.png","",true} },
 };
 
 const std::unordered_map<PlayerAction, PadBinding> KeyConfig::kPadBindings_ =
