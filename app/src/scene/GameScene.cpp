@@ -132,6 +132,9 @@ void GameScene::Initialize()
     pCameraDirector_->SetFollowTarget(&pPlayer_->GetTransform());
     pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
                                {
+								   // ドアのエフェクトを非アクティブにする
+								   pEmitterManager_->SetEmitterActive("door_open", false);
+
                                    pPlayer_->Respawn(spawnTransform);
 
                                    // ボスステージでのみボスを存在させる
@@ -254,9 +257,14 @@ void GameScene::Update()
     pCameraDirector_->Update(deltaTime);
     pGameHUD_->Update();
 
-    if (pEnemyManager_->IsEmpty(pStage_->GetCurrentIndex()))
+	// ステージ１から２までのクリア条件は、ステージ上の敵を全て倒すこと
+    if (pEnemyManager_->IsEmpty(pStage_->GetCurrentIndex()) && !pBoss_)
     {
         // TODO：敵が全部死んだらこいつを呼ぶ
+        pStage_->NotifyClear();
+    }
+    else if (pBoss_ && !pBoss_->IsAlive())
+    {
         pStage_->NotifyClear();
     }
     pEmitterManager_->Update();
@@ -417,7 +425,10 @@ void GameScene::DrawObjects()
     pStage_->Draw();
     pPlayer_->Draw();
     pEnemyManager_->Draw(pStage_->GetCurrentIndex());
-    pBoss_->Draw();
+    if (pBoss_)
+    {
+        pBoss_->Draw();
+    }
 }
 
 void GameScene::ApplyPostEffects()
