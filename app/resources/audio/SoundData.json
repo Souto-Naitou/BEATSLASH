@@ -55,6 +55,13 @@
             "path": "resources/audio/enemy_take_hit.mp3",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "enemy_dead",
+            "path": "resources/audio/enemy_dead.mp3",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }

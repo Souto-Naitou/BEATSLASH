@@ -166,7 +166,6 @@ void EnemyChaseState::Chase(Enemy* enemy, float deltaTime)
 
 void EnemyChaseState::FaceTarget(Enemy* enemy)
 {
-#ifdef _DEBUG
 	if (pTarget_)
 	// 常にプレイヤーの方を向くようにする
 	{
@@ -182,7 +181,6 @@ void EnemyChaseState::FaceTarget(Enemy* enemy)
 		// 回転を設定
 		enemy->SetRotation({ 0.0f, angle, 0.0f });
 	}
-#endif
 }
 
 void EnemyChaseState::UpdateAttackCooldown(float deltaTime)

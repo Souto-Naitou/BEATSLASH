@@ -67,7 +67,7 @@
                     "loop": false,
                     "soundId": "enemy_attack_sign",
                     "type": "Play",
-                    "volume": 0.3
+                    "volume": 0.5
                 }
             ],
             "name": "play_se_enemy_attack_sign"
@@ -79,11 +79,22 @@
                     "loop": false,
                     "soundId": "enemy_take_hit",
                     "type": "Play",
-                    "volume": 0.3
+                    "volume": 0.5
                 }
             ],
             "name": "play_se_enemy_take_hit"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "enemy_dead",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_enemy_dead"
         }
-
     ]
 }

@@ -130,8 +130,16 @@ void GameScene::Initialize()
 
     // 敵の初期化
     pEnemyManager_ = std::make_unique<EnemyManager>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
-    // テスト用にステージ0に敵をスポーン
-    pEnemyManager_->SpawnEnemy(0, Tako::Vector3{ 0.0f, 150.0f, 0.0f });
+    
+    //　ステージ１の敵の配置
+    pEnemyManager_->SpawnEnemy(0, Tako::Vector3(10.0f, 5.0f, 3.0f));
+	pEnemyManager_->SpawnEnemy(0, Tako::Vector3(-13.0f, 5.0f, 3.0f));
+
+	// ステージ２の敵の配置
+    pEnemyManager_->SpawnEnemy(1, Tako::Vector3(-15.0f, 5.0f, -6.0f));
+	pEnemyManager_->SpawnEnemy(1, Tako::Vector3(-15.0f, 7.0f, 17.0f));
+    pEnemyManager_->SpawnEnemy(1, Tako::Vector3(15.0f, 3.0f, -7.0f));
+    pEnemyManager_->SpawnEnemy(1, Tako::Vector3(-10.0f, 10.0f, -22.0f));
 
     pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_, *pBeatClock_,
                                           pPlayer_->GetHPComponent(), pPlayer_->GetPlayerInput());

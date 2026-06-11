@@ -35,7 +35,7 @@ void EnemyCollider::OnCollisionEnter(Collider* other)
     else if (otherID == ColliderTypeID::PlayerAttack)
     {
         if (pHp_){
-            pHp_->Damage(25); // TODO : 仮のダメージ値
+            pHp_->Damage(10);
         }
 
 		// 色を白くしてヒットをわかりやすくする
