@@ -47,6 +47,43 @@
                 }
             ],
             "name": "play_bgm_game_1"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "enemy_attack",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_se_enemy_attack"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "enemy_attack_sign",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_se_enemy_attack_sign"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "enemy_take_hit",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_se_enemy_take_hit"
         }
+
     ]
 }

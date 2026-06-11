@@ -4,6 +4,7 @@
 #include <component/HPComponent.h>
 #include <EmitterManager.h>
 #include <character/enemy/Enemy.h>
+#include <ozSound/audio/SoundEngine.h>
 
 uint32_t EnemyCollider::effectCount_ = 0;
 
@@ -52,6 +53,8 @@ void EnemyCollider::OnCollisionEnter(Collider* other)
 			pEmitterManager_->CreateTemporaryEmitterFrom("enemy_attack_hit", effectName, 0.1f);
 			pEmitterManager_->SetEmitterPosition(effectName, GetCenter());
         }
+		// SEを流す
+		ozSound::SoundEngine::GetInstance()->PostEvent("play_se_enemy_take_hit");
     }
 }
 
