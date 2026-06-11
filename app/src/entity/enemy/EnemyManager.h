@@ -80,5 +80,8 @@ private:
 	
 	// 敵のスポナー
 	EnemySpawner spawner_;
+
+	// 現在のアクティブなステージインデックス
+	uint32_t activeStageIndex_ = 0;
 };
 

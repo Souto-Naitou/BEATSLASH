@@ -32,6 +32,31 @@ void EnemyManager::Draw(uint32_t activeStageIndex)
 	{
 		enemiesOnField_[activeStageIndex].Draw();
 	}
+
+	// アクティブなステージの番号を更新
+	if (activeStageIndex != activeStageIndex_)
+	{
+		if (activeStageIndex_ < kMaxStages)
+		{
+			// 非アクティブになったステージの処理
+			for (auto& enemy : enemiesOnField_[activeStageIndex_].GetEnemies())
+			{
+				// コライダーを無効化
+				enemy->DisableCollider();
+			}
+
+			// アクティブになったステージの処理
+			for (auto& enemy : enemiesOnField_[activeStageIndex].GetEnemies())
+			{
+				// ステートマシンの初期化
+				enemy->InitializeStateMachine();
+				// コライダーの有効化
+				enemy->EnableCollider();
+			}
+		}
+		// 番号の記録
+		activeStageIndex_ = activeStageIndex;
+	}
 }
 
 void EnemyManager::SpawnEnemy(uint32_t stageIndex, const Tako::Vector3& position)
@@ -40,6 +65,16 @@ void EnemyManager::SpawnEnemy(uint32_t stageIndex, const Tako::Vector3& position
 	{
 		// 敵の生成
 		auto enemy = spawner_.Spawn(position);
+
+		// ステージがアクティブ時の処理
+		if (stageIndex == activeStageIndex_) // ここでは仮に現在のアクティブなステージがアクティブとする
+		{
+			// ステートマシンの初期化
+			enemy->InitializeStateMachine();
+			// コライダーの有効化
+			enemy->EnableCollider();
+		}
+
 		// 敵をフィールドに追加
 		enemiesOnField_[stageIndex].Add(std::move(enemy));
 	}
@@ -51,6 +86,16 @@ void EnemyManager::SpawnEnemy(uint32_t stageIndex, const Tako::Transform& transf
 	{
 		// 敵の生成
 		auto enemy = spawner_.Spawn(transform);
+
+		// ステージがアクティブ時の処理
+		if (stageIndex == activeStageIndex_) // ここでは仮に現在のアクティブなステージがアクティブとする
+		{
+			// ステートマシンの初期化
+			enemy->InitializeStateMachine();
+			// コライダーの有効化
+			enemy->EnableCollider();
+		}
+
 		// 敵をフィールドに追加
 		enemiesOnField_[stageIndex].Add(std::move(enemy));
 	}

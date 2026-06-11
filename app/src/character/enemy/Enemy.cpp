@@ -52,16 +52,6 @@ void Enemy::Initialize()
 		pModel_->Update();
 									});
 
-	// コライダーをマネージャーに登録
-	auto collisionManager = Tako::CollisionManager::GetInstance();
-	collisionManager->AddCollider(pCollider_.get());
-	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
-	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
-	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
-
-	// ステートの初期化。｛　スポーン状態、待機状態、追従状態、攻撃状態、死亡状態　｝
-	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack, EnemyStateType::Dead }, this, pTarget_, pEmitterManager_);
-
 	// HPコンポーネントの生成と初期化
 	pHp_ = std::make_unique<HPComponent>();
 	pHp_->Initialize(kInitialHP);
@@ -164,6 +154,23 @@ void Enemy::UpdateBeatAnimation()
 		float scale = baseScale_ + scaleAmplitude_ * std::sin(timer_ * scaleSpeed_);
 		SetScale({ scale, scale, scale });
 	}
+}
+
+void Enemy::InitializeStateMachine()
+{
+	// ステートの初期化。｛　スポーン状態、待機状態、追従状態、攻撃状態、死亡状態　｝
+	stateMachine_.Initialize({ EnemyStateType::Spawn, EnemyStateType::Idle, EnemyStateType::Chase, EnemyStateType::Attack, EnemyStateType::Dead }, this, pTarget_, pEmitterManager_);
+}
+
+void Enemy::EnableCollider()
+{
+	// コライダーをマネージャーに登録
+	auto collisionManager = Tako::CollisionManager::GetInstance();
+	collisionManager->AddCollider(pCollider_.get());
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Player), true);
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Enemy), true);
+	collisionManager->SetCollisionMask(static_cast<uint32_t>(ColliderTypeID::Enemy), static_cast<uint32_t>(ColliderTypeID::Terrain), true);
+
 }
 
 void Enemy::DisableCollider()
