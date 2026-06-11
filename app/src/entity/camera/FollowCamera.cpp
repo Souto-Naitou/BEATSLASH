@@ -49,10 +49,7 @@ void FollowCamera::Update()
 
 void FollowCamera::CameraActivationUpdate(const CameraInput::Command& command)
 {
-#ifdef _DEBUG
     if (command.isCameraActivationTriggered) isActive_ = !isActive_;
-#endif // _DEBUG
-
 
     if (!pCursorHidden_ && isActive_)
     {

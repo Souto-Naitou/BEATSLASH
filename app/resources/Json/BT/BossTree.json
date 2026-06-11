@@ -22,20 +22,6 @@
       "targetPinId": 20012
     },
     {
-      "id": 30003,
-      "sourceNodeId": 10000,
-      "sourcePinId": 20001,
-      "targetNodeId": 10001,
-      "targetPinId": 20002
-    },
-    {
-      "id": 30004,
-      "sourceNodeId": 10000,
-      "sourcePinId": 20001,
-      "targetNodeId": 10011,
-      "targetPinId": 20014
-    },
-    {
       "id": 30005,
       "sourceNodeId": 10007,
       "sourcePinId": 20010,
@@ -64,30 +50,44 @@
       "targetPinId": 20008
     },
     {
-      "id": 30009,
-      "sourceNodeId": 10000,
-      "sourcePinId": 20001,
-      "targetNodeId": 10012,
-      "targetPinId": 20016
+      "id": 30011,
+      "sourceNodeId": 10012,
+      "sourcePinId": 20017,
+      "targetNodeId": 10007,
+      "targetPinId": 20009
     },
     {
-      "id": 30010,
+      "id": 30012,
       "sourceNodeId": 10012,
       "sourcePinId": 20017,
       "targetNodeId": 10004,
       "targetPinId": 20005
     },
     {
-      "id": 30011,
-      "sourceNodeId": 10012,
-      "sourcePinId": 20017,
-      "targetNodeId": 10007,
-      "targetPinId": 20009
+      "id": 30014,
+      "sourceNodeId": 10000,
+      "sourcePinId": 20001,
+      "targetNodeId": 10001,
+      "targetPinId": 20002
+    },
+    {
+      "id": 30015,
+      "sourceNodeId": 10000,
+      "sourcePinId": 20001,
+      "targetNodeId": 10011,
+      "targetPinId": 20014
+    },
+    {
+      "id": 30016,
+      "sourceNodeId": 10000,
+      "sourcePinId": 20001,
+      "targetNodeId": 10012,
+      "targetPinId": 20016
     }
   ],
   "metadata": {
-    "created": "2026-06-11T22:44:22",
-    "modified": "2026-06-11T22:44:22",
+    "created": "2026-06-12T04:44:27",
+    "modified": "2026-06-12T04:44:27",
     "name": "Behavior Tree"
   },
   "nodes": [
@@ -236,16 +236,16 @@
       "displayName": "MeleeAttack",
       "id": 10010,
       "parameters": {
-        "barDepth": 0.25,
-        "barHeight": 0.15000000596046448,
+        "barDepth": 0.4000000059604645,
+        "barHeight": 0.25,
         "barOffsetY": -2.5999999046325684,
         "barStartLength": 1.5,
-        "growCount": 3,
+        "growCount": 4,
         "growIntervalBeats": 1.0,
         "growSeVolume": 0.5,
-        "lengthPerGrow": 3.0,
+        "lengthPerGrow": 2.0,
         "offsetDistance": 15.0,
-        "swingDurationBeats": 2.0,
+        "swingDurationBeats": 3.0,
         "swingHalfAngleDeg": 60.0,
         "syncStartToBeat": true
       },

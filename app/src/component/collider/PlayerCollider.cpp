@@ -43,7 +43,7 @@ void PlayerCollider::OnCollisionStay(Collider* other)
 {
     ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
 
-    if (otherID == ColliderTypeID::Terrain)
+    if (otherID == ColliderTypeID::Terrain || otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::Boss || otherID == ColliderTypeID::BossAttack)
     {
         Vector3 pushback = CollisionUtility::CalcPushback(this, other);
 
