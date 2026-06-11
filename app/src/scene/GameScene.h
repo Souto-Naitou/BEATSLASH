@@ -3,6 +3,11 @@
 
 #include <stage/StageSequence.h>
 #include <character/player/Player.h>
+#include <character/boss/Boss.h>
+
+#ifdef _DEBUG
+#include <BehaviorTreeEditor.h>
+#endif
 
 #include <memory>
 #include <physics/ColliderRepository.h>
@@ -45,6 +50,7 @@ public: // メンバ関数
     /// 描画
     /// </summary>
     void Draw() override;
+
     void DrawWithoutEffect() override;
 
     /// <summary>
@@ -55,11 +61,15 @@ public: // メンバ関数
 private: // メンバ関数
     void LoadParticleEmitterPresets();
     void LoadImageAll();
+    void SpawnBoss();
+    void DrawObjects();
+    void ApplyPostEffects();
 
 private: // メンバ変数
     std::unique_ptr<Tako::EmitterManager>   pEmitterManager_;       // !< エミッターマネージャー
     std::unique_ptr<Player>                 pPlayer_;               // !< プレイヤー
-    std::unique_ptr<EnemyManager>           pEnemyManager_;         // !< 敵のマネージャー
+    std::unique_ptr<EnemyManager> pEnemyManager_;                   // !< 敵のマネージャー
+    std::unique_ptr<Boss>                   pBoss_;                 // !< ボス
     std::unique_ptr<StageSequence>          pStage_;                // !< ステージクラスのインスタンス
     std::unique_ptr<AttackRepository>       pAttackRepository_;     // !< コライダーリポジトリのインスタンス
     std::unique_ptr<FollowCamera>           pFollowCamera_;         // !< カメラクラスのインスタンス
@@ -72,4 +82,8 @@ private: // メンバ変数
     std::unique_ptr<CameraDirector>         pCameraDirector_;       // !< カメラディレクターのインスタンス
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
+
+#ifdef _DEBUG
+    std::unique_ptr<Tako::BehaviorTreeEditor> pBtEditor_;           // !< ビヘイビアツリーエディタ
+#endif
 };

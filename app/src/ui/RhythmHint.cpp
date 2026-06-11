@@ -2,6 +2,7 @@
 
 #include <ozSound/audio/JsonUtils/JsonUtils.h>
 #include <TextureManager.h>
+#include <utility/ViewportUnits.hpp> 
 #ifdef _DEBUG
 #include <ImGuiManager.h>
 #include <DebugUIManager.h>
@@ -14,6 +15,14 @@ static constexpr size_t kMaxNotes_ = 10;
 
 using namespace ozSound;
 using namespace Tako;
+
+static Tako::Vector2 ApplyViewportUnit(const Tako::Vector2& v)
+{
+    return {
+        Math::Viewport::Unit::vw(v.x),
+        Math::Viewport::Unit::vh(v.y)
+    };
+}
 
 void RhythmHintUI::Initialize()
 {
@@ -125,8 +134,8 @@ void RhythmHintUI::Update(float progress)
             note2->SetAlpha(1.0f);
         }
 
-        note->SetPos(centerPos + offset);
-        note2->SetPos(centerPos - offset);
+        note->SetPos(ApplyViewportUnit(centerPos + offset));
+        note2->SetPos(ApplyViewportUnit(centerPos - offset));
 
         note->Update();
         note2->Update();
@@ -141,11 +150,16 @@ void RhythmHintUI::Update(float progress)
                               std::next(pNotesSprites_.begin(), 2));
     }
 
+    pBackSprite_->SetPos(ApplyViewportUnit(backSpriteData_.position));
+    pBackSprite_->SetSize(ApplyViewportUnit(backSpriteData_.size));
+
+    pCenterSprite_->SetPos(ApplyViewportUnit(centerSpriteData_.position));
+    pCenterSprite_->SetSize(ApplyViewportUnit(centerSpriteData_.size));
+
 #ifdef _DEBUG
     if (Tako::Input::GetInstance()->TriggerKey(DIK_T))
         trigerProgress_ = progress;
 #endif
-
 
     prevProgress_ = progress;
 }
@@ -185,7 +199,7 @@ void RhythmHintUI::ImGui()
         }
     }
 
-    // ラムダ式
+    // ラムダ式S
     auto saveJson = [this](json& j, const std::string& label, const SpriteData& data)
         {
             j[label] = {
@@ -241,8 +255,8 @@ bool RhythmHintUI::ImGuiForSpriteData(const std::string& label, SpriteData& data
 
 void RhythmHintUI::InitSprite(Sprite* pSprite, const SpriteData& data)
 {
-    pSprite->SetPos(data.position);
-    pSprite->SetSize(data.size);
+    pSprite->SetPos(ApplyViewportUnit(data.position));
+    pSprite->SetSize(ApplyViewportUnit(data.size));
     pSprite->SetColor(data.color);
     pSprite->SetAnchorPoint({ 0.5f,0.5f });
 }

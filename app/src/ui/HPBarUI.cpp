@@ -1,14 +1,15 @@
-#include "PlayerHPBarUI.h"
+#include "HPBarUI.h"
 
 #include <ozSound/audio/JsonUtils/JsonUtils.h>
 #include <utility/DeltaTimeManager.h>
 #include <TextureManager.h>
 #include <math/Easing.h>
+#include <utility/ViewportUnits.hpp>
 #ifdef _DEBUG
 #include <ImGuiManager.h>
 #include <DebugUIManager.h>
 #endif // _DEBUG
-static constexpr const char* kJsonPath_ = "resources/json/ui/PlayerHPBarUI.json";
+static constexpr const char* kJsonDirectory_ = "resources/json/ui/";
 
 using namespace ozSound;
 using namespace Tako;
@@ -16,23 +17,23 @@ using namespace Tako;
 using json = ozSound::json;
 
 
-PlayerHPBarUI::PlayerHPBarUI()
+HPBarUI::HPBarUI(const std::string& name) : name_(name)
 {
 #ifdef _DEBUG
-    DebugUIManager::GetInstance()->RegisterGameObject("PlayerHPBarUI", std::bind(&PlayerHPBarUI::ImGui, this));
+    DebugUIManager::GetInstance()->RegisterGameObject(name_ + "_HPBarUI", std::bind(&HPBarUI::ImGui, this));
 #endif // _DEBUG
 }
 
-PlayerHPBarUI::~PlayerHPBarUI()
+HPBarUI::~HPBarUI()
 {
 #ifdef _DEBUG
-    DebugUIManager::GetInstance()->UnregisterGameObject("PlayerHPBarUI");
+    DebugUIManager::GetInstance()->UnregisterGameObject("HPBarUI");
 #endif // _DEBUG
 }
 
-void PlayerHPBarUI::Initialize()
+void HPBarUI::Initialize()
 {
-    json j = LoadJson(kJsonPath_);
+    json j = LoadJson(kJsonDirectory_ + name_ + "HPBarUI.json");
 
     if (j.empty())
     {
@@ -66,6 +67,12 @@ void PlayerHPBarUI::Initialize()
         barData_.texturePath = jBar.value("texturePath", "EngineResources/Texture/white.dds");
     }
 
+    auto jfColor = j.value("frontColor", json::object());
+    auto jbColor = j.value("backColor", json::object());
+
+    frontColor_ = { jfColor.value("x", 0.0f), jfColor.value("y", 1.0f), jfColor.value("z", 0.0f), jfColor.value("w", 1.0f) };
+    backColor_ = { jbColor.value("x", 1.0f), jbColor.value("y", 0.0f), jbColor.value("z", 0.0f), jbColor.value("w", 1.0f) };
+
     pBackground_ = std::make_unique<Tako::Sprite>();
     pBackground_->Initialize(backgroundData_.texturePath);
     pBar_ = std::make_unique<Tako::Sprite>();
@@ -77,17 +84,17 @@ void PlayerHPBarUI::Initialize()
     InitSprite(pBar_.get(), barData_);
     InitSprite(pAnimBar_.get(), barData_);
 
-    pAnimBar_->SetColor({ 1.0f,0.0f,0.0f,1.0f });
-    pBar_->SetColor({ 0.0f,1.0f,0.0f,1.0f });
+    pAnimBar_->SetColor(backColor_);
+    pBar_->SetColor(frontColor_);
 }
 
-void PlayerHPBarUI::Update(float hpRatio)
+void HPBarUI::Update(float hpRatio)
 {
     if (targetHpRatio_ != hpRatio)
     {
         targetHpRatio_ = hpRatio;
         elapsedAnimTime_ = 0.0f; // アニメーション開始
-        pBar_->SetSize({ barData_.size.x * targetHpRatio_, barData_.size.y }); // 即座にバーのサイズを更新
+        pBar_->SetSize(ApplyViewportUnit({ barData_.size.x * targetHpRatio_, barData_.size.y })); // 即座にバーのサイズを更新
     }
     const float deltaTime = DeltaTimeManager::GetInstance()->GetDeltaTime(DeltaTimeChannelReserved::Game);
     elapsedAnimTime_ += deltaTime;
@@ -95,24 +102,39 @@ void PlayerHPBarUI::Update(float hpRatio)
     // ここでイージング
     float easedProgress = Math::Easing::EaseInCubic(progress);
     currentHpRatio_ = currentHpRatio_ * (1.0f - easedProgress) + targetHpRatio_ * easedProgress;
-    
+
     float newSizeX = barData_.size.x * currentHpRatio_;
     Vector2 newSize = { newSizeX, barData_.size.y };
-    pAnimBar_->SetSize(newSize);
+
+    pBackground_->SetSize(ApplyViewportUnit(backgroundData_.size));
+    pBar_->SetSize(ApplyViewportUnit({ barData_.size.x * targetHpRatio_, barData_.size.y }));
+    pAnimBar_->SetSize(ApplyViewportUnit(newSize));
+
+    pBackground_->SetPos(ApplyViewportUnit(backgroundData_.position));
+    pBar_->SetPos(ApplyViewportUnit(barData_.position));
+    pAnimBar_->SetPos(ApplyViewportUnit(barData_.position));
+
+    pBackground_->SetSize(ApplyViewportUnit(backgroundData_.size));
+    pBar_->SetSize(ApplyViewportUnit({ barData_.size.x * targetHpRatio_, barData_.size.y }));
+    pAnimBar_->SetSize(ApplyViewportUnit(newSize));
+
+    pBackground_->SetPos(ApplyViewportUnit(backgroundData_.position));
+    pBar_->SetPos(ApplyViewportUnit(barData_.position));
+    pAnimBar_->SetPos(ApplyViewportUnit(barData_.position));
 
     pBackground_->Update();
     pBar_->Update();
     pAnimBar_->Update();
 }
 
-void PlayerHPBarUI::Draw()
+void HPBarUI::Draw()
 {
     pBackground_->Draw();
     pAnimBar_->Draw();
     pBar_->Draw();
 }
 
-void PlayerHPBarUI::ImGui()
+void HPBarUI::ImGui()
 {
 #ifdef _DEBUG
     if (ImGuiForSpriteData("Background", backgroundData_))
@@ -126,6 +148,12 @@ void PlayerHPBarUI::ImGui()
     }
     ImGui::SeparatorText("Animation Parameters");
 
+    if (ImGui::ColorEdit4("Front Color", &frontColor_.x))
+        pBar_->SetColor(frontColor_);
+    if (ImGui::ColorEdit4("Back Color", &backColor_.x))
+        pAnimBar_->SetColor(backColor_);
+
+
     ImGui::DragFloat("Bar Animation Duration", &barAnimDuration_, 0.1f, 0.1f, 10.0f);
     ImGui::Text("Current HP Ratio: %.2f", currentHpRatio_);
     ImGui::Text("Target HP Ratio: %.2f", targetHpRatio_);
@@ -134,37 +162,50 @@ void PlayerHPBarUI::ImGui()
     if (ImGui::Button("Save"))
     {
         json j = json::object();
-        j ["back"] = {
+        j["back"] = {
             {"position", {{"x", backgroundData_.position.x}, {"y", backgroundData_.position.y}}},
             {"size", {{"x", backgroundData_.size.x}, {"y", backgroundData_.size.y}}},
             {"color", {{"x", backgroundData_.color.x}, {"y", backgroundData_.color.y}, {"z", backgroundData_.color.z}, {"w", backgroundData_.color.w}}},
             {"texturePath", backgroundData_.texturePath}
         };
-        j ["bar"] = {
+        j["bar"] = {
             {"position", {{"x", barData_.position.x}, {"y", barData_.position.y}}},
             {"size", {{"x", barData_.size.x}, {"y", barData_.size.y}}},
             {"color", {{"x", barData_.color.x}, {"y", barData_.color.y}, {"z", barData_.color.z}, {"w", barData_.color.w}}},
             {"texturePath", barData_.texturePath}
         };
-        j ["animation"] = {
+        j["animation"] = {
             {"barAnimDuration", barAnimDuration_}
         };
 
-        ozSound::SaveJson(kJsonPath_, j);
+        j["frontColor"] = {
+            {"x", frontColor_.x},
+            {"y", frontColor_.y},
+            {"z", frontColor_.z},
+            {"w", frontColor_.w}
+        };
+        j["backColor"] = {
+            {"x", backColor_.x},
+            {"y", backColor_.y},
+            {"z", backColor_.z},
+            {"w", backColor_.w}
+        };
+
+        ozSound::SaveJson(kJsonDirectory_ + name_ + "HPBarUI.json", j);
     }
 
 #endif // _DEBUG
 }
 
-void PlayerHPBarUI::InitSprite(Tako::Sprite* pSprite, const SpriteData& data)
+void HPBarUI::InitSprite(Tako::Sprite* pSprite, const SpriteData& data)
 {
-    pSprite->SetPos(data.position);
-    pSprite->SetSize(data.size);
+    pSprite->SetPos(ApplyViewportUnit(data.position));
+    pSprite->SetSize(ApplyViewportUnit(data.size));
     pSprite->SetColor(data.color);
     pSprite->SetAnchorPoint({ 0.0f,0.5f });
 }
 
-bool PlayerHPBarUI::ImGuiForSpriteData(const std::string& label, SpriteData& data)
+bool HPBarUI::ImGuiForSpriteData(const std::string& label, SpriteData& data)
 {
     bool changed = false;
 #ifdef _DEBUG
@@ -189,7 +230,7 @@ bool PlayerHPBarUI::ImGuiForSpriteData(const std::string& label, SpriteData& dat
         {
             pBackground_->SetTexture(data.texturePath);
         }
-        else if(label == "Bar")
+        else if (label == "Bar")
         {
             pBar_->SetTexture(data.texturePath);
             pAnimBar_->SetTexture(data.texturePath);
@@ -198,4 +239,12 @@ bool PlayerHPBarUI::ImGuiForSpriteData(const std::string& label, SpriteData& dat
     ImGui::PopID();
 #endif // _DEBUG
     return changed;
+}
+
+Tako::Vector2 HPBarUI::ApplyViewportUnit(const Tako::Vector2& vec) const
+{
+    return Tako::Vector2(
+        Math::Viewport::Unit::vw(vec.x),
+        Math::Viewport::Unit::vh(vec.y)
+    );
 }

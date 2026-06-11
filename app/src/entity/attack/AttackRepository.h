@@ -34,6 +34,8 @@ public:
         factories_.pPlayerAttackFactory->SetOnJudgeCallback(std::move(cb));
     }
 
+    bool IsEmpty() const { return playerAttacks_.empty(); }
+
 private:
     std::vector<std::unique_ptr<PlayerAttack>> playerAttacks_ = {};
     FactoryDependencies factories_;

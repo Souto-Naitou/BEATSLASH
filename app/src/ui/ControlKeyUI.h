@@ -31,14 +31,14 @@ private:
     void InitSpriteGroup(SpriteGroup* psg, PlayerAction action, bool isGamepad);
     void InitTextSprite();
 private:
-
+        
     EnableDebug("ControlKeyUI");
 
-    GameParameter(Tako::Vector2, attackPos_,    Tako::Vector2(85.0f, 60.0f));
-    GameParameter(Tako::Vector2, parryPos_,     Tako::Vector2(85.0f, 70.0f));
-    GameParameter(Tako::Vector2, overdrivePos_, Tako::Vector2(85.0f, 80.0f));
-    GameParameter(Tako::Vector2, upTempoPos_,   Tako::Vector2(85.0f, 90.0f));
-    GameParameter(Tako::Vector2, keySize_,      Tako::Vector2(4.5f, 8.0f));
+    GameParameter(Tako::Vector2, attackPos_,    Tako::Vector2(80.0f, 60.0f));
+    GameParameter(Tako::Vector2, parryPos_,     Tako::Vector2(80.0f, 70.0f));
+    GameParameter(Tako::Vector2, overdrivePos_, Tako::Vector2(80.0f, 80.0f));
+    GameParameter(Tako::Vector2, upTempoPos_,   Tako::Vector2(80.0f, 90.0f));
+    GameParameter(Tako::Vector2, keySize_,      Tako::Vector2(4.f, 7.1f));
 
     std::unique_ptr<SpriteGroup> pAttackSprite_ = nullptr;
     std::unique_ptr<SpriteGroup> pParrySprite_ = nullptr;

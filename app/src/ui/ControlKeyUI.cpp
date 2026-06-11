@@ -93,22 +93,29 @@ void ControlKeyUI::UpdateSprite(SpriteGroup* psg, const Tako::Vector2& pos, cons
     Tako::Vector2 scaledSize = { baseSize.x * scale, baseSize.y * scale };
 
     psg->pSprite->SetPos(pos);
-    psg->pbackSprite->SetPos(pos);
-    psg->pbackSprite2->SetPos(pos);
-
     psg->pSprite->SetSize(scaledSize);
-    psg->pbackSprite->SetSize(scaledSize);
-    psg->pbackSprite2->SetSize(scaledSize);
-
     psg->pSprite->Update();
-    psg->pbackSprite->Update();
-    psg->pbackSprite2->Update();
+
+    if (psg->pbackSprite && psg->pbackSprite2)
+    {
+        psg->pbackSprite->SetPos(pos);
+        psg->pbackSprite2->SetPos(pos);
+
+        psg->pbackSprite->SetSize(scaledSize);
+        psg->pbackSprite2->SetSize(scaledSize);
+
+        psg->pbackSprite->Update();
+        psg->pbackSprite2->Update();
+    }
 }
 
 void ControlKeyUI::DrawSprite(const SpriteGroup* psg) const
 {
-    psg->pbackSprite2->Draw();
-    psg->pbackSprite->Draw();
+    if (psg->pbackSprite && psg->pbackSprite2)
+    {
+        psg->pbackSprite2->Draw();
+        psg->pbackSprite->Draw();
+    }
     psg->pSprite->Draw();
 }
 
@@ -121,6 +128,16 @@ void ControlKeyUI::SetUpSprite(SpriteGroup* psg, PlayerAction action, bool isGam
     psg->pSprite->SetIsFlipX(isGamepad ? false : kbConf.flipU);
 
     std::string backTexturePath = isGamepad ? pdConf.backgroundImagePath : kbConf.backgroundImagePath;
+    if (backTexturePath.empty())
+    {
+        psg->pbackSprite->SetAlpha(0.0f);
+        psg->pbackSprite2->SetAlpha(0.0f);
+    }
+    else
+    {
+        psg->pbackSprite->SetAlpha(1.0f);
+        psg->pbackSprite2->SetAlpha(1.0f);
+    }
     psg->pbackSprite->SetTexture(backTexturePath);
     psg->pbackSprite2->SetTexture(backTexturePath);
 

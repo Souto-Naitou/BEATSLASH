@@ -36,7 +36,7 @@ private:
 
     EnableDebug("RhythmHintUI");
 
-    GameParameter(float, pixelsPerBeat_, 150.0f);
+    GameParameter(float, pixelsPerBeat_, 4.5f);
 
 
     SpriteData backSpriteData_;
