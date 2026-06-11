@@ -11,13 +11,13 @@
       "id": 30001,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
-      "targetNodeId": 10003,
-      "targetPinId": 20004
+      "targetNodeId": 10002,
+      "targetPinId": 20003
     }
   ],
   "metadata": {
-    "created": "2026-06-11T04:53:25",
-    "modified": "2026-06-11T04:53:25",
+    "created": "2026-06-11T19:11:25",
+    "modified": "2026-06-11T19:11:25",
     "name": "Behavior Tree"
   },
   "nodes": [
@@ -35,6 +35,7 @@
       "displayName": "Wait",
       "id": 10001,
       "parameters": {
+        "syncStartToBeat": true,
         "waitBeats": 2.0
       },
       "position": {
@@ -45,7 +46,7 @@
     },
     {
       "displayName": "ChargeRazer",
-      "id": 10003,
+      "id": 10002,
       "parameters": {
         "aimOffsetY": 0.0,
         "ballOffset": [
@@ -54,16 +55,20 @@
           0.0
         ],
         "ballStartRadius": 0.10000000149011612,
-        "chargeCount": 3,
-        "chargeIntervalBeats": 2.0,
+        "chargeCompleteVolume": 0.5,
+        "chargeCount": 5,
+        "chargeIntervalBeats": 1.0,
+        "chargeVolume": 0.5,
         "fireDuration": 0.10000000149011612,
         "laserExtraLength": 0.0,
         "laserThicknessScale": 1.0,
-        "radiusPerCharge": 0.5
+        "radiusPerCharge": 0.5,
+        "shootVolume": 0.5,
+        "syncStartToBeat": true
       },
       "position": {
-        "x": 312.0,
-        "y": 175.0
+        "x": 56.0,
+        "y": 159.0
       },
       "type": "BTChargeRazer"
     }

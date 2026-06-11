@@ -21,6 +21,11 @@
 namespace
 {
     namespace Presets = Global::ParticleEmitterPresetNames;
+
+    // SoundData.jsonで定義されたサウンドID
+    constexpr const char* kSeCharge = "se_boss_charge";
+    constexpr const char* kSeChargeComplete = "se_boss_charge_complete";
+    constexpr const char* kSeRazerShoot = "se_boss_razer_shoot";
 }
 
 uint32_t BTChargeRazer::sTrailCounter_ = 0;
@@ -33,6 +38,7 @@ BTChargeRazer::BTChargeRazer()
 BTChargeRazer::~BTChargeRazer()
 {
     RemoveRazerCollider();
+    StopChargeLoop();
 }
 
 Tako::BTNodeStatus BTChargeRazer::Execute(Tako::BTBlackboard* blackboard)
@@ -142,6 +148,9 @@ void BTChargeRazer::StartCharging(const Tako::Vector3& ballPos)
     performedCharges_ = 0;
     elapsedSeconds_ = 0.0f;
 
+    StopChargeLoop();
+    chargeLoopHandle_ = ozSound::SoundEngine::GetInstance()->Play(kSeCharge, chargeVolume_, true);
+
     // ball: 半径を開始値へ戻して表示
     auto ball = pEmitterManager_->GetEmitterByName(Presets::kBossRazerBall);
     if (auto sphere = std::dynamic_pointer_cast<Tako::SphereEmitter>(ball))
@@ -173,10 +182,19 @@ void BTChargeRazer::ApplyChargeStep()
         sphere->SetRadius(sphere->GetRadius() + radiusPerCharge_);
     }
     ++performedCharges_;
+
+    // 最終チャージは同フレームで発射SEが鳴るため完了SEを省く
+    if (performedCharges_ < chargeCount_)
+    {
+        ozSound::SoundEngine::GetInstance()->Play(kSeChargeComplete, chargeCompleteVolume_);
+    }
 }
 
 void BTChargeRazer::Fire(const Tako::Vector3& ballPos, const Tako::Vector3& targetPos)
 {
+    StopChargeLoop();
+    ozSound::SoundEngine::GetInstance()->Play(kSeRazerShoot, shootVolume_);
+
     Tako::Vector3 toTarget = targetPos - ballPos;
     float distance = (std::max)(toTarget.Length(), kMinFireDistance);
     Tako::Vector3 dir = toTarget * (1.0f / distance);
@@ -252,11 +270,21 @@ void BTChargeRazer::RemoveRazerCollider()
     }
 }
 
+void BTChargeRazer::StopChargeLoop()
+{
+    if (chargeLoopHandle_ != ozSound::kInvalidHandle)
+    {
+        ozSound::SoundEngine::GetInstance()->Stop(chargeLoopHandle_);
+        chargeLoopHandle_ = ozSound::kInvalidHandle;
+    }
+}
+
 void BTChargeRazer::Reset()
 {
     BossBTActionBase::Reset();
     DeactivateChargeEffects();
     RemoveRazerCollider();
+    StopChargeLoop();
     colliderTimer_ = {};
     phase_ = Phase::Charging;
     performedCharges_ = 0;
@@ -306,6 +334,18 @@ void BTChargeRazer::ApplyParameters(const nlohmann::json& params)
     {
         aimOffsetY_ = params["aimOffsetY"].get<float>();
     }
+    if (params.contains("chargeVolume"))
+    {
+        chargeVolume_ = params["chargeVolume"].get<float>();
+    }
+    if (params.contains("chargeCompleteVolume"))
+    {
+        chargeCompleteVolume_ = params["chargeCompleteVolume"].get<float>();
+    }
+    if (params.contains("shootVolume"))
+    {
+        shootVolume_ = params["shootVolume"].get<float>();
+    }
 }
 
 nlohmann::json BTChargeRazer::ExtractParameters() const
@@ -320,6 +360,9 @@ nlohmann::json BTChargeRazer::ExtractParameters() const
     params["laserThicknessScale"] = laserThicknessScale_;
     params["laserExtraLength"] = laserExtraLength_;
     params["aimOffsetY"] = aimOffsetY_;
+    params["chargeVolume"] = chargeVolume_;
+    params["chargeCompleteVolume"] = chargeCompleteVolume_;
+    params["shootVolume"] = shootVolume_;
     return params;
 }
 
@@ -338,6 +381,10 @@ bool BTChargeRazer::DrawImGui()
     changed |= ImGui::DragFloat("Laser Thickness Scale", &laserThicknessScale_, 0.05f, 0.1f, 10.0f);
     changed |= ImGui::DragFloat("Laser Extra Length", &laserExtraLength_, 0.1f, 0.0f, 50.0f);
     changed |= ImGui::DragFloat("Aim Offset Y", &aimOffsetY_, 0.1f, -10.0f, 10.0f);
+    ImGui::SeparatorText("Sound");
+    changed |= ImGui::DragFloat("Charge Volume", &chargeVolume_, 0.01f, 0.0f, 1.0f);
+    changed |= ImGui::DragFloat("Charge Complete Volume", &chargeCompleteVolume_, 0.01f, 0.0f, 1.0f);
+    changed |= ImGui::DragFloat("Shoot Volume", &shootVolume_, 0.01f, 0.0f, 1.0f);
     return changed;
 }
 #endif

@@ -3,6 +3,7 @@
 #include <Transform.h>
 #include <Vector3.h>
 #include <physics/ColliderTimer.h>
+#include <ozSound/audio/SoundEngine.h>
 #include <memory>
 #include <cstdint>
 
@@ -45,6 +46,7 @@ private:
     void Fire(const Tako::Vector3& ballPos, const Tako::Vector3& targetPos);
     void DeactivateChargeEffects();
     void RemoveRazerCollider();
+    void StopChargeLoop();
 
 private:
     // 距離ゼロ除算回避用の最小発射距離
@@ -69,6 +71,13 @@ private:
     // 狙い位置のYオフセット（ターゲット原点が足元の場合の補正用）
     float aimOffsetY_ = 0.0f;
 
+    // チャージループSEの音量
+    float chargeVolume_ = 0.5f;
+    // チャージ完了SEの音量
+    float chargeCompleteVolume_ = 0.5f;
+    // レーザー発射SEの音量
+    float shootVolume_ = 0.5f;
+
     Phase phase_ = Phase::Charging;
     // BeatClock不在時のフォールバック用経過秒数
     float elapsedSeconds_ = 0.0f;
@@ -84,6 +93,8 @@ private:
     bool colliderRegistered_ = false;
     // 発射フェーズの有効時間管理
     ColliderTimer colliderTimer_;
+    // チャージループSEの再生ハンドル
+    ozSound::SoundHandle chargeLoopHandle_ = ozSound::kInvalidHandle;
 
     // 一時trailエミッターの一意名カウンタ
     static uint32_t sTrailCounter_;
