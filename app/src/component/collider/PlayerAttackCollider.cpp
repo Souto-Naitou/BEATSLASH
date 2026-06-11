@@ -7,7 +7,7 @@ void PlayerAttackCollider::OnCollisionEnter(Collider* other)
 {
     auto ID = static_cast<ColliderTypeID>(other->GetTypeID());
     
-    if (ID == ColliderTypeID::Enemy)
+    if (ID == ColliderTypeID::Enemy || ID == ColliderTypeID::Boss)
     {
         PlayerAttackHitReceiver::HitInfo info;
         info.position = other->GetCenter();

@@ -101,7 +101,7 @@ private: // 定数定義
     // コライダーのスケールの倍率
     static constexpr float kColliderScaleMultiplier = 1.3f;
     // 初期HP
-    static constexpr int32_t kInitialHP = 300;
+    static constexpr int32_t kInitialHP = 700;
     // 質量（重力計算用）
     static constexpr float kMass = 60.0f;
     // ビヘイビアツリー定義のJSONパス
