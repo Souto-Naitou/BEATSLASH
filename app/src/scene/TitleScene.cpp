@@ -10,9 +10,11 @@
 #include <utility/DeltaTimeManager.h>
 #include <ShadowRenderer.h>
 #include <Object3dBasic.h>
-#include <DebugCamera.h>
 #include <math/Easing.h>
 
+#ifdef _DEBUG
+#include <DebugCamera.h>
+#endif
 
 void TitleScene::Initialize()
 {
