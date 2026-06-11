@@ -53,6 +53,10 @@
             "enableOverlap": false,
             "id": "enemy_take_hit",
             "path": "resources/audio/enemy_take_hit.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
             "enableOverlap": false,
             "id": "se_boss_charge",
             "path": "resources/audio/charge.wav",
@@ -63,6 +67,10 @@
             "enableOverlap": false,
             "id": "enemy_dead",
             "path": "resources/audio/enemy_dead.mp3",
+            "submix": "SE",
+            "type": "SE"
+        }, 
+        {
             "enableOverlap": true,
             "id": "se_boss_charge_complete",
             "path": "resources/audio/EX_chargeComplete.wav",
@@ -73,6 +81,10 @@
             "enableOverlap": false,
             "id": "player_parry",
             "path": "resources/audio/parry.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
             "enableOverlap": true,
             "id": "se_boss_razer_shoot",
             "path": "resources/audio/RazerShoot.wav",
