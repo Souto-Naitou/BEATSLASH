@@ -90,6 +90,8 @@
     <ClCompile Include="src\stage\StageClearFlow.cpp" />
     <ClCompile Include="src\stage\StageSequence.cpp" />
     <ClCompile Include="src\stage\StageTransitionCollider.cpp" />
+    <ClCompile Include="src\system\EventListener.cpp" />
+    <ClCompile Include="src\system\EventSubscription.cpp" />
     <ClCompile Include="src\test\TestScene.cpp" />
     <ClCompile Include="src\ui\ComboUI.cpp" />
     <ClCompile Include="src\ui\GameHUD.cpp" />
@@ -179,6 +181,8 @@
     <ClInclude Include="src\stage\StageData.h" />
     <ClInclude Include="src\stage\StageSequence.h" />
     <ClInclude Include="src\stage\StageTransitionCollider.h" />
+    <ClInclude Include="src\system\EventListener.h" />
+    <ClInclude Include="src\system\EventSubscription.h" />
     <ClInclude Include="src\system\ScopedCursorHidden.h" />
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />
