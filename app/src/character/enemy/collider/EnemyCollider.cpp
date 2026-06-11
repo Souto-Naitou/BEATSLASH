@@ -83,4 +83,15 @@ void EnemyCollider::OnCollisionStay(Collider* other)
 void EnemyCollider::OnCollisionExit(Collider* other)
 {
     ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
+
+    if (otherID == ColliderTypeID::PlayerAttack)
+    {
+        // 色を強制的に戻しておく。(色が戻らないのを防ぐ)
+        if (auto owner = GetOwner())
+        {
+            auto enemy = static_cast<Enemy*>(owner);
+            enemy->GetModel()->SetMaterialColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+            enemy->GetModel()->Update();
+        }
+    }
 }
