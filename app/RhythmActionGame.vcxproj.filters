@@ -194,6 +194,12 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\input\KeyConfig.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\ControlKeyUI.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -291,6 +297,9 @@
     </Filter>
     <Filter Include="character\player\state">
       <UniqueIdentifier>{0389bc9c-ff20-46fc-bfd1-388d4d1f678d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{8b642bfd-ac00-44c4-8e61-b4d47482d277}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -569,6 +578,15 @@
     </ClInclude>
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\ControlKeyUI.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\PlayerAction.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\KeyConfig.h">
+      <Filter>input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

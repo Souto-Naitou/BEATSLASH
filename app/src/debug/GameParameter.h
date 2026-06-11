@@ -47,7 +47,7 @@
         }
         operator ValueType& () { return v_; }
         operator const ValueType& () const { return v_; }
-        ValueType* operator-> () { return &v_; }
+        ValueType* operator-> () { return &v_; }    
         const ValueType* operator-> () const { return &v_; }
 
         ValueType* GetPtr() { return &v_; }

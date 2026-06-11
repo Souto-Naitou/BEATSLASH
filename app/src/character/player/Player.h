@@ -71,7 +71,8 @@ public:
     const Tako::Transform& GetTransform()   const           { return transform_; }
     Tako::Transform& GetTransform()                         { return transform_; }
 
-    const HPComponent& GetHPComponent() const { return *pHPComponent_; }
+    const HPComponent& GetHPComponent()   const { return *pHPComponent_; }
+    const PlayerInput& GetPlayerInput()   const { return *pInput_; }
 
     void Respawn(const Tako::Transform& spawnTransform);
 
