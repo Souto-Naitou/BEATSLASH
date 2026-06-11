@@ -2,6 +2,7 @@
 #include <utility/CollisionUtility.h>
 #include <type/ColliderTypeID.h>
 #include <component/HPComponent.h>
+#include <ozSound/audio/SoundEngine.h>
 
 void BossCollider::OnCollisionEnter(Collider* other)
 {
@@ -19,6 +20,9 @@ void BossCollider::OnCollisionEnter(Collider* other)
     {
         if (pHp_)
             pHp_->Damage(25); // TODO : 仮のダメージ値
+
+        // SEを流す
+        ozSound::SoundEngine::GetInstance()->PostEvent("play_se_enemy_take_hit");
     }
 }
 

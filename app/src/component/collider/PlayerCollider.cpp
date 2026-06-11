@@ -25,7 +25,7 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
         {
             /// パリィ失敗時の処理
             comboBuffSystem_.OnDamaged();
-            hpComponent_.Damage(10); // 仮のダメージ量
+            hpComponent_.Damage(0); // 仮のダメージ量
 
             if (damagedCallback_)
                 damagedCallback_();
@@ -43,7 +43,7 @@ void PlayerCollider::OnCollisionStay(Collider* other)
 {
     ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
 
-    if (otherID == ColliderTypeID::Terrain)
+    if (otherID == ColliderTypeID::Terrain || otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::Boss || otherID == ColliderTypeID::BossAttack)
     {
         Vector3 pushback = CollisionUtility::CalcPushback(this, other);
 

@@ -200,16 +200,6 @@ void GameScene::Initialize()
 	pGameHUD_ = std::make_unique<GameHUD>(hudContext);
 	pGameHUD_->Initialize();
 
-	Object3dBasic* obj3d = Object3dBasic::GetInstance();
-	obj3d->SetDirectionalLight(
-		{ 0.0f, -1.0f, 1.0f },   // 方向
-		{ 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
-		1,
-		1.0f                      // 強度
-	);
-
-	obj3d->SetAutoUpdatePosition(true);  // デフォルト値
-
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
 	pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
