@@ -4,6 +4,7 @@
 #include <utility/DeltaTimeManager.h>
 #include <TextureManager.h>
 #include <math/Easing.h>
+#include <utility/ViewportUnits.hpp>
 #ifdef _DEBUG
 #include <ImGuiManager.h>
 #include <DebugUIManager.h>
@@ -87,7 +88,7 @@ void PlayerHPBarUI::Update(float hpRatio)
     {
         targetHpRatio_ = hpRatio;
         elapsedAnimTime_ = 0.0f; // アニメーション開始
-        pBar_->SetSize({ barData_.size.x * targetHpRatio_, barData_.size.y }); // 即座にバーのサイズを更新
+        pBar_->SetSize(ApplyViewportUnit({ barData_.size.x * targetHpRatio_, barData_.size.y })); // 即座にバーのサイズを更新
     }
     const float deltaTime = DeltaTimeManager::GetInstance()->GetDeltaTime(DeltaTimeChannelReserved::Game);
     elapsedAnimTime_ += deltaTime;
@@ -98,7 +99,14 @@ void PlayerHPBarUI::Update(float hpRatio)
     
     float newSizeX = barData_.size.x * currentHpRatio_;
     Vector2 newSize = { newSizeX, barData_.size.y };
-    pAnimBar_->SetSize(newSize);
+
+    pBackground_->SetSize(ApplyViewportUnit(backgroundData_.size));
+    pBar_->SetSize(ApplyViewportUnit({ barData_.size.x * targetHpRatio_, barData_.size.y }));
+    pAnimBar_->SetSize(ApplyViewportUnit(newSize));
+
+    pBackground_->SetPos(ApplyViewportUnit(backgroundData_.position));
+    pBar_->SetPos(ApplyViewportUnit(barData_.position));
+    pAnimBar_->SetPos(ApplyViewportUnit(barData_.position));
 
     pBackground_->Update();
     pBar_->Update();
@@ -158,8 +166,8 @@ void PlayerHPBarUI::ImGui()
 
 void PlayerHPBarUI::InitSprite(Tako::Sprite* pSprite, const SpriteData& data)
 {
-    pSprite->SetPos(data.position);
-    pSprite->SetSize(data.size);
+    pSprite->SetPos(ApplyViewportUnit(data.position));
+    pSprite->SetSize(ApplyViewportUnit(data.size));
     pSprite->SetColor(data.color);
     pSprite->SetAnchorPoint({ 0.0f,0.5f });
 }
@@ -198,4 +206,12 @@ bool PlayerHPBarUI::ImGuiForSpriteData(const std::string& label, SpriteData& dat
     ImGui::PopID();
 #endif // _DEBUG
     return changed;
+}
+
+Tako::Vector2 PlayerHPBarUI::ApplyViewportUnit(const Tako::Vector2& vec) const
+{
+    return Tako::Vector2(
+        Math::Viewport::Unit::vw(vec.x),
+        Math::Viewport::Unit::vh(vec.y)
+    );
 }

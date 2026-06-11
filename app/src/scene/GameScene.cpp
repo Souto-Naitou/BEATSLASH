@@ -43,6 +43,18 @@ void GameScene::Initialize()
     // ポストエフェクトの初期化と適用
     this->ApplyPostEffects();
 
+    /// エミッターマネージャの初期化
+    pEmitterManager_ = std::make_unique<Tako::EmitterManager>(Tako::GPUParticle::GetInstance());
+	
+    /// エフェクトのプリセットの読み込み
+    // ドアが開いているときのエフェクトをロード
+    pEmitterManager_->LoadPreset("door_open");
+    pEmitterManager_->SetEmitterActive("door_open", false);
+
+	// 背景エフェクトをロード
+	pEmitterManager_->LoadPreset("field_background");
+	pEmitterManager_->SetEmitterActive("field_background", true);
+
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
@@ -54,6 +66,10 @@ void GameScene::Initialize()
     pStage_->SetOnDoorOpened([this](const Tako::Transform& doorTransform)
     {
         pCameraDirector_->StartFocus(doorTransform, 1.0f);
+		
+        // ドアが開いているときのエフェクトを再生
+		pEmitterManager_->SetEmitterActive("door_open", true);
+		pEmitterManager_->SetEmitterPosition("door_open", doorTransform.translate + Tako::Vector3( -3.5f, 4.5f, 0.0f ));
     });
 
     pCameraDirector_->SetOnFocusArrived([this]()
@@ -77,8 +93,7 @@ void GameScene::Initialize()
     pComboSystem_ = std::make_unique<ComboSystem>();
     pComboBuffSystem_ = std::make_unique<ComboBuffSystem>(pComboSystem_.get(), pInputTimingJudge_.get(), pBeatClock_.get());
 
-    /// エミッターマネージャの初期化
-    pEmitterManager_ = std::make_unique<Tako::EmitterManager>(Tako::GPUParticle::GetInstance());
+   
 #ifdef _DEBUG
     Tako::DebugUIManager::GetInstance()->SetEmitterManager(pEmitterManager_.get());
 #endif // _DEBUG
@@ -150,6 +165,9 @@ void GameScene::Finalize()
 {
     pPlayer_->Finalize();
     colliderRepository_.Clear();
+	// エフェクトを削除
+	pEmitterManager_->RemoveEmitter("door_open");
+	pEmitterManager_->RemoveEmitter("field_background");
 }
 
 void GameScene::Update()
