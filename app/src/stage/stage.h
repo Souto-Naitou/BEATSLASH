@@ -7,6 +7,8 @@
 
 #include <memory>
 #include <functional>
+#include "debug/GameParameter.h"
+#include <math/Color.h>
 
 
 class Stage
@@ -34,6 +36,9 @@ private:
     void CreateSurroundingWalls(const Tako::Transform& floorTf, float cubeDefaultSize);
 
 private:
+
+    EnableDebug("Stage");
+    GameParameter(RGBA, kStageColor_, RGBA(0x0d0e14ff));
 
     StageData stageData_;
 

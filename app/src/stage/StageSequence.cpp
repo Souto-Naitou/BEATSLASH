@@ -27,10 +27,11 @@ void StageSequence::Update(float deltaTime)
 #ifdef _DEBUG
 	CheckHotReload();
 
-	if (Tako::Input::GetInstance()->TriggerKey(DIK_RETURN)) {
-		NotifyClear();
-		hasClearNotified_ = false;
-	}
+    if (Tako::Input::GetInstance()->TriggerKey(DIK_RETURN))
+    {
+        NotifyClear();
+        hasClearNotified_ = false;
+    }
 #endif
 	clearFlow_.Update(deltaTime);
 	if (currentIndex_ < stages_.size()) {
@@ -59,10 +60,10 @@ void StageSequence::NotifyClear()
 void StageSequence::OpenCurrentDoor()
 {
     stages_[currentIndex_]->SetOnDoorOpenFinished([this]()
-    {
-        clearFlow_.ActivateTransitionCollider();
-        if (onDoorOpenFinished_) onDoorOpenFinished_();
-    });
+                                                  {
+                                                      clearFlow_.ActivateTransitionCollider();
+                                                      if (onDoorOpenFinished_) onDoorOpenFinished_();
+                                                  });
     stages_[currentIndex_]->OpenDoor();
 }
 
@@ -76,22 +77,26 @@ void StageSequence::OnTransitionStage()
 	hasClearNotified_ = false;  // 次のステージで再度クリア通知を受け付ける
 	int32_t preIndex = currentIndex_++;
 
-	if (currentIndex_ < static_cast<int32_t>(stageDataList_.size())) {
-		clearFlow_.Initialize(stageDataList_[currentIndex_]);
-		stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
-		for (size_t i = 0; i < stageDataList_.size(); ++i) {
-			if (i != currentIndex_)
-				stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
+    if (currentIndex_ < static_cast<int32_t>(stageDataList_.size()))
+    {
+        clearFlow_.Initialize(stageDataList_[currentIndex_]);
+        stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
+        for (size_t i = 0; i < stageDataList_.size(); ++i)
+        {
+            if (i != currentIndex_)
+                stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
 
-		}
-		if (onStageChanged_) {
-			onStageChanged_(stageDataList_[currentIndex_].playerStartTransform);
-		}
-	}
-	else {
-		// 全ステージクリア → TODO: リザルト遷移
-		currentIndex_ = 0;
-	}
+        }
+        if (onStageChanged_)
+        {
+            onStageChanged_(stageDataList_[currentIndex_].playerStartTransform);
+        }
+    }
+    else
+    {
+        // 全ステージクリア → TODO: リザルト遷移
+        currentIndex_ = 0;
+    }
 }
 
 void StageSequence::LoadFromJson(const std::string& path)

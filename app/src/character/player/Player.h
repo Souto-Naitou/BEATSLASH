@@ -87,12 +87,13 @@ private:
     EnableDebug("Player");
 
     /// パラメータ
-    GameParameter(float, kFrictionPower_, 0.8f);    // 摩擦係数
-    GameParameter(float, kMovePower_, 180.0f);      // 移動力
-    GameParameter(float, kJumpPower_, 5.0f);        // ジャンプ力
-    GameParameter(float, kMass_, 60.0f);            // 重力
-    GameParameter(float, kColliderHeight_, 3.0f);   // コライダーの高さ
-    GameParameter(float, kAnimationSpeed_, 3.5f);   // アニメーションの速度
+    GameParameter(float, kFrictionPower_, 0.8f);                                    // 摩擦係数
+    GameParameter(float, kMovePower_, 180.0f);                                      // 移動力
+    GameParameter(float, kMovePowerOnAttack_, 80.0f);                               // 移動力
+    GameParameter(float, kJumpPower_, 5.0f);                                        // ジャンプ力
+    GameParameter(float, kMass_, 60.0f);                                            // 重力
+    GameParameter(float, kAnimationSpeed_, 3.5f);                                   // アニメーションの速度
+    GameParameter(Tako::Vector3, kColliderSize_, Tako::Vector3(1.0f, 2.0f, 1.0f));  // コライダーのサイズ
 
     /// インスタンス
     std::unique_ptr<PlayerInput>                        pInput_;                    // プレイヤー入力管理クラス

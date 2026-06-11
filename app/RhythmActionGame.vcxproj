@@ -93,11 +93,13 @@
     <ClCompile Include="src\judge\InputTimingJudge.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\manager\BeatManager.cpp" />
+    <ClCompile Include="src\math\Color.cpp" />
     <ClCompile Include="src\math\Easing.cpp" />
     <ClCompile Include="src\physics\ColliderRepository.cpp" />
     <ClCompile Include="src\physics\ColliderTimer.cpp" />
     <ClCompile Include="src\presentation\animation\RadialBeat.cpp" />
     <ClCompile Include="src\scene\GameScene.cpp" />
+    <ClCompile Include="src\scene\TitleScene.cpp" />
     <ClCompile Include="src\skill\Overdrive.cpp" />
     <ClCompile Include="src\skill\UpTempo.cpp" />
     <ClCompile Include="src\stage\stage.cpp" />
@@ -195,8 +197,8 @@
     <ClInclude Include="src\judge\InputTimingJudge.h" />
     <ClInclude Include="src\judge\JudgeResutl.h" />
     <ClInclude Include="src\manager\BeatManager.h" />
+    <ClInclude Include="src\math\Color.h" />
     <ClInclude Include="src\math\Easing.h" />
-    <ClInclude Include="src\math\HSV.h" />
     <ClInclude Include="src\math\VectorMath.h" />
     <ClInclude Include="src\physics\ColliderTimer.h" />
     <ClInclude Include="src\physics\ColliderRepository.h" />
@@ -204,6 +206,7 @@
     <ClInclude Include="src\presentation\animation\AnimationTween.hpp" />
     <ClInclude Include="src\presentation\animation\RadialBeat.h" />
     <ClInclude Include="src\scene\GameScene.h" />
+    <ClInclude Include="src\scene\TitleScene.h" />
     <ClInclude Include="src\skill\IPlayerSkill.h" />
     <ClInclude Include="src\skill\Overdrive.h" />
     <ClInclude Include="src\skill\UpTempo.h" />

@@ -64,10 +64,19 @@ void Player::Update()
     pMovement_->ApplyFriction(kFrictionPower_);
     pMovement_->ApplyGravity(kMass_, deltaTime);
     pMovement_->Update(transform_, deltaTime);
+    /// 移動力の更新：攻撃中は移動力を下げる
+    if (attackRepository_.IsEmpty())
+    {
+        pMovement_->SetMovePower(kMovePower_);
+    }
+    else
+    {
+        pMovement_->SetMovePower(kMovePowerOnAttack_);
+    }
 
     /// コライダーの座標の更新
     colliderTransform_ = transform_;
-    colliderTransform_.translate.y += kColliderHeight_ * 0.5f;
+    colliderTransform_.translate.y += kColliderSize_->y * 0.5f;
 
     /// 移動しているときだけ向きを変える
     if (inputCommand.move.LengthSquared() > 0.01f)
@@ -199,7 +208,7 @@ void Player::InitializeObject3d()
 void Player::InitializeCollider()
 {
     colliderTransform_ = transform_;
-    colliderTransform_.translate.y = kColliderHeight_ * 0.5f;
+    colliderTransform_.translate.y = kColliderSize_->y * 0.5f;
 
     // コライダーの初期化
     PlayerCollider::InitData colliderInitData
@@ -225,7 +234,7 @@ void Player::InitializeCollider()
     };
 
     pCollider_ = std::make_unique<PlayerCollider>(colliderInitData);
-    pCollider_->SetSize(pModel_->GetScale() * kColliderHeight_);
+    pCollider_->SetSize(kColliderSize_);
     pCollider_->SetTransform(&colliderTransform_);
     pCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::Player));
 
