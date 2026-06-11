@@ -256,6 +256,10 @@ void GameScene::Update()
 
     const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
 
+    if (!pPlayer_->GetHPComponent().IsAlive()) {
+		SceneManager::GetInstance()->ChangeScene("title");
+    }
+
     // ステージの更新
     pStage_->Update(deltaTime);
     // プレイヤーの更新
