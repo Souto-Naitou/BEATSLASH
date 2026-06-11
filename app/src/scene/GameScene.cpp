@@ -132,6 +132,9 @@ void GameScene::Initialize()
     pCameraDirector_->SetFollowTarget(&pPlayer_->GetTransform());
     pStage_->SetOnStageChanged([this](const Tako::Transform& spawnTransform)
                                {
+								   // ドアのエフェクトを非アクティブにする
+								   pEmitterManager_->SetEmitterActive("door_open", false);
+
                                    pPlayer_->Respawn(spawnTransform);
 
                                    // ボスステージでのみボスを存在させる
@@ -150,8 +153,16 @@ void GameScene::Initialize()
 
     // 敵の初期化
     pEnemyManager_ = std::make_unique<EnemyManager>(pPlayer_.get(), pBeatClock_.get(), pEmitterManager_.get());
-    // テスト用にステージ0に敵をスポーン
-    pEnemyManager_->SpawnEnemy(0, Tako::Vector3{ 0.0f, 150.0f, 0.0f });
+    
+    //　ステージ１の敵の配置
+    pEnemyManager_->SpawnEnemy(0, Tako::Vector3(10.0f, 5.0f, 3.0f));
+	pEnemyManager_->SpawnEnemy(0, Tako::Vector3(-13.0f, 5.0f, 3.0f));
+
+	// ステージ２の敵の配置
+    pEnemyManager_->SpawnEnemy(1, Tako::Vector3(-15.0f, 5.0f, -6.0f));
+	pEnemyManager_->SpawnEnemy(1, Tako::Vector3(-15.0f, 7.0f, 17.0f));
+    pEnemyManager_->SpawnEnemy(1, Tako::Vector3(15.0f, 3.0f, -7.0f));
+    pEnemyManager_->SpawnEnemy(1, Tako::Vector3(-10.0f, 10.0f, -22.0f));
 
     // ボス用BTノードのファクトリ登録（一度だけでよい）
     RegisterBossBTNodes();
@@ -246,9 +257,14 @@ void GameScene::Update()
     pCameraDirector_->Update(deltaTime);
     pGameHUD_->Update();
 
-    if (pEnemyManager_->IsEmpty(pStage_->GetCurrentIndex()))
+	// ステージ１から２までのクリア条件は、ステージ上の敵を全て倒すこと
+    if (pEnemyManager_->IsEmpty(pStage_->GetCurrentIndex()) && !pBoss_)
     {
         // TODO：敵が全部死んだらこいつを呼ぶ
+        pStage_->NotifyClear();
+    }
+    else if (pBoss_ && !pBoss_->IsAlive())
+    {
         pStage_->NotifyClear();
     }
     pEmitterManager_->Update();
@@ -410,7 +426,10 @@ void GameScene::DrawObjects()
     pStage_->Draw();
     pPlayer_->Draw();
     pEnemyManager_->Draw(pStage_->GetCurrentIndex());
-	if (pBoss_)pBoss_->Draw();
+    if (pBoss_)
+    {
+        pBoss_->Draw();
+    }
 }
 
 void GameScene::ApplyPostEffects()

@@ -228,6 +228,9 @@ void Player::InitializeCollider()
     {
         // パリィ成功時の処理（例: コンボバフの付与、エフェクトの再生など）
         pParryPresentation_->Play(transform_.translate);
+
+		// SEを流す
+        ozSound::SoundEngine::GetInstance()->PostEvent("play_se_player_parry");
     },
         .damagedCallback = [this]()
     {
