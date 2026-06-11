@@ -57,6 +57,7 @@ void TitleScene::Initialize()
 
 void TitleScene::Finalize()
 {
+    Tako::CollisionManager::GetInstance()->Reset();
 }
 
 void TitleScene::Update()
