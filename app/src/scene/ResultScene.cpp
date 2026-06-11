@@ -44,7 +44,7 @@ void ResultScene::Update()
 
 
 	if (Input::GetInstance()->TriggerKey(DIK_RETURN)) {
-		SceneManager::GetInstance()->ChangeScene("");
+		SceneManager::GetInstance()->ChangeScene("title");
 	}
 }
 
