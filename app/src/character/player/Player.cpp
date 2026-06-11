@@ -167,7 +167,7 @@ void Player::InitializeComponents()
 
     pParryHistory_ = std::make_unique<ParryHistory>(beatClock_);
     pParryJudgement_ = std::make_unique<ParryJudgement>(*pParryHistory_);
-    pParryPresentation_ = std::make_unique<ParryPresentation>(particleEmitter_);
+    pParryPresentation_ = std::make_unique<ParryPresentation>(particleEmitter_, transform_.translate);
 }
 
 void Player::InitializeStates()
