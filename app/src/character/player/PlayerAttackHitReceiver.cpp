@@ -23,17 +23,20 @@ void PlayerAttackHitReceiver::Update()
 
 void PlayerAttackHitReceiver::ReceiveHit(const HitInfo& info)
 {
+    // コンボ更新（ビート判定）
+    JudgeResult judge = execs_.comboBuffSystem.OnAttackHit();
+    execs_.onJudgeCallback(judge);
+
     /// [ VFX ]
-   
-    // ビートエフェクト開始
-    pRadialBeat_->Start(kTimeRadialBeat_);
-    
+
+    // ビートに乗ったヒット(Good以上)のみラジアルブラー発動
+    if (judge != JudgeResult::Miss)
+    {
+        pRadialBeat_->Start(kTimeRadialBeat_);
+    }
+
     // パーティクル発生
     execs_.playerAttackPresentation.OnHit();
 
     // カメラ
-
-    // コンボ更新
-    JudgeResult judge = execs_.comboBuffSystem.OnAttackHit();
-    execs_.onJudgeCallback(judge);
 }
