@@ -1,6 +1,7 @@
 #pragma once
 #include <OBBCollider.h>
 #include <functional>
+#include <unordered_set>
 
 using BossPushBackCallback = std::function<void(const Tako::Vector3& pushback)>;
 
@@ -20,4 +21,7 @@ private:
     BossPushBackCallback pushBackCallback_;
 
     HPComponent* pHp_ = nullptr;
+
+    // 被弾済みの攻撃ID。同じスイングからの多段ヒットを防ぐ
+    std::unordered_set<uint32_t> receivedAttackIds_;
 };
