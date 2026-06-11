@@ -239,7 +239,9 @@ void GameScene::Draw()
     pStage_->DrawTransition();
 
 
+#ifdef _DEBUG
     Tako::CollisionManager::GetInstance()->DrawColliders();
+#endif // _DEBUG
 }
 
 void GameScene::DrawWithoutEffect()
