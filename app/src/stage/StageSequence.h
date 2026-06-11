@@ -51,6 +51,7 @@ public:
         return stageDataList_[currentIndex_];
     }
 
+    bool IsStageComplete() const { return stageComplete_; }
 
 private:
 
@@ -70,6 +71,7 @@ private:
     std::filesystem::file_time_type lastWriteTime_;
     bool hasClearNotified_ = false; // ステージ遷移まで再通知を防ぐ
 
+    bool stageComplete_ = false; // ステージクリア後のドア開放完了まで、プレイヤーの操作を受け付けないフラグ
 
     OnPlayerRespawnRequiredCallback onStageChanged_;
     OnDoorOpenedCallback onDoorOpened_;

@@ -30,7 +30,6 @@ public:
     bool IsAlive() const { return currentHP_ > 0; }
 
 private:
-
     int32_t maxHP_ = 100; // 最大HP
     int32_t currentHP_ = 100; // 現在のHP
 };

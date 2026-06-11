@@ -275,6 +275,11 @@ void GameScene::Update()
 	pCameraDirector_->Update(deltaTime);
 	pGameHUD_->Update();
 
+    if (pStage_->IsStageComplete())
+    {
+        SceneManager::GetInstance()->ChangeScene("title");
+        return;
+    }
 	// ステージ１から２までのクリア条件は、ステージ上の敵を全て倒すこと
 	if (pEnemyManager_->IsEmpty(pStage_->GetCurrentIndex()) && !pBoss_) {
 		// TODO：敵が全部死んだらこいつを呼ぶ
@@ -291,21 +296,24 @@ void GameScene::Update()
 			bossDeathStartScale_ = pBoss_->GetScale();
 		}
 
-		bossDeathTimer_ += deltaTime;
-		const float kDeathDuration = 1.5f;
-		float t = bossDeathTimer_ / kDeathDuration;
-		if (t >= 1.0f) {
-			t = 1.0f;
-			pBoss_->SetScale({ 0.0f, 0.0f, 0.0f });
-			pStage_->NotifyClear();
-		}
-		else {
-			float easedT = 1.0f - EaseInOutQuint(t);
-			pBoss_->SetScale(bossDeathStartScale_ * easedT);
-		}
-	}
-	pEmitterManager_->Update();
-	CollisionManager::GetInstance()->CheckAllCollisions();
+        bossDeathTimer_ += deltaTime;
+        const float kDeathDuration = 1.5f;
+        float t = bossDeathTimer_ / kDeathDuration;
+        if (t >= 1.0f)
+        {
+            t = 1.0f;
+            pBoss_->SetScale({ 0.0f, 0.0f, 0.0f });
+            pStage_->NotifyClear();
+        }
+        else
+        {
+            float easedT = 1.0f - EaseInOutQuint(t);
+            pBoss_->SetScale(bossDeathStartScale_ * easedT);
+        }
+    }
+
+    pEmitterManager_->Update();
+    CollisionManager::GetInstance()->CheckAllCollisions();
 }
 
 void GameScene::Draw()

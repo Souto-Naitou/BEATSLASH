@@ -77,7 +77,7 @@ void TitleScene::Update()
     pSpriteTitle_->Update();
     pSpriteStartPrompt_->Update();
 
-    if (Tako::Input::GetInstance()->TriggerKey(DIK_SPACE))
+    if (Tako::Input::GetInstance()->TriggerKey(DIK_SPACE) || Tako::Input::GetInstance()->TriggerButton(Tako::GamepadButton::A))
     {
         Tako::SceneManager::GetInstance()->ChangeScene("game", Tako::TransitionManager::EffectType::Fade, 1.0f);
     }
