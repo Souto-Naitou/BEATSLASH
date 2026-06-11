@@ -8,7 +8,11 @@
 Stage::~Stage()
 {
     for (auto& col : colliders_)
+    {
         Tako::CollisionManager::GetInstance()->RemoveCollider(col.get());
+    }
+    colliders_.clear();
+
 }
 
 void Stage::Initialize(const StageData& stageData)
