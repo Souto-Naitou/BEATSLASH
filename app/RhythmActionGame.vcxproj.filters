@@ -134,6 +134,9 @@
     <ClCompile Include="src\manager\BeatManager.cpp">
       <Filter>manager</Filter>
     </ClCompile>
+    <ClCompile Include="src\math\Color.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
     <ClCompile Include="src\math\Easing.cpp">
       <Filter>math</Filter>
     </ClCompile>
@@ -147,6 +150,9 @@
       <Filter>presentation\animation</Filter>
     </ClCompile>
     <ClCompile Include="src\scene\GameScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\TitleScene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="src\skill\Overdrive.cpp">
@@ -206,8 +212,6 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\scene\TitleScene.cpp" />
-    <ClCompile Include="src\math\Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -497,6 +501,9 @@
     <ClInclude Include="src\manager\BeatManager.h">
       <Filter>manager</Filter>
     </ClInclude>
+    <ClInclude Include="src\math\Color.h">
+      <Filter>math</Filter>
+    </ClInclude>
     <ClInclude Include="src\math\Easing.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -519,6 +526,9 @@
       <Filter>presentation\animation</Filter>
     </ClInclude>
     <ClInclude Include="src\scene\GameScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\TitleScene.h">
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="src\skill\IPlayerSkill.h">
@@ -599,8 +609,6 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\scene\TitleScene.h" />
-    <ClInclude Include="src\math\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
