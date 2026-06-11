@@ -181,7 +181,6 @@ void GameScene::Initialize()
     });
 #endif
 
-    pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_,*pBeatClock_);
     pGameHUD_ = std::make_unique<GameHUD>(*pComboBuffSystem_, *pBeatClock_,
                                           pPlayer_->GetHPComponent(), pPlayer_->GetPlayerInput());
     pGameHUD_->Initialize();
