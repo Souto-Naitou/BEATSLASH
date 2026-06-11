@@ -36,7 +36,8 @@ private:
 	static constexpr float kSpinAngle = 8.0f * 3.1415926535f;
 	// エフェクトカウント
 	static uint32_t effectCount_;
-
+	// 音再生フラグ
+	bool hasPlayedSound_ = false;
 	// 経過時間タイマー
 	float timer_ = 0.0f;
 	// 目標スケール

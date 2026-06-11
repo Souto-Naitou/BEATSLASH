@@ -167,6 +167,30 @@
                 }
             ],
             "name": "play_se_player_take_hit"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "player_jump",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_player_jump"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "enemy_spawn",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_enemy_spawn"
         }
     ]
 }

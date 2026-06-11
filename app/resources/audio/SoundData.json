@@ -125,6 +125,20 @@
             "path": "resources/audio/player_take_hit.mp3",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "player_jump",
+            "path": "resources/audio/player_jump.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "enemy_spawn",
+            "path": "resources/audio/enemy_spawn.mp3",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }
