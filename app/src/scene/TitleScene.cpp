@@ -23,22 +23,7 @@ void TitleScene::Initialize()
     Tako::Object3dBasic::GetInstance()->SetDebug(false);
     #endif // _DEBUG
 
-    Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleLogo);
-    Tako::TextureManager::GetInstance()->LoadTexture(Global::ResourcePath::Texture::kTitleStartPrompt);
-
-    pSpriteTitle_ = std::make_unique<Tako::Sprite>();
-    pSpriteTitle_->Initialize(Global::ResourcePath::Texture::kTitleLogo);
-
-    Tako::Vector2 titlePos = { 10_vw, 10_vh };
-    pSpriteTitle_->SetPos(titlePos);
-
-
-    pSpriteStartPrompt_ = std::make_unique<Tako::Sprite>();
-    pSpriteStartPrompt_->Initialize(Global::ResourcePath::Texture::kTitleStartPrompt);
-    pSpriteStartPrompt_->SetAnchorPoint({ 0.5f, 0.5f });
-
-    Tako::Vector2 promptPos = { 50_vw, 80_vh };
-    pSpriteStartPrompt_->SetPos(promptPos);
+    this->InitializeSprites();
 
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
@@ -109,4 +94,38 @@ void TitleScene::DrawWithoutEffect()
 
 void TitleScene::DrawImGui()
 {
+}
+
+void TitleScene::InitializeSprites()
+{
+    auto tm = Tako::TextureManager::GetInstance();
+
+    tm->LoadTexture(Global::ResourcePath::Texture::kTitleLogo);
+    tm->LoadTexture(Global::ResourcePath::Texture::kTitleStartPrompt);
+    tm->LoadTexture(Global::ResourcePath::Texture::kTitleStartPromptPad);
+
+    pSpriteTitle_ = std::make_unique<Tako::Sprite>();
+    pSpriteTitle_->Initialize(Global::ResourcePath::Texture::kTitleLogo);
+
+    Tako::Vector2 titlePos = { 10_vw, 10_vh };
+    pSpriteTitle_->SetPos(titlePos);
+
+
+    pSpriteStartPrompt_ = std::make_unique<Tako::Sprite>();
+    pSpriteStartPrompt_->Initialize(Global::ResourcePath::Texture::kTitleStartPrompt);
+    pSpriteStartPrompt_->SetAnchorPoint({ 0.5f, 0.5f });
+
+    Tako::Vector2 promptPos = { 50_vw, 80_vh };
+    pSpriteStartPrompt_->SetPos(promptPos);
+
+    InputAwareSprite::Entry entry;
+    entry.pSprite_ = pSpriteStartPrompt_.get();
+    entry.handleKeyboard_ = tm->GetSRVIndex(Global::ResourcePath::Texture::kTitleStartPrompt);
+    entry.handleGamepad_ = tm->GetSRVIndex(Global::ResourcePath::Texture::kTitleStartPromptPad);
+    entry.positionKeyboard_ = promptPos;
+    entry.positionGamepad_ = promptPos;
+
+    inputAwareSprite_.Initialize();
+    inputAwareSprite_.AddEntry(entry);
+    inputAwareSprite_.ApplyCurrentMode();
 }

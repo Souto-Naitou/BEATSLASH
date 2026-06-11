@@ -121,6 +121,7 @@
     <ClCompile Include="src\utility\DeltaTimeStopWatch.cpp" />
     <ClCompile Include="src\utility\strutl.cpp" />
     <ClCompile Include="src\utility\StopWatch.cpp" />
+    <ClCompile Include="src\wrapper\InputAwareSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\player\ParryHistory.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="src\entity\camera\FollowCamera.h" />
     <ClInclude Include="src\entity\attack\PlayerAttackPresentation.h" />
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
+    <ClInclude Include="src\event\InputCallbackEvent.h" />
     <ClInclude Include="src\factory\PlayerAttackFactory.h" />
     <ClInclude Include="src\font\FontLayout.h" />
     <ClInclude Include="src\font\NumericView.h" />
@@ -238,6 +240,7 @@
     <ClInclude Include="src\utility\StopWatch.h" />
     <ClInclude Include="src\utility\ViewportUnits.hpp" />
     <ClInclude Include="src\utility\wndutl.h" />
+    <ClInclude Include="src\wrapper\InputAwareSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

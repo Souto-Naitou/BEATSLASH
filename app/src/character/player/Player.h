@@ -67,7 +67,7 @@ public:
 
     const Tako::Vector3& GetPosition()      const           { return transform_.translate; }
     const Tako::Vector3& GetScale()         const override  { return transform_.scale; }
-    const Tako::Vector3& GetRotation()      const override  { return transform_.rotate; }
+    const Tako::Vector3& GetRotation()      const override  { return  transform_.rotate; }
     const Tako::Transform& GetTransform()   const           { return transform_; }
     Tako::Transform& GetTransform()                         { return transform_; }
 

@@ -29,6 +29,6 @@ public: // メンバ関数
 
 private: // メンバ変数
     DebugUIWrapper* pDebugUIWrapper_ = nullptr;  ///< デバッグUIラッパーへのポインタ
-
+    bool isGamepadConnected_ = false; ///< ゲームパッドの接続状態
 };
 
