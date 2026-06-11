@@ -11,7 +11,7 @@ RankingManager* RankingManager::GetInstance()
 
 RankingManager::RankingManager()
 {
-    times_.fill(kDefaultTime);
+    times_.fill(kEmpty);
     Load();
 }
 

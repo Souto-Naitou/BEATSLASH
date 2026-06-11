@@ -91,6 +91,7 @@ private: // メンバ変数
     float elapsedTime_    = 0.0f;  // ゲーム開始からの経過時間（秒）
     float bossDeathTimer_ = 0.0f;
     bool isBossDeathStarted_ = false;
+    bool isClearHandled_ = false;  // クリア時のランキング記録・シーン遷移を一度だけ行うためのフラグ
     Tako::Vector3 bossDeathStartScale_{ 5.0f, 5.0f, 5.0f };
 
 #ifdef _DEBUG
