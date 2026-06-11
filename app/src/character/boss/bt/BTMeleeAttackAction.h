@@ -72,6 +72,8 @@ private:
     float barOffsetY_ = 0.0f;
     // 振り半角（度）。正面+半角から-半角まで振る
     float swingHalfAngleDeg_ = 60.0f;
+    // 成長SEの音量
+    float growSeVolume_ = 0.5f;
 
     Phase phase_ = Phase::Growing;
     // 実行済み成長回数

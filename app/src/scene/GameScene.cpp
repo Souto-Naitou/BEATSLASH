@@ -393,7 +393,6 @@ void GameScene::SpawnBoss()
         }
     });
 #endif
-    }
 }
 
 void GameScene::DrawObjects()

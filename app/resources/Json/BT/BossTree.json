@@ -1,93 +1,93 @@
 {
   "links": [
     {
-      "id": 30004,
+      "id": 30000,
       "sourceNodeId": 10004,
       "sourcePinId": 20006,
       "targetNodeId": 10005,
       "targetPinId": 20007
     },
     {
-      "id": 30005,
+      "id": 30001,
       "sourceNodeId": 10004,
       "sourcePinId": 20006,
       "targetNodeId": 10002,
       "targetPinId": 20003
     },
     {
-      "id": 30011,
-      "sourceNodeId": 10012,
-      "sourcePinId": 20017,
-      "targetNodeId": 10010,
-      "targetPinId": 20014
+      "id": 30002,
+      "sourceNodeId": 10011,
+      "sourcePinId": 20015,
+      "targetNodeId": 10009,
+      "targetPinId": 20012
     },
     {
-      "id": 30014,
+      "id": 30003,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
       "targetNodeId": 10001,
       "targetPinId": 20002
     },
     {
-      "id": 30015,
+      "id": 30004,
+      "sourceNodeId": 10000,
+      "sourcePinId": 20001,
+      "targetNodeId": 10011,
+      "targetPinId": 20014
+    },
+    {
+      "id": 30005,
+      "sourceNodeId": 10007,
+      "sourcePinId": 20010,
+      "targetNodeId": 10008,
+      "targetPinId": 20011
+    },
+    {
+      "id": 30006,
+      "sourceNodeId": 10007,
+      "sourcePinId": 20010,
+      "targetNodeId": 10010,
+      "targetPinId": 20013
+    },
+    {
+      "id": 30007,
+      "sourceNodeId": 10011,
+      "sourcePinId": 20015,
+      "targetNodeId": 10003,
+      "targetPinId": 20004
+    },
+    {
+      "id": 30008,
+      "sourceNodeId": 10011,
+      "sourcePinId": 20015,
+      "targetNodeId": 10006,
+      "targetPinId": 20008
+    },
+    {
+      "id": 30009,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
       "targetNodeId": 10012,
       "targetPinId": 20016
     },
     {
-      "id": 30018,
-      "sourceNodeId": 10008,
-      "sourcePinId": 20012,
-      "targetNodeId": 10009,
-      "targetPinId": 20013
-    },
-    {
-      "id": 30019,
-      "sourceNodeId": 10008,
-      "sourcePinId": 20012,
-      "targetNodeId": 10011,
-      "targetPinId": 20015
-    },
-    {
-      "id": 30021,
+      "id": 30010,
       "sourceNodeId": 10012,
       "sourcePinId": 20017,
-      "targetNodeId": 10003,
-      "targetPinId": 20004
-    },
-    {
-      "id": 30022,
-      "sourceNodeId": 10012,
-      "sourcePinId": 20017,
-      "targetNodeId": 10006,
-      "targetPinId": 20008
-    },
-    {
-      "id": 30023,
-      "sourceNodeId": 10000,
-      "sourcePinId": 20001,
-      "targetNodeId": 10013,
-      "targetPinId": 20018
-    },
-    {
-      "id": 30024,
-      "sourceNodeId": 10013,
-      "sourcePinId": 20019,
       "targetNodeId": 10004,
       "targetPinId": 20005
     },
     {
-      "id": 30025,
-      "sourceNodeId": 10013,
-      "sourcePinId": 20019,
-      "targetNodeId": 10008,
-      "targetPinId": 20011
+      "id": 30011,
+      "sourceNodeId": 10012,
+      "sourcePinId": 20017,
+      "targetNodeId": 10007,
+      "targetPinId": 20009
     }
   ],
   "metadata": {
-    "created": "2026-06-11T22:20:28",
-    "modified": "2026-06-11T22:20:28",
+    "created": "2026-06-11T22:44:22",
+    "modified": "2026-06-11T22:44:22",
     "name": "Behavior Tree"
   },
   "nodes": [
@@ -128,7 +128,7 @@
         "chargeCompleteVolume": 0.5,
         "chargeCount": 5,
         "chargeIntervalBeats": 1.0,
-        "chargeVolume": 0.5,
+        "chargeVolume": 0.30000001192092896,
         "fireDuration": 0.10000000149011612,
         "laserExtraLength": 0.0,
         "laserThicknessScale": 1.0,
@@ -197,30 +197,30 @@
     },
     {
       "displayName": "Sequence",
-      "id": 10008,
+      "id": 10007,
       "parameters": null,
       "position": {
-        "x": 347.0,
+        "x": 328.0,
         "y": 249.0
       },
       "type": "BTSequence"
     },
     {
       "displayName": "DistanceCheck",
-      "id": 10009,
+      "id": 10008,
       "parameters": {
         "checkWithin": true,
         "distance": 20.0
       },
       "position": {
-        "x": 344.0,
+        "x": 328.0,
         "y": 383.0
       },
       "type": "BTDistanceCondition"
     },
     {
       "displayName": "Approach",
-      "id": 10010,
+      "id": 10009,
       "parameters": {
         "moveSpeed": 50.0,
         "stopDistance": 9.0,
@@ -234,7 +234,7 @@
     },
     {
       "displayName": "MeleeAttack",
-      "id": 10011,
+      "id": 10010,
       "parameters": {
         "barDepth": 0.25,
         "barHeight": 0.15000000596046448,
@@ -242,6 +242,7 @@
         "barStartLength": 1.5,
         "growCount": 3,
         "growIntervalBeats": 1.0,
+        "growSeVolume": 0.5,
         "lengthPerGrow": 3.0,
         "offsetDistance": 15.0,
         "swingDurationBeats": 2.0,
@@ -249,28 +250,28 @@
         "syncStartToBeat": true
       },
       "position": {
-        "x": 344.0,
+        "x": 328.0,
         "y": 479.0
       },
       "type": "BTMeleeAttackAction"
     },
     {
       "displayName": "RandomSelector",
-      "id": 10012,
+      "id": 10011,
       "parameters": null,
       "position": {
         "x": -117.0,
-        "y": 105.0
+        "y": 111.0
       },
       "type": "BTRandomSelector"
     },
     {
       "displayName": "Selector",
-      "id": 10013,
+      "id": 10012,
       "parameters": null,
       "position": {
-        "x": 200.0,
-        "y": 105.0
+        "x": 216.0,
+        "y": 121.0
       },
       "type": "BTSelector"
     }

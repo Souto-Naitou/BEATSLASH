@@ -6,6 +6,7 @@
 #include <character/boss/bt/BossBlackboardKeys.h>
 #include <manager/BeatManager.h>
 #include <type/ColliderTypeID.h>
+#include <ozSound/audio/SoundEngine.h>
 #include <algorithm>
 #include <cmath>
 #include <numbers>
@@ -13,6 +14,12 @@
 #ifdef _DEBUG
 #include <imgui.h>
 #endif
+
+namespace
+{
+    // SoundData.jsonで定義された成長SEのサウンドID
+    constexpr const char* kSeGrow = "se_boss_charge_complete";
+}
 
 uint32_t BTMeleeAttackAction::sInstanceCounter_ = 0;
 
@@ -90,6 +97,7 @@ Tako::BTNodeStatus BTMeleeAttackAction::Execute(Tako::BTBlackboard* blackboard)
         {
             currentLength_ += lengthPerGrow_;
             ++performedGrows_;
+            ozSound::SoundEngine::GetInstance()->Play(kSeGrow, growSeVolume_);
         }
 
         // 振り開始位置（正面から+半角）の円周上に棒を追従させる
@@ -270,6 +278,10 @@ void BTMeleeAttackAction::ApplyParameters(const nlohmann::json& params)
     {
         swingHalfAngleDeg_ = params["swingHalfAngleDeg"].get<float>();
     }
+    if (params.contains("growSeVolume"))
+    {
+        growSeVolume_ = params["growSeVolume"].get<float>();
+    }
 }
 
 nlohmann::json BTMeleeAttackAction::ExtractParameters() const
@@ -285,6 +297,7 @@ nlohmann::json BTMeleeAttackAction::ExtractParameters() const
     params["offsetDistance"] = offsetDistance_;
     params["barOffsetY"] = barOffsetY_;
     params["swingHalfAngleDeg"] = swingHalfAngleDeg_;
+    params["growSeVolume"] = growSeVolume_;
     return params;
 }
 
@@ -305,6 +318,8 @@ bool BTMeleeAttackAction::DrawImGui()
     ImGui::SeparatorText("Swing");
     changed |= ImGui::DragFloat("Swing Duration (Beats)", &swingDurationBeats_, 0.1f, 0.25f, 8.0f);
     changed |= ImGui::DragFloat("Swing Half Angle (Deg)", &swingHalfAngleDeg_, 1.0f, 10.0f, 180.0f);
+    ImGui::SeparatorText("Sound");
+    changed |= ImGui::DragFloat("Grow SE Volume", &growSeVolume_, 0.01f, 0.0f, 1.0f);
     return changed;
 }
 #endif
