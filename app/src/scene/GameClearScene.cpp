@@ -1,5 +1,6 @@
 #include "GameClearScene.h"
 
+#include <manager/RankingManager.h>
 #include <Input.h>
 #include <SceneManager.h>
 #include <SpriteBasic.h>
@@ -18,8 +19,7 @@ namespace
         "gameclear/4.png",
         "gameclear/5.png",
     };
-    constexpr const char* kTexSec   = "gameclear/sec.png";
-    constexpr const char* kTexColon = "white.png";
+    constexpr const char* kTexSec = "gameclear/sec.png";
 
     constexpr const char* kTexDigits[10] = {
         "numbers/number_0.dds", "numbers/number_1.dds",
@@ -49,46 +49,34 @@ void GameClearScene::Initialize()
     pSpriteRanking_->Initialize(kTexRanking);
     pSpriteRanking_->SetAnchorPoint({ 0.5f, 0.5f });
 
-    // 仮の時刻データ (秒単位) - 後でゲームの実データに差し替える
-    times_ = { 75u, 92u, 103u, 118u, 145u };  // 1:15, 1:32, 1:43, 1:58, 2:25
+    // RankingManager からランキングデータを読み込む
+    const auto& rankTimes = RankingManager::GetInstance()->GetTimes();
+    for (int i = 0; i < kRankCount; ++i)
+    {
+        times_[i] = (rankTimes[i] < RankingManager::kEmpty)
+                    ? static_cast<uint32_t>(rankTimes[i])
+                    : UINT32_MAX;
+    }
 
     const float commonDelay = 2.0f;
 
     for (int i = 0; i < kRankCount; ++i)
     {
-        // 順位数字 sprite
         pSpriteNums_[i] = std::make_unique<Tako::Sprite>();
         pSpriteNums_[i]->Initialize(kTexNums[i]);
         pSpriteNums_[i]->SetAnchorPoint({ 0.5f, 0.5f });
 
-        // mm (分) NumericView
-        viewMins_[i].Initialize(digitHandles, "GameClear_min_" + std::to_string(i));
-        viewMins_[i].SetFontSize(layout_.fontSize * 1_vh);
+        viewTimes_[i].Initialize(digitHandles, "GameClear_time_" + std::to_string(i));
+        viewTimes_[i].SetFontSize(layout_.fontSize * 1_vh);
 
-        // ss (秒) NumericView
-        viewSecs_[i].Initialize(digitHandles, "GameClear_sec_" + std::to_string(i));
-        viewSecs_[i].SetFontSize(layout_.fontSize * 1_vh);
-
-        // コロン (上ドット・下ドット)
-        pSpriteColons1_[i] = std::make_unique<Tako::Sprite>();
-        pSpriteColons1_[i]->Initialize(kTexColon);
-        pSpriteColons1_[i]->SetAnchorPoint({ 0.5f, 0.5f });
-
-        pSpriteColons2_[i] = std::make_unique<Tako::Sprite>();
-        pSpriteColons2_[i]->Initialize(kTexColon);
-        pSpriteColons2_[i]->SetAnchorPoint({ 0.5f, 0.5f });
-
-        // "sec" テキスト sprite
         pSpriteSecs_[i] = std::make_unique<Tako::Sprite>();
         pSpriteSecs_[i]->Initialize(kTexSec);
         pSpriteSecs_[i]->SetAnchorPoint({ 0.0f, 0.5f });
 
-        // 行ごとにスタッガーされたスライドインアニメーション (X オフセット: startOffset → 0)
         const float startOffset = layout_.animStartOffset * 1_vw;
         const float delay       = layout_.animStagger * i + commonDelay;
-        const float duration    = layout_.animDuration;
 
-        AnimationTween<float> tween(delay, duration, startOffset, 0.0f);
+        AnimationTween<float> tween(delay, layout_.animDuration, startOffset, 0.0f);
         tween.SetTransitionFunction(Math::Easing::EaseOutCubic);
 
         rowTimelines_[i].ClearTween();
@@ -100,10 +88,7 @@ void GameClearScene::Initialize()
 void GameClearScene::Finalize()
 {
     for (int i = 0; i < kRankCount; ++i)
-    {
-        viewMins_[i].Finalize();
-        viewSecs_[i].Finalize();
-    }
+        viewTimes_[i].Finalize();
 }
 
 void GameClearScene::Update()
@@ -116,47 +101,22 @@ void GameClearScene::Update()
         const float rowY    = (layout_.rowStartY + layout_.rowSpacing * i) * 1_vh;
         const float offsetX = rowTimelines_[i].Update();
 
-        // 順位数字
         pSpriteNums_[i]->SetPos({ layout_.numX * 1_vw + offsetX, rowY });
         pSpriteNums_[i]->Update();
 
-        // 分・秒 を計算
-        const uint32_t totalSec = times_[i];
-        const uint32_t mm       = totalSec / 60u;
-        const uint32_t ss       = totalSec % 60u;
+        if (times_[i] != UINT32_MAX)
+        {
+            auto& props         = viewTimes_[i].GetFontLayoutProperties();
+            props.leftTop       = { layout_.timeX * 1_vw + offsetX, rowY };
+            props.anchorPoint   = { 0.0f, 0.5f };
+            props.letterSpacing = layout_.letterSpacing;
+            viewTimes_[i].SetFontSize(layout_.fontSize * 1_vh);
+            viewTimes_[i].SetNumber(times_[i]);
+            viewTimes_[i].Update();
 
-        // mm NumericView
-        auto& minProps         = viewMins_[i].GetFontLayoutProperties();
-        minProps.leftTop       = { layout_.timeX * 1_vw + offsetX, rowY };
-        minProps.anchorPoint   = { 0.0f, 0.5f };
-        minProps.letterSpacing = layout_.letterSpacing;
-        viewMins_[i].SetNumber(mm);
-        viewMins_[i].Update();
-
-        // コロン (上ドット・下ドット)
-        const float dotSize   = layout_.colonDotSize * 1_vh;
-        const float dotOffset = layout_.colonDotGap  * 1_vh;
-        const float colonPx   = layout_.colonX * 1_vw + offsetX;
-
-        pSpriteColons1_[i]->SetPos({ colonPx, rowY - dotOffset });
-        pSpriteColons1_[i]->SetSize({ dotSize, dotSize });
-        pSpriteColons1_[i]->Update();
-
-        pSpriteColons2_[i]->SetPos({ colonPx, rowY + dotOffset });
-        pSpriteColons2_[i]->SetSize({ dotSize, dotSize });
-        pSpriteColons2_[i]->Update();
-
-        // ss NumericView
-        auto& secProps         = viewSecs_[i].GetFontLayoutProperties();
-        secProps.leftTop       = { layout_.ssX * 1_vw + offsetX, rowY };
-        secProps.anchorPoint   = { 0.0f, 0.5f };
-        secProps.letterSpacing = layout_.letterSpacing;
-        viewSecs_[i].SetNumber(ss);
-        viewSecs_[i].Update();
-
-        // "sec" テキスト
-        pSpriteSecs_[i]->SetPos({ layout_.secLabelX * 1_vw + offsetX, rowY });
-        pSpriteSecs_[i]->Update();
+            pSpriteSecs_[i]->SetPos({ layout_.secLabelX * 1_vw + offsetX, rowY });
+            pSpriteSecs_[i]->Update();
+        }
     }
 
     if (Tako::Input::GetInstance()->TriggerKey(DIK_SPACE) ||
@@ -174,11 +134,11 @@ void GameClearScene::Draw()
     for (int i = 0; i < kRankCount; ++i)
     {
         pSpriteNums_[i]->Draw();
-        viewMins_[i].Draw();
-        pSpriteColons1_[i]->Draw();
-        pSpriteColons2_[i]->Draw();
-        viewSecs_[i].Draw();
-        pSpriteSecs_[i]->Draw();
+        if (times_[i] != UINT32_MAX)
+        {
+            viewTimes_[i].Draw();
+            pSpriteSecs_[i]->Draw();
+        }
     }
 }
 

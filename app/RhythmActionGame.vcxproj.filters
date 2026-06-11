@@ -263,6 +263,9 @@
     <ClCompile Include="src\scene\GameClearScene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\manager\RankingManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -725,6 +728,9 @@
     </ClInclude>
     <ClInclude Include="src\scene\GameClearScene.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\RankingManager.h">
+      <Filter>manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

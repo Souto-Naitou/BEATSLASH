@@ -83,6 +83,7 @@ private: // メンバ変数
 
     ColliderRepository colliderRepository_; // !< 攻撃リポジトリのインスタンス
 
+    float elapsedTime_    = 0.0f;  // ゲーム開始からの経過時間（秒）
     float bossDeathTimer_ = 0.0f;
     bool isBossDeathStarted_ = false;
     Tako::Vector3 bossDeathStartScale_{ 5.0f, 5.0f, 5.0f };

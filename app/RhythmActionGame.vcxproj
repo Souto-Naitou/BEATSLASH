@@ -100,6 +100,7 @@
     <ClCompile Include="src\physics\ColliderRepository.cpp" />
     <ClCompile Include="src\physics\ColliderTimer.cpp" />
     <ClCompile Include="src\presentation\animation\RadialBeat.cpp" />
+    <ClCompile Include="src\manager\RankingManager.cpp" />
     <ClCompile Include="src\scene\GameClearScene.cpp" />
     <ClCompile Include="src\scene\GameoverScene.cpp" />
     <ClCompile Include="src\scene\GameScene.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="src\presentation\animation\AnimationTimeline.hpp" />
     <ClInclude Include="src\presentation\animation\AnimationTween.hpp" />
     <ClInclude Include="src\presentation\animation\RadialBeat.h" />
+    <ClInclude Include="src\manager\RankingManager.h" />
     <ClInclude Include="src\scene\GameClearScene.h" />
     <ClInclude Include="src\scene\GameoverScene.h" />
     <ClInclude Include="src\scene\GameScene.h" />

@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <manager/RankingManager.h>
 
 #include "Draw2D.h"
 #include "GPUParticle.h"
@@ -226,7 +227,7 @@ void GameScene::Finalize()
 {
 	pPlayer_->Finalize();
 	colliderRepository_.Clear();
-
+    ozSound::SoundEngine::GetInstance()->StopAll();
 #ifdef _DEBUG
 	if (pBtEditor_) {
 		pBtEditor_->Finalize();
@@ -245,6 +246,7 @@ void GameScene::Update()
 	/// ================================== ///
 
 	const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
+    elapsedTime_ += deltaTime;
 
     if (!pPlayer_->GetHPComponent().IsAlive())
     {
@@ -277,7 +279,8 @@ void GameScene::Update()
 
     if (pStage_->IsStageComplete())
     {
-        SceneManager::GetInstance()->ChangeScene("title");
+        RankingManager::GetInstance()->AddTime(elapsedTime_);
+        SceneManager::GetInstance()->ChangeScene("gameclear", TransitionManager::EffectType::Fade, 0.5f);
         return;
     }
 	// ステージ１から２までのクリア条件は、ステージ上の敵を全て倒すこと

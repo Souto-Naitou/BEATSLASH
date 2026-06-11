@@ -27,7 +27,7 @@ HPBarUI::HPBarUI(const std::string& name) : name_(name)
 HPBarUI::~HPBarUI()
 {
 #ifdef _DEBUG
-    DebugUIManager::GetInstance()->UnregisterGameObject("HPBarUI");
+    DebugUIManager::GetInstance()->UnregisterGameObject(name_ + "_HPBarUI");
 #endif // _DEBUG
 }
 
