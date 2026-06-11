@@ -266,7 +266,9 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\wrapper\InputAwareSprite.cpp" />
+    <ClCompile Include="src\wrapper\InputAwareSprite.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -286,6 +288,9 @@
     </Filter>
     <Filter Include="entity">
       <UniqueIdentifier>{8142e52a-411b-4087-b321-f8ca5066d513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event">
+      <UniqueIdentifier>{73c3bd7e-7fb6-47b4-a529-f2e91d9659d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="factory">
       <UniqueIdentifier>{6e614701-bd2b-4318-a4b4-5a18213d6c1e}</UniqueIdentifier>
@@ -337,6 +342,9 @@
     </Filter>
     <Filter Include="utility">
       <UniqueIdentifier>{cbf0305d-8d9f-4ddc-b19d-1cac2532913c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wrapper">
+      <UniqueIdentifier>{c591e690-5dd1-4025-a85c-14bf7162466e}</UniqueIdentifier>
     </Filter>
     <Filter Include="character\boss">
       <UniqueIdentifier>{e6f704ff-24b8-4e76-95f0-77c81844f8bc}</UniqueIdentifier>
@@ -586,6 +594,12 @@
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h">
       <Filter>entity\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="src\event\InputCallbackEvent.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\event\PlayerParryEvent.h">
+      <Filter>event</Filter>
+    </ClInclude>
     <ClInclude Include="src\factory\PlayerAttackFactory.h">
       <Filter>factory</Filter>
     </ClInclude>
@@ -733,9 +747,9 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\wrapper\InputAwareSprite.h" />
-    <ClInclude Include="src\event\InputCallbackEvent.h" />
-    <ClInclude Include="src\event\PlayerParryEvent.h" />
+    <ClInclude Include="src\wrapper\InputAwareSprite.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
