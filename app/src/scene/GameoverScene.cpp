@@ -140,10 +140,16 @@ void GameoverScene::Update()
 
     if (Tako::Input::GetInstance()->TriggerKey(DIK_SPACE))
     {
+		// 選択サウンドを再生
+        ozSound::SoundEngine::GetInstance()->Play("select_SE", 1.0f, false);
+
         Tako::SceneManager::GetInstance()->ChangeScene("game", Tako::TransitionManager::EffectType::Fade, 0.5f);
     }
     if (Tako::Input::GetInstance()->TriggerKey(DIK_ESCAPE))
     {
+		// 選択サウンドを再生
+        ozSound::SoundEngine::GetInstance()->Play("select_SE", 1.0f, false);
+
         Tako::SceneManager::GetInstance()->ChangeScene("title", Tako::TransitionManager::EffectType::Fade, 0.5f);
     }
 }
