@@ -20,7 +20,7 @@ int ComboSystem::GetCombo() const
 
 float ComboSystem::GetAttackPowerMultiplier() const
 {
-    float multiplier = 1.0f;
+    float multiplier = 1.1f;
     // コンボ数に応じて攻撃力の倍率を計算する
     return multiplier;
 }

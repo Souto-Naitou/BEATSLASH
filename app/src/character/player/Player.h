@@ -25,6 +25,8 @@
 #include <memory>
 #include <array>
 #include <EmitterManager.h>
+#include <system/EventListener.h>
+#include <system/EventSubscription.h>
 
 // 前方宣言
 class ComboBuffSystem;
@@ -111,6 +113,8 @@ private:
     /// ステート
     std::unique_ptr<StateMachine<PlayerStateContext>>   pStateMachine_;         // プレイヤーの状態遷移を管理するステートマシン
     std::array<std::unique_ptr<IPlayerState>, kNumStates> states_;              // プレイヤーの各状態
+
+    std::optional<EventSubscription> hpSub_;
 
     /// デバッグ表示用
     GameParameterView(Tako::Transform,  transform_, {});                // キャラクターのトランスフォーム

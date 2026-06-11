@@ -3,6 +3,10 @@
 #include <EmitterManager.h>
 #include <Collider.h>
 
+#include <system/GameEvent.h>
+#include <system/EventListener.h>
+
+
 EnemyAttackCollider::EnemyAttackCollider(Tako::EmitterManager* emitterManager)
 	: pEmitterManager_(emitterManager)
 {
@@ -13,6 +17,7 @@ void EnemyAttackCollider::OnCollisionEnter(Tako::Collider* other)
 	ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
 	if (otherID == ColliderTypeID::Player)
 	{
+        EventListener::GetInstance()->Publish(PlayerDamageEvent{ damageAmount_});
 	}
 }
 

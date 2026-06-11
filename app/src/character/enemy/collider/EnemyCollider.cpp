@@ -33,9 +33,9 @@ void EnemyCollider::OnCollisionEnter(Collider* other)
     }
     else if (otherID == ColliderTypeID::PlayerAttack)
     {
-        if (pHp_){
-            pHp_->Damage(25); // TODO : 仮のダメージ値
-        }
+        //if (pHp_){
+        //    pHp_->Damage(25); // TODO : 仮のダメージ値
+        //}
 
 		// 色を白くしてヒットをわかりやすくする
 		if (auto owner = GetOwner())

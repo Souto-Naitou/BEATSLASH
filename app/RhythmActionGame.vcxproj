@@ -190,6 +190,7 @@
     <ClInclude Include="src\stage\StageTransitionCollider.h" />
     <ClInclude Include="src\system\EventListener.h" />
     <ClInclude Include="src\system\EventSubscription.h" />
+    <ClInclude Include="src\system\GameEvent.h" />
     <ClInclude Include="src\system\ScopedCursorHidden.h" />
     <ClInclude Include="src\test\testCollider.h" />
     <ClInclude Include="src\test\TestScene.h" />

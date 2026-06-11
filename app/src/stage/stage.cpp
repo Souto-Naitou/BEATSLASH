@@ -13,6 +13,7 @@ Stage::~Stage()
 
 void Stage::Initialize(const StageData& stageData)
 {
+#ifdef _DEBUG 
     kStageColor_.SetOnChange([this](const RGBA& newColor)
     {
         for (auto& model : models_)
@@ -20,6 +21,7 @@ void Stage::Initialize(const StageData& stageData)
             model->SetMaterialColor(newColor.to_Vector4());
         }
     });
+#endif
 
     // 既存コライダーを CollisionManager から除去
     for (auto& col : colliders_)

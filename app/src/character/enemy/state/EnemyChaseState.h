@@ -30,7 +30,7 @@ private:
 	static constexpr float kChaseEndDistance = 25.0f;
 	// 攻撃を開始する距離
 	static constexpr float kAttackStartDistance = 7.0f;
-	// 攻撃のクールタイム
+	// 攻撃のクールタイム!
 	static constexpr float kAttackCooldown = 1.0f;
 	// 攻撃のクールタイム（拍数）
 	static constexpr float kAttackCooldownBeats = 4.0f;

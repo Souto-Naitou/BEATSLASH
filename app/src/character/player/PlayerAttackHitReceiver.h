@@ -54,4 +54,6 @@ private:
     std::unique_ptr<RadialBeat> pRadialBeat_;
     Executors execs_;
     uint32_t emitterIndex_ = 0;
+
+    float damageAmount_ = 10.0f;
 };

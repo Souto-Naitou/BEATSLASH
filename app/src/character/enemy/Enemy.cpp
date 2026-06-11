@@ -13,7 +13,9 @@
 #ifdef _DEBUG
 #include <imgui.h>
 #endif // _DEBUG
+#include <system/GameEvent.h>
 
+#include <system/EventListener.h>
 Enemy::Enemy(const ICharacter* target, const BeatClock* beatClock, Tako::EmitterManager* emitterManager)
 	: pTarget_(target)
 	, pBeatClock_(beatClock)
@@ -57,6 +59,12 @@ void Enemy::Initialize()
 	pHp_->Initialize(kInitialHP);
 	// コライダーにHPコンポーネントをセット
 	pCollider_->SetHPComponent(pHp_.get());
+
+
+	hpSub_ = EventListener::GetInstance()->Subscribe<EnemyDamageEvent>([this](const EnemyDamageEvent& event)
+																		{
+																			pHp_->Damage(event.damageAmount);
+																		});
 }
 
 void Enemy::Update()
@@ -87,7 +95,7 @@ void Enemy::Update()
 	if (stateMachine_.GetCurrentState() != EnemyStateType::Spawn)
 	{
 		// 重力の適用
-		transform_.translate.y += kGravity * Tako::FrameTimer::GetInstance()->GetDeltaTime();
+		transform_.translate.y += kGravity * 0.016f;
 	}
 
 	// トランスフォームの更新
