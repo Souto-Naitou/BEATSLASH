@@ -83,6 +83,7 @@ private: // メンバ変数
     std::unique_ptr<GameHUD>                pGameHUD_;                  // !< ゲームHUD
     std::unique_ptr<CameraDirector>         pCameraDirector_;           // !< カメラディレクターのインスタンス
     std::unique_ptr<Tako::Sprite>           pSpriteCursorSwitchGuide_;  // !< カーソルスイッチのガイドスプライト
+    std::unique_ptr<Tako::Sprite>           pSpriteBackground_;         // !< 背景スプライト
     InputAwareSprite                        inputAwareSprite_;          // !< 入力に反応してエフェクトを出すスプライト
 
 

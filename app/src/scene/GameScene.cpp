@@ -24,6 +24,7 @@
 #include <math/Easing.h>
 #include <utility/ViewportUnits.hpp>
 #include <utility/DeltaTimeManager.h>
+#include "../../engine/base/EnginePaths.h"
 
 
 using namespace Tako;
@@ -535,4 +536,8 @@ void GameScene::InitializeSprites()
     inputAwareSprite_.Initialize();
     inputAwareSprite_.AddEntry(entry);
     inputAwareSprite_.ApplyCurrentMode();
+
+    // 背景スプライト
+    pSpriteBackground_ = std::make_unique<Tako::Sprite>();
+    pSpriteBackground_->Initialize(EnginePaths::TexturePath("white.dds"));
 }

@@ -10,6 +10,7 @@
 Generated
 **/imgui.ini
 **/EngineResources/
+*.dat
 
 
 # VST3SDK (必要なものだけ残す)
