@@ -1,5 +1,5 @@
 #pragma once
-#include <BTNode.h>
+#include <character/boss/bt/BossBTActionBase.h>
 #include <Transform.h>
 #include <Vector3.h>
 #include <physics/ColliderTimer.h>
@@ -7,7 +7,6 @@
 #include <cstdint>
 
 class BossRazerCollider;
-class BeatClock;
 namespace Tako { class EmitterManager; }
 
 /// <summary>
@@ -15,7 +14,7 @@ namespace Tako { class EmitterManager; }
 /// chargeIntervalBeats_拍ごとにチャージ球を拡大し、chargeCount_回チャージしたらターゲットへ発射する
 /// BeatClock不在時はchargeIntervalBeats_を秒として扱う
 /// </summary>
-class BTChargeRazer : public Tako::BTNode
+class BTChargeRazer : public BossBTActionBase
 {
 public:
     BTChargeRazer();
@@ -30,6 +29,9 @@ public:
     bool DrawImGui() override;
 #endif
 
+protected:
+    void OnStart(Tako::BTBlackboard* blackboard) override;
+
 private:
     // 実行フェーズ
     enum class Phase
@@ -38,7 +40,7 @@ private:
         Firing,     // レーザー発射中
     };
 
-    void StartCharging(const Tako::Vector3& ballPos, const BeatClock* beatClock);
+    void StartCharging(const Tako::Vector3& ballPos);
     void ApplyChargeStep();
     void Fire(const Tako::Vector3& ballPos, const Tako::Vector3& targetPos);
     void DeactivateChargeEffects();
@@ -68,9 +70,6 @@ private:
     float aimOffsetY_ = 0.0f;
 
     Phase phase_ = Phase::Charging;
-    bool isStarted_ = false;
-    // 実行開始時の拍
-    float startBeat_ = 0.0f;
     // BeatClock不在時のフォールバック用経過秒数
     float elapsedSeconds_ = 0.0f;
     // 実行済みチャージ回数

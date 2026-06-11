@@ -43,6 +43,7 @@
     <ClCompile Include="src\character\boss\Boss.cpp" />
     <ClCompile Include="src\character\boss\BeatEdgeDetector.cpp" />
     <ClCompile Include="src\character\boss\collider\BossCollider.cpp" />
+    <ClCompile Include="src\character\boss\bt\BossBTActionBase.cpp" />
     <ClCompile Include="src\character\boss\bt\BTWaitAction.cpp" />
     <ClCompile Include="src\character\boss\bt\BTRandomMoveAction.cpp" />
     <ClCompile Include="src\character\boss\bt\BTChargeRazer.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="src\character\boss\Boss.h" />
     <ClInclude Include="src\character\boss\BeatEdgeDetector.h" />
     <ClInclude Include="src\character\boss\collider\BossCollider.h" />
+    <ClInclude Include="src\character\boss\bt\BossBTActionBase.h" />
     <ClInclude Include="src\character\boss\bt\BTWaitAction.h" />
     <ClInclude Include="src\character\boss\bt\BTRandomMoveAction.h" />
     <ClInclude Include="src\character\boss\bt\BTChargeRazer.h" />

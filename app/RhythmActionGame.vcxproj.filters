@@ -40,6 +40,9 @@
     <ClCompile Include="src\character\boss\collider\BossCollider.cpp">
       <Filter>character\boss\collider</Filter>
     </ClCompile>
+    <ClCompile Include="src\character\boss\bt\BossBTActionBase.cpp">
+      <Filter>character\boss\bt</Filter>
+    </ClCompile>
     <ClCompile Include="src\character\boss\bt\BTWaitAction.cpp">
       <Filter>character\boss\bt</Filter>
     </ClCompile>
@@ -347,6 +350,9 @@
     </ClInclude>
     <ClInclude Include="src\character\boss\collider\BossCollider.h">
       <Filter>character\boss\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\boss\bt\BossBTActionBase.h">
+      <Filter>character\boss\bt</Filter>
     </ClInclude>
     <ClInclude Include="src\character\boss\bt\BTWaitAction.h">
       <Filter>character\boss\bt</Filter>

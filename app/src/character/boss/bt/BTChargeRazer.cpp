@@ -46,15 +46,17 @@ Tako::BTNodeStatus BTChargeRazer::Execute(Tako::BTBlackboard* blackboard)
     }
     pEmitterManager_ = emitterManager;
 
+    // 拍境界まで開始を待つ（待機中はエフェクトなしで静止）
+    if (!UpdateStartGate(blackboard))
+    {
+        status_ = Tako::BTNodeStatus::Running;
+        return status_;
+    }
+
     const BeatClock* beatClock = blackboard->GetPtr<const BeatClock>(BossBlackboardKeys::kBeatClock);
     const ICharacter* target = blackboard->GetPtr<const ICharacter>(BossBlackboardKeys::kTarget);
 
     Tako::Vector3 ballPos = boss->GetPosition() + ballOffset_;
-
-    if (!isStarted_)
-    {
-        StartCharging(ballPos, beatClock);
-    }
 
     if (phase_ == Phase::Charging)
     {
@@ -70,7 +72,7 @@ Tako::BTNodeStatus BTChargeRazer::Execute(Tako::BTBlackboard* blackboard)
         float elapsedBeats = 0.0f;
         if (beatClock)
         {
-            elapsedBeats = beatClock->GetCurrentBeat() - startBeat_;
+            elapsedBeats = beatClock->GetCurrentBeat() - GetStartBeat();
         }
         else
         {
@@ -114,7 +116,7 @@ Tako::BTNodeStatus BTChargeRazer::Execute(Tako::BTBlackboard* blackboard)
     if (!colliderTimer_.IsActive())
     {
         RemoveRazerCollider();
-        isStarted_ = false;
+        ResetStartGate();
         phase_ = Phase::Charging;
         status_ = Tako::BTNodeStatus::Success;
         return status_;
@@ -124,13 +126,21 @@ Tako::BTNodeStatus BTChargeRazer::Execute(Tako::BTBlackboard* blackboard)
     return status_;
 }
 
-void BTChargeRazer::StartCharging(const Tako::Vector3& ballPos, const BeatClock* beatClock)
+void BTChargeRazer::OnStart(Tako::BTBlackboard* blackboard)
 {
-    isStarted_ = true;
+    Boss* boss = blackboard->GetPtr<Boss>(BossBlackboardKeys::kBoss);
+    if (!boss || !pEmitterManager_)
+    {
+        return;
+    }
+    StartCharging(boss->GetPosition() + ballOffset_);
+}
+
+void BTChargeRazer::StartCharging(const Tako::Vector3& ballPos)
+{
     phase_ = Phase::Charging;
     performedCharges_ = 0;
     elapsedSeconds_ = 0.0f;
-    startBeat_ = beatClock ? beatClock->GetCurrentBeat() : 0.0f;
 
     // ball: 半径を開始値へ戻して表示
     auto ball = pEmitterManager_->GetEmitterByName(Presets::kBossRazerBall);
@@ -244,11 +254,10 @@ void BTChargeRazer::RemoveRazerCollider()
 
 void BTChargeRazer::Reset()
 {
-    BTNode::Reset();
+    BossBTActionBase::Reset();
     DeactivateChargeEffects();
     RemoveRazerCollider();
     colliderTimer_ = {};
-    isStarted_ = false;
     phase_ = Phase::Charging;
     performedCharges_ = 0;
     elapsedSeconds_ = 0.0f;
@@ -256,6 +265,7 @@ void BTChargeRazer::Reset()
 
 void BTChargeRazer::ApplyParameters(const nlohmann::json& params)
 {
+    BossBTActionBase::ApplyParameters(params);
     if (params.contains("chargeIntervalBeats"))
     {
         chargeIntervalBeats_ = params["chargeIntervalBeats"].get<float>();
@@ -300,23 +310,23 @@ void BTChargeRazer::ApplyParameters(const nlohmann::json& params)
 
 nlohmann::json BTChargeRazer::ExtractParameters() const
 {
-    return nlohmann::json{
-        { "chargeIntervalBeats", chargeIntervalBeats_ },
-        { "chargeCount", chargeCount_ },
-        { "radiusPerCharge", radiusPerCharge_ },
-        { "ballOffset", { ballOffset_.x, ballOffset_.y, ballOffset_.z } },
-        { "ballStartRadius", ballStartRadius_ },
-        { "fireDuration", fireDuration_ },
-        { "laserThicknessScale", laserThicknessScale_ },
-        { "laserExtraLength", laserExtraLength_ },
-        { "aimOffsetY", aimOffsetY_ },
-    };
+    nlohmann::json params = BossBTActionBase::ExtractParameters();
+    params["chargeIntervalBeats"] = chargeIntervalBeats_;
+    params["chargeCount"] = chargeCount_;
+    params["radiusPerCharge"] = radiusPerCharge_;
+    params["ballOffset"] = { ballOffset_.x, ballOffset_.y, ballOffset_.z };
+    params["ballStartRadius"] = ballStartRadius_;
+    params["fireDuration"] = fireDuration_;
+    params["laserThicknessScale"] = laserThicknessScale_;
+    params["laserExtraLength"] = laserExtraLength_;
+    params["aimOffsetY"] = aimOffsetY_;
+    return params;
 }
 
 #ifdef _DEBUG
 bool BTChargeRazer::DrawImGui()
 {
-    bool changed = false;
+    bool changed = BossBTActionBase::DrawImGui();
     ImGui::SeparatorText("Charge");
     changed |= ImGui::DragFloat("Charge Interval (Beats)", &chargeIntervalBeats_, 0.1f, 0.25f, 16.0f);
     changed |= ImGui::DragInt("Charge Count", &chargeCount_, 1, 1, 10);

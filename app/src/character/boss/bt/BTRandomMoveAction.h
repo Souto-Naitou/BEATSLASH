@@ -1,12 +1,12 @@
 #pragma once
-#include <BTNode.h>
+#include <character/boss/bt/BossBTActionBase.h>
 #include <Vector3.h>
 
 /// <summary>
 /// XZ平面上のランダムな地点へ移動するアクションノード
 /// Y座標は変更せず、重力との干渉を避ける
 /// </summary>
-class BTRandomMoveAction : public Tako::BTNode
+class BTRandomMoveAction : public BossBTActionBase
 {
 public:
     BTRandomMoveAction();

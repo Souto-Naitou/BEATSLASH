@@ -24,6 +24,13 @@ Tako::BTNodeStatus BTRandomMoveAction::Execute(Tako::BTBlackboard* blackboard)
         return status_;
     }
 
+    // 拍境界まで開始を待つ
+    if (!UpdateStartGate(blackboard))
+    {
+        status_ = Tako::BTNodeStatus::Running;
+        return status_;
+    }
+
     Tako::Transform& transform = boss->GetTransform();
 
     if (!hasDestination_)
@@ -39,6 +46,7 @@ Tako::BTNodeStatus BTRandomMoveAction::Execute(Tako::BTBlackboard* blackboard)
     if (distance <= kArriveEpsilon)
     {
         hasDestination_ = false;
+        ResetStartGate();
         status_ = Tako::BTNodeStatus::Success;
         return status_;
     }
@@ -52,6 +60,7 @@ Tako::BTNodeStatus BTRandomMoveAction::Execute(Tako::BTBlackboard* blackboard)
         transform.translate.x = destination_.x;
         transform.translate.z = destination_.z;
         hasDestination_ = false;
+        ResetStartGate();
         status_ = Tako::BTNodeStatus::Success;
         return status_;
     }
@@ -77,12 +86,13 @@ Tako::Vector3 BTRandomMoveAction::PickRandomDestination(const Tako::Vector3& ori
 
 void BTRandomMoveAction::Reset()
 {
-    BTNode::Reset();
+    BossBTActionBase::Reset();
     hasDestination_ = false;
 }
 
 void BTRandomMoveAction::ApplyParameters(const nlohmann::json& params)
 {
+    BossBTActionBase::ApplyParameters(params);
     if (params.contains("moveRange"))
     {
         moveRange_ = params["moveRange"].get<float>();
@@ -95,16 +105,16 @@ void BTRandomMoveAction::ApplyParameters(const nlohmann::json& params)
 
 nlohmann::json BTRandomMoveAction::ExtractParameters() const
 {
-    return nlohmann::json{
-        { "moveRange", moveRange_ },
-        { "moveSpeed", moveSpeed_ },
-    };
+    nlohmann::json params = BossBTActionBase::ExtractParameters();
+    params["moveRange"] = moveRange_;
+    params["moveSpeed"] = moveSpeed_;
+    return params;
 }
 
 #ifdef _DEBUG
 bool BTRandomMoveAction::DrawImGui()
 {
-    bool changed = false;
+    bool changed = BossBTActionBase::DrawImGui();
     changed |= ImGui::DragFloat("Move Range", &moveRange_, 0.1f, 0.5f, 100.0f);
     changed |= ImGui::DragFloat("Move Speed", &moveSpeed_, 0.1f, 0.1f, 50.0f);
     return changed;
