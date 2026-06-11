@@ -5,7 +5,7 @@
 #include <FrameTimer.h>
 #include <cmath>
 #include <numbers>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <EmitterManager.h>
 #include <sstream>
 #include <Ozsound/audio/SoundEngine.h>

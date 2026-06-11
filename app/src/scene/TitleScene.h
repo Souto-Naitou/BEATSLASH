@@ -15,7 +15,6 @@ class TitleScene : public Tako::BaseScene
 public:
 
 
-
     void Initialize() override;
 
 

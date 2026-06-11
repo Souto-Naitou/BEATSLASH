@@ -3,15 +3,17 @@
 #include <string>
 #include <format>
 #include <debug/DebugRegisterer.h>
+#include <system/EventListener.h>
+#include <event/PlayerParryEvent.h>
 
 #ifdef _DEBUG
 #include <imgui.h>
 #endif // _DEBUG
 
-
-ParryHistory::ParryHistory()
+ParryHistory::ParryHistory(const BeatClock& beatClock_) : beatClock_(beatClock_)
 {
     DebugRegister("ParryHistory", &ParryHistory::ImGui, this);
+    stopWatch_.Start();
 }
 
 ParryHistory::~ParryHistory()
@@ -19,8 +21,16 @@ ParryHistory::~ParryHistory()
     DebugUnregister("ParryHistory");
 }
 
-void ParryHistory::Record()
+void ParryHistory::Record(const Tako::Vector3& position)
 {
+    if (GetTimeSinceLastParry() < beatClock_.GetSecondsPerBeat() * kNumParryCooldownBeat_)
+    {
+        /// EVENT: クールダウン中のパリィ拒否通知を発行
+        EventListener::GetInstance()->Publish(Event::PlayerParry::Rejected(position));
+        return;
+    }
+
+    EventListener::GetInstance()->Publish(Event::PlayerParry::True(position));
     parryTimes_.push_back(std::chrono::steady_clock::now());
 }
 

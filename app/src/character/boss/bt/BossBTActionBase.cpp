@@ -1,6 +1,6 @@
 #include "BossBTActionBase.h"
 #include <BTBlackboard.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <character/boss/bt/BossBlackboardKeys.h>
 #include <cmath>
 

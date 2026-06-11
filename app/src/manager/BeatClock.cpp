@@ -1,4 +1,4 @@
-#include "BeatManager.h"
+#include "BeatClock.h"
 
 #include <ozSound/audio/SoundEngine.h>
 #include <cmath>

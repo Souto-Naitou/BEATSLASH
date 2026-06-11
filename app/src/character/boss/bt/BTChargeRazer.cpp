@@ -8,7 +8,7 @@
 #include <character/boss/collider/BossRazerCollider.h>
 #include <character/boss/bt/BossBlackboardKeys.h>
 #include <common/ParticleEmitterPresetNames.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <type/ColliderTypeID.h>
 #include <algorithm>
 #include <cmath>

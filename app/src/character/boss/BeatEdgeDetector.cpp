@@ -1,5 +1,5 @@
 #include "BeatEdgeDetector.h"
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <BTBlackboard.h>
 #include <character/boss/bt/BossBlackboardKeys.h>
 

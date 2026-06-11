@@ -3,6 +3,7 @@
 #include <input/KeyConfig.h>
 
 #ifdef _DEBUG
+#include <DebugUIManager.h>
 #include <debug/ImGuiTextTemplate.h>
 #include <imgui.h>
 #endif // _DEBUG
@@ -15,6 +16,10 @@ void PlayerInput::Initialize()
 
 void PlayerInput::Update()
 {
+    #ifdef _DEBUG
+    if (!Tako::DebugUIManager::GetInstance()->IsCursorOverGameView()) return;
+    #endif // _DEBUG
+
     // 前回の入力データ
     PlayerInput::PlayerCommand preData = data_;
     data_ = {};

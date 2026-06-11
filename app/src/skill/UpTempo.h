@@ -2,7 +2,7 @@
 
 #include "IPlayerSkill.h"
 #include <utility/StopWatch.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 
 class UpTempo : public IPlayerSkill
 {
@@ -23,7 +23,7 @@ public:
 private:
 
     BeatClock& beatClock_;
-    StopWatch stopWatch_={};
+    StopWatch stopWatch_ = {};
 
     bool isActive_ = false;
 

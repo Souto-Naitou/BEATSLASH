@@ -17,7 +17,7 @@
 
 #include <combo/ComboSystem.h>
 #include <judge/InputTimingJudge.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <combo/ComboBuffSystem.h>
 #include <ui/GameHUD.h>
 #include <factory/PlayerAttackFactory.h>

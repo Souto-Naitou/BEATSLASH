@@ -68,10 +68,12 @@ void BeatSlash::Update()
         isGamepadConnected_ = isGamepadConnected;
         if (isGamepadConnected_)
         {
+            /// EVENT: ゲームパッド接続イベントを発行
             EventListener::GetInstance()->Publish(Events::GamePadConnected());
         }
         else
         {
+            /// EVENT: ゲームパッド切断イベントを発行
             EventListener::GetInstance()->Publish(Events::GamePadDisconnected());
         }
     }

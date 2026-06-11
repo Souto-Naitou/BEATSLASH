@@ -14,7 +14,7 @@
 #include <entity/camera/FollowCamera.h>
 #include <component/collider/PlayerCollider.h>
 #include <entity/attack/AttackRepository.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <skill/Overdrive.h>
 #include <skill/UpTempo.h>
 #include <component/StateMachine.hpp>

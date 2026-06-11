@@ -5,7 +5,7 @@
 #include <AABBCollider.h>
 #include "testCollider.h"
 
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <stage/StageClearFlow.h>
 
 /// <summary>

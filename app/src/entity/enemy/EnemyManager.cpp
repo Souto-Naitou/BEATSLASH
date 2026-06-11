@@ -1,5 +1,5 @@
 #include "EnemyManager.h"
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 
 #ifdef _DEBUG
 #include <DebugUIManager.h>

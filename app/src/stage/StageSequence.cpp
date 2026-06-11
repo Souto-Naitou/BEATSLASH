@@ -31,10 +31,6 @@ void StageSequence::Update(float deltaTime)
         NotifyClear();
         hasClearNotified_ = false;
     }
-	if (Tako::Input::GetInstance()->TriggerKey(DIK_0))
-	{
-		stageComplete_ = true;
-	}
 #endif
 	clearFlow_.Update(deltaTime);
 	if (currentIndex_ < stages_.size()) {
