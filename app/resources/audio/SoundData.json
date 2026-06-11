@@ -97,6 +97,55 @@
             "path": "resources/audio/bgm_gameover.mp3",
             "submix": "BGM",
             "type": "BGM"
+        },
+        {
+            "enableOverlap": true,
+            "id": "title_bgm",
+            "path": "resources/audio/title_bgm.mp3",
+            "submix": "BGM",
+            "type": "BGM"
+        },
+        {
+            "enableOverlap": true,
+            "id": "select_SE",
+            "path": "resources/audio/select.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "boss_dead",
+            "path": "resources/audio/boss_dead.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "open_door",
+            "path": "resources/audio/open_door.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "player_take_hit",
+            "path": "resources/audio/player_take_hit.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "player_jump",
+            "path": "resources/audio/player_jump.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "enemy_spawn",
+            "path": "resources/audio/enemy_spawn.mp3",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }

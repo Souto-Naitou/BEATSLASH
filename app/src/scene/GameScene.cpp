@@ -94,6 +94,9 @@ void GameScene::Initialize()
 	pCameraDirector_->SetOnFocusArrived([this]()
 		{
 			pStage_->OpenCurrentDoor();
+
+			// ドア開放のサウンドエフェクトを再生
+			ozSound::SoundEngine::GetInstance()->Play("open_door", 0.7f, false);
 		});
 
 	pStage_->SetOnDoorOpenFinished([this]()
@@ -201,16 +204,6 @@ void GameScene::Initialize()
 	pGameHUD_ = std::make_unique<GameHUD>(hudContext);
 	pGameHUD_->Initialize();
 
-	Object3dBasic* obj3d = Object3dBasic::GetInstance();
-	obj3d->SetDirectionalLight(
-		{ 0.0f, -1.0f, 1.0f },   // 方向
-		{ 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
-		1,
-		1.0f                      // 強度
-	);
-
-	obj3d->SetAutoUpdatePosition(true);  // デフォルト値
-
     Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
 	pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
@@ -293,6 +286,9 @@ void GameScene::Update()
 			// ボスの死亡エフェクトを再生
 			pEmitterManager_->CreateTemporaryEmitterFrom("boss_dead", "boss_dead_temp", 2.0f);
 			pEmitterManager_->SetEmitterPosition("boss_dead_temp", pBoss_->GetTransform().translate);
+
+			// 爆破音を再生
+			ozSound::SoundEngine::GetInstance()->Play("boss_dead", 0.7f);
 
 			isBossDeathStarted_ = true;
 			bossDeathTimer_ = 0.0f;
