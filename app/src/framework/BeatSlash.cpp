@@ -43,7 +43,6 @@ void BeatSlash::Initialize()
     sceneFactory_ = std::make_unique<SceneFactory>();
     SceneManager::GetInstance()->SetSceneFactory(sceneFactory_.get());
     SceneManager::GetInstance()->ChangeScene("title", 0.0f);
-
     isGamepadConnected_ = Input::GetInstance()->IsConnect();
 }
 

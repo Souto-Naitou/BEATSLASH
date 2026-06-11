@@ -3,6 +3,7 @@
 #include <FrameTimer.h>
 #include <cmath>
 #include <EmitterManager.h>
+#include <ozSound/audio/SoundEngine.h>
 
 uint32_t EnemySpawnState::effectCount_ = 0;
 
@@ -33,6 +34,9 @@ void EnemySpawnState::Enter(Enemy* enemy)
 		pEmitterManager_->CreateTemporaryEmitterFrom("enemy_spawn", effectName, 1.0f);
 		pEmitterManager_->SetEmitterPosition(effectName, enemy->GetPosition());
 	}
+
+	// 音再生フラグのリセット
+	hasPlayedSound_ = false;
 }
 
 namespace
@@ -68,6 +72,13 @@ void EnemySpawnState::Update(Enemy* enemy)
 	// 回転の設定
 	float angle = targetAngle_ - kSpinAngle * (1.0f - e);
 	enemy->SetRotation({ 0.0f, angle, 0.0f });
+
+	// 途中まで経過したらスポーンサウンドを流す
+	if (p >= 0.3f && !hasPlayedSound_)
+	{
+		hasPlayedSound_ = true;
+		ozSound::SoundEngine::GetInstance()->PostEvent("play_se_enemy_spawn");
+	}
 }
 
 std::optional<EnemyStateType> EnemySpawnState::CheckTransition(Enemy* enemy)

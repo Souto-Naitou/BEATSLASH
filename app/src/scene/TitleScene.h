@@ -9,6 +9,7 @@
 #include <Vector3.h>
 #include "debug/GameParameter.h"
 #include "wrapper/InputAwareSprite.h"
+#include <ozSound/audio/SoundEngine.h>
 
 class TitleScene : public Tako::BaseScene
 {
@@ -41,7 +42,8 @@ private:
     std::unique_ptr<RailCamera>         pRailCamera_;           // !< レールカメラのインスタンス
     AnimationTimeline<Tako::Vector3>    railCameraTimeline_;    // !< レールカメラの軌道データ
     InputAwareSprite                    inputAwareSprite_;      // !< 入力デバイスに応じて表示を切り替えるスプライト
-    
+    ozSound::SoundHandle                bgmHandle_;             // !< BGMのサウンドハンドル
+
     EnableDebug("TitleScene");
     GameParameter(Tako::Vector3, kCenter_, Tako::Vector3(-20.0f, 30.0f, 0.0f));
 };

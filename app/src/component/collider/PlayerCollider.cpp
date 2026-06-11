@@ -4,6 +4,7 @@
 #include <type/ColliderTypeID.h>
 #include <combo/ComboBuffSystem.h>
 #include <component/HPComponent.h>
+#include <Ozsound/audio/SoundEngine.h>
 
 using namespace Tako;
 
@@ -29,6 +30,9 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
 
             if (damagedCallback_)
                 damagedCallback_();
+
+            // 被弾のサウンドの再生
+            ozSound::SoundEngine::GetInstance()->Play("player_take_hit", 0.7f, false);
         }
         else
         {
@@ -43,7 +47,7 @@ void PlayerCollider::OnCollisionStay(Collider* other)
 {
     ColliderTypeID otherID = static_cast<ColliderTypeID>(other->GetTypeID());
 
-    if (otherID == ColliderTypeID::Terrain)
+    if (otherID == ColliderTypeID::Terrain || otherID == ColliderTypeID::Enemy || otherID == ColliderTypeID::Boss || otherID == ColliderTypeID::BossAttack)
     {
         Vector3 pushback = CollisionUtility::CalcPushback(this, other);
 

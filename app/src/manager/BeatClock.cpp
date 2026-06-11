@@ -10,6 +10,12 @@ BeatClock::BeatClock()
     QueryPerformanceFrequency(&qpcFrequency_);
 }
 
+BeatClock::~BeatClock()
+{
+    // BGMを停止(プレイヤーが死んでもBGMが残り続けていたため。)
+    SoundEngine::GetInstance()->Stop(musicHandle_);
+}
+
 void BeatClock::Initialize(float bpm, float offset)
 {
     bpm_      = bpm;

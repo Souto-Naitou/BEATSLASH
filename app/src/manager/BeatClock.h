@@ -19,7 +19,7 @@ public:
     };
 
     BeatClock();
-    ~BeatClock() = default;
+    ~BeatClock();
 
     //  ライフサイクル 
 

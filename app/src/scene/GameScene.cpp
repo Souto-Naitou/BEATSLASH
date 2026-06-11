@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <manager/RankingManager.h>
 
 #include "Draw2D.h"
 #include "GPUParticle.h"
@@ -51,10 +52,8 @@ void GameScene::Initialize()
 	///              初期化処理              ///
 	/// ================================== ///
 
-	ShadowRenderer::GetInstance()->SetMaxShadowDistance(50.0f);
-
-	// 画像の読み込み
-	this->LoadImageAll();
+    // 画像の読み込み
+    this->LoadImageAll();
 
 	// ポストエフェクトの初期化と適用
 	this->ApplyPostEffects();
@@ -95,6 +94,9 @@ void GameScene::Initialize()
 	pCameraDirector_->SetOnFocusArrived([this]()
 		{
 			pStage_->OpenCurrentDoor();
+
+			// ドア開放のサウンドエフェクトを再生
+			ozSound::SoundEngine::GetInstance()->Play("open_door", 0.7f, false);
 		});
 
 	pStage_->SetOnDoorOpenFinished([this]()
@@ -202,18 +204,7 @@ void GameScene::Initialize()
 	pGameHUD_ = std::make_unique<GameHUD>(hudContext);
 	pGameHUD_->Initialize();
 
-	Object3dBasic* obj3d = Object3dBasic::GetInstance();
-	obj3d->SetDirectionalLight(
-		{ 0.0f, -1.0f, 1.0f },   // 方向
-		{ 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
-		1,
-		1.0f                      // 強度
-	);
-
-	obj3d->SetAutoUpdatePosition(true);  // デフォルト値
-
-	Tako::ShadowRenderer::GetInstance()->SetEnabled(false);
-	Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
+    Tako::CollisionManager::GetInstance()->SetDebugDrawEnabled(true);
 
 	pBeatClock_->SetMusicSoundHandle(ozSound::SoundEngine::GetInstance()->Play("bgm_game_0", 0.2f, true));
 	pBeatClock_->Start();
@@ -229,7 +220,7 @@ void GameScene::Finalize()
 {
 	pPlayer_->Finalize();
 	colliderRepository_.Clear();
-
+    ozSound::SoundEngine::GetInstance()->StopAll();
 #ifdef _DEBUG
 	if (pBtEditor_) {
 		pBtEditor_->Finalize();
@@ -251,36 +242,41 @@ void GameScene::Update()
 	/// ================================== ///
 
 	const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
+    elapsedTime_ += deltaTime;
 
-	if (!pPlayer_->GetHPComponent().IsAlive()) {
-		SceneManager::GetInstance()->ChangeScene("title");
-	}
+    if (!pPlayer_->GetHPComponent().IsAlive())
+    {
+        SceneManager::GetInstance()->ChangeScene("gameover", TransitionManager::EffectType::Fade, 0.5f);
+        return;
+    }
 
-	// ステージの更新
-	pStage_->Update(deltaTime);
-	// プレイヤーの更新
-	pPlayer_->Update();
-	// 敵の更新
-	pEnemyManager_->Update(pStage_->GetCurrentIndex());
-	// ボスの更新（ボスステージ以外では存在しない）
-	if (pBoss_) {
-		pBoss_->Update();
-	}
+    // ステージの更新
+    pStage_->Update(deltaTime);
+    // プレイヤーの更新
+    pPlayer_->Update();
+    // 敵の更新
+    pEnemyManager_->Update(pStage_->GetCurrentIndex());
+    // ボスの更新（ボスステージ以外では存在しない）
+    if (pBoss_)
+    {
+        pBoss_->Update();
+    }
 
-	pBeatClock_->Update();
-	pAttackRepository_->Update();
+    pBeatClock_->Update();
+    pAttackRepository_->Update();
+    
+    // 非アクティブの攻撃を削除
+    pAttackRepository_->EraseInactiveAttacks();
+    // 非アクティブのコライダーを削除
+    colliderRepository_.EraseInactiveColliders();
 
-	// 非アクティブの攻撃を削除
-	pAttackRepository_->EraseInactiveAttacks();
-	// 非アクティブのコライダーを削除
-	colliderRepository_.EraseInactiveColliders();
-
-	pCameraDirector_->Update(deltaTime);
-	pGameHUD_->Update();
+    pCameraDirector_->Update(deltaTime);
+    pGameHUD_->Update();
 
     if (pStage_->IsStageComplete())
     {
-        SceneManager::GetInstance()->ChangeScene("title");
+        RankingManager::GetInstance()->AddTime(elapsedTime_);
+        SceneManager::GetInstance()->ChangeScene("gameclear", TransitionManager::EffectType::Fade, 0.5f);
         return;
     }
 	// ステージ１から２までのクリア条件は、ステージ上の敵を全て倒すこと
@@ -293,6 +289,9 @@ void GameScene::Update()
 			// ボスの死亡エフェクトを再生
 			pEmitterManager_->CreateTemporaryEmitterFrom("boss_dead", "boss_dead_temp", 2.0f);
 			pEmitterManager_->SetEmitterPosition("boss_dead_temp", pBoss_->GetTransform().translate);
+
+			// 爆破音を再生
+			ozSound::SoundEngine::GetInstance()->Play("boss_dead", 0.7f);
 
 			isBossDeathStarted_ = true;
 			bossDeathTimer_ = 0.0f;

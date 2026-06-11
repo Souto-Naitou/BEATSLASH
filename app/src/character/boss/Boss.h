@@ -93,7 +93,7 @@ private:
 
 private: // 定数定義
     // 初期化時の座標
-    static constexpr Tako::Vector3 kInitialTranslate = { 40.0f, 10.0f, 0.0f };
+    static constexpr Tako::Vector3 kInitialTranslate = { -40.0f, 10.0f, 0.0f };
     // 初期化時のスケール
     static constexpr Tako::Vector3 kInitialScale = { 5.0f, 5.0f, 5.0f };
     // 初期化時のマテリアルカラー

@@ -11,7 +11,7 @@ if (-Not (Test-Path $Destination)) {
 Set-Variable -Name "SolutionRoot" -Value (Resolve-Path $PSScriptRoot\..).Path -Option Constant
 Set-Variable -Name "GameRoot" -Value (Resolve-Path "$SolutionRoot\app").Path -Option Constant
 Set-Variable -Name "EngineRoot" -Value (Resolve-Path "$SolutionRoot\module\TakoEngine\project\engine").Path -Option Constant
-Set-Variable -Name "BinPath" -Value (Resolve-Path "$SolutionRoot\bin").Path -Option Constant
+Set-Variable -Name "BinPath" -Value (Resolve-Path "$SolutionRoot\app\bin").Path -Option Constant
 
 if (-Not (Test-Path "$BinPath\$Configuration")) {
     Write-Host "Error: Bin directory not found at $BinPath\$Configuration" -ForegroundColor DarkRed

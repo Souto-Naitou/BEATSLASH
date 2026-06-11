@@ -25,6 +25,12 @@ void TitleScene::Initialize()
 
     this->InitializeSprites();
 
+    Tako::ShadowRenderer::GetInstance()->SetEnabled(true);
+    Tako::ShadowRenderer::GetInstance()->SetMaxShadowDistance(150.0f);
+
+	// BGMの再生
+	bgmHandle_ = ozSound::SoundEngine::GetInstance()->Play("title_bgm", 0.5f, true);
+
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
 
@@ -38,11 +44,24 @@ void TitleScene::Initialize()
     tween2.SetTransitionFunction(Math::Easing::EaseInOutCubic);
     railCameraTimeline_.AddTween(tween1);
     railCameraTimeline_.AddTween(tween2);
+
+    Tako::Object3dBasic* obj3d = Tako::Object3dBasic::GetInstance();
+    obj3d->SetDirectionalLight(
+        { 0.0f, -1.0f, 1.0f },   // 方向
+        { 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
+        1,
+        1.0f                      // 強度
+    );
+
+    obj3d->SetAutoUpdatePosition(true);  // デフォルト値
 }
 
 void TitleScene::Finalize()
 {
     Tako::CollisionManager::GetInstance()->Reset();
+
+	// BGMの停止
+	ozSound::SoundEngine::GetInstance()->Stop(bgmHandle_);
 }
 
 void TitleScene::Update()
@@ -64,6 +83,9 @@ void TitleScene::Update()
 
     if (Tako::Input::GetInstance()->TriggerKey(DIK_SPACE) || Tako::Input::GetInstance()->TriggerButton(Tako::GamepadButton::A))
     {
+		// 効果音の再生
+		ozSound::SoundEngine::GetInstance()->Play("select_SE", 1.0f, false);
+
         Tako::SceneManager::GetInstance()->ChangeScene("game", Tako::TransitionManager::EffectType::Fade, 1.0f);
     }
     auto& colls = Tako::CollisionManager::GetInstance()->GetColliders();
