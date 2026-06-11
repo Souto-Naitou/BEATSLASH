@@ -18,7 +18,7 @@ void StageSequence::Update(float deltaTime)
 #ifdef _DEBUG
     CheckHotReload();
 
-    if(Tako::Input::GetInstance()->TriggerKey(DIK_RETURN))
+    if (Tako::Input::GetInstance()->TriggerKey(DIK_RETURN))
     {
         NotifyClear();
         hasClearNotified_ = false;
@@ -53,10 +53,10 @@ void StageSequence::NotifyClear()
 void StageSequence::OpenCurrentDoor()
 {
     stages_[currentIndex_]->SetOnDoorOpenFinished([this]()
-    {
-        clearFlow_.ActivateTransitionCollider();
-        if (onDoorOpenFinished_) onDoorOpenFinished_();
-    });
+                                                  {
+                                                      clearFlow_.ActivateTransitionCollider();
+                                                      if (onDoorOpenFinished_) onDoorOpenFinished_();
+                                                  });
     stages_[currentIndex_]->OpenDoor();
 }
 
@@ -74,8 +74,12 @@ void StageSequence::OnTransitionStage()
     {
         clearFlow_.Initialize(stageDataList_[currentIndex_]);
         stages_[currentIndex_]->CollisionActive(true); // 現在ステージのコライダーを有効
-        stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
+        for (size_t i = 0; i < stageDataList_.size(); ++i)
+        {
+            if (i != currentIndex_)
+                stages_[preIndex]->CollisionActive(false); // 前のステージのコライダーを無効
 
+        }
         if (onStageChanged_)
         {
             onStageChanged_(stageDataList_[currentIndex_].playerStartTransform);
