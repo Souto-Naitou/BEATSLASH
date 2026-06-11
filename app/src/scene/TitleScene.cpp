@@ -15,12 +15,18 @@
 #ifdef _DEBUG
 #include <DebugCamera.h>
 #endif
+#include <Draw2D.h>
+#include <GPUParticle.h>
+
+using namespace Tako;
 
 void TitleScene::Initialize()
 {
     #ifdef _DEBUG
-    Tako::DebugCamera::GetInstance()->Initialize();
-    Tako::Object3dBasic::GetInstance()->SetDebug(false);
+    DebugCamera::GetInstance()->Initialize();
+    Object3dBasic::GetInstance()->SetDebug(false);
+    Draw2D::GetInstance()->SetDebug(false);
+    GPUParticle::GetInstance()->SetIsDebug(false);
     #endif // _DEBUG
 
     this->InitializeSprites();
@@ -47,10 +53,10 @@ void TitleScene::Initialize()
 
     Tako::Object3dBasic* obj3d = Tako::Object3dBasic::GetInstance();
     obj3d->SetDirectionalLight(
-        { 0.0f, -1.0f, 1.0f },   // 方向
+        { 0.0f, -1.0f, 1.0f },      // 方向
         { 1.0f, 1.0f, 1.0f, 1.0f }, // 白色
         1,
-        1.0f                      // 強度
+        1.0f                        // 強度
     );
 
     obj3d->SetAutoUpdatePosition(true);  // デフォルト値
