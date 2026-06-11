@@ -22,14 +22,12 @@ void CameraInput::Update()
         padDelta *= 5.0f; // スティックの値を適当な倍率で調整
     }
 
-
     auto cursorPos = pInput_->GetMousePos();
     auto cursorDelta = cursorPos - center;
     Tako::Vector2 totalDelta = cursorDelta + padDelta;
     command_.delta.yaw = totalDelta.x * sensitivityX;
     command_.delta.pitch = totalDelta.y * sensitivityY;
-#ifdef _DEBUG
-    command_.isCameraActivationTriggered = pInput_->TriggerMouse(1) // 右クリックでカメラ操作有効
+
+    command_.isCameraActivationTriggered = pInput_->TriggerKey(DIK_ESCAPE) // 右クリックでカメラ操作有効
                                         || pInput_->TriggerButton(Tako::GamepadButton::R_Thumbstick); // 右スティック押込でカメラ操作有効
-#endif
 }

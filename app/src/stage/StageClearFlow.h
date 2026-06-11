@@ -10,6 +10,8 @@ class StageClearFlow
 {
 public:
 
+    ~StageClearFlow();
+
     enum class StageFlowState
     {
         Playing,// ユーザーが戦闘中？

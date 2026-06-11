@@ -31,6 +31,10 @@ void StageSequence::Update(float deltaTime)
         NotifyClear();
         hasClearNotified_ = false;
     }
+	if (Tako::Input::GetInstance()->TriggerKey(DIK_0))
+	{
+		stageComplete_ = true;
+	}
 #endif
 	clearFlow_.Update(deltaTime);
 	if (currentIndex_ < stages_.size()) {
@@ -94,7 +98,7 @@ void StageSequence::OnTransitionStage()
     else
     {
         // 全ステージクリア → TODO: リザルト遷移
-        currentIndex_ = 0;
+		stageComplete_ = true;
     }
 }
 

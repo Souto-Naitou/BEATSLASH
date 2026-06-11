@@ -3,6 +3,16 @@
 #include <CollisionManager.h>
 #include <Input.h>
 #include <type/ColliderTypeID.h>
+
+StageClearFlow::~StageClearFlow()
+{
+     if (transitionCollider_)
+    {
+        Tako::CollisionManager::GetInstance()->RemoveCollider(transitionCollider_.get());
+        transitionCollider_.reset();
+    }
+}
+
 void StageClearFlow::Initialize(const StageData& stageData)
 {
     if (transitionCollider_)
