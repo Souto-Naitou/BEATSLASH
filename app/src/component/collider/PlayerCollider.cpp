@@ -26,6 +26,9 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
             /// パリィ失敗時の処理
             comboBuffSystem_.OnDamaged();
             hpComponent_.Damage(10); // 仮のダメージ量
+
+            if (damagedCallback_)
+                damagedCallback_();
         }
         else
         {

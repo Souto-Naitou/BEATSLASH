@@ -6,6 +6,7 @@
 
 using PlayerPushBackCallback = std::function<void(const Tako::Vector3& pushback)>;
 using PlayerParrySuccessCallback = std::function<void()>;
+using PlayerDamagedCallback = std::function<void()>;
 
 class ComboBuffSystem;
 class HPComponent;
@@ -17,6 +18,7 @@ public:
     {
         PlayerPushBackCallback pushBackCallback;
         PlayerParrySuccessCallback parrySuccessCallback;
+        PlayerDamagedCallback damagedCallback;
         ComboBuffSystem& comboBuffSystem;
         HPComponent& hpComponent;
         ParryJudgement& parryJudgement;
@@ -25,6 +27,7 @@ public:
     PlayerCollider (const InitData& initData) :
         pushBackCallback_(initData.pushBackCallback),
         parrySuccessCallback_(initData.parrySuccessCallback),
+        damagedCallback_(initData.damagedCallback),
         comboBuffSystem_(initData.comboBuffSystem),
         hpComponent_(initData.hpComponent),
         parryJudgement_(initData.parryJudgement)
@@ -43,6 +46,7 @@ public:
 private:
     PlayerPushBackCallback pushBackCallback_;
     PlayerParrySuccessCallback parrySuccessCallback_;
+    PlayerDamagedCallback damagedCallback_;
     ComboBuffSystem& comboBuffSystem_; // コンボシステムの参照
     HPComponent& hpComponent_; // HPコンポーネントの参照
     const ParryJudgement& parryJudgement_; // 攻撃ヒット記録クラスの参照

@@ -12,11 +12,13 @@ void StageSequence::Initialize(const std::string& jsonFilePath)
 	clearFlow_.Initialize(stageDataList_[0]);
 	clearFlow_.SetOnFadeOutComplete([this]() { OnTransitionStage(); });
 
+#ifdef DEBUG
 	currentIndex_.SetOnChange([this](int32_t newIndex)
 		{
 			--currentIndex_;
 			OnTransitionStage();
 		});
+#endif // DEBUG
 }
 
 void StageSequence::Update(float deltaTime)

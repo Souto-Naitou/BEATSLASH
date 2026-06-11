@@ -94,6 +94,7 @@ private:
     GameParameter(float, kMass_, 60.0f);                                            // 重力
     GameParameter(float, kAnimationSpeed_, 3.5f);                                   // アニメーションの速度
     GameParameter(Tako::Vector3, kColliderSize_, Tako::Vector3(1.0f, 2.0f, 1.0f));  // コライダーのサイズ
+    GameParameter(float, kDamagedEffectDuration_, 0.1f);                            // 被弾エフェクトの生存秒数
 
     /// インスタンス
     std::unique_ptr<PlayerInput>                        pInput_;                    // プレイヤー入力管理クラス

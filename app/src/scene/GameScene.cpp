@@ -399,6 +399,7 @@ void GameScene::LoadParticleEmitterPresets()
 {
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrail);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrailBlackBlue);
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kPlayerDamaged);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kParrySuccess);
 }
