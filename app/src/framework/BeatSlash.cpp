@@ -9,6 +9,8 @@
 #include <utility/DeltaTimeManager.h>
 #include <TextureManager.h>
 
+#include <system/EventListener.h>
+
 using namespace Tako;
 
 void BeatSlash::Initialize()
@@ -57,6 +59,7 @@ void BeatSlash::Update()
     }
 
     TakoFramework::Update();
+    EventListener::GetInstance()->Dispatch();
 
     // 再生終了したボイスのエントリを解放する
     ozSound::SoundEngine::GetInstance()->CleanupStoppedVoices();

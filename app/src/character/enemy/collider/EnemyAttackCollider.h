@@ -16,4 +16,5 @@ public:
 	void OnCollisionExit(Collider* other) override;
 private:
 	Tako::EmitterManager* pEmitterManager_ = nullptr;
+    float damageAmount_ = 10.0f; // ダメージ値
 };

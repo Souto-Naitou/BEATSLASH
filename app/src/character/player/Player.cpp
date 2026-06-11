@@ -10,6 +10,7 @@
 #include <debug/DebugRegisterer.h>
 #include <Model.h>
 
+#include <system/GameEvent.h>
 // ステート
 #include "state/PlayerStateContext.h"
 #include "state/PlayerStateIdle.h"
@@ -24,9 +25,9 @@ void Player::Initialize()
 
     // 攻撃ヒット判定を Overdrive に通知するコールバックを登録
     attackRepository_.SetOnJudgeCallback([this](JudgeResult j)
-    {
-        pOverdrive_->OnJudge(j);
-    });
+                                         {
+                                             pOverdrive_->OnJudge(j);
+                                         });
 
     this->InitializeObject3d();
 
@@ -44,6 +45,11 @@ void Player::Initialize()
 
     // モデルデバッグ用のコールバック登録
     DebugRegister("PlayerModel", &Tako::Object3d::DrawImGui, pModel_.get());
+
+    hpSub_ = EventListener::GetInstance()->Subscribe<PlayerDamageEvent>([this](const PlayerDamageEvent& event)
+    {
+        pHPComponent_->Damage(event.damageAmount);
+    });
 }
 
 void Player::Finalize()
@@ -133,19 +139,19 @@ void Player::Respawn(const Tako::Transform& spawnTransform)
 
 void Player::RegisterCallbacks()
 {
-    #ifdef _DEBUG
+#ifdef _DEBUG
 
     kMovePower_.SetOnChange([this](const float newval)
-    {
-        pMovement_->SetMovePower(newval);
-    });
+                            {
+                                pMovement_->SetMovePower(newval);
+                            });
 
     kJumpPower_.SetOnChange([this](const float newval)
-    {
-        pMovement_->SetJumpPower(newval);
-    });
+                            {
+                                pMovement_->SetJumpPower(newval);
+                            });
 
-    #endif // _DEBUG
+#endif // _DEBUG
 }
 
 void Player::InitializeComponents()

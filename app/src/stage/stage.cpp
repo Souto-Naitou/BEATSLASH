@@ -13,9 +13,7 @@ Stage::~Stage()
 
 void Stage::Initialize(const StageData& stageData)
 {
-#ifdef DEBUG
-
-
+#ifdef _DEBUG 
     kStageColor_.SetOnChange([this](const RGBA& newColor)
     {
         for (auto& model : models_)

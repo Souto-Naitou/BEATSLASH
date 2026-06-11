@@ -7,6 +7,8 @@ class BeatClock;
 #include <character/enemy/collider/EnemyCollider.h>
 #include <component/HPComponent.h>
 
+#include <system/EventSubscription.h>
+
 namespace Tako
 {
 	class EmitterManager;
@@ -131,6 +133,8 @@ private:
 	// 重力
 	static constexpr float kGravity = -9.8f;
   
+    std::optional<EventSubscription> hpSub_;
+
 	std::unique_ptr<HPComponent> pHp_;
 	// 死亡演出が完了したか
 	bool isDeadFinished_ = false;
