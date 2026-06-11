@@ -14,7 +14,7 @@
 #include <entity/camera/FollowCamera.h>
 #include <component/collider/PlayerCollider.h>
 #include <entity/attack/AttackRepository.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <skill/Overdrive.h>
 #include <skill/UpTempo.h>
 #include <component/StateMachine.hpp>
@@ -67,7 +67,7 @@ public:
 
     const Tako::Vector3& GetPosition()      const           { return transform_.translate; }
     const Tako::Vector3& GetScale()         const override  { return transform_.scale; }
-    const Tako::Vector3& GetRotation()      const override  { return transform_.rotate; }
+    const Tako::Vector3& GetRotation()      const override  { return  transform_.rotate; }
     const Tako::Transform& GetTransform()   const           { return transform_; }
     Tako::Transform& GetTransform()                         { return transform_; }
 
@@ -95,6 +95,8 @@ private:
     GameParameter(float, kAnimationSpeed_, 3.5f);                                   // アニメーションの速度
     GameParameter(Tako::Vector3, kColliderSize_, Tako::Vector3(1.0f, 2.0f, 1.0f));  // コライダーのサイズ
     GameParameter(float, kDamagedEffectDuration_, 0.1f);                            // 被弾エフェクトの生存秒数
+
+    uint32_t countAttack_ = 0; // 攻撃のカウント
 
     /// インスタンス
     std::unique_ptr<PlayerInput>                        pInput_;                    // プレイヤー入力管理クラス

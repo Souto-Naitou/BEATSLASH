@@ -2,7 +2,7 @@
 #include <character/ICharacter.h>
 #include <FrameTimer.h>
 #include <character/enemy/Enemy.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 
 std::optional<EnemyStateType> EnemyIdleState::CheckTransition(Enemy* enemy)
 {

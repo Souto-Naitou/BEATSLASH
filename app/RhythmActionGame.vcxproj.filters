@@ -176,7 +176,7 @@
       <Filter>judge</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\manager\BeatManager.cpp">
+    <ClCompile Include="src\manager\BeatClock.cpp">
       <Filter>manager</Filter>
     </ClCompile>
     <ClCompile Include="src\math\Color.cpp">
@@ -266,6 +266,7 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\wrapper\InputAwareSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -612,7 +613,7 @@
     <ClInclude Include="src\judge\JudgeResutl.h">
       <Filter>judge</Filter>
     </ClInclude>
-    <ClInclude Include="src\manager\BeatManager.h">
+    <ClInclude Include="src\manager\BeatClock.h">
       <Filter>manager</Filter>
     </ClInclude>
     <ClInclude Include="src\math\Color.h">
@@ -732,6 +733,9 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\wrapper\InputAwareSprite.h" />
+    <ClInclude Include="src\event\InputCallbackEvent.h" />
+    <ClInclude Include="src\event\PlayerParryEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

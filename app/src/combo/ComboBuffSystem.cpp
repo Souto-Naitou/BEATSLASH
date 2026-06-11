@@ -1,7 +1,7 @@
 #include "ComboBuffSystem.h"
 
 #include "ComboSystem.h"
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <judge/InputTimingJudge.h>
 #include <Logger.h>
 

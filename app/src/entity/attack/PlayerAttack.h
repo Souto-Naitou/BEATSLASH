@@ -33,6 +33,8 @@ public:
         std::function<void(JudgeResult)> onJudge;
         // アニメーション再生用のモデル
         Tako::Model& model;
+        // 攻撃のインデックス
+        uint32_t attackIndex;
     };
 
     PlayerAttack(InitData& initData);

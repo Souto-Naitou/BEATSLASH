@@ -227,6 +227,9 @@ void GameScene::Finalize()
 	}
 #endif
 
+    // コライダーの全削除
+    CollisionManager::GetInstance()->Reset();
+
 	// エフェクトを削除
 	pEmitterManager_->RemoveEmitter("door_open");
 	pEmitterManager_->RemoveEmitter("field_background");
@@ -402,6 +405,8 @@ void GameScene::LoadParticleEmitterPresets()
 	pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kPlayerDamaged);
 	pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
 	pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kParrySuccess);
+	pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kParryFail);
+	pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kParryTrue);
 }
 
 void GameScene::LoadImageAll()

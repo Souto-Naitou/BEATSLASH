@@ -13,4 +13,6 @@ namespace Global::ParticleEmitterPresetNames
     static constexpr const char* kBossRazerCharge = "boss_razer_charge";
     static constexpr const char* kBossRazerTrail = "boss_razer_trail";
     static constexpr const char* kParrySuccess = "parry_success";
+    static constexpr const char* kParryFail = "parry_fail";
+    static constexpr const char* kParryTrue = "parry_true";
 }

@@ -1,7 +1,7 @@
 #include "Boss.h"
 #include <CollisionManager.h>
 #include <EmitterManager.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <type/ColliderTypeID.h>
 #include <character/boss/bt/BossBlackboardKeys.h>
 #include <common/ParticleEmitterPresetNames.h>

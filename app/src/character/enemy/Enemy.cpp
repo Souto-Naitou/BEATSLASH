@@ -7,7 +7,7 @@
 #endif
 #include <type/ColliderTypeID.h>
 #include <FrameTimer.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <numbers>
 
 #ifdef _DEBUG

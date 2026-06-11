@@ -1,7 +1,7 @@
 #include "EnemyChaseState.h"
 #include <character/ICharacter.h>
 #include <character/enemy/Enemy.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <FrameTimer.h>
 #ifdef _DEBUG
 #include <imgui.h>

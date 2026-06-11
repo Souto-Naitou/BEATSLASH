@@ -94,7 +94,8 @@ void Player::Update()
         PlayerAttackRequest request
         {
             .position = jointPosition_,
-            .model = *pModel_->GetModel()
+            .model = *pModel_->GetModel(),
+            .attackIndex = countAttack_++
         };
         attackRepository_.CreatePlayerAttack(request);
         ozSound::SoundEngine::GetInstance()->PostEvent("play_player_attack");
@@ -164,7 +165,7 @@ void Player::InitializeComponents()
     pHPComponent_ = std::make_unique<HPComponent>();
     pHPComponent_->Initialize(100);// TODO : 仮の最大HPを100に設定
 
-    pParryHistory_ = std::make_unique<ParryHistory>();
+    pParryHistory_ = std::make_unique<ParryHistory>(beatClock_);
     pParryJudgement_ = std::make_unique<ParryJudgement>(*pParryHistory_);
     pParryPresentation_ = std::make_unique<ParryPresentation>(particleEmitter_);
 }
@@ -202,6 +203,7 @@ void Player::InitializeObject3d()
     // アニメーションのループ設定
     auto trueModel = pModel_->GetModel();
     trueModel->SetAnimationLoop(Global::AnimationNames::Player::kAttackHorizontal, false);
+    trueModel->SetAnimationLoop(Global::AnimationNames::Player::kAttackHorizontalInv, false);
     trueModel->SetAnimationSpeed(kAnimationSpeed_);
     // 攻撃用のメッシュは最初は非表示にしておく
     trueModel->SetMeshVisible("mesh_stick", false);
@@ -264,9 +266,12 @@ void Player::InitializeCollider()
 
 void Player::UpdateSkills(const PlayerInput::PlayerCommand& inputCommand)
 {
+    Tako::Vector3 center = transform_.translate;
+    center.y += colliderTransform_.scale.y * 0.75f;
+
     if (inputCommand.isParryTriggered)
     {
-        pParryHistory_->Record();
+        pParryHistory_->Record(center);
     }
     if (inputCommand.isOverdriveTriggered)
     {

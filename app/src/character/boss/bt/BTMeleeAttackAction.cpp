@@ -4,7 +4,7 @@
 #include <EmitterManager.h>
 #include <character/boss/Boss.h>
 #include <character/boss/bt/BossBlackboardKeys.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <type/ColliderTypeID.h>
 #include <ozSound/audio/SoundEngine.h>
 #include <algorithm>

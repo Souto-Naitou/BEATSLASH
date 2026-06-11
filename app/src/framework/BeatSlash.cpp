@@ -8,6 +8,8 @@
 #include <ozSound/audio/SoundEngine.h>
 #include <utility/DeltaTimeManager.h>
 #include <TextureManager.h>
+#include "event/InputCallbackEvent.h"
+#include "system/EventListener.h"
 
 using namespace Tako;
 
@@ -40,7 +42,8 @@ void BeatSlash::Initialize()
     // シーンの初期化
     sceneFactory_ = std::make_unique<SceneFactory>();
     SceneManager::GetInstance()->SetSceneFactory(sceneFactory_.get());
-    SceneManager::GetInstance()->ChangeScene("gameover", 0.0f);
+    SceneManager::GetInstance()->ChangeScene("title", 0.0f);
+    isGamepadConnected_ = Input::GetInstance()->IsConnect();
 }
 
 void BeatSlash::Finalize()
@@ -57,6 +60,24 @@ void BeatSlash::Update()
     }
 
     TakoFramework::Update();
+
+    bool isGamepadConnected = Input::GetInstance()->IsConnect();
+    if (isGamepadConnected != isGamepadConnected_)
+    {
+        isGamepadConnected_ = isGamepadConnected;
+        if (isGamepadConnected_)
+        {
+            /// EVENT: ゲームパッド接続イベントを発行
+            EventListener::GetInstance()->Publish(Events::GamePadConnected());
+        }
+        else
+        {
+            /// EVENT: ゲームパッド切断イベントを発行
+            EventListener::GetInstance()->Publish(Events::GamePadDisconnected());
+        }
+    }
+
+    EventListener::GetInstance()->Dispatch();
 
     // 再生終了したボイスのエントリを解放する
     ozSound::SoundEngine::GetInstance()->CleanupStoppedVoices();

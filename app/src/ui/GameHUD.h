@@ -8,7 +8,7 @@
 #include <memory>
 
 #include <combo/ComboBuffSystem.h>
-#include <manager/BeatManager.h>
+#include <manager/BeatClock.h>
 #include <component/HPComponent.h>
 #include <character/player/PlayerInput.h>
 

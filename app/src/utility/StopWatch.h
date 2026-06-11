@@ -1,7 +1,7 @@
 #pragma once
 
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include <profileapi.h>
 
 /// <summary>
 /// 時間計測クラス

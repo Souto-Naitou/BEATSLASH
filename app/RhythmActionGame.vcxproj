@@ -94,7 +94,7 @@
     <ClCompile Include="src\input\KeyConfig.cpp" />
     <ClCompile Include="src\judge\InputTimingJudge.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\manager\BeatManager.cpp" />
+    <ClCompile Include="src\manager\BeatClock.cpp" />
     <ClCompile Include="src\math\Color.cpp" />
     <ClCompile Include="src\math\Easing.cpp" />
     <ClCompile Include="src\physics\ColliderRepository.cpp" />
@@ -124,6 +124,7 @@
     <ClCompile Include="src\utility\DeltaTimeStopWatch.cpp" />
     <ClCompile Include="src\utility\strutl.cpp" />
     <ClCompile Include="src\utility\StopWatch.cpp" />
+    <ClCompile Include="src\wrapper\InputAwareSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\player\ParryHistory.h" />
@@ -195,6 +196,8 @@
     <ClInclude Include="src\entity\camera\FollowCamera.h" />
     <ClInclude Include="src\entity\attack\PlayerAttackPresentation.h" />
     <ClInclude Include="src\entity\enemy\EnemiesOnField.h" />
+    <ClInclude Include="src\event\InputCallbackEvent.h" />
+    <ClInclude Include="src\event\PlayerParryEvent.h" />
     <ClInclude Include="src\factory\PlayerAttackFactory.h" />
     <ClInclude Include="src\font\FontLayout.h" />
     <ClInclude Include="src\font\NumericView.h" />
@@ -204,7 +207,7 @@
     <ClInclude Include="src\input\PlayerAction.h" />
     <ClInclude Include="src\judge\InputTimingJudge.h" />
     <ClInclude Include="src\judge\JudgeResutl.h" />
-    <ClInclude Include="src\manager\BeatManager.h" />
+    <ClInclude Include="src\manager\BeatClock.h" />
     <ClInclude Include="src\math\Color.h" />
     <ClInclude Include="src\math\Easing.h" />
     <ClInclude Include="src\math\VectorMath.h" />
@@ -244,6 +247,7 @@
     <ClInclude Include="src\utility\StopWatch.h" />
     <ClInclude Include="src\utility\ViewportUnits.hpp" />
     <ClInclude Include="src\utility\wndutl.h" />
+    <ClInclude Include="src\wrapper\InputAwareSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -323,7 +327,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_AMD64_</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_AMD64_;NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)../external;$(ProjectDir)../module;$(ProjectDir)../module\TakoEngine\project\externals\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -354,7 +358,7 @@ powershell -ExecutionPolicy RemoteSigned -File $(SolutionDir)automation\copy_eng
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);_AMD64_</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);_AMD64_;NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)../externals;$(ProjectDir)../modules;%(AdditionalIncludeDirectories);$(ProjectDir)../external;$(ProjectDir)../module</AdditionalIncludeDirectories>
@@ -391,7 +395,7 @@ powershell -ExecutionPolicy RemoteSigned -File $(SolutionDir)automation\copy_eng
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);_AMD64_</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);_AMD64_;NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)../externals;$(ProjectDir)../modules;%(AdditionalIncludeDirectories);$(ProjectDir)../external;$(ProjectDir)../module</AdditionalIncludeDirectories>
@@ -428,7 +432,7 @@ powershell -ExecutionPolicy RemoteSigned -File $(SolutionDir)automation\copy_eng
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_AMD64_</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_AMD64_;NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)../externals;$(ProjectDir)../modules;%(AdditionalIncludeDirectories);$(ProjectDir)../external;$(ProjectDir)../module</AdditionalIncludeDirectories>
