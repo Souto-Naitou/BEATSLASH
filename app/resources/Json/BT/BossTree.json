@@ -8,14 +8,14 @@
       "targetPinId": 20002
     },
     {
-      "id": 30002,
+      "id": 30001,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
       "targetNodeId": 10003,
       "targetPinId": 20004
     },
     {
-      "id": 30003,
+      "id": 30002,
       "sourceNodeId": 10000,
       "sourcePinId": 20001,
       "targetNodeId": 10002,
@@ -23,8 +23,8 @@
     }
   ],
   "metadata": {
-    "created": "2026-06-11T19:29:58",
-    "modified": "2026-06-11T19:29:58",
+    "created": "2026-06-11T19:52:53",
+    "modified": "2026-06-11T19:52:53",
     "name": "Behavior Tree"
   },
   "nodes": [
@@ -42,12 +42,12 @@
       "displayName": "Wait",
       "id": 10001,
       "parameters": {
-        "syncStartToBeat": true,
+        "syncStartToBeat": false,
         "waitBeats": 2.0
       },
       "position": {
-        "x": -281.0,
-        "y": 159.0
+        "x": -265.0,
+        "y": 175.0
       },
       "type": "BTWaitAction"
     },
@@ -83,14 +83,14 @@
       "displayName": "RandomMove",
       "id": 10003,
       "parameters": {
-        "moveDistance": 8.0,
-        "moveRange": 8.0,
+        "moveDistance": 15.0,
+        "moveRange": 50.0,
         "moveSpeed": 10.0,
-        "syncStartToBeat": true
+        "syncStartToBeat": false
       },
       "position": {
         "x": -8.0,
-        "y": 175.0
+        "y": 159.0
       },
       "type": "BTRandomMoveAction"
     }
