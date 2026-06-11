@@ -38,7 +38,7 @@ private:
     /// Parameters
     GameParameter(Tako::Vector3, shiftDirection_, Tako::Vector3({ 0.0f, 0.08f, -0.997f }));
     GameParameter(Tako::Vector3, targetPositionOffset_, Tako::Vector3({ 0.0f, 0.0f, 0.0f }));
-    GameParameter(float, kOffset_, 35.0f);              // カメラとターゲットの距離
+    GameParameter(float, kOffset_, 20.0f);              // カメラとターゲットの距離
     GameParameter(float, kFactorLerp_, 0.1f);           // 線形補間の係数
     GameParameter(Tako::Vector2, kRotation_, {});       // カメラのX軸回転
     GameParameter(bool, isActive_, false);              // カメラ制御の有効フラグ

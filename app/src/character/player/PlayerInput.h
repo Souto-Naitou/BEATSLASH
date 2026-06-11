@@ -24,6 +24,8 @@ public:
         bool            isOverdriveTriggered = false;
         // アップテンポのトリガー状態
         bool           isUpTempoTriggered = false;
+        // パリィのトリガー状態
+        bool           isParryTriggered = false;
     };
 
     PlayerInput() = default;

@@ -80,8 +80,5 @@ private:
 	
 	// 敵のスポナー
 	EnemySpawner spawner_;
-
-	// 敵スポーンエフェクトを出すときに新しいエミッター名を生成するためのカウンター
-	static uint32_t enemyIDCounter_;
 };
 

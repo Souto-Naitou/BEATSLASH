@@ -23,15 +23,15 @@ private:
 	// エミッターマネージャーのポインタ。所有しない（GameSceneが所有し、GameSceneの寿命まで生きる）
 	Tako::EmitterManager* pEmitterManager_ = nullptr;
 
+	// エフェクトカウント
+	static uint32_t effectCount_;
 	// 死亡演出のタイマー
 	float timer_ = 0.0f;
-
 	// 死亡演出（縮小）の持続時間（秒）
 	static constexpr float kDeadDuration_ = 0.7f;
 
 	// 初期スケール
 	Tako::Vector3 startScale_ = { 1.0f, 1.0f, 1.0f };
-
 	// 初期位置
 	Tako::Vector3 startPosition_ = { 0.0f, 0.0f, 0.0f };
 };

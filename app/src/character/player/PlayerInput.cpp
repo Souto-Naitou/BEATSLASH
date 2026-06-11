@@ -95,6 +95,9 @@ void PlayerInput::Update()
     // アップテンポ
     const auto& kbUt = KeyConfig::GetKeyboard(PlayerAction::UpTempo);
     data_.isUpTempoTriggered = pInput_->TriggerKey(kbUt.dikKey) || pInput_->GetRightTrigger() > 0.5f;
+  
+    data_.isParryTriggered = pInput_->TriggerMouse(1);
+    data_.isParryTriggered |= pInput_->TriggerKey(DIK_LSHIFT);
 }
 
 void PlayerInput::ImGui()
@@ -106,6 +109,7 @@ void PlayerInput::ImGui()
     ImGuiTemplate::TextBoolean("Jump Pressed", data_.isJumpPressed);
     ImGui::InputFloat("Jump Hold Time", &data_.jumpHoldTime, 0.01f, 0.1f, "%.2f", ImGuiInputTextFlags_ReadOnly);
     ImGuiTemplate::TextBoolean("Overdrive Triggered", data_.isOverdriveTriggered);
+    ImGuiTemplate::TextBoolean("UpTempo Triggered", data_.isUpTempoTriggered);
 
 #endif // _DEBUG
 }

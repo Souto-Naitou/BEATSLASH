@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\character\player\ParryHistory.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\ParryJudgement.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\character\player\ParryPresentation.cpp">
+      <Filter>character\player</Filter>
+    </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemyManager.cpp">
       <Filter>entity\enemy</Filter>
     </ClCompile>
@@ -294,6 +303,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\character\player\ParryHistory.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\ParryJudgement.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\character\player\ParryPresentation.h">
+      <Filter>character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\AnimationNames.h">
+      <Filter>common</Filter>
+    </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemyManager.h">
       <Filter>entity\enemy</Filter>
     </ClInclude>

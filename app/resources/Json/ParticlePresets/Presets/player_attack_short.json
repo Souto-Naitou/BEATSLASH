@@ -1,9 +1,11 @@
 {
+  "billboard": true,
+  "blendMode": 0,
   "collisionRestitution": 1.0,
-  "convergeDamping": 13.649999618530273,
-  "convergeStiffness": 5.699999809265137,
+  "convergeDamping": 11.350000381469727,
+  "convergeStiffness": 0.699999988079071,
   "convergeToTarget": false,
-  "damping": 0.9966999888420105,
+  "damping": 0.9965999722480774,
   "endColor": [
     1.0,
     1.0,
@@ -16,8 +18,8 @@
     0.0
   ],
   "frequency": 1.0,
-  "frequencyTime": 0.09853923320770264,
-  "isActive": true,
+  "frequencyTime": 0.6466822624206543,
+  "isActive": false,
   "isEmitting": false,
   "isNormalize": false,
   "isRandomRotateZ": false,
@@ -30,11 +32,11 @@
   "lockStiffness": 105.5999984741211,
   "noiseScale": 0.05000000074505806,
   "noiseStrength": 0.0010000000474974513,
-  "particleCount": 155,
+  "particleCount": 55,
   "particleRadius": 0.210999995470047,
   "position": [
-    0.0,
-    7.800000190734863,
+    1.399999976158142,
+    2.700000047683716,
     0.0
   ],
   "radius": 0.30000001192092896,
@@ -57,25 +59,26 @@
   ],
   "targetPosition": [
     24.5,
-    7.599999904632568,
+    159.60000610351563,
     0.0
   ],
+  "texturePath": "white.dds",
   "type": 0,
   "useAlphaFade": false,
   "useCurlNoise": false,
-  "useDepthCollision": false,
+  "useDepthCollision": true,
   "useForceField": false,
   "useScaleFade": true,
   "velRangeX": [
-    0.0,
-    0.0
+    0.15000000596046448,
+    -0.15000000596046448
   ],
   "velRangeY": [
-    0.0,
-    0.0
+    0.15000000596046448,
+    -0.15000000596046448
   ],
   "velRangeZ": [
-    0.0,
-    0.0
+    0.15000000596046448,
+    -0.15000000596046448
   ]
 }
