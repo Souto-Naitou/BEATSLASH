@@ -45,6 +45,10 @@ void GameScene::Initialize()
     pEmitterManager_->LoadPreset("door_open");
     pEmitterManager_->SetEmitterActive("door_open", false);
 
+	// 背景エフェクトをロード
+	pEmitterManager_->LoadPreset("field_background");
+	pEmitterManager_->SetEmitterActive("field_background", true);
+
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
     pStage_->Initialize("resources/stage/StageData.json");
@@ -154,6 +158,10 @@ void GameScene::Initialize()
 void GameScene::Finalize()
 {
     pPlayer_->Finalize();
+
+	// エフェクトを削除
+	pEmitterManager_->RemoveEmitter("door_open");
+	pEmitterManager_->RemoveEmitter("field_background");
 }
 
 void GameScene::Update()
