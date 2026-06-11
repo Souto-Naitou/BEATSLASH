@@ -93,6 +93,9 @@ void GameScene::Initialize()
 	pCameraDirector_->SetOnFocusArrived([this]()
 		{
 			pStage_->OpenCurrentDoor();
+
+			// ドア開放のサウンドエフェクトを再生
+			ozSound::SoundEngine::GetInstance()->Play("open_door", 0.7f, false);
 		});
 
 	pStage_->SetOnDoorOpenFinished([this]()
@@ -287,6 +290,9 @@ void GameScene::Update()
 			// ボスの死亡エフェクトを再生
 			pEmitterManager_->CreateTemporaryEmitterFrom("boss_dead", "boss_dead_temp", 2.0f);
 			pEmitterManager_->SetEmitterPosition("boss_dead_temp", pBoss_->GetTransform().translate);
+
+			// 爆破音を再生
+			ozSound::SoundEngine::GetInstance()->Play("boss_dead", 0.7f);
 
 			isBossDeathStarted_ = true;
 			bossDeathTimer_ = 0.0f;

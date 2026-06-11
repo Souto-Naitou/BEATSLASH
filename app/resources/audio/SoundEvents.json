@@ -107,6 +107,54 @@
                 }
             ],
             "name": "play_se_player_parry"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": true,
+                    "soundId": "title_bgm",
+                    "type": "Play",
+                    "volume": 0.3
+                }
+            ],
+            "name": "play_title_bgm"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "select_SE",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_select"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "boss_dead",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_boss_dead"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "open_door",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_open_door"
         }
     ]
 }

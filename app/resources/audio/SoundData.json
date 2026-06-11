@@ -90,6 +90,34 @@
             "path": "resources/audio/RazerShoot.wav",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": true,
+            "id": "title_bgm",
+            "path": "resources/audio/title_bgm.mp3",
+            "submix": "BGM",
+            "type": "BGM"
+        },
+        {
+            "enableOverlap": true,
+            "id": "select_SE",
+            "path": "resources/audio/select.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "boss_dead",
+            "path": "resources/audio/boss_dead.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "open_door",
+            "path": "resources/audio/open_door.mp3",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }
