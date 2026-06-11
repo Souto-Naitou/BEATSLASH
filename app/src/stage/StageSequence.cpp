@@ -9,7 +9,7 @@ void StageSequence::Initialize(const std::string& jsonFilePath)
 	LoadFromJson(jsonFilePath_);
 	hasClearNotified_ = false;
 
-	clearFlow_.Initialize(stageDataList_[2]);
+	clearFlow_.Initialize(stageDataList_[0]);
 	clearFlow_.SetOnFadeOutComplete([this]() { OnTransitionStage(); });
 
 	currentIndex_.SetOnChange([this](int32_t newIndex)
@@ -17,9 +17,6 @@ void StageSequence::Initialize(const std::string& jsonFilePath)
 			--currentIndex_;
 			OnTransitionStage();
 		});
-
-	currentIndex_ = 2;
-
 }
 
 void StageSequence::Update(float deltaTime)
