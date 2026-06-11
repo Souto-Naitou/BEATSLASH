@@ -279,6 +279,11 @@ void GameScene::Update()
     pCameraDirector_->Update(deltaTime);
     pGameHUD_->Update();
 
+    if (pStage_->IsStageComplete())
+    {
+        SceneManager::GetInstance()->ChangeScene("title");
+        return;
+    }
 	// ステージ１から２までのクリア条件は、ステージ上の敵を全て倒すこと
     if (pEnemyManager_->IsEmpty(pStage_->GetCurrentIndex()) && !pBoss_)
     {
@@ -313,6 +318,7 @@ void GameScene::Update()
             pBoss_->SetScale(bossDeathStartScale_ * easedT);
         }
     }
+
     pEmitterManager_->Update();
     CollisionManager::GetInstance()->CheckAllCollisions();
 }

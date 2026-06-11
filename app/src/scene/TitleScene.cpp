@@ -57,6 +57,7 @@ void TitleScene::Initialize()
 
 void TitleScene::Finalize()
 {
+    void;
 }
 
 void TitleScene::Update()
