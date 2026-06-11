@@ -6,11 +6,28 @@
 #include "character/enemy/collider/EnemyAttackCollider.h"
 #include <character/ICharacter.h>
 #include <Object3d.h>
+#include <array>
+#include <string>
 
 namespace Tako
 {
 	class EmitterManager;
 }
+
+enum class AttackEffectType
+{
+	Main,          // 攻撃中スイング
+	Warning,       // 予備動作全体
+	WarningWeapon, // 予備動作武器
+	Count
+};
+
+struct AttackEffectInfo
+{
+	std::string presetName; // プリセット名 ("enemy_attack" など)
+	std::string baseName;   // ロード用の一意な名前
+	std::string tempName;   // 一時再生用の名前
+};
 
 class EnemyAttackState : public EnemyState
 {
@@ -35,18 +52,12 @@ private:
 	std::unique_ptr<Tako::Object3d> pAttackModel_;
 	// コライダーのトランスフォーム
 	Tako::Transform colliderTransform_;
-	// 攻撃エフェクトのカウント(ワンショット用)
-	static uint32_t attackEffectCount_;
-	// 攻撃エフェクトのモデルカウント(ワンショット用)
-	static uint32_t attackEffectModelCount_;
-	// エフェクトプリセット名のベース
-	std::string effectName_;
-	// 予備動作エフェクトの名前
-	std::string warningEffectName_;
-	// 予備動作エフェクトの一時的なエミッターの名前
-	std::string warningEmitterTempName_;
-	// エフェクトの一時的なエミッターの名前
-	std::string emitterTempName_;
+	// エフェクト管理用配列
+	std::array<AttackEffectInfo, static_cast<size_t>(AttackEffectType::Count)> effects_;
+	// 一時的なエミッターの一意性を保証するためのローカルプレイカウント
+	uint32_t playCount_ = 0;
+	// インスタンスの一意性を保証するための静的IDカウンタ
+	static uint32_t nextInstanceId_;
 	// エミッターのボックスサイズ
 	static constexpr Tako::Vector3 kEmitterBoxSize = { 5.0f, 0.2f, 0.7f };
 	// 予備動作時間

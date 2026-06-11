@@ -7,13 +7,13 @@
 #include <numbers>
 #include <manager/BeatManager.h>
 #include <EmitterManager.h>
+#include <sstream>
 
 #ifdef _DEBUG
 #include <imgui.h>
 #endif // _DEBUG
 
-uint32_t EnemyAttackState::attackEffectCount_ = 0;
-uint32_t EnemyAttackState::attackEffectModelCount_ = 0;
+uint32_t EnemyAttackState::nextInstanceId_ = 0;
 
 EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManager* emitterManager)
 	: pTarget_(target)
@@ -33,20 +33,25 @@ EnemyAttackState::EnemyAttackState(const ICharacter* target, Tako::EmitterManage
 
 	// 攻撃コライダーの生成と初期化
 	pAttackCollider_ = std::make_unique<EnemyAttackCollider>(pEmitterManager_);
-	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 4.0f); // コライダーは少し大きめにする
+	pAttackCollider_->SetSize(pAttackModel_->GetScale() * 3.4f); // コライダーは少し大きめにする
 	pAttackCollider_->SetTransform(&colliderTransform_);
 	pAttackCollider_->SetTypeID(static_cast<uint32_t>(ColliderTypeID::EnemyAttack));
 	pAttackCollider_->SetOwner(this);
 
-	// 攻撃エフェクトのロード
-	effectName_ = "enemy_attack_" + std::to_string(attackEffectModelCount_);
-	pEmitterManager_->LoadPreset("enemy_attack", effectName_, pAttackModel_.get());
-	pEmitterManager_->SetEmitterActive(effectName_, false); // 最初は非アクティブにしておく
+	// エフェクト管理用配列のプリセット名を初期化
+	effects_[static_cast<size_t>(AttackEffectType::Main)].presetName = "enemy_attack";
+	effects_[static_cast<size_t>(AttackEffectType::Warning)].presetName = "enemy_attack_sign";
+	effects_[static_cast<size_t>(AttackEffectType::WarningWeapon)].presetName = "enemy_attack_sign_weapon";
 
-	// 攻撃の予備動作エフェクトのロード
-	warningEffectName_ = "enemy_attack_sign_weapon_" + std::to_string(attackEffectModelCount_++);
-	pEmitterManager_->LoadPreset("enemy_attack_sign_weapon", warningEffectName_, pAttackModel_.get());
-	pEmitterManager_->SetEmitterActive(warningEffectName_, false); // 最初は非アクティブにしておく
+	// 静的カウンタから一意の文字列を生成
+	std::string instanceId = std::to_string(nextInstanceId_++);
+
+	for (auto& effect : effects_)
+	{
+		effect.baseName = effect.presetName + "_" + instanceId;
+		pEmitterManager_->LoadPreset(effect.presetName, effect.baseName, pAttackModel_.get());
+		pEmitterManager_->SetEmitterActive(effect.baseName, false); // 最初は非アクティブにしておく
+	}
 }
 
 EnemyAttackState::~EnemyAttackState()
@@ -61,8 +66,14 @@ EnemyAttackState::~EnemyAttackState()
 	// エフェクトの削除
 	if (pEmitterManager_)
 	{
-		pEmitterManager_->RemoveEmitter(effectName_);
-		pEmitterManager_->RemoveEmitter(warningEffectName_);
+		for (auto& effect : effects_)
+		{
+			pEmitterManager_->RemoveEmitter(effect.baseName);
+			if (!effect.tempName.empty())
+			{
+				pEmitterManager_->RemoveEmitter(effect.tempName);
+			}
+		}
 	}
 }
 
@@ -107,9 +118,16 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	pAttackModel_->Update();
 
 	// 予備動作エフェクトの再生
-	warningEmitterTempName_ = warningEffectName_ + "_temp_" + std::to_string(attackEffectModelCount_++);
-	pEmitterManager_->CreateTemporaryEmitterFrom(warningEffectName_, warningEmitterTempName_, kWarningDuration_);
-	pEmitterManager_->SetEmitterPosition(warningEmitterTempName_, colliderTransform_.translate);
+	auto& warningEffect = effects_[static_cast<size_t>(AttackEffectType::Warning)];
+	warningEffect.tempName = warningEffect.baseName + "_temp_" + std::to_string(playCount_);
+	pEmitterManager_->CreateTemporaryEmitterFrom(warningEffect.baseName, warningEffect.tempName, kWarningDuration_);
+	pEmitterManager_->SetEmitterPosition(warningEffect.tempName, colliderTransform_.translate);
+
+	// 予備動作エフェクト（武器）の再生
+	auto& warningWeaponEffect = effects_[static_cast<size_t>(AttackEffectType::WarningWeapon)];
+	warningWeaponEffect.tempName = warningWeaponEffect.baseName + "_temp_" + std::to_string(playCount_++);
+	pEmitterManager_->CreateTemporaryEmitterFrom(warningWeaponEffect.baseName, warningWeaponEffect.tempName, kWarningDuration_);
+	pEmitterManager_->SetEmitterPosition(warningWeaponEffect.tempName, colliderTransform_.translate);
 }
 
 void EnemyAttackState::Update(Enemy* enemy)
@@ -179,8 +197,9 @@ void EnemyAttackState::Update(Enemy* enemy)
 			pAttackModel_->SetTransparent(false);
 
 			// 攻撃エフェクトの再生
-			emitterTempName_ = effectName_ + "_temp_" + std::to_string(attackEffectCount_++);
-			pEmitterManager_->CreateTemporaryEmitterFrom(effectName_, emitterTempName_, kAttackDuration_);
+			auto& mainEffect = effects_[static_cast<size_t>(AttackEffectType::Main)];
+			mainEffect.tempName = mainEffect.baseName + "_temp_" + std::to_string(playCount_++);
+			pEmitterManager_->CreateTemporaryEmitterFrom(mainEffect.baseName, mainEffect.tempName, kAttackDuration_);
 		}
 
 		// 攻撃フェーズ：イージングを適用したスイング
