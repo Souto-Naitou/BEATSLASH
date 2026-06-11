@@ -50,6 +50,7 @@ void Player::Finalize()
 {
     // デバッグコールバックの登録解除
     DebugUnregister("PlayerModel");
+    Tako::CollisionManager::GetInstance()->RemoveCollider(pCollider_.get());
 }
 
 void Player::Update()

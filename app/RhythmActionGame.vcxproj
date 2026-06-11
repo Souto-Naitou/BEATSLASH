@@ -112,6 +112,7 @@
     <ClInclude Include="src\character\player\ParryJudgement.h" />
     <ClInclude Include="src\character\player\ParryPresentation.h" />
     <ClInclude Include="src\common\AnimationNames.h" />
+    <ClInclude Include="src\common\ResourcePath.h" />
     <ClInclude Include="src\entity\enemy\EnemyManager.h" />
     <ClInclude Include="src\entity\enemy\EnemySpawner.h" />
     <ClInclude Include="src\character\enemy\collider\EnemyAttackCollider.h" />

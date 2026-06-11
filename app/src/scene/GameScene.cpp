@@ -149,6 +149,7 @@ void GameScene::Initialize()
 void GameScene::Finalize()
 {
     pPlayer_->Finalize();
+    colliderRepository_.Clear();
 }
 
 void GameScene::Update()

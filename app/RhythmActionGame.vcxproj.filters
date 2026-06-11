@@ -601,6 +601,7 @@
     </ClInclude>
     <ClInclude Include="src\scene\TitleScene.h" />
     <ClInclude Include="src\math\Color.h" />
+    <ClInclude Include="src\common\ResourcePath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
