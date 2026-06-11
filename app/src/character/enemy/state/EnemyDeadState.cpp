@@ -2,6 +2,7 @@
 #include <character/enemy/Enemy.h>
 #include <FrameTimer.h>
 #include <EmitterManager.h>
+#include <Ozsound/audio/SoundEngine.h>
 
 uint32_t EnemyDeadState::effectCount_ = 0;
 
@@ -68,6 +69,9 @@ void EnemyDeadState::Enter(Enemy* enemy)
 		{
 			enemy->GetModel()->SetMaterialColor({ 128, 128, 128, 256 }); // グレー
 		}
+
+		// SEを流す
+		ozSound::SoundEngine::GetInstance()->PostEvent("play_se_enemy_dead");
 	}
 }
 

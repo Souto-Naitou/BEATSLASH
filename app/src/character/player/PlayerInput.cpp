@@ -86,8 +86,8 @@ void PlayerInput::Update()
     // 攻撃
     const auto& kbAttack  = KeyConfig::GetKeyboard(PlayerAction::Attack);
     const auto& padAttack = KeyConfig::GetPad(PlayerAction::Attack);
-    data_.isAttackTriggered = pInput_->TriggerKey(kbAttack.dikKey) || pInput_->TriggerButton(padAttack.button);
-
+    data_.isAttackTriggered = pInput_->TriggerKey(kbAttack.dikKey) || (kbAttack.mouseButton != -1 && pInput_->TriggerMouse(kbAttack.mouseButton));
+    data_.isAttackTriggered |= pInput_->TriggerButton(padAttack.button);
     // オーバードライブ（アナログトリガーはパッド側で個別処理）
     const auto& kbOd = KeyConfig::GetKeyboard(PlayerAction::Overdrive);
     data_.isOverdriveTriggered = pInput_->TriggerKey(kbOd.dikKey) || pInput_->GetRightTrigger() > 0.5f;

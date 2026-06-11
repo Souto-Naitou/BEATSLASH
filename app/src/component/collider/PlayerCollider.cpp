@@ -18,7 +18,7 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
         if (pushBackCallback_)
             pushBackCallback_(pushback);
     }
-    else if(otherID == ColliderTypeID::EnemyAttack)
+    else if(otherID == ColliderTypeID::EnemyAttack || otherID == ColliderTypeID::BossAttack)
     {
         /// 敵との衝突、または敵の攻撃と衝突した場合の処理
         if (!parryJudgement_.Judge())
@@ -26,6 +26,9 @@ void PlayerCollider::OnCollisionEnter(Collider* other)
             /// パリィ失敗時の処理
             comboBuffSystem_.OnDamaged();
             hpComponent_.Damage(10); // 仮のダメージ量
+
+            if (damagedCallback_)
+                damagedCallback_();
         }
         else
         {

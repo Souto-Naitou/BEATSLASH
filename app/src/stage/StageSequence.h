@@ -5,6 +5,7 @@
 #include <vector>
 #include <filesystem>
 #include <functional>
+#include <debug/GameParameter.h>
 
 using OnPlayerRespawnRequiredCallback  = std::function<void(const Tako::Transform&)>;
 using OnDoorOpenedCallback = std::function<void(const Tako::Transform&)>;
@@ -41,6 +42,15 @@ public:
         return currentIndex_;
     }
 
+    /**
+     * @brief 現在のステージのデータを取得する。
+     * @return 現在のステージのStageData
+     */
+    const StageData& GetCurrentStageData() const
+    {
+        return stageDataList_[currentIndex_];
+    }
+
 
 private:
 
@@ -50,8 +60,10 @@ private:
     void CheckHotReload();
 private:
 
+    EnableDebug("Stage Seq");
+
     std::vector<std::unique_ptr<Stage>> stages_;
-    int32_t currentIndex_ = 0;
+    GameParameter(int32_t, currentIndex_, 0);
     StageClearFlow clearFlow_;
     std::vector<StageData> stageDataList_;
     std::string jsonFilePath_;

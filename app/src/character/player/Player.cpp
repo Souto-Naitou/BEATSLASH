@@ -7,6 +7,7 @@
 #include <utility/DeltaTimeManager.h>
 #include <common/PlayerAttackRequest.h>
 #include <common/AnimationNames.h>
+#include <common/ParticleEmitterPresetNames.h>
 #include <debug/DebugRegisterer.h>
 #include <Model.h>
 
@@ -228,6 +229,18 @@ void Player::InitializeCollider()
     {
         // パリィ成功時の処理（例: コンボバフの付与、エフェクトの再生など）
         pParryPresentation_->Play(transform_.translate);
+
+		// SEを流す
+        ozSound::SoundEngine::GetInstance()->PostEvent("play_se_player_parry");
+    },
+        .damagedCallback = [this]()
+    {
+        // 被弾エフェクトをプレイヤー位置に短時間再生する
+        static uint32_t damagedEffectCount = 0;
+        const std::string name = "player_damaged_" + std::to_string(damagedEffectCount++);
+        particleEmitter_.CreateTemporaryEmitterFrom(Global::ParticleEmitterPresetNames::kPlayerDamaged, name, kDamagedEffectDuration_);
+        particleEmitter_.SetEmitterPosition(name, transform_.translate);
+        particleEmitter_.SetEmitterActive(name, true);
     },
         .comboBuffSystem = comboBuffSystem_,
         .hpComponent = *pHPComponent_,
