@@ -337,7 +337,7 @@ void GameScene::DrawImGui()
 void GameScene::LoadParticleEmitterPresets()
 {
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrail);
-    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kTrailBlackBlue);
+    pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kPlayerDamaged);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kShort);
     pEmitterManager_->LoadPreset(Global::ParticleEmitterPresetNames::kParrySuccess);
 }
@@ -409,7 +409,7 @@ void GameScene::DrawObjects()
     pStage_->Draw();
     pPlayer_->Draw();
     pEnemyManager_->Draw(pStage_->GetCurrentIndex());
-    pBoss_->Draw();
+	if (pBoss_)pBoss_->Draw();
 }
 
 void GameScene::ApplyPostEffects()
