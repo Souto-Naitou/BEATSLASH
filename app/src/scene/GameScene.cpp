@@ -21,6 +21,7 @@
 #include <character/boss/bt/BossBTNodeRegistration.h>
 #include <PostEffectManager.h>
 #include <math/Easing.h>
+#include <utility/DeltaTimeManager.h>
 
 
 using namespace Tako;
@@ -242,7 +243,8 @@ void GameScene::Update()
 	/// ================================== ///
 
 	const float deltaTime = Tako::FrameTimer::GetInstance()->GetDeltaTime();
-    elapsedTime_ += deltaTime;
+    // クリアタイム計測はロード直後のスパイクがない固定deltaTimeで行う
+    elapsedTime_ += DeltaTimeManager::GetInstance()->GetDeltaTime(DeltaTimeChannelReserved::Game);
 
     if (!pPlayer_->GetHPComponent().IsAlive())
     {
@@ -275,8 +277,13 @@ void GameScene::Update()
 
     if (pStage_->IsStageComplete())
     {
-        RankingManager::GetInstance()->AddTime(elapsedTime_);
-        SceneManager::GetInstance()->ChangeScene("gameclear", TransitionManager::EffectType::Fade, 0.5f);
+        // フェード遷移中もUpdateが呼ばれ続けるため、記録と遷移は一度だけ実行する
+        if (!isClearHandled_)
+        {
+            isClearHandled_ = true;
+            RankingManager::GetInstance()->AddTime(elapsedTime_);
+            SceneManager::GetInstance()->ChangeScene("gameclear", TransitionManager::EffectType::Fade, 0.5f);
+        }
         return;
     }
 	// ステージ１から２までのクリア条件は、ステージ上の敵を全て倒すこと

@@ -9,7 +9,6 @@ class RankingManager
 public:
     static constexpr int   kMaxRank     = 5;
     static constexpr float kEmpty       = FLT_MAX;  // 未記録エントリのマーカー
-    static constexpr float kDefaultTime = 180.0f;   // dat がない時の初期値
 
     static RankingManager* GetInstance();
 
