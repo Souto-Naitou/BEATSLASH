@@ -28,6 +28,9 @@ namespace
         "numbers/number_6.dds", "numbers/number_7.dds",
         "numbers/number_8.dds", "numbers/number_9.dds",
     };
+
+    // 今回追加された記録の強調色
+    constexpr Tako::Vector4 kNewRecordColor = { 1.0f, 1.0f, 0.0f, 1.0f };
 }
 
 void GameClearScene::Initialize()
@@ -51,6 +54,7 @@ void GameClearScene::Initialize()
 
     // RankingManager からランキングデータを読み込む
     const auto& rankTimes = RankingManager::GetInstance()->GetTimes();
+    const int newRecordIndex = RankingManager::GetInstance()->GetLastAddedIndex();
     for (int i = 0; i < kRankCount; ++i)
     {
         times_[i] = (rankTimes[i] < RankingManager::kEmpty)
@@ -72,6 +76,13 @@ void GameClearScene::Initialize()
         pSpriteSecs_[i] = std::make_unique<Tako::Sprite>();
         pSpriteSecs_[i]->Initialize(kTexSec);
         pSpriteSecs_[i]->SetAnchorPoint({ 0.0f, 0.5f });
+
+        // 今回追加された記録は秒数とsecラベルを強調色にする
+        if (i == newRecordIndex)
+        {
+            viewTimes_[i].SetColor(kNewRecordColor);
+            pSpriteSecs_[i]->SetColor(kNewRecordColor);
+        }
 
         const float startOffset = layout_.animStartOffset * 1_vw;
         const float delay       = layout_.animStagger * i + commonDelay;

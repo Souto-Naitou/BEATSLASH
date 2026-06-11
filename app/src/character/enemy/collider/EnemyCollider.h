@@ -2,6 +2,7 @@
 #include <OBBCollider.h>
 #include <functional>
 #include <string>
+#include <unordered_set>
 #include <Vector4.h>
 
 #include <debug/GameParameter.h>
@@ -29,6 +30,9 @@ private:
 	EnemyPushBackCallback pushBackCallback_;
 
     HPComponent* pHp_ = nullptr;
+
+    // 被弾済みの攻撃ID。同じスイングからの多段ヒットを防ぐ
+    std::unordered_set<uint32_t> receivedAttackIds_;
 
 	// エミッターマネージャーのポインタ。所有しない（GameSceneが所有し、GameSceneの寿命まで生きる）
 	Tako::EmitterManager* pEmitterManager_ = nullptr;

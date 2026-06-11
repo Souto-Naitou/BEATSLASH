@@ -2,6 +2,7 @@
 #include <utility/CollisionUtility.h>
 #include <type/ColliderTypeID.h>
 #include <component/HPComponent.h>
+#include <component/collider/PlayerAttackCollider.h>
 #include <ozSound/audio/SoundEngine.h>
 
 void BossCollider::OnCollisionEnter(Collider* other)
@@ -18,6 +19,10 @@ void BossCollider::OnCollisionEnter(Collider* other)
     }
     else if (otherID == ColliderTypeID::PlayerAttack)
     {
+        // 同じスイングからの多段ヒット防止
+        auto* attack = static_cast<PlayerAttackCollider*>(other);
+        if (!receivedAttackIds_.insert(attack->GetAttackId()).second) return;
+
         if (pHp_)
             pHp_->Damage(25); // TODO : 仮のダメージ値
 

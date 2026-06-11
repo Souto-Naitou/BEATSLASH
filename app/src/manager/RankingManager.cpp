@@ -17,11 +17,14 @@ RankingManager::RankingManager()
 
 void RankingManager::AddTime(float seconds)
 {
+    lastAddedIndex_ = -1;
+
     // 5位（最下位）より良いタイムの場合のみ更新
     if (seconds >= times_[kMaxRank - 1]) return;
 
     times_[kMaxRank - 1] = seconds;
     std::sort(times_.begin(), times_.end());
+    lastAddedIndex_ = static_cast<int>(std::find(times_.begin(), times_.end(), seconds) - times_.begin());
     Save();
 }
 

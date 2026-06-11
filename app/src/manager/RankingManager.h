@@ -17,6 +17,9 @@ public:
 
     const std::array<float, kMaxRank>& GetTimes() const { return times_; }
 
+    // 直近のAddTimeで追加された記録のインデックス（ランク外/未追加なら -1）
+    int GetLastAddedIndex() const { return lastAddedIndex_; }
+
     void Save(const std::string& filePath = kDefaultPath);
     void Load(const std::string& filePath = kDefaultPath);
 
@@ -26,4 +29,5 @@ private:
     static constexpr const char* kDefaultPath = "resources/ranking.dat";
 
     std::array<float, kMaxRank> times_;
+    int lastAddedIndex_ = -1;
 };
