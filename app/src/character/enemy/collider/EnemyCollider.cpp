@@ -4,6 +4,7 @@
 #include <component/HPComponent.h>
 #include <EmitterManager.h>
 #include <character/enemy/Enemy.h>
+#include <ozSound/audio/SoundEngine.h>
 
 uint32_t EnemyCollider::effectCount_ = 0;
 
@@ -34,7 +35,7 @@ void EnemyCollider::OnCollisionEnter(Collider* other)
     else if (otherID == ColliderTypeID::PlayerAttack)
     {
         if (pHp_){
-            pHp_->Damage(25); // TODO : 仮のダメージ値
+            pHp_->Damage(10);
         }
 
 		// 色を白くしてヒットをわかりやすくする
@@ -52,6 +53,8 @@ void EnemyCollider::OnCollisionEnter(Collider* other)
 			pEmitterManager_->CreateTemporaryEmitterFrom("enemy_attack_hit", effectName, 0.1f);
 			pEmitterManager_->SetEmitterPosition(effectName, GetCenter());
         }
+		// SEを流す
+		ozSound::SoundEngine::GetInstance()->PostEvent("play_se_enemy_take_hit");
     }
 }
 

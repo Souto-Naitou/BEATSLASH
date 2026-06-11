@@ -8,6 +8,7 @@
 #include <manager/BeatManager.h>
 #include <EmitterManager.h>
 #include <sstream>
+#include <Ozsound/audio/SoundEngine.h>
 
 #ifdef _DEBUG
 #include <imgui.h>
@@ -99,7 +100,7 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	colliderTransform_ = enemy->GetTransform();
 	Tako::Vector3 forward = { std::sin(startAngle), 0.0f, std::cos(startAngle) };
 	colliderTransform_.translate += forward * kColliderOffset;
-	colliderTransform_.translate.y += 0.5f; // 少し浮かす
+	colliderTransform_.translate.y -= 0.7f; // 少し下げる
 	colliderTransform_.rotate = { 0.0f, startAngle + std::numbers::pi_v<float> / 2.0f, 0.0f }; // 接線方向に向ける
 	colliderTransform_.scale = { 1.8f, 0.1f, 0.3f }; // コライダーを薄長くする
 
@@ -129,6 +130,9 @@ void EnemyAttackState::Enter(Enemy* enemy)
 	warningWeaponEffect.tempName = warningWeaponEffect.baseName + "_temp_" + std::to_string(playCount_++);
 	pEmitterManager_->CreateTemporaryEmitterFrom(warningWeaponEffect.baseName, warningWeaponEffect.tempName, kWarningDuration_);
 	pEmitterManager_->SetEmitterPosition(warningWeaponEffect.tempName, colliderTransform_.translate);
+
+	// 予備動作のSEを流す
+	ozSound::SoundEngine::GetInstance()->PostEvent("play_se_enemy_attack_sign");
 }
 
 void EnemyAttackState::Update(Enemy* enemy)
@@ -184,7 +188,7 @@ void EnemyAttackState::Update(Enemy* enemy)
 
 		Tako::Vector3 offset = { std::sin(startAngle) * kColliderOffset, 0.0f, std::cos(startAngle) * kColliderOffset };
 		colliderTransform_.translate = enemy->GetPosition() + offset;
-		colliderTransform_.translate.y += 0.5f;
+		colliderTransform_.translate.y -= 0.7f;
 		colliderTransform_.rotate = { 0.0f, startAngle + std::numbers::pi_v<float> / 2.0f, 0.0f };
 	}
 	else
@@ -201,6 +205,9 @@ void EnemyAttackState::Update(Enemy* enemy)
 			auto& mainEffect = effects_[static_cast<size_t>(AttackEffectType::Main)];
 			mainEffect.tempName = mainEffect.baseName + "_temp_" + std::to_string(playCount_++);
 			pEmitterManager_->CreateTemporaryEmitterFrom(mainEffect.baseName, mainEffect.tempName, kAttackDuration_);
+
+			// SEを流す
+			ozSound::SoundEngine::GetInstance()->PostEvent("play_se_enemy_attack");
 		}
 
 		// 攻撃フェーズ：イージングを適用したスイング
@@ -215,7 +222,7 @@ void EnemyAttackState::Update(Enemy* enemy)
 
 		Tako::Vector3 offset = { std::sin(currentAngle) * kColliderOffset, 0.0f, std::cos(currentAngle) * kColliderOffset };
 		colliderTransform_.translate = enemy->GetPosition() + offset;
-		colliderTransform_.translate.y += 0.5f;
+		colliderTransform_.translate.y -= 0.7f;
 		colliderTransform_.rotate = { 0.0f, currentAngle + std::numbers::pi_v<float> / 2.0f, 0.0f };
 	}
 
