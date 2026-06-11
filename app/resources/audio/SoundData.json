@@ -118,6 +118,13 @@
             "path": "resources/audio/open_door.mp3",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "player_take_hit",
+            "path": "resources/audio/player_take_hit.mp3",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }

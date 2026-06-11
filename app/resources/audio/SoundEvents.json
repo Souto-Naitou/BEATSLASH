@@ -155,6 +155,18 @@
                 }
             ],
             "name": "play_se_open_door"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "player_take_hit",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_player_take_hit"
         }
     ]
 }
