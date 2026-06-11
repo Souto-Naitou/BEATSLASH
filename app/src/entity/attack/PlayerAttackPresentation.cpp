@@ -4,7 +4,7 @@
 
 std::unordered_map<std::string, uint32_t> PlayerAttackPresentation::emitterIndexMap_ = {
     { Global::ParticleEmitterPresetNames::kTrail, 0 },
-    { Global::ParticleEmitterPresetNames::kPlayerDamaged, 0 },
+    { Global::ParticleEmitterPresetNames::kTrailBlackBlue, 0 },
     { Global::ParticleEmitterPresetNames::kShort, 0 }
 };
 
@@ -12,7 +12,7 @@ PlayerAttackPresentation::PlayerAttackPresentation(Tako::EmitterManager& emitter
 {
     emitterManager_.SetEmitterActive(Global::ParticleEmitterPresetNames::kTrail, false);
     emitterManager_.SetEmitterActive(Global::ParticleEmitterPresetNames::kShort, false);
-    emitterManager_.SetEmitterActive(Global::ParticleEmitterPresetNames::kPlayerDamaged, false);
+    emitterManager_.SetEmitterActive(Global::ParticleEmitterPresetNames::kTrailBlackBlue, false);
 
     /// トレイルの初期エミッターを作成しておく（位置は毎フレーム更新）
     auto& indexTrail = emitterIndexMap_.at(Global::ParticleEmitterPresetNames::kTrail);
@@ -20,9 +20,9 @@ PlayerAttackPresentation::PlayerAttackPresentation(Tako::EmitterManager& emitter
     emitterManager_.CreateTemporaryEmitterFrom(Global::ParticleEmitterPresetNames::kTrail, uniqueNameTrail_, 3.0f);
     emitterManager_.SetEmitterActive(uniqueNameTrail_, true);
 
-    auto& indexTrailBlackBlue = emitterIndexMap_.at(Global::ParticleEmitterPresetNames::kPlayerDamaged);
-    uniqueNameTrailBB_ = std::string(Global::ParticleEmitterPresetNames::kPlayerDamaged) + '_' + std::to_string(indexTrailBlackBlue++);
-    emitterManager_.CreateTemporaryEmitterFrom(Global::ParticleEmitterPresetNames::kPlayerDamaged, uniqueNameTrailBB_, 3.0f);
+    auto& indexTrailBlackBlue = emitterIndexMap_.at(Global::ParticleEmitterPresetNames::kTrailBlackBlue);
+    uniqueNameTrailBB_ = std::string(Global::ParticleEmitterPresetNames::kTrailBlackBlue) + '_' + std::to_string(indexTrailBlackBlue++);
+    emitterManager_.CreateTemporaryEmitterFrom(Global::ParticleEmitterPresetNames::kTrailBlackBlue, uniqueNameTrailBB_, 3.0f);
     emitterManager_.SetEmitterActive(uniqueNameTrailBB_, true);
 }
 
