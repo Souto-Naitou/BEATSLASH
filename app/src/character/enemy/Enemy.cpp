@@ -95,7 +95,7 @@ void Enemy::Update()
 	if (stateMachine_.GetCurrentState() != EnemyStateType::Spawn)
 	{
 		// 重力の適用
-		transform_.translate.y += kGravity * 0.016f;
+		transform_.translate.y += kGravity * 0.016f; // 仮の重力値とフレーム時間
 	}
 
 	// トランスフォームの更新

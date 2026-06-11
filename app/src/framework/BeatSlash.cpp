@@ -60,6 +60,9 @@ void BeatSlash::Update()
 
     TakoFramework::Update();
     EventListener::GetInstance()->Dispatch();
+
+    // 再生終了したボイスのエントリを解放する
+    ozSound::SoundEngine::GetInstance()->CleanupStoppedVoices();
 }
 
 void BeatSlash::Draw()

@@ -34,7 +34,7 @@ void EnemyManager::Draw(uint32_t activeStageIndex)
 	}
 
 	// アクティブなステージの番号を更新
-	if (activeStageIndex != activeStageIndex_)
+	if (activeStageIndex_ != activeStageIndex)
 	{
 		if (activeStageIndex_ < kMaxStages)
 		{

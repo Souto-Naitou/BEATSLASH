@@ -34,6 +34,50 @@
             "path": "resources/audio/bgm_game_1.mp3",
             "submix": "BGM",
             "type": "BGM"
+        },
+        {
+            "enableOverlap": true,
+            "id": "enemy_attack",
+            "path": "resources/audio/enemy_attack.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "enemy_attack_sign",
+            "path": "resources/audio/enemy_attack_sign.mp3",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "enemy_take_hit",
+            "path": "resources/audio/enemy_take_hit.mp3",
+            "enableOverlap": false,
+            "id": "se_boss_charge",
+            "path": "resources/audio/charge.wav",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "enemy_dead",
+            "path": "resources/audio/enemy_dead.mp3",
+            "enableOverlap": true,
+            "id": "se_boss_charge_complete",
+            "path": "resources/audio/EX_chargeComplete.wav",
+            "submix": "SE",
+            "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "player_parry",
+            "path": "resources/audio/parry.mp3",
+            "enableOverlap": true,
+            "id": "se_boss_razer_shoot",
+            "path": "resources/audio/RazerShoot.wav",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }

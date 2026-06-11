@@ -231,12 +231,15 @@ void Player::InitializeCollider()
     },
         .parrySuccessCallback = [this]()
     {
-            // パリィ成功時の処理（例: コンボバフの付与、エフェクトの再生など）
-            pParryPresentation_->Play(transform_.translate);
-        },
-            .comboBuffSystem = comboBuffSystem_,
-            .hpComponent = *pHPComponent_,
-            .parryJudgement = *pParryJudgement_,
+        // パリィ成功時の処理（例: コンボバフの付与、エフェクトの再生など）
+        pParryPresentation_->Play(transform_.translate);
+
+		// SEを流す
+        ozSound::SoundEngine::GetInstance()->PostEvent("play_se_player_parry");
+    },
+        .comboBuffSystem = comboBuffSystem_,
+        .hpComponent = *pHPComponent_,
+        .parryJudgement = *pParryJudgement_,
     };
 
     pCollider_ = std::make_unique<PlayerCollider>(colliderInitData);

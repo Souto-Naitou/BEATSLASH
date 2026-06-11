@@ -1,7 +1,8 @@
 {
   "stages": [
     {
-      "name": "Stage 1",
+      "name": "Stage 0",
+      "surroundWalls": true,
       "floors": [
         {
           "translate": { "x":  0.0, "y": -0.5, "z":  0.0 },
@@ -46,6 +47,7 @@
     },
    {
       "name": "Stage 1",
+      "surroundWalls": true,
       "floors": [
         {
           "translate": { "x":  0.0, "y": -0.5, "z":  0.0 },
@@ -90,25 +92,27 @@
     },
     {
       "name": "Stage 3",
+      "surroundWalls": true,
+      "spawnBoss": true,
       "floors": [
         {
           "translate": { "x":  0.0, "y": -0.5, "z":  0.0 },
           "rotate":    { "x":  0.0, "y":  0.0, "z":  0.0 },
-          "scale":     { "x": 100.0, "y":  1.0, "z": 100.0 }
+          "scale":     { "x": 40.0, "y":  1.0, "z": 40.0 }
         }
       ],
       "transitionCollider": {
-       "translate": { "x":  -29.0, "y": 1.0, "z": -22.0 },
+       "translate": { "x":  55.0, "y": 1.0, "z": 0.0 },
         "rotate":    { "x":  0.0, "y": -1.57, "z":  0.0 },
         "scale":     { "x":  5.0, "y": 5.0, "z":  5.0 }
       },
       "door": {
-        "translate": { "x":  -26.0, "y": 1.0, "z": -22.0 },
+        "translate": { "x":  55.0, "y": 1.0, "z": 0.0 },
         "rotate":    { "x":  0.0, "y": -1.57, "z":  0.0 },
         "scale":     { "x":  1.0, "y": 1.0, "z":  1.0 }
       },
       "spawn": {
-        "translate": { "x":  0.0, "y": 5.0, "z":  0.0 },
+        "translate": { "x":  -55.0, "y": 5.0, "z":  0.0 },
         "rotate":    { "x":  0.0, "y": 0.0, "z":  0.0 }
       }
     }
