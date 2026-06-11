@@ -62,6 +62,13 @@
             "path": "resources/audio/enemy_dead.mp3",
             "submix": "SE",
             "type": "SE"
+        },
+        {
+            "enableOverlap": false,
+            "id": "player_parry",
+            "path": "resources/audio/parry.mp3",
+            "submix": "SE",
+            "type": "SE"
         }
     ]
 }

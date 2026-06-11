@@ -95,6 +95,18 @@
                 }
             ],
             "name": "play_se_enemy_dead"
+        },
+        {
+            "actions": [
+                {
+                    "effects": [],
+                    "loop": false,
+                    "soundId": "player_parry",
+                    "type": "Play",
+                    "volume": 0.5
+                }
+            ],
+            "name": "play_se_player_parry"
         }
     ]
 }
