@@ -49,9 +49,19 @@ public:
 	bool IsAlive() const { return !isDeadFinished_; }
 
 	/**
+	 * @brief ステートマシンの初期化
+	 */
+	void InitializeStateMachine();
+
+	/**
 	 * @brief 死亡演出が完了したかを取得・設定する
 	 */
 	void SetDeadFinished(bool finished) { isDeadFinished_ = finished; }
+
+	/**
+	 * @brief コライダーを衝突判定マネージャーに登録する
+	 */
+	void EnableCollider();
 
 	/**
 	 * @brief コライダーを衝突判定マネージャーから除外する
