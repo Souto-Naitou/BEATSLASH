@@ -10,6 +10,12 @@
     <ClCompile Include="src\character\player\ParryPresentation.cpp">
       <Filter>character\player</Filter>
     </ClCompile>
+    <ClCompile Include="src\component\FocusOrientation.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera\RailCamera.cpp">
+      <Filter>entity\camera</Filter>
+    </ClCompile>
     <ClCompile Include="src\entity\enemy\EnemyManager.cpp">
       <Filter>entity\enemy</Filter>
     </ClCompile>
@@ -375,6 +381,15 @@
     <ClInclude Include="src\common\AnimationNames.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="src\common\ResourcePath.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\component\FocusOrientation.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera\RailCamera.h">
+      <Filter>entity\camera</Filter>
+    </ClInclude>
     <ClInclude Include="src\entity\enemy\EnemyManager.h">
       <Filter>entity\enemy</Filter>
     </ClInclude>
@@ -699,9 +714,6 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\scene\TitleScene.h" />
-    <ClInclude Include="src\math\Color.h" />
-    <ClInclude Include="src\common\ResourcePath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
