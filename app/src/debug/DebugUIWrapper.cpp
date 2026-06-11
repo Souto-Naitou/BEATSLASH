@@ -1,7 +1,7 @@
 #include "DebugUIWrapper.h"
 #include <debug/DebugRegisterer.h>
-#include <math/HSV.h>
-#include "utility/strutl.h"
+#include <math/Color.h>
+#include <utility/strutl.h>
 
 #ifdef _DEBUG
 #include <imgui.h>

@@ -11,6 +11,11 @@ PlayerAttackHitReceiver::PlayerAttackHitReceiver(Executors& execs) : execs_(exec
     pRadialBeat_->SetMaxWidth(0.03f);
 }
 
+PlayerAttackHitReceiver::~PlayerAttackHitReceiver()
+{
+    pRadialBeat_->Finalize();
+}
+
 void PlayerAttackHitReceiver::Update()
 {
     pRadialBeat_->Update();

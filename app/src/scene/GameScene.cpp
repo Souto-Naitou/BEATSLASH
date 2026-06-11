@@ -17,6 +17,7 @@
 #include <CollisionManager.h>
 #include <ozSound/audio/SoundEngine.h>
 #include <common/ParticleEmitterPresetNames.h>
+#include <PostEffectManager.h>
 
 
 using namespace Tako;
@@ -34,8 +35,13 @@ void GameScene::Initialize()
     ///              初期化処理              ///
     /// ================================== ///
 
-    /// 画像の読み込み
+    ShadowRenderer::GetInstance()->SetMaxShadowDistance(50.0f);
+
+    // 画像の読み込み
     this->LoadImageAll();
+
+    // ポストエフェクトの初期化と適用
+    this->ApplyPostEffects();
 
     /// ステージの初期化
     pStage_ = std::make_unique<StageSequence>();
@@ -186,6 +192,14 @@ void GameScene::Draw()
     /// ================================== ///
     ///              描画処理               ///
     /// ================================== ///
+    auto pShadowRenderer = Tako::ShadowRenderer::GetInstance();
+    if (pShadowRenderer->IsEnabled())
+    {
+        Tako::ShadowRenderer::GetInstance()->BeginShadowPass();
+        this->DrawObjects();
+        Tako::ShadowRenderer::GetInstance()->EndShadowPass();
+    }
+
     //------------------背景Spriteの描画------------------//
     // スプライト共通描画設定
     SpriteBasic::GetInstance()->SetCommonRenderSetting();
@@ -196,9 +210,7 @@ void GameScene::Draw()
     //-------------------Modelの描画-------------------//
     // 3Dモデル共通描画設定
     Object3dBasic::GetInstance()->SetCommonRenderSetting();
-    pStage_->Draw();
-    pPlayer_->Draw();
-    pEnemyManager_->Draw(pStage_->GetCurrentIndex());
+    this->DrawObjects();
 
     //------------------前景Spriteの描画------------------//
     // スプライト共通描画設定
@@ -209,7 +221,6 @@ void GameScene::Draw()
 
 
     Tako::CollisionManager::GetInstance()->DrawColliders();
-
 }
 
 void GameScene::DrawWithoutEffect()
@@ -273,4 +284,16 @@ void GameScene::LoadImageAll()
             tm->LoadTexture(newPath.string());
         }
     }
+}
+
+void GameScene::DrawObjects()
+{
+    pStage_->Draw();
+    pPlayer_->Draw();
+    pEnemyManager_->Draw(pStage_->GetCurrentIndex());
+}
+
+void GameScene::ApplyPostEffects()
+{
+    Tako::PostEffectManager::GetInstance()->AddEffectToChain("DepthBasedOutline");
 }

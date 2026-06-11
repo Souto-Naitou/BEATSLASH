@@ -32,6 +32,7 @@ public:
     };
 
     PlayerAttackHitReceiver(Executors& execs);
+    ~PlayerAttackHitReceiver();
 
     /// <summary>
     /// 更新

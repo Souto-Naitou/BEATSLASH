@@ -2,6 +2,9 @@
 #include <CollisionManager.h>
 #include <Model.h>
 #include <type/ColliderTypeID.h>
+#include <math/Color.h>
+
+
 Stage::~Stage()
 {
     for (auto& col : colliders_)
@@ -10,6 +13,14 @@ Stage::~Stage()
 
 void Stage::Initialize(const StageData& stageData)
 {
+    kStageColor_.SetOnChange([this](const RGBA& newColor)
+    {
+        for (auto& model : models_)
+        {
+            model->SetMaterialColor(newColor.to_Vector4());
+        }
+    });
+
     // 既存コライダーを CollisionManager から除去
     for (auto& col : colliders_)
         Tako::CollisionManager::GetInstance()->RemoveCollider(col.get());
@@ -28,7 +39,7 @@ void Stage::Initialize(const StageData& stageData)
         auto model = std::make_unique<Tako::Object3d>();
         model->Initialize();
         model->SetModel("white_cube.gltf");
-        model->SetMaterialColor({ 0.35f,0.6f,0.8f,1.0f });
+        model->SetMaterialColor(kStageColor_->to_Vector4());
         model->SetEnableLighting(true);
         model->SetTransform(floorTf);
         models_.push_back(std::move(model));

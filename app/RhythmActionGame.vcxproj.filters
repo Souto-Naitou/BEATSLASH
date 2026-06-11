@@ -206,6 +206,8 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\TitleScene.cpp" />
+    <ClCompile Include="src\math\Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -498,9 +500,6 @@
     <ClInclude Include="src\math\Easing.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="src\math\HSV.h">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="src\math\VectorMath.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -600,6 +599,8 @@
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\TitleScene.h" />
+    <ClInclude Include="src\math\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
