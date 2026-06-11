@@ -260,6 +260,15 @@
     <ClCompile Include="src\utility\StopWatch.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\GameoverScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\GameClearScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\RankingManager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="character">
@@ -719,6 +728,15 @@
     </ClInclude>
     <ClInclude Include="src\utility\wndutl.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\GameoverScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\GameClearScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\RankingManager.h">
+      <Filter>manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
