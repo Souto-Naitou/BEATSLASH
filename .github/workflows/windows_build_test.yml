@@ -82,13 +82,16 @@ jobs:
 
           $json = $payload | ConvertTo-Json -Depth 10 -Compress
 
-          Write-Host $json
-
+          Write-Host "Sending payload to Discord webhook..."
           Invoke-RestMethod `
-              -Uri $env:WEBHOOK `
-              -Method Post `
-              -Form @{
-                  payload_json = $json
-                  file1 = Get-Item build.log
-              }
+            -Uri $env:WEBHOOK `
+            -Method Post `
+            -ContentType "application/json" `
+            -Body $json
+
+          Write-Host "Uploading log file to Discord webhook..."
+          curl.exe `
+            -F "file1=@build.log" `
+            $env:WEBHOOK
+
 
