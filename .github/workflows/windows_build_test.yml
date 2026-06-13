@@ -36,9 +36,9 @@ jobs:
           
           Write-Host "Building solution with configuration: ${{ matrix.configuration }}"
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
-          msbuild $env:SOLUTION_FILE_PATH /t:Build /p:Platform=x64,Configuration=${{ matrix.configuration }} | Tee-Object -FilePath $env:LOGFILE
+          msbuild $env:SOLUTION_FILE_PATH /t:Build /p:Platform=x64,Configuration=${{ matrix.configuration }} | Tee-Object -FilePath $logfile
           if ($LASTEXITCODE -ne 0) {
-            Write-Host "Build failed. Check the log file: $env:LOGFILE"
+            Write-Host "Build failed. Check the log file: $logfile"
             exit $LASTEXITCODE
           }
       
