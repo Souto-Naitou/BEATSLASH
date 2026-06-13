@@ -29,9 +29,13 @@ jobs:
       - name: Build
         shell: pwsh
         run: |
+          $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+          $logfile = "BuildLog-${{ matrix.configuration }}-$timestamp.log"
+          $logfile >> $env:GITHUB_OUTPUT
+          
           Write-Host "Building solution with configuration: ${{ matrix.configuration }}"
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
-          Write-Host "Sample Error Output" *>&1 | Tee-Object build.log
+          Write-Host "Sample Error Output" *>&1 | Tee-Object $logfile
           exit 1 # Simulate a failure for testing purposes
       
       - name: Upload log to Discord
@@ -91,7 +95,7 @@ jobs:
 
           Write-Host "Uploading log file to Discord webhook..."
           curl.exe `
-            -F "file1=@build.log" `
+            -F "file1=@$env:LOGFILE" `
             $env:WEBHOOK
 
 
