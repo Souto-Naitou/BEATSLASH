@@ -31,7 +31,7 @@ jobs:
         run: |
           $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
           $logfile = "BuildLog-${{ matrix.configuration }}-$timestamp.log"
-          $logfile >> $env:GITHUB_OUTPUT
+          $logfile >> $env:LOGFILE
           
           Write-Host "Building solution with configuration: ${{ matrix.configuration }}"
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
