@@ -27,4 +27,13 @@ jobs:
       - shell: powershell
         run: |
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
-          msbuild $env:SOLUTION_FILE_PATH /t:Build /m /p:Platform=x64,Configuration=${{ matrix.configuration }}
+          msbuild $env:SOLUTION_FILE_PATH /t:Build /m /p:Platform=x64,Configuration=${{ matrix.configuration }} > build.log 2>&1
+      - name: Upload log to Discord
+        if: failure()
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl \
+            -F 'payload_json={"content":"❌ Build Failed"}' \
+            -F "file1=@build.log" \
+            "$WEBHOOK"
