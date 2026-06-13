@@ -31,7 +31,8 @@ jobs:
         run: |
           $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
           $logfile = "BuildLog-${{ matrix.configuration }}-$timestamp.log"
-          $logfile >> $env:LOGFILE
+          "LOGFILE=$logfile" >> $env:GITHUB_ENV
+
           
           Write-Host "Building solution with configuration: ${{ matrix.configuration }}"
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
@@ -45,7 +46,7 @@ jobs:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOKURL_LOGGER }}
         run: |
           pwsh --version
-          if (-Not (Test-Path build.log)) {
+          if (-Not (Test-Path $env:LOGFILE)) {
             Write-Host "Log file not found. Exiting."
             exit 1
           }
