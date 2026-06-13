@@ -36,8 +36,11 @@ jobs:
           
           Write-Host "Building solution with configuration: ${{ matrix.configuration }}"
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
-          Write-Host "Sample Error Output" *>&1 | Tee-Object $logfile
-          exit 1 # Simulate a failure for testing purposes
+          msbuild $env:SOLUTION_FILE_PATH /t:Build /p:Platform=x64,Configuration=${{ matrix.configuration }} > $env:LOGFILE 2>&1
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Build failed. Check the log file: $env:LOGFILE"
+            exit $LASTEXITCODE
+          }
       
       - name: Upload log to Discord
         if: failure()
