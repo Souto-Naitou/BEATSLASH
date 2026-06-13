@@ -31,7 +31,8 @@ jobs:
         run: |
           Write-Host "Building solution with configuration: ${{ matrix.configuration }}"
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
-          msbui $env:SOLUTION_FILE_PAss /t:Build /m /p:Platform=x64,Configuration=${{ matrix.configuration }} *>&1 | Tee-Object build.log
+          Write-Host "Sample Error Output" *>&1 | Tee-Object build.log
+          exit 1 # Simulate a failure for testing purposes
       
       - name: Upload log to Discord
         if: failure()
@@ -40,7 +41,10 @@ jobs:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOKURL_LOGGER }}
         run: |
           pwsh --version
-          if (-Not (Test-Path build.log)) { exit 1 }
+          if (-Not (Test-Path build.log)) {
+            Write-Host "Log file not found. Exiting."
+            exit 1
+          }
 
           $payload = @{
             embeds = @(
