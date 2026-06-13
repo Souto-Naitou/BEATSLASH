@@ -29,7 +29,7 @@ jobs:
       - name: Build
         shell: pwsh
         run: |
-          Write-Host "Building solution with configuration: $(${{ matrix.configuration }})"
+          Write-Host "Building solution with configuration: ${{ matrix.configuration }}"
           msbuild $env:SOLUTION_FILE_PATH /t:Clean /p:Platform=x64,Configuration=${{ matrix.configuration }}
           msbuild $env:SOLUTION_FILE_PAss /t:Build /m /p:Platform=x64,Configuration=${{ matrix.configuration }} *>&1 | Tee-Object build.log
       
