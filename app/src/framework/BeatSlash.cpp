@@ -85,5 +85,5 @@ void BeatSlash::Update()
 
 void BeatSlash::Draw()
 {
-    TakoFramework::Draw()
+    TakoFramework::Draw();
 }
