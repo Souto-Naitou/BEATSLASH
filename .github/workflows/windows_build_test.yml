@@ -40,7 +40,7 @@ jobs:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOKURL_LOGGER }}
         run: |
           pwsh --version
-          if (-Not Test-Path build.log) { exit 1 }
+          if (-Not (Test-Path build.log)) { exit 1 }
 
           $payload = @{
             embeds = @(
